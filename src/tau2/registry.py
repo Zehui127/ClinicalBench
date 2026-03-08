@@ -39,6 +39,42 @@ from tau2.domains.telecom.environment import (
 from tau2.domains.telecom.environment import (
     get_tasks_split as telecom_domain_get_tasks_split,
 )
+# Clinical domains
+from tau2.domains.clinical_nephrology.environment import (
+    get_environment as clinical_nephrology_get_environment,
+)
+from tau2.domains.clinical_nephrology.environment import get_tasks as clinical_nephrology_get_tasks
+from tau2.domains.clinical_nephrology.environment import (
+    get_tasks_split as clinical_nephrology_get_tasks_split,
+)
+from tau2.domains.clinical_gastroenterology.environment import (
+    get_environment as clinical_gastroenterology_get_environment,
+)
+from tau2.domains.clinical_gastroenterology.environment import get_tasks as clinical_gastroenterology_get_tasks
+from tau2.domains.clinical_gastroenterology.environment import (
+    get_tasks_split as clinical_gastroenterology_get_tasks_split,
+)
+from tau2.domains.clinical_cardiology.environment import (
+    get_environment as clinical_cardiology_get_environment,
+)
+from tau2.domains.clinical_cardiology.environment import get_tasks as clinical_cardiology_get_tasks
+from tau2.domains.clinical_cardiology.environment import (
+    get_tasks_split as clinical_cardiology_get_tasks_split,
+)
+from tau2.domains.clinical_neurology.environment import (
+    get_environment as clinical_neurology_get_environment,
+)
+from tau2.domains.clinical_neurology.environment import get_tasks as clinical_neurology_get_tasks
+from tau2.domains.clinical_neurology.environment import (
+    get_tasks_split as clinical_neurology_get_tasks_split,
+)
+from tau2.domains.clinical_endocrinology.environment import (
+    get_environment as clinical_endocrinology_get_environment,
+)
+from tau2.domains.clinical_endocrinology.environment import get_tasks as clinical_endocrinology_get_tasks
+from tau2.domains.clinical_endocrinology.environment import (
+    get_tasks_split as clinical_endocrinology_get_tasks_split,
+)
 from tau2.environment.environment import Environment
 from tau2.user.base import BaseUser
 from tau2.user.user_simulator import DummyUser, UserSimulator
@@ -242,6 +278,42 @@ try:
         telecom_domain_get_tasks,
         "telecom-workflow",
         get_task_splits=telecom_domain_get_tasks_split,
+    )
+
+    # Clinical domains
+    registry.register_domain(clinical_nephrology_get_environment, "clinical_nephrology")
+    registry.register_tasks(
+        clinical_nephrology_get_tasks,
+        "clinical_nephrology",
+        get_task_splits=clinical_nephrology_get_tasks_split,
+    )
+
+    registry.register_domain(clinical_gastroenterology_get_environment, "clinical_gastroenterology")
+    registry.register_tasks(
+        clinical_gastroenterology_get_tasks,
+        "clinical_gastroenterology",
+        get_task_splits=clinical_gastroenterology_get_tasks_split,
+    )
+
+    registry.register_domain(clinical_cardiology_get_environment, "clinical_cardiology")
+    registry.register_tasks(
+        clinical_cardiology_get_tasks,
+        "clinical_cardiology",
+        get_task_splits=clinical_cardiology_get_tasks_split,
+    )
+
+    registry.register_domain(clinical_neurology_get_environment, "clinical_neurology")
+    registry.register_tasks(
+        clinical_neurology_get_tasks,
+        "clinical_neurology",
+        get_task_splits=clinical_neurology_get_tasks_split,
+    )
+
+    registry.register_domain(clinical_endocrinology_get_environment, "clinical_endocrinology")
+    registry.register_tasks(
+        clinical_endocrinology_get_tasks,
+        "clinical_endocrinology",
+        get_task_splits=clinical_endocrinology_get_tasks_split,
     )
 
     logger.debug(
