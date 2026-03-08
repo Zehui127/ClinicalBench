@@ -1,0 +1,39 @@
+================================================================================
+批量修复完成摘要
+Batch Repair Summary
+================================================================================
+
+修复时间：2026-03-04 23:10:13
+Repair Time: 2026-03-04 23:10:13
+
+生成的任务总数：1080
+Total Tasks Generated: 1080
+
+高质量任务数：1080
+High-Quality Tasks: 1080
+
+================================================================================
+
+生成的文件 / Generated Files:
+
+1. tasks_raw.json (原始任务数据)
+2. review_scores.json (评分数据，正确schema)
+3. tasks_filtered.json (过滤后任务，含质量评分)
+
+分类文件 / Category Files:
+
+肾内科 / nephrology:
+  - tasks_nephrology_easy.json: 100 tasks
+  - tasks_nephrology_moderate.json: 100 tasks
+  - tasks_nephrology_hard.json: 100 tasks
+
+心内科 / cardiology:
+  - tasks_cardiology_easy.json: 100 tasks
+  - tasks_cardiology_moderate.json: 100 tasks
+  - tasks_cardiology_hard.json: 100 tasks
+
+消化内科 / gastroenterology:
+  - tasks_gastroenterology_easy.json: 100 tasks
+  - tasks_gastroenterology_moderate.json: 100 tasks
+  - tasks_gastroenterology_hard.json: 100 tasks
+

@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "generated_at": "2026-03-07T14:28:49.411957",
+    "pipeline_version": "1.0.0"
+  },
+  "etl_result": {
+    "success": true,
+    "start_time": "2026-03-07T14:28:49.423275",
+    "end_time": null,
+    "duration_seconds": 0,
+    "records_processed": 300,
+    "records_failed": 0,
+    "tasks_generated": 300,
+    "db_records": 300,
+    "tools_count": 15,
+    "errors": [],
+    "warnings": [],
+    "output_files": {
+      "tasks": "outputs\\medagentbench_auto\\tasks.json",
+      "db": "outputs\\medagentbench_auto\\db.json",
+      "tools": "outputs\\medagentbench_auto\\tools.json",
+      "policy": "outputs\\medagentbench_auto\\policy.md"
+    }
+  },
+  "statistics": {
+    "total_records": 300,
+    "valid_records": 300,
+    "invalid_records": 0,
+    "by_department": {
+      "general_practice": 300
+    },
+    "by_difficulty": {
+      "moderate": 300
+    }
+  },
+  "tools_summary": {
+    "total_tools": 15,
+    "tool_names": [
+      "egfr_calculator",
+      "drug_dosing_calculator",
+      "drug_interaction_checker",
+      "vital_signs_analyzer",
+      "lab_values_interpreter",
+      "clinical_calculator",
+      "fhir_get_condition",
+      "fhir_get_observation",
+      "fhir_get_observation",
+      "fhir_post_observation",
+      "fhir_get_medicationrequest",
+      "fhir_post_medicationrequest",
+      "fhir_get_procedure",
+      "fhir_post_servicerequest",
+      "fhir_get_patient"
+    ],
+    "departments_covered": [
+      "nephrology",
+      "general"
+    ]
+  }
+}

@@ -1,0 +1,429 @@
+{
+  "mock_execution_note": "Mock logic for Agent testing only – no clinical implementation required",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "find_patient_basic_info",
+        "description": "Retrieve lightweight patient basic info (age/sex/weight) for initial consultation | Enables Agent to gather foundational data before symptom questioning",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "description": "Unique patient identifier (MRN or registration number)"
+            }
+          },
+          "required": ["patient_id"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "age": {"type": "number", "description": "Patient age in years"},
+            "sex": {"type": "string", "description": "Biological sex (male/female/other)"},
+            "weight_kg": {"type": "number", "description": "Weight in kilograms"},
+            "blood_type": {"type": "string", "description": "ABO blood group"}
+          },
+          "example": {
+            "patient_id": "MRN-123456",
+            "age": 45,
+            "sex": "female",
+            "weight_kg": 62.5,
+            "blood_type": "A+"
+          }
+        },
+        "call_scenario": "Invoke at consultation initiation before any symptom questioning to establish patient baseline demographics",
+        "mock_execution": "def find_patient_basic_info(patient_id: str) -> dict:\n    return {\n        'patient_id': patient_id,\n        'name': 'Zhang San',\n        'age': 55,\n        'sex': 'Male',\n        'weight_kg': 70.5,\n        'blood_type': 'O+'\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_medical_history_key",
+        "description": "Retrieve targeted medical history (allergy/medication history) for etiology analysis | Enables Agent to identify contraindications and red flags before treatment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "history_type": {
+              "type": "string",
+              "description": "Type of medical history to retrieve",
+              "enum": ["allergies", "medications", "chronic_conditions", "surgeries", "family_history"]
+            }
+          },
+          "required": ["patient_id", "history_type"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "history_type": {"type": "string", "description": "Requested history category"},
+            "records": {
+              "type": "array",
+              "description": "Medical history records",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item": {"type": "string", "description": "Medical history item"},
+                  "severity": {"type": "string", "description": "Severity level if applicable"},
+                  "date_recorded": {"type": "string", "description": "Date of record"}
+                }
+              }
+            }
+          },
+          "example": {
+            "patient_id": "MRN-123456",
+            "history_type": "allergies",
+            "records": [
+              {"item": "Penicillin", "severity": "severe_anaphylaxis", "date_recorded": "2018-03-15"},
+              {"item": "Sulfa drugs", "severity": "moderate_rash", "date_recorded": "2020-07-22"}
+            ]
+          }
+        },
+        "call_scenario": "Invoke after patient identification and before any prescription or treatment recommendation",
+        "mock_execution": "def get_medical_history_key(patient_id: str, history_type: str) -> dict:\n    if history_type == 'allergies':\n        return {\n            'patient_id': patient_id,\n            'history_type': 'allergies',\n            'records': [\n                {'item': 'Penicillin', 'severity': 'Moderate', 'date_recorded': '2020-03-15'},\n                {'item': 'Seafood', 'severity': 'Mild', 'date_recorded': '2021-07-22'}\n            ]\n        }\n    elif history_type == 'medications':\n        return {\n            'patient_id': patient_id,\n            'history_type': 'medications',\n            'records': [\n                {'item': 'Amlodipine 5mg qd', 'severity': None, 'date_recorded': '2023-06-01'},\n                {'item': 'Metformin 500mg bid', 'severity': None, 'date_recorded': '2023-06-01'}\n            ]\n        }\n    return {'patient_id': patient_id, 'history_type': history_type, 'records': []}"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "ask_symptom_details",
+        "description": "Structured questioning for symptom specifics (location/severity/duration/triggers) | Enables Agent to conduct systematic symptom assessment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "symptom_category": {
+              "type": "string",
+              "description": "Body system or symptom category",
+              "enum": ["cardiovascular", "respiratory", "gastrointestinal", "neurological", "musculoskeletal", "renal", "general"]
+            },
+            "question_focus": {
+              "type": "string",
+              "description": "Specific aspect to explore",
+              "enum": ["location", "severity", "duration", "onset", "triggers", "associated_symptoms"]
+            }
+          },
+          "required": ["patient_id", "symptom_category", "question_focus"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "symptom_category": {"type": "string", "description": "Examined symptom category"},
+            "question_focus": {"type": "string", "description": "Focused assessment area"},
+            "response": {"type": "string", "description": "Patient's response to structured question"},
+            "severity_score": {"type": "number", "description": "Severity score 1-10 if applicable"}
+          },
+          "example": {
+            "patient_id": "MRN-123456",
+            "symptom_category": "cardiovascular",
+            "question_focus": "severity",
+            "response": "Chest pain is 7/10, worsens with exertion, relieved by rest",
+            "severity_score": 7
+          }
+        },
+        "call_scenario": "Invoke after basic info gathering to systematically explore chief complaint",
+        "mock_execution": "def ask_symptom_details(patient_id: str, symptom_category: str, question_focus: str) -> dict:\n    responses = {\n        'location': 'Right lower extremity',\n        'severity': 'VAS 6/10',\n        'duration': '3 days',\n        'onset': 'Gradual',\n        'triggers': 'Walking > 1km',\n        'associated_symptoms': 'Mild swelling, no redness'\n    }\n    severity_scores = {'location': 0, 'severity': 6, 'duration': 0, 'onset': 0, 'triggers': 0, 'associated_symptoms': 0}\n    return {\n        'patient_id': patient_id,\n        'symptom_category': symptom_category,\n        'question_focus': question_focus,\n        'response': responses.get(question_focus, 'Not specified'),\n        'severity_score': severity_scores.get(question_focus, 0)\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "retrieve_medication_details",
+        "description": "Retrieve core drug info (dosage/contraindications/administration route) | Enables Agent to verify medication safety before prescription",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication_name": {"type": "string", "description": "Generic or brand name of medication"},
+            "info_type": {
+              "type": "string",
+              "description": "Type of information to retrieve",
+              "enum": ["dosage", "contraindications", "interactions", "side_effects", "administration"]
+            }
+          },
+          "required": ["medication_name", "info_type"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "medication_name": {"type": "string", "description": "Medication name"},
+            "info_type": {"type": "string", "description": "Requested information type"},
+            "details": {"type": "string", "description": "Medication-specific information"},
+            "standard_dosage": {"type": "string", "description": "Standard adult dosage range"}
+          },
+          "example": {
+            "medication_name": "Lisinopril",
+            "info_type": "dosage",
+            "details": "Initial dose 10mg daily, may increase to max 40mg daily",
+            "standard_dosage": "10-40mg orally once daily"
+          }
+        },
+        "call_scenario": "Invoke before prescribing medication or when patient asks about drug details",
+        "mock_execution": "def retrieve_medication_details(medication_name: str, info_type: str) -> dict:\n    medication_db = {\n        'Amlodipine': {\n            'dosage': {'details': '5mg qd', 'standard_dosage': '5-10mg orally once daily'},\n            'contraindications': {'details': 'Allergy prohibited', 'standard_dosage': 'N/A'},\n            'administration': {'details': 'Oral after breakfast', 'standard_dosage': 'N/A'}\n        },\n        'Lisinopril': {\n            'dosage': {'details': '10mg qd', 'standard_dosage': '10-40mg orally once daily'},\n            'contraindications': {'details': 'Angioedema history prohibited', 'standard_dosage': 'N/A'},\n            'administration': {'details': 'Oral, with or without food', 'standard_dosage': 'N/A'}\n        }\n    }\n    if medication_name in medication_db and info_type in medication_db[medication_name]:\n        return {\n            'medication_name': medication_name,\n            'info_type': info_type,\n            **medication_db[medication_name][info_type]\n        }\n    return {\n        'medication_name': medication_name,\n        'info_type': info_type,\n        'details': 'Default dosage',\n        'standard_dosage': 'As prescribed'\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "assess_risk_level",
+        "description": "Evaluate symptom risk grade (low/medium/high) + emergency recommendations | Enables Agent to triage cases and determine urgency",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "symptoms": {"type": "string", "description": "Comma-separated list of presenting symptoms"},
+            "vital_signs": {"type": "string", "description": "Key vital signs if available (e.g., BP, HR, Temp)"}
+          },
+          "required": ["patient_id", "symptoms"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "risk_level": {"type": "string", "description": "Assigned risk category", "enum": ["low", "medium", "high", "emergency"]},
+            "recommendation": {"type": "string", "description": "Recommended action based on risk"},
+            "time_frame": {"type": "string", "description": "Recommended time frame for intervention"},
+            "red_flags": {"type": "array", "description": "Identified red flag symptoms", "items": {"type": "string"}}
+          },
+          "example": {
+            "patient_id": "MRN-123456",
+            "symptoms": "chest pain, shortness of breath, diaphoresis",
+            "vital_signs": "BP 90/60, HR 110, Temp 37.1",
+            "risk_level": "emergency",
+            "recommendation": "Immediate emergency department referral",
+            "time_frame": "within 15 minutes",
+            "red_flags": ["chest pain with diaphoresis", "hypotension", "tachycardia"]
+          }
+        },
+        "call_scenario": "Invoke after initial symptom assessment to determine case urgency and triage priority",
+        "mock_execution": "def assess_risk_level(patient_id: str, symptoms: str, vital_signs: str = None) -> dict:\n    emergency_keywords = ['chest pain', 'shortness of breath', 'syncope', 'severe headache']\n    high_risk_keywords = ['severe', 'sudden', 'radiating']\n    symptoms_lower = symptoms.lower()\n    if any(kw in symptoms_lower for kw in emergency_keywords):\n        return {\n            'patient_id': patient_id,\n            'risk_level': 'emergency',\n            'recommendation': 'Immediate emergency department referral',\n            'time_frame': 'within 15 minutes',\n            'red_flags': [symptoms]\n        }\n    elif any(kw in symptoms_lower for kw in high_risk_keywords):\n        return {\n            'patient_id': patient_id,\n            'risk_level': 'high',\n            'recommendation': 'Urgent specialist consultation required',\n            'time_frame': 'within 24 hours',\n            'red_flags': ['Severe symptoms present']\n        }\n    return {\n        'patient_id': patient_id,\n        'risk_level': 'Medium',\n        'recommendation': 'Monitor blood pressure q4h',\n        'time_frame': 'within 48 hours',\n        'red_flags': [],\n        'icd10_hint': 'I10 (Essential hypertension)'\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "prescribe_medication_safe",
+        "description": "Safe medication prescription (pre-checked for allergies/interactions) | Enables Agent to generate prescription with safety validation",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "medication_name": {"type": "string", "description": "Generic medication name"},
+            "dosage": {"type": "string", "description": "Prescribed dosage and frequency"},
+            "duration": {"type": "string", "description": "Treatment duration"},
+            "route": {
+              "type": "string",
+              "description": "Administration route",
+              "enum": ["oral", "intravenous", "intramuscular", "topical", "inhaled", "sublingual"]
+            }
+          },
+          "required": ["patient_id", "medication_name", "dosage", "duration", "route"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "prescription_id": {"type": "string", "description": "Generated prescription identifier"},
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "medication_name": {"type": "string", "description": "Prescribed medication"},
+            "dosage": {"type": "string", "description": "Dosage and frequency"},
+            "safety_check": {"type": "string", "description": "Safety validation result", "enum": ["passed", "warning", "contraindicated"]},
+            "allergy_alert": {"type": "boolean", "description": "Whether allergy interaction detected"},
+            "interaction_alert": {"type": "boolean", "description": "Whether drug interaction detected"}
+          },
+          "example": {
+            "prescription_id": "RX-2024-78432",
+            "patient_id": "MRN-123456",
+            "medication_name": "Amlodipine",
+            "dosage": "5mg orally once daily",
+            "safety_check": "passed",
+            "allergy_alert": false,
+            "interaction_alert": false
+          }
+        },
+        "call_scenario": "Invoke ONLY after confirming no allergies/interactions via get_medical_history_key and retrieve_medication_details",
+        "mock_execution": "def prescribe_medication_safe(patient_id: str, medication_name: str, dosage: str, duration: str, route: str) -> dict:\n    import datetime\n    prescription_id = f'RX{datetime.datetime.now().strftime(\"%Y%m%d%H%M%S\")}'\n    allergy_meds = ['Penicillin', 'Sulfa']\n    allergy_alert = medication_name in allergy_meds\n    safety_check = 'contraindicated' if allergy_alert else 'passed'\n    return {\n        'prescription_id': prescription_id,\n        'patient_id': patient_id,\n        'medication_name': medication_name,\n        'dosage': dosage,\n        'safety_check': safety_check + ' (no allergy match)' if not allergy_alert else ' (allergy detected)',\n        'dosage_confirmation': f'{dosage} (adjusted for renal function)' if route == 'oral' else dosage,\n        'allergy_alert': allergy_alert,\n        'interaction_alert': False\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "retrieve_clinical_guideline",
+        "description": "Targeted retrieval of clinical guideline snippets (no full-text) | Enables Agent to access evidence-based recommendations",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "condition": {"type": "string", "description": "Clinical condition or disease name"},
+            "specialty": {
+              "type": "string",
+              "description": "Medical specialty area",
+              "enum": ["cardiology", "nephrology", "gastroenterology", "general_practice", "emergency", "other"]
+            },
+            "guideline_aspect": {
+              "type": "string",
+              "description": "Specific aspect of guideline to retrieve",
+              "enum": ["diagnosis", "treatment", "monitoring", "referral_criteria"]
+            }
+          },
+          "required": ["condition", "specialty", "guideline_aspect"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "condition": {"type": "string", "description": "Clinical condition"},
+            "specialty": {"type": "string", "description": "Medical specialty"},
+            "guideline_aspect": {"type": "string", "description": "Guideline aspect retrieved"},
+            "recommendation": {"type": "string", "description": "Key guideline recommendation summary"},
+            "evidence_level": {"type": "string", "description": "Strength of recommendation"},
+            "guideline_source": {"type": "string", "description": "Authoritative guideline source"}
+          },
+          "example": {
+            "condition": "hypertension",
+            "specialty": "cardiology",
+            "guideline_aspect": "treatment",
+            "recommendation": "Initiate ACE inhibitor or ARB for patients with diabetes and CKD; target BP <130/80 mmHg",
+            "evidence_level": "Class I, Level A",
+            "guideline_source": "ACC/AHA 2017 Hypertension Guidelines"
+          }
+        },
+        "call_scenario": "Invoke when uncertain about diagnosis or treatment protocol, or to validate clinical decision",
+        "mock_execution": "def retrieve_clinical_guideline(condition: str, specialty: str, guideline_aspect: str) -> dict:\n    guidelines = {\n        'hypertension': {\n            'cardiology': {\n                'treatment': {\n                    'snippet': 'Amlodipine 5-10mg qd for CKD stage 3 patients, target BP <130/80 mmHg',\n                    'evidence_level': 'Level A',\n                    'guideline_version': '2025 ESC Hypertension Guideline'\n                },\n                'diagnosis': {\n                    'snippet': 'Diagnose hypertension if BP >=130/80 mmHg on 2+ occasions',\n                    'evidence_level': 'Level B',\n                    'guideline_version': '2025 ESC Hypertension Guideline'\n                }\n            },\n            'nephrology': {\n                'treatment': {\n                    'snippet': 'ACEi or ARB first-line for hypertension with CKD, monitor eGFR and K+',\n                    'evidence_level': 'Level A',\n                    'guideline_version': 'KDIGO 2024 Hypertension in CKD Guideline'\n                }\n            }\n        }\n    }\n    if condition.lower() in guidelines and specialty in guidelines[condition.lower()]:\n        guideline_data = guidelines[condition.lower()][specialty].get(guideline_aspect, {})\n        if guideline_data:\n            return {\n                'condition': condition,\n                'specialty': specialty,\n                'guideline_aspect': guideline_aspect,\n                'recommendation': guideline_data['snippet'],\n                'evidence_level': guideline_data['evidence_level'],\n                'guideline_source': guideline_data['guideline_version']\n            }\n    return {\n        'condition': condition,\n        'specialty': specialty,\n        'guideline_aspect': guideline_aspect,\n        'recommendation': 'No specific guideline found',\n        'evidence_level': 'N/A',\n        'guideline_source': 'N/A'\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "record_diagnosis_icd10",
+        "description": "Record diagnosis with ICD-10 coding | Enables Agent to document clinical diagnosis with standardized coding",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "diagnosis_name": {"type": "string", "description": "Full diagnosis description"},
+            "icd10_code": {"type": "string", "description": "ICD-10-CM diagnosis code"},
+            "diagnosis_type": {
+              "type": "string",
+              "description": "Type of diagnosis",
+              "enum": ["primary", "secondary", "admitting", "working"]
+            }
+          },
+          "required": ["patient_id", "diagnosis_name", "icd10_code", "diagnosis_type"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "record_id": {"type": "string", "description": "Generated diagnosis record identifier"},
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "diagnosis_name": {"type": "string", "description": "Recorded diagnosis"},
+            "icd10_code": {"type": "string", "description": "ICD-10 code"},
+            "diagnosis_type": {"type": "string", "description": "Diagnosis type"},
+            "recorded_timestamp": {"type": "string", "description": "Timestamp of recording"}
+          },
+          "example": {
+            "record_id": "DX-2024-45678",
+            "patient_id": "MRN-123456",
+            "diagnosis_name": "Essential (primary) hypertension",
+            "icd10_code": "I10",
+            "diagnosis_type": "primary",
+            "recorded_timestamp": "2024-01-15T14:30:00Z"
+          }
+        },
+        "call_scenario": "Invoke after clinical assessment to formally document diagnosis in medical record",
+        "mock_execution": "def record_diagnosis_icd10(patient_id: str, diagnosis_name: str, icd10_code: str, diagnosis_type: str) -> dict:\n    import datetime\n    diagnosis_map = {\n        'I10': 'Essential (primary) hypertension',\n        'I12.9': 'Hypertensive chronic kidney disease, unspecified',\n        'I50.9': 'Heart failure, unspecified',\n        'E11.9': 'Type 2 diabetes mellitus without complications'\n    }\n    record_id = f'DX{datetime.datetime.now().strftime(\"%Y%m%d%H%M%S\")}'\n    timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')\n    return {\n        'record_id': record_id,\n        'patient_id': patient_id,\n        'diagnosis_name': diagnosis_map.get(icd10_code, diagnosis_name),\n        'icd10_code': icd10_code,\n        'diagnosis_confirmation': diagnosis_map.get(icd10_code, diagnosis_name),\n        'diagnosis_type': diagnosis_type,\n        'recorded_timestamp': timestamp\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "transfer_to_specialist",
+        "description": "Initiate specialist referral (for cases beyond general practice) | Enables Agent to escalate complex cases to appropriate specialist",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "specialty": {
+              "type": "string",
+              "description": "Target specialty for referral",
+              "enum": ["cardiology", "nephrology", "gastroenterology", "neurology", "oncology", "pulmonology", "endocrinology", "rheumatology", "dermatology", "other"]
+            },
+            "urgency": {
+              "type": "string",
+              "description": "Referral urgency level",
+              "enum": ["routine", "urgent", "emergency"]
+            },
+            "referral_reason": {"type": "string", "description": "Clinical justification for referral"}
+          },
+          "required": ["patient_id", "specialty", "urgency", "referral_reason"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "referral_id": {"type": "string", "description": "Generated referral identifier"},
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "specialty": {"type": "string", "description": "Referred specialty"},
+            "urgency": {"type": "string", "description": "Referral urgency"},
+            "estimated_wait": {"type": "string", "description": "Estimated wait time for appointment"},
+            "referral_status": {"type": "string", "description": "Referral processing status"}
+          },
+          "example": {
+            "referral_id": "REF-2024-89234",
+            "patient_id": "MRN-123456",
+            "specialty": "cardiology",
+            "urgency": "urgent",
+            "referral_reason": "Uncontrolled hypertension with suspected secondary cause, requires echocardiogram and cardiac evaluation",
+            "estimated_wait": "3-5 business days",
+            "referral_status": "pending_confirmation"
+          }
+        },
+        "call_scenario": "Invoke when case complexity exceeds general practice scope or specialist input is required",
+        "mock_execution": "def transfer_to_specialist(patient_id: str, specialty: str, urgency: str, referral_reason: str) -> dict:\n    import datetime\n    referral_id = f'REF{datetime.datetime.now().strftime(\"%Y%m%d%H%M%S\")}'\n    specialists = {\n        'cardiology': 'Dr. Li (Cardiology)',\n        'nephrology': 'Dr. Wang (Nephrology)',\n        'gastroenterology': 'Dr. Zhang (Gastroenterology)'\n    }\n    urgency_wait = {\n        'emergency': 'Same day',\n        'urgent': '3-5 business days',\n        'routine': '2-3 weeks'\n    }\n    from datetime import timedelta\n    appointment_date = (datetime.datetime.now() + timedelta(days=7 if urgency == 'routine' else 3 if urgency == 'urgent' else 0)).strftime('%Y-%m-%dT09:00:00')\n    return {\n        'referral_id': referral_id,\n        'patient_id': patient_id,\n        'specialty': specialty,\n        'specialist': specialists.get(specialty, f'Specialist ({specialty})'),\n        'urgency': urgency,\n        'appointment_time': appointment_date,\n        'estimated_wait': urgency_wait.get(urgency, '1-2 weeks'),\n        'referral_status': 'pending_confirmation'\n    }"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "generate_follow_up_plan",
+        "description": "Generate personalized follow-up plan (timing/tests/medication reminders) | Enables Agent to structure post-consultation care continuity",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Unique patient identifier"},
+            "diagnosis": {"type": "string", "description": "Primary diagnosis for follow-up"},
+            "follow_up_type": {
+              "type": "string",
+              "description": "Type of follow-up required",
+              "enum": ["in_person", "phone", "telehealth", "lab_only"]
+            },
+            "timeframe_days": {"type": "number", "description": "Days until follow-up"},
+            "include_meds": {"type": "boolean", "description": "Whether to include medication reminders"}
+          },
+          "required": ["patient_id", "diagnosis", "follow_up_type", "timeframe_days"]
+        },
+        "output_schema": {
+          "type": "object",
+          "properties": {
+            "plan_id": {"type": "string", "description": "Generated follow-up plan identifier"},
+            "patient_id": {"type": "string", "description": "Patient identifier"},
+            "follow_up_date": {"type": "string", "description": "Scheduled follow-up date"},
+            "follow_up_type": {"type": "string", "description": "Follow-up modality"},
+            "required_tests": {"type": "array", "description": "Tests or labs to complete before follow-up", "items": {"type": "string"}},
+            "medication_reminders": {"type": "array", "description": "Medication adherence reminders", "items": {"type": "string"}},
+            "red_flag_instructions": {"type": "string", "description": "Symptoms requiring earlier return"}
+          },
+          "example": {
+            "plan_id": "FUP-2024-56789",
+            "patient_id": "MRN-123456",
+            "follow_up_date": "2024-02-15",
+            "follow_up_type": "in_person",
+            "required_tests": ["CBC", "BMP", "Lipid panel"],
+            "medication_reminders": ["Take Lisinopril 5mg daily", "Record BP readings twice weekly"],
+            "red_flag_instructions": "Return immediately if chest pain, severe headache, or BP >180/120"
+          }
+        },
+        "call_scenario": "Invoke at consultation conclusion to structure post-visit care and ensure follow-through",
+        "mock_execution": "def generate_follow_up_plan(patient_id: str, diagnosis: str, follow_up_type: str, timeframe_days: int, include_meds: bool = True) -> dict:\n    import datetime\n    plan_id = f'FUP{datetime.datetime.now().strftime(\"%Y%m%d%H%M%S\")}'\n    follow_up_date = (datetime.datetime.now() + datetime.timedelta(days=timeframe_days)).strftime('%Y-%m-%d')\n    diagnosis_tests = {\n        'hypertension': ['Renal function', 'Urinary protein', 'Electrolytes'],\n        'diabetes': ['HbA1c', 'Fasting glucose', 'Lipid profile'],\n        'CKD': ['eGFR', 'Creatinine', 'Potassium', 'Urinalysis']\n    }\n    diagnosis_meds = {\n        'hypertension': 'Take Amlodipine at 8 AM daily',\n        'diabetes': 'Take Metformin with meals',\n        'CKD': 'Take ACE inhibitor as prescribed, avoid NSAIDs'\n    }\n    return {\n        'plan_id': plan_id,\n        'patient_id': patient_id,\n        'follow_up_date': follow_up_date,\n        'follow_up_type': follow_up_type,\n        'follow_up_timing': f'Every {timeframe_days} days',\n        'required_tests': diagnosis_tests.get(diagnosis, ['BP measurement']),\n        'medication_reminders': [diagnosis_meds.get(diagnosis, 'Take prescribed medications as directed')] if include_meds else [],\n        'med_reminder': diagnosis_meds.get(diagnosis, 'Take prescribed medications as directed'),\n        'red_flag_instructions': 'Return immediately if chest pain, severe headache, or BP >180/120'\n    }"
+      }
+    }
+  ]
+}

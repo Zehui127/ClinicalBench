@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "NE0003",
+    "task_id": "NE0003",
+    "patient_info": {
+      "age": 83,
+      "egfr": 46,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 121,
+      "blood_pressure_diastolic": 94,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.0,
+      "scenario_realism": 4.04,
+      "evaluation_completeness": 4.06,
+      "difficulty_appropriateness": 4.12,
+      "average": 4.06
+    }
+  },
+  {
+    "id": "NE0005",
+    "task_id": "NE0005",
+    "patient_info": {
+      "age": 59,
+      "egfr": 52,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 191,
+      "blood_pressure_diastolic": 93,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "diabetes"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.74,
+      "scenario_realism": 4.41,
+      "evaluation_completeness": 4.23,
+      "difficulty_appropriateness": 4.45,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "NE0008",
+    "task_id": "NE0008",
+    "patient_info": {
+      "age": 69,
+      "egfr": 56,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 184,
+      "blood_pressure_diastolic": 97,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 2",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.37,
+      "scenario_realism": 4.11,
+      "evaluation_completeness": 4.59,
+      "difficulty_appropriateness": 4.87,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "NE0009",
+    "task_id": "NE0009",
+    "patient_info": {
+      "age": 85,
+      "egfr": 11,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 186,
+      "blood_pressure_diastolic": 74,
+      "contraindications": [
+        "beta_blocker_intolerance"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "foamy_urine",
+        "swelling",
+        "weight_gain"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.11,
+      "scenario_realism": 4.34,
+      "evaluation_completeness": 4.06,
+      "difficulty_appropriateness": 4.08,
+      "average": 4.15
+    }
+  },
+  {
+    "id": "NE0010",
+    "task_id": "NE0010",
+    "patient_info": {
+      "age": 62,
+      "egfr": 74,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 110,
+      "blood_pressure_diastolic": 116,
+      "contraindications": [
+        "angioedema_history"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "edema",
+        "fatigue",
+        "decreased_urine_output"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.51,
+      "scenario_realism": 4.41,
+      "evaluation_completeness": 4.1,
+      "difficulty_appropriateness": 4.05,
+      "average": 4.27
+    }
+  },
+  {
+    "id": "NE0013",
+    "task_id": "NE0013",
+    "patient_info": {
+      "age": 42,
+      "egfr": 67,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 118,
+      "blood_pressure_diastolic": 91,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.2,
+      "scenario_realism": 4.4,
+      "evaluation_completeness": 4.11,
+      "difficulty_appropriateness": 4.2,
+      "average": 4.23
+    }
+  },
+  {
+    "id": "NE0014",
+    "task_id": "NE0014",
+    "patient_info": {
+      "age": 49,
+      "egfr": 118,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 114,
+      "blood_pressure_diastolic": 91,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.02,
+      "scenario_realism": 4.44,
+      "evaluation_completeness": 4.35,
+      "difficulty_appropriateness": 4.86,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "NE0020",
+    "task_id": "NE0020",
+    "patient_info": {
+      "age": 72,
+      "egfr": 15,
+      "ckd_stage": "stage_4",
+      "blood_pressure_systolic": 189,
+      "blood_pressure_diastolic": 75,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.35,
+      "scenario_realism": 4.06,
+      "evaluation_completeness": 4.24,
+      "difficulty_appropriateness": 4.14,
+      "average": 4.2
+    }
+  },
+  {
+    "id": "NE0021",
+    "task_id": "NE0021",
+    "patient_info": {
+      "age": 83,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 168,
+      "blood_pressure_diastolic": 109,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 2",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.85,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.06,
+      "difficulty_appropriateness": 4.27,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "NE0028",
+    "task_id": "NE0028",
+    "patient_info": {
+      "age": 52,
+      "egfr": 120,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 145,
+      "blood_pressure_diastolic": 92,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 1",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.67,
+      "scenario_realism": 4.71,
+      "evaluation_completeness": 4.32,
+      "difficulty_appropriateness": 4.17,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "NE0033",
+    "task_id": "NE0033",
+    "patient_info": {
+      "age": 83,
+      "egfr": 81,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 149,
+      "blood_pressure_diastolic": 84,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 1",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "edema",
+        "fatigue",
+        "decreased_urine_output"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.41,
+      "scenario_realism": 4.6,
+      "evaluation_completeness": 4.75,
+      "difficulty_appropriateness": 4.1,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "NE0048",
+    "task_id": "NE0048",
+    "patient_info": {
+      "age": 63,
+      "egfr": 92,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 147,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "angioedema_history"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.02,
+      "scenario_realism": 4.84,
+      "evaluation_completeness": 4.5,
+      "difficulty_appropriateness": 4.59,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "NE0049",
+    "task_id": "NE0049",
+    "patient_info": {
+      "age": 79,
+      "egfr": 34,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 149,
+      "blood_pressure_diastolic": 86,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 2",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.29,
+      "scenario_realism": 4.66,
+      "evaluation_completeness": 4.03,
+      "difficulty_appropriateness": 4.82,
+      "average": 4.45
+    }
+  },
+  {
+    "id": "NE0050",
+    "task_id": "NE0050",
+    "patient_info": {
+      "age": 52,
+      "egfr": 14,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 177,
+      "blood_pressure_diastolic": 108,
+      "contraindications": [
+        "peptic_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.07,
+      "scenario_realism": 4.55,
+      "evaluation_completeness": 4.4,
+      "difficulty_appropriateness": 4.26,
+      "average": 4.32
+    }
+  },
+  {
+    "id": "NE0054",
+    "task_id": "NE0054",
+    "patient_info": {
+      "age": 74,
+      "egfr": 6,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 136,
+      "blood_pressure_diastolic": 110,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "edema",
+        "fatigue",
+        "decreased_urine_output"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.54,
+      "scenario_realism": 4.06,
+      "evaluation_completeness": 4.03,
+      "difficulty_appropriateness": 4.54,
+      "average": 4.29
+    }
+  },
+  {
+    "id": "NE0056",
+    "task_id": "NE0056",
+    "patient_info": {
+      "age": 69,
+      "egfr": 80,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 129,
+      "blood_pressure_diastolic": 87,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 1",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.18,
+      "scenario_realism": 4.19,
+      "evaluation_completeness": 4.56,
+      "difficulty_appropriateness": 4.3,
+      "average": 4.31
+    }
+  },
+  {
+    "id": "NE0059",
+    "task_id": "NE0059",
+    "patient_info": {
+      "age": 65,
+      "egfr": 51,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 152,
+      "blood_pressure_diastolic": 90,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.17,
+      "scenario_realism": 4.67,
+      "evaluation_completeness": 4.56,
+      "difficulty_appropriateness": 4.5,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "NE0062",
+    "task_id": "NE0062",
+    "patient_info": {
+      "age": 75,
+      "egfr": 27,
+      "ckd_stage": "stage_4",
+      "blood_pressure_systolic": 140,
+      "blood_pressure_diastolic": 115,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.59,
+      "scenario_realism": 4.23,
+      "evaluation_completeness": 4.12,
+      "difficulty_appropriateness": 4.9,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "NE0064",
+    "task_id": "NE0064",
+    "patient_info": {
+      "age": 67,
+      "egfr": 7,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 118,
+      "blood_pressure_diastolic": 87,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.49,
+      "scenario_realism": 4.55,
+      "evaluation_completeness": 4.25,
+      "difficulty_appropriateness": 4.49,
+      "average": 4.45
+    }
+  },
+  {
+    "id": "NE0068",
+    "task_id": "NE0068",
+    "patient_info": {
+      "age": 55,
+      "egfr": 12,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 179,
+      "blood_pressure_diastolic": 72,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 3",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.29,
+      "scenario_realism": 4.05,
+      "evaluation_completeness": 4.6,
+      "difficulty_appropriateness": 4.42,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "NE0072",
+    "task_id": "NE0072",
+    "patient_info": {
+      "age": 59,
+      "egfr": 20,
+      "ckd_stage": "stage_4",
+      "blood_pressure_systolic": 183,
+      "blood_pressure_diastolic": 88,
+      "contraindications": [
+        "peptic_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "foamy_urine",
+        "swelling",
+        "weight_gain"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.34,
+      "scenario_realism": 4.39,
+      "evaluation_completeness": 4.16,
+      "difficulty_appropriateness": 4.93,
+      "average": 4.45
+    }
+  },
+  {
+    "id": "NE0091",
+    "task_id": "NE0091",
+    "patient_info": {
+      "age": 54,
+      "egfr": 10,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 182,
+      "blood_pressure_diastolic": 108,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 2",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.59,
+      "scenario_realism": 4.57,
+      "evaluation_completeness": 4.55,
+      "difficulty_appropriateness": 4.04,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "NE0092",
+    "task_id": "NE0092",
+    "patient_info": {
+      "age": 61,
+      "egfr": 48,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 175,
+      "blood_pressure_diastolic": 77,
+      "contraindications": [
+        "beta_blocker_intolerance"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 3",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.54,
+      "scenario_realism": 4.91,
+      "evaluation_completeness": 4.0,
+      "difficulty_appropriateness": 4.4,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "NE0093",
+    "task_id": "NE0093",
+    "patient_info": {
+      "age": 35,
+      "egfr": 69,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 119,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.83,
+      "scenario_realism": 4.15,
+      "evaluation_completeness": 4.27,
+      "difficulty_appropriateness": 4.44,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "NE0098",
+    "task_id": "NE0098",
+    "patient_info": {
+      "age": 73,
+      "egfr": 84,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 74,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "foamy_urine",
+        "swelling",
+        "weight_gain"
+      ],
+      "comorbidities": [
+        "copd",
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.55,
+      "scenario_realism": 4.31,
+      "evaluation_completeness": 4.51,
+      "difficulty_appropriateness": 4.57,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "NE0100",
+    "task_id": "NE0100",
+    "patient_info": {
+      "age": 58,
+      "egfr": 46,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 192,
+      "blood_pressure_diastolic": 75,
+      "contraindications": [
+        "beta_blocker_intolerance"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "flank_pain",
+        "fever",
+        "dysuria"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.98,
+      "scenario_realism": 4.8,
+      "evaluation_completeness": 4.05,
+      "difficulty_appropriateness": 4.12,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "NE0101",
+    "task_id": "NE0101",
+    "patient_info": {
+      "age": 38,
+      "egfr": 31,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 153,
+      "blood_pressure_diastolic": 115,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.13,
+      "scenario_realism": 4.6,
+      "evaluation_completeness": 4.18,
+      "difficulty_appropriateness": 4.84,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "NE0103",
+    "task_id": "NE0103",
+    "patient_info": {
+      "age": 81,
+      "egfr": 14,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 129,
+      "blood_pressure_diastolic": 91,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute kidney injury",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "shortness_of_breath",
+        "chest_pain",
+        "hypertension"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "diabetes"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.89,
+      "scenario_realism": 4.04,
+      "evaluation_completeness": 4.11,
+      "difficulty_appropriateness": 4.47,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "NE0107",
+    "task_id": "NE0107",
+    "patient_info": {
+      "age": 47,
+      "egfr": 55,
+      "ckd_stage": "stage_3a",
+      "blood_pressure_systolic": 183,
+      "blood_pressure_diastolic": 98,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "foamy_urine",
+        "swelling",
+        "weight_gain"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.58,
+      "scenario_realism": 4.33,
+      "evaluation_completeness": 4.6,
+      "difficulty_appropriateness": 4.38,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "NE0108",
+    "task_id": "NE0108",
+    "patient_info": {
+      "age": 58,
+      "egfr": 29,
+      "ckd_stage": "stage_4",
+      "blood_pressure_systolic": 123,
+      "blood_pressure_diastolic": 115,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "edema",
+        "fatigue",
+        "decreased_urine_output"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.01,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.66,
+      "difficulty_appropriateness": 4.57,
+      "average": 4.32
+    }
+  },
+  {
+    "id": "NE0112",
+    "task_id": "NE0112",
+    "patient_info": {
+      "age": 61,
+      "egfr": 14,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 168,
+      "blood_pressure_diastolic": 74,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Polycystic kidney disease",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "foamy_urine",
+        "swelling",
+        "weight_gain"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.43,
+      "scenario_realism": 4.41,
+      "evaluation_completeness": 4.33,
+      "difficulty_appropriateness": 4.44,
+      "average": 4.4
+    }
+  },
+  {
+    "id": "NE0118",
+    "task_id": "NE0118",
+    "patient_info": {
+      "age": 40,
+      "egfr": 39,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 133,
+      "blood_pressure_diastolic": 104,
+      "contraindications": [
+        "nsaid_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 1",
+      "medications": [
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "diabetes"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.4,
+      "scenario_realism": 4.38,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.63,
+      "average": 4.39
+    }
+  },
+  {
+    "id": "NE0119",
+    "task_id": "NE0119",
+    "patient_info": {
+      "age": 37,
+      "egfr": 10,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 97,
+      "contraindications": [
+        "peptic_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 4",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Furosemide",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "confusion"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "hypertension"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level nephrology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.77,
+      "scenario_realism": 4.34,
+      "evaluation_completeness": 4.29,
+      "difficulty_appropriateness": 4.11,
+      "average": 4.38
+    }
+  }
+]

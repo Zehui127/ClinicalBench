@@ -1,0 +1,83 @@
+{
+  "pipeline_name": "Clinical Data Processing Pipeline",
+  "version": "1.0.0",
+  "description": "Complete ETL pipeline for clinical data processing with two stages: transformation and quality filtering",
+
+  "stage1": {
+    "name": "UniClinicalDataEngine",
+    "description": "Data transformation engine",
+    "input_formats": ["json", "jsonl", "csv"],
+    "output_files": ["tasks.json", "db.json", "tools.json", "policy.md"],
+    "config": {
+      "validate_input": true,
+      "anonymize_phi": false,
+      "auto_detect_tools": true
+    }
+  },
+
+  "stage2": {
+    "name": "DataQualityFiltering",
+    "description": "Quality filtering and validation",
+    "input": "stage1_output/tasks.json",
+    "output_files": ["tasks_filtered.json", "review_scores.json", "filter_statistics.json"],
+    "config": {
+      "min_quality_score": 3.5,
+      "min_tool_count": 1,
+      "max_tool_count": 8,
+      "min_content_length": 50,
+      "preserve_rejected_tasks": true
+    }
+  },
+
+  "directories": {
+    "input": "data/raw",
+    "stage1_output": "outputs/stage1_output",
+    "stage2_output": "outputs/stage2_output",
+    "final": "outputs/final"
+  },
+
+  "clinical_tools": {
+    "registry": "configs/tool_registry.json",
+    "default_tools": [
+      "egfr_calculator",
+      "drug_dosing_calculator",
+      "drug_interaction_checker",
+      "vital_signs_analyzer",
+      "lab_values_interpreter",
+      "clinical_calculator"
+    ]
+  },
+
+  "departments": {
+    "supported": ["cardiology", "nephrology", "gastroenterology", "neurology", "oncology", "pediatrics", "general_practice"],
+    "default": "general_practice"
+  },
+
+  "difficulty_levels": {
+    "supported": ["easy", "moderate", "hard"],
+    "default": "moderate",
+    "definitions": {
+      "easy": {
+        "tool_count_min": 1,
+        "tool_count_max": 3,
+        "description": "Basic clinical tasks"
+      },
+      "moderate": {
+        "tool_count_min": 4,
+        "tool_count_max": 6,
+        "description": "Intermediate clinical tasks"
+      },
+      "hard": {
+        "tool_count_min": 7,
+        "tool_count_max": 8,
+        "description": "Complex clinical tasks"
+      }
+    }
+  },
+
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "logs/pipeline.log"
+  }
+}

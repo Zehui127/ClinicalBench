@@ -1,0 +1,352 @@
+﻿[
+    {
+        "structured_query":  {
+                                 "patient_id":  "10032",
+                                 "indicators":  [
+                                                    "Chemistry"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_001",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10032, Type: Chemistry",
+                                                   "task_instructions":  "What is the creatinine level of patient 10032?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the creatinine level of patient 10032?",
+        "answer":  "Doctor answers: 1.2 mg/dL",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10032, Type: Chemistry"
+                        },
+        "ticket":  "What is the creatinine level of patient 10032?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10058",
+                                 "indicators":  [
+                                                    "Vital Signs"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_002",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10058, Type: Vital Signs",
+                                                   "task_instructions":  "What is the heart rate of patient 10058?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the heart rate of patient 10058?",
+        "answer":  "Doctor answers: 86 bpm",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10058, Type: Vital Signs"
+                        },
+        "ticket":  "What is the heart rate of patient 10058?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10147",
+                                 "indicators":  [
+                                                    "Diagnosis"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_003",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10147, Type: Diagnosis",
+                                                   "task_instructions":  "What is the diagnosis for patient 10147?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the diagnosis for patient 10147?",
+        "answer":  "Doctor answers: Sepsis",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10147, Type: Diagnosis"
+                        },
+        "ticket":  "What is the diagnosis for patient 10147?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10256",
+                                 "indicators":  [
+                                                    "Vital Signs"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_004",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10256, Type: Vital Signs",
+                                                   "task_instructions":  "What is the SpO2 level of patient 10256?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the SpO2 level of patient 10256?",
+        "answer":  "Doctor answers: 94%",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10256, Type: Vital Signs"
+                        },
+        "ticket":  "What is the SpO2 level of patient 10256?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10389",
+                                 "indicators":  [
+                                                    "Chemistry"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_005",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10389, Type: Chemistry",
+                                                   "task_instructions":  "What is the glucose level of patient 10389?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the glucose level of patient 10389?",
+        "answer":  "Doctor answers: 142 mg/dL",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10389, Type: Chemistry"
+                        },
+        "ticket":  "What is the glucose level of patient 10389?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10421",
+                                 "indicators":  [
+                                                    "Vital Signs"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_006",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10421, Type: Vital Signs",
+                                                   "task_instructions":  "What is the blood pressure of patient 10421?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the blood pressure of patient 10421?",
+        "answer":  "Doctor answers: 120/80 mmHg",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10421, Type: Vital Signs"
+                        },
+        "ticket":  "What is the blood pressure of patient 10421?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10567",
+                                 "indicators":  [
+                                                    "Hematology"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_007",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10567, Type: Hematology",
+                                                   "task_instructions":  "What is the WBC count of patient 10567?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the WBC count of patient 10567?",
+        "answer":  "Doctor answers: 11.2 K/uL",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10567, Type: Hematology"
+                        },
+        "ticket":  "What is the WBC count of patient 10567?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10689",
+                                 "indicators":  [
+                                                    "Hematology"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_008",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10689, Type: Hematology",
+                                                   "task_instructions":  "What is the platelet count of patient 10689?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the platelet count of patient 10689?",
+        "answer":  "Doctor answers: 180 x10^3/uL",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10689, Type: Hematology"
+                        },
+        "ticket":  "What is the platelet count of patient 10689?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10723",
+                                 "indicators":  [
+                                                    "Chemistry"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_009",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10723, Type: Chemistry",
+                                                   "task_instructions":  "What is the potassium level of patient 10723?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the potassium level of patient 10723?",
+        "answer":  "Doctor answers: 4.2 mEq/L",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10723, Type: Chemistry"
+                        },
+        "ticket":  "What is the potassium level of patient 10723?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    },
+    {
+        "structured_query":  {
+                                 "patient_id":  "10845",
+                                 "indicators":  [
+                                                    "Vital Signs"
+                                                ],
+                                 "query_type":  "lab_result_lookup"
+                             },
+        "id":  "physionet_010",
+        "evaluation_criteria":  null,
+        "user_scenario":  {
+                              "persona":  null,
+                              "instructions":  {
+                                                   "unknown_info":  null,
+                                                   "known_info":  "Patient: 10845, Type: Vital Signs",
+                                                   "task_instructions":  "What is the respiratory rate of patient 10845?",
+                                                   "domain":  "clinical",
+                                                   "reason_for_call":  "Patient data lookup"
+                                               }
+                          },
+        "question":  "Nurse asks: What is the respiratory rate of patient 10845?",
+        "answer":  "Doctor answers: 18 breaths/min",
+        "annotations":  null,
+        "initial_state":  null,
+        "description":  {
+                            "relevant_policies":  null,
+                            "purpose":  "Pre-consultation data retrieval",
+                            "notes":  "Patient: 10845, Type: Vital Signs"
+                        },
+        "ticket":  "What is the respiratory rate of patient 10845?",
+        "domain":  "clinical/consultation",
+        "original_format":  "PhysioNet",
+        "task_type":  "structured_query",
+        "consultation_scenario":  "pre_consultation_data"
+    }
+]

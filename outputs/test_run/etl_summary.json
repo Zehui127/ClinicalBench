@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "generated_at": "2026-03-06T15:53:04.482437",
+    "pipeline_version": "1.0.0"
+  },
+  "etl_result": {
+    "success": true,
+    "start_time": "2026-03-06T15:53:04.484454",
+    "end_time": null,
+    "duration_seconds": 0,
+    "records_processed": 8,
+    "records_failed": 0,
+    "tasks_generated": 8,
+    "db_records": 8,
+    "tools_count": 6,
+    "errors": [],
+    "warnings": [],
+    "output_files": {
+      "tasks": "outputs\\test_run\\tasks.json",
+      "db": "outputs\\test_run\\db.json",
+      "tools": "outputs\\test_run\\tools.json",
+      "policy": "outputs\\test_run\\policy.md"
+    }
+  },
+  "statistics": {
+    "total_records": 8,
+    "valid_records": 8,
+    "invalid_records": 0,
+    "by_department": {
+      "general_practice": 8
+    },
+    "by_difficulty": {
+      "moderate": 8
+    }
+  },
+  "tools_summary": {
+    "total_tools": 6,
+    "tool_names": [
+      "egfr_calculator",
+      "drug_dosing_calculator",
+      "drug_interaction_checker",
+      "vital_signs_analyzer",
+      "lab_values_interpreter",
+      "clinical_calculator"
+    ],
+    "departments_covered": [
+      "general",
+      "nephrology"
+    ]
+  }
+}

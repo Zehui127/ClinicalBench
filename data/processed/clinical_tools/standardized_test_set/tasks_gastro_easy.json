@@ -1,0 +1,3331 @@
+[
+  {
+    "id": "CE0364",
+    "task_id": "CE0364",
+    "patient_info": {
+      "age": 39,
+      "egfr": 64,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 91,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.6,
+      "scenario_realism": 4.17,
+      "evaluation_completeness": 4.19,
+      "difficulty_appropriateness": 4.85,
+      "average": 4.45
+    }
+  },
+  {
+    "id": "CE0387",
+    "task_id": "CE0387",
+    "patient_info": {
+      "age": 75,
+      "egfr": 64,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 164,
+      "blood_pressure_diastolic": 96,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.18,
+      "scenario_realism": 4.29,
+      "evaluation_completeness": 4.02,
+      "difficulty_appropriateness": 4.7,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "CE0390",
+    "task_id": "CE0390",
+    "patient_info": {
+      "age": 57,
+      "egfr": 88,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 177,
+      "blood_pressure_diastolic": 107,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.4,
+      "scenario_realism": 4.14,
+      "evaluation_completeness": 4.79,
+      "difficulty_appropriateness": 4.37,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "CE0393",
+    "task_id": "CE0393",
+    "patient_info": {
+      "age": 49,
+      "egfr": 93,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 157,
+      "blood_pressure_diastolic": 101,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.24,
+      "scenario_realism": 4.78,
+      "evaluation_completeness": 4.59,
+      "difficulty_appropriateness": 4.12,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "CE0394",
+    "task_id": "CE0394",
+    "patient_info": {
+      "age": 45,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 148,
+      "blood_pressure_diastolic": 89,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.18,
+      "scenario_realism": 4.12,
+      "evaluation_completeness": 4.81,
+      "difficulty_appropriateness": 4.05,
+      "average": 4.29
+    }
+  },
+  {
+    "id": "CE0406",
+    "task_id": "CE0406",
+    "patient_info": {
+      "age": 82,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 189,
+      "blood_pressure_diastolic": 105,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.5,
+      "scenario_realism": 4.11,
+      "evaluation_completeness": 4.19,
+      "difficulty_appropriateness": 4.96,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "CE0409",
+    "task_id": "CE0409",
+    "patient_info": {
+      "age": 72,
+      "egfr": 82,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 133,
+      "blood_pressure_diastolic": 75,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.9,
+      "scenario_realism": 4.46,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.43,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "CE0413",
+    "task_id": "CE0413",
+    "patient_info": {
+      "age": 47,
+      "egfr": 66,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 119,
+      "blood_pressure_diastolic": 107,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.54,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.94,
+      "difficulty_appropriateness": 4.33,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "CE0416",
+    "task_id": "CE0416",
+    "patient_info": {
+      "age": 67,
+      "egfr": 105,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 175,
+      "blood_pressure_diastolic": 98,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.19,
+      "scenario_realism": 4.46,
+      "evaluation_completeness": 4.85,
+      "difficulty_appropriateness": 4.19,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "CE0417",
+    "task_id": "CE0417",
+    "patient_info": {
+      "age": 49,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 129,
+      "blood_pressure_diastolic": 95,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.43,
+      "scenario_realism": 4.6,
+      "evaluation_completeness": 4.23,
+      "difficulty_appropriateness": 4.57,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "CE0423",
+    "task_id": "CE0423",
+    "patient_info": {
+      "age": 84,
+      "egfr": 91,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 174,
+      "blood_pressure_diastolic": 87,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "copd",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.48,
+      "scenario_realism": 4.25,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.37,
+      "average": 4.31
+    }
+  },
+  {
+    "id": "CE0425",
+    "task_id": "CE0425",
+    "patient_info": {
+      "age": 54,
+      "egfr": 105,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 164,
+      "blood_pressure_diastolic": 106,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.91,
+      "scenario_realism": 4.15,
+      "evaluation_completeness": 4.15,
+      "difficulty_appropriateness": 4.69,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "CE0429",
+    "task_id": "CE0429",
+    "patient_info": {
+      "age": 59,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 164,
+      "blood_pressure_diastolic": 95,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.35,
+      "scenario_realism": 4.13,
+      "evaluation_completeness": 4.42,
+      "difficulty_appropriateness": 4.09,
+      "average": 4.25
+    }
+  },
+  {
+    "id": "CE0430",
+    "task_id": "CE0430",
+    "patient_info": {
+      "age": 47,
+      "egfr": 91,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 124,
+      "blood_pressure_diastolic": 109,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.35,
+      "scenario_realism": 4.03,
+      "evaluation_completeness": 4.4,
+      "difficulty_appropriateness": 4.91,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "CE0439",
+    "task_id": "CE0439",
+    "patient_info": {
+      "age": 63,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 147,
+      "blood_pressure_diastolic": 112,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.2,
+      "scenario_realism": 4.44,
+      "evaluation_completeness": 4.26,
+      "difficulty_appropriateness": 4.15,
+      "average": 4.26
+    }
+  },
+  {
+    "id": "CE0449",
+    "task_id": "CE0449",
+    "patient_info": {
+      "age": 72,
+      "egfr": 103,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 173,
+      "blood_pressure_diastolic": 80,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.11,
+      "scenario_realism": 4.06,
+      "evaluation_completeness": 4.4,
+      "difficulty_appropriateness": 4.79,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "CE0450",
+    "task_id": "CE0450",
+    "patient_info": {
+      "age": 41,
+      "egfr": 95,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 122,
+      "blood_pressure_diastolic": 78,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.28,
+      "scenario_realism": 4.83,
+      "evaluation_completeness": 4.01,
+      "difficulty_appropriateness": 4.67,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "CE0452",
+    "task_id": "CE0452",
+    "patient_info": {
+      "age": 55,
+      "egfr": 105,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 182,
+      "blood_pressure_diastolic": 102,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.56,
+      "scenario_realism": 4.15,
+      "evaluation_completeness": 4.89,
+      "difficulty_appropriateness": 4.07,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "CE0465",
+    "task_id": "CE0465",
+    "patient_info": {
+      "age": 80,
+      "egfr": 79,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 155,
+      "blood_pressure_diastolic": 112,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.15,
+      "scenario_realism": 4.07,
+      "evaluation_completeness": 4.2,
+      "difficulty_appropriateness": 4.24,
+      "average": 4.17
+    }
+  },
+  {
+    "id": "CE0468",
+    "task_id": "CE0468",
+    "patient_info": {
+      "age": 42,
+      "egfr": 61,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 139,
+      "blood_pressure_diastolic": 76,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.47,
+      "scenario_realism": 4.07,
+      "evaluation_completeness": 4.43,
+      "difficulty_appropriateness": 4.89,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "CE0476",
+    "task_id": "CE0476",
+    "patient_info": {
+      "age": 66,
+      "egfr": 76,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 158,
+      "blood_pressure_diastolic": 97,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Unstable angina",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.73,
+      "scenario_realism": 4.58,
+      "evaluation_completeness": 4.33,
+      "difficulty_appropriateness": 4.23,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "CE0480",
+    "task_id": "CE0480",
+    "patient_info": {
+      "age": 62,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 167,
+      "blood_pressure_diastolic": 104,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Stable angina pectoris",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.01,
+      "scenario_realism": 4.05,
+      "evaluation_completeness": 4.14,
+      "difficulty_appropriateness": 4.97,
+      "average": 4.29
+    }
+  },
+  {
+    "id": "GE0721",
+    "task_id": "GE0721",
+    "patient_info": {
+      "age": 47,
+      "egfr": 70,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 128,
+      "blood_pressure_diastolic": 79,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.29,
+      "scenario_realism": 4.55,
+      "evaluation_completeness": 4.18,
+      "difficulty_appropriateness": 4.68,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "GE0726",
+    "task_id": "GE0726",
+    "patient_info": {
+      "age": 79,
+      "egfr": 102,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 123,
+      "blood_pressure_diastolic": 75,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.28,
+      "scenario_realism": 4.38,
+      "evaluation_completeness": 4.09,
+      "difficulty_appropriateness": 4.48,
+      "average": 4.31
+    }
+  },
+  {
+    "id": "GE0729",
+    "task_id": "GE0729",
+    "patient_info": {
+      "age": 61,
+      "egfr": 84,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 136,
+      "blood_pressure_diastolic": 76,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.14,
+      "scenario_realism": 4.6,
+      "evaluation_completeness": 4.26,
+      "difficulty_appropriateness": 4.38,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "GE0732",
+    "task_id": "GE0732",
+    "patient_info": {
+      "age": 77,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 115,
+      "blood_pressure_diastolic": 85,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.05,
+      "scenario_realism": 4.6,
+      "evaluation_completeness": 4.34,
+      "difficulty_appropriateness": 4.23,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "GE0735",
+    "task_id": "GE0735",
+    "patient_info": {
+      "age": 65,
+      "egfr": 95,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 119,
+      "blood_pressure_diastolic": 71,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.66,
+      "scenario_realism": 4.29,
+      "evaluation_completeness": 4.29,
+      "difficulty_appropriateness": 4.65,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "GE0738",
+    "task_id": "GE0738",
+    "patient_info": {
+      "age": 54,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 115,
+      "blood_pressure_diastolic": 77,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.46,
+      "scenario_realism": 4.37,
+      "evaluation_completeness": 4.17,
+      "difficulty_appropriateness": 4.91,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "GE0743",
+    "task_id": "GE0743",
+    "patient_info": {
+      "age": 51,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 115,
+      "blood_pressure_diastolic": 75,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.66,
+      "scenario_realism": 4.63,
+      "evaluation_completeness": 4.07,
+      "difficulty_appropriateness": 4.14,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "GE0750",
+    "task_id": "GE0750",
+    "patient_info": {
+      "age": 58,
+      "egfr": 72,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 114,
+      "blood_pressure_diastolic": 89,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.53,
+      "scenario_realism": 4.34,
+      "evaluation_completeness": 4.43,
+      "difficulty_appropriateness": 4.54,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "GE0755",
+    "task_id": "GE0755",
+    "patient_info": {
+      "age": 65,
+      "egfr": 105,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 110,
+      "blood_pressure_diastolic": 80,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "diabetes"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.17,
+      "scenario_realism": 4.11,
+      "evaluation_completeness": 4.47,
+      "difficulty_appropriateness": 4.05,
+      "average": 4.2
+    }
+  },
+  {
+    "id": "GE0758",
+    "task_id": "GE0758",
+    "patient_info": {
+      "age": 69,
+      "egfr": 78,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 122,
+      "blood_pressure_diastolic": 89,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Peptic ulcer disease",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.66,
+      "scenario_realism": 4.74,
+      "evaluation_completeness": 4.54,
+      "difficulty_appropriateness": 4.02,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "GE0760",
+    "task_id": "GE0760",
+    "patient_info": {
+      "age": 49,
+      "egfr": 95,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 125,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "peptic_ulcer"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.32,
+      "scenario_realism": 4.13,
+      "evaluation_completeness": 4.39,
+      "difficulty_appropriateness": 4.75,
+      "average": 4.4
+    }
+  },
+  {
+    "id": "GE0762",
+    "task_id": "GE0762",
+    "patient_info": {
+      "age": 74,
+      "egfr": 85,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 115,
+      "blood_pressure_diastolic": 88,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.25,
+      "scenario_realism": 4.86,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.57,
+      "average": 4.45
+    }
+  },
+  {
+    "id": "GE0763",
+    "task_id": "GE0763",
+    "patient_info": {
+      "age": 46,
+      "egfr": 100,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 139,
+      "blood_pressure_diastolic": 76,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.47,
+      "scenario_realism": 4.13,
+      "evaluation_completeness": 4.87,
+      "difficulty_appropriateness": 4.35,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "GE0764",
+    "task_id": "GE0764",
+    "patient_info": {
+      "age": 63,
+      "egfr": 85,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 135,
+      "blood_pressure_diastolic": 75,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.24,
+      "scenario_realism": 4.43,
+      "evaluation_completeness": 4.57,
+      "difficulty_appropriateness": 4.69,
+      "average": 4.48
+    }
+  },
+  {
+    "id": "GE0765",
+    "task_id": "GE0765",
+    "patient_info": {
+      "age": 78,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 86,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Peptic ulcer disease",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "copd",
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.33,
+      "scenario_realism": 4.54,
+      "evaluation_completeness": 4.1,
+      "difficulty_appropriateness": 4.5,
+      "average": 4.37
+    }
+  },
+  {
+    "id": "GE0767",
+    "task_id": "GE0767",
+    "patient_info": {
+      "age": 83,
+      "egfr": 107,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 134,
+      "blood_pressure_diastolic": 73,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.21,
+      "scenario_realism": 4.46,
+      "evaluation_completeness": 4.4,
+      "difficulty_appropriateness": 4.91,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "GE0775",
+    "task_id": "GE0775",
+    "patient_info": {
+      "age": 38,
+      "egfr": 98,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 128,
+      "blood_pressure_diastolic": 86,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.38,
+      "scenario_realism": 4.58,
+      "evaluation_completeness": 4.57,
+      "difficulty_appropriateness": 4.36,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "GE0780",
+    "task_id": "GE0780",
+    "patient_info": {
+      "age": 56,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 87,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Peptic ulcer disease",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.41,
+      "scenario_realism": 4.34,
+      "evaluation_completeness": 4.25,
+      "difficulty_appropriateness": 4.18,
+      "average": 4.29
+    }
+  },
+  {
+    "id": "GE0781",
+    "task_id": "GE0781",
+    "patient_info": {
+      "age": 39,
+      "egfr": 97,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 79,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.08,
+      "scenario_realism": 4.81,
+      "evaluation_completeness": 4.26,
+      "difficulty_appropriateness": 4.82,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "GE0785",
+    "task_id": "GE0785",
+    "patient_info": {
+      "age": 57,
+      "egfr": 78,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 124,
+      "blood_pressure_diastolic": 78,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.83,
+      "scenario_realism": 4.04,
+      "evaluation_completeness": 4.37,
+      "difficulty_appropriateness": 4.12,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "GE0786",
+    "task_id": "GE0786",
+    "patient_info": {
+      "age": 62,
+      "egfr": 94,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 120,
+      "blood_pressure_diastolic": 87,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.19,
+      "scenario_realism": 4.56,
+      "evaluation_completeness": 4.0,
+      "difficulty_appropriateness": 4.49,
+      "average": 4.31
+    }
+  },
+  {
+    "id": "GE0787",
+    "task_id": "GE0787",
+    "patient_info": {
+      "age": 55,
+      "egfr": 100,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 140,
+      "blood_pressure_diastolic": 88,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "copd",
+        "peptic_ulcer"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.21,
+      "scenario_realism": 4.26,
+      "evaluation_completeness": 4.49,
+      "difficulty_appropriateness": 4.21,
+      "average": 4.29
+    }
+  },
+  {
+    "id": "GE0798",
+    "task_id": "GE0798",
+    "patient_info": {
+      "age": 42,
+      "egfr": 94,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 110,
+      "blood_pressure_diastolic": 84,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.27,
+      "scenario_realism": 4.2,
+      "evaluation_completeness": 4.64,
+      "difficulty_appropriateness": 4.42,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "GE0799",
+    "task_id": "GE0799",
+    "patient_info": {
+      "age": 72,
+      "egfr": 77,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 112,
+      "blood_pressure_diastolic": 75,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "copd",
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.55,
+      "scenario_realism": 4.56,
+      "evaluation_completeness": 4.12,
+      "difficulty_appropriateness": 4.11,
+      "average": 4.33
+    }
+  },
+  {
+    "id": "GE0804",
+    "task_id": "GE0804",
+    "patient_info": {
+      "age": 36,
+      "egfr": 101,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 116,
+      "blood_pressure_diastolic": 79,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.73,
+      "scenario_realism": 4.21,
+      "evaluation_completeness": 4.28,
+      "difficulty_appropriateness": 4.47,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "GE0805",
+    "task_id": "GE0805",
+    "patient_info": {
+      "age": 61,
+      "egfr": 72,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 127,
+      "blood_pressure_diastolic": 82,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.01,
+      "scenario_realism": 4.25,
+      "evaluation_completeness": 4.23,
+      "difficulty_appropriateness": 4.01,
+      "average": 4.13
+    }
+  },
+  {
+    "id": "GE0807",
+    "task_id": "GE0807",
+    "patient_info": {
+      "age": 43,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 87,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.51,
+      "scenario_realism": 4.64,
+      "evaluation_completeness": 4.42,
+      "difficulty_appropriateness": 4.02,
+      "average": 4.4
+    }
+  },
+  {
+    "id": "GE0810",
+    "task_id": "GE0810",
+    "patient_info": {
+      "age": 44,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 111,
+      "blood_pressure_diastolic": 77,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.86,
+      "scenario_realism": 4.23,
+      "evaluation_completeness": 4.08,
+      "difficulty_appropriateness": 4.03,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "GE0811",
+    "task_id": "GE0811",
+    "patient_info": {
+      "age": 60,
+      "egfr": 98,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 116,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Peptic ulcer disease",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.65,
+      "scenario_realism": 4.45,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.27,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "GE0812",
+    "task_id": "GE0812",
+    "patient_info": {
+      "age": 77,
+      "egfr": 76,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 80,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.28,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.71,
+      "difficulty_appropriateness": 4.49,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "GE0813",
+    "task_id": "GE0813",
+    "patient_info": {
+      "age": 64,
+      "egfr": 77,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 113,
+      "blood_pressure_diastolic": 87,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "diabetes"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.59,
+      "scenario_realism": 4.7,
+      "evaluation_completeness": 4.1,
+      "difficulty_appropriateness": 4.22,
+      "average": 4.4
+    }
+  },
+  {
+    "id": "GE0815",
+    "task_id": "GE0815",
+    "patient_info": {
+      "age": 45,
+      "egfr": 76,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 75,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.08,
+      "scenario_realism": 4.62,
+      "evaluation_completeness": 4.71,
+      "difficulty_appropriateness": 4.31,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "GE0818",
+    "task_id": "GE0818",
+    "patient_info": {
+      "age": 39,
+      "egfr": 84,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 140,
+      "blood_pressure_diastolic": 78,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.15,
+      "scenario_realism": 4.39,
+      "evaluation_completeness": 4.26,
+      "difficulty_appropriateness": 4.93,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "GE0819",
+    "task_id": "GE0819",
+    "patient_info": {
+      "age": 75,
+      "egfr": 77,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 126,
+      "blood_pressure_diastolic": 79,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.41,
+      "scenario_realism": 4.18,
+      "evaluation_completeness": 4.37,
+      "difficulty_appropriateness": 4.99,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "GE0820",
+    "task_id": "GE0820",
+    "patient_info": {
+      "age": 82,
+      "egfr": 109,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 124,
+      "blood_pressure_diastolic": 74,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.84,
+      "scenario_realism": 4.79,
+      "evaluation_completeness": 4.19,
+      "difficulty_appropriateness": 4.01,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "GE0826",
+    "task_id": "GE0826",
+    "patient_info": {
+      "age": 46,
+      "egfr": 71,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 130,
+      "blood_pressure_diastolic": 80,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.03,
+      "scenario_realism": 4.34,
+      "evaluation_completeness": 4.79,
+      "difficulty_appropriateness": 4.39,
+      "average": 4.39
+    }
+  },
+  {
+    "id": "GE0828",
+    "task_id": "GE0828",
+    "patient_info": {
+      "age": 66,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 120,
+      "blood_pressure_diastolic": 81,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "melena",
+        "hematemesis",
+        "dizziness"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.41,
+      "scenario_realism": 4.54,
+      "evaluation_completeness": 4.03,
+      "difficulty_appropriateness": 4.34,
+      "average": 4.33
+    }
+  },
+  {
+    "id": "GE0829",
+    "task_id": "GE0829",
+    "patient_info": {
+      "age": 47,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 85,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "NSAID-induced gastropathy",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "bloating",
+        "early_satiety",
+        "postprandial_fullness"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.48,
+      "scenario_realism": 4.31,
+      "evaluation_completeness": 4.06,
+      "difficulty_appropriateness": 4.49,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "GE0830",
+    "task_id": "GE0830",
+    "patient_info": {
+      "age": 72,
+      "egfr": 89,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 139,
+      "blood_pressure_diastolic": 86,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "dysphagia",
+        "odynophagia",
+        "weight_loss"
+      ],
+      "comorbidities": [],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.14,
+      "scenario_realism": 4.96,
+      "evaluation_completeness": 4.56,
+      "difficulty_appropriateness": 4.01,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "GE0831",
+    "task_id": "GE0831",
+    "patient_info": {
+      "age": 44,
+      "egfr": 91,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 127,
+      "blood_pressure_diastolic": 81,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.8,
+      "scenario_realism": 4.22,
+      "evaluation_completeness": 4.46,
+      "difficulty_appropriateness": 4.19,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "GE0832",
+    "task_id": "GE0832",
+    "patient_info": {
+      "age": 70,
+      "egfr": 79,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 78,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastroesophageal reflux disease",
+      "medications": [
+        {
+          "name": "Pantoprazole",
+          "dosage": "40mg qd"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.78,
+      "scenario_realism": 4.65,
+      "evaluation_completeness": 4.17,
+      "difficulty_appropriateness": 4.09,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "GE0834",
+    "task_id": "GE0834",
+    "patient_info": {
+      "age": 80,
+      "egfr": 93,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 135,
+      "blood_pressure_diastolic": 78,
+      "contraindications": [
+        "liver_disease"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Duodenal ulcer",
+      "medications": [
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "nausea",
+        "vomiting",
+        "abdominal_pain"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "heart_failure"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.47,
+      "scenario_realism": 4.08,
+      "evaluation_completeness": 4.39,
+      "difficulty_appropriateness": 4.14,
+      "average": 4.27
+    }
+  },
+  {
+    "id": "GE0836",
+    "task_id": "GE0836",
+    "patient_info": {
+      "age": 64,
+      "egfr": 109,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 124,
+      "blood_pressure_diastolic": 85,
+      "contraindications": [
+        "renal_impairment"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Gastric ulcer",
+      "medications": [
+        {
+          "name": "Metoclopramide",
+          "dosage": "10mg tid"
+        },
+        {
+          "name": "Sucralfate",
+          "dosage": "1g qid"
+        },
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "heartburn",
+        "regurgitation"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level gastroenterology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.71,
+      "scenario_realism": 4.28,
+      "evaluation_completeness": 4.41,
+      "difficulty_appropriateness": 4.11,
+      "average": 4.38
+    }
+  }
+]

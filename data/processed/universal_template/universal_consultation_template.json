@@ -1,0 +1,32 @@
+﻿{
+    "unified_consultation_paradigm":  {
+                                          "dataset_mapping":  {
+                                                                  "medagentbench":  "8 tasks - Core consultation (primary_care)",
+                                                                  "physionet":  "10 tasks - Structured query (pre_consultation_data)",
+                                                                  "prodmedbench":  "1000 tasks - MCQ screening (differential_diagnosis)",
+                                                                  "medxpertqa":  "2450 tasks - Specialist consultation (specialist_consultation)"
+                                                              },
+                                          "version":  "1.0",
+                                          "description":  "Unified medical consultation task paradigm integrating multiple medical datasets",
+                                          "mandatory_fields":  {
+                                                                   "task_type":  "core_consultation|structured_query|mcq_screening|specialist_consultation",
+                                                                   "domain":  "clinical/consultation",
+                                                                   "id":  "unique_task_identifier",
+                                                                   "question":  "consultation_question",
+                                                                   "answer":  "consultation_answer"
+                                                               },
+                                          "task_types":  {
+                                                             "core_consultation":  "Free-form doctor-patient dialogue (MedAgentBench)",
+                                                             "structured_query":  "Pre-consultation data retrieval (PhysioNet)",
+                                                             "mcq_screening":  "Differential diagnosis with MCQ (ProdMedBench)",
+                                                             "specialist_consultation":  "Medical knowledge QA consultation (MedXpertQA)"
+                                                         },
+                                          "consultation_workflow":  {
+                                                                        "step_5_resolution":  "Final diagnosis/advice in natural language",
+                                                                        "step_1_pre_consultation":  "Structured query to retrieve patient data (PhysioNet)",
+                                                                        "step_2_primary_care":  "Free-form Q\u0026A for initial assessment (MedAgentBench)",
+                                                                        "step_3_specialist":  "Specialist consultation for complex cases (MedXpertQA)",
+                                                                        "step_4_screening":  "MCQ with CoT for differential diagnosis (ProdMedBench)"
+                                                                    }
+                                      }
+}

@@ -1,0 +1,117 @@
+{
+  "adapter_name": "MedAgentBenchToTau2Adapter",
+  "description": "Converts MedAgentBench test_data_v2.json format to tau2-bench Task format",
+  "source_format": "medagentbench_v2",
+  "target_format": "tau2_task",
+  "adapter_kwargs": {
+    "field_mappings": {
+      "id": {
+        "target_path": "id",
+        "transform": "direct"
+      },
+      "instruction": {
+        "target_path": ["user_scenario", "instructions", "task_instructions"],
+        "transform": "direct"
+      },
+      "context": {
+        "target_path": ["user_scenario", "instructions", "unknown_info"],
+        "transform": "direct",
+        "default": null
+      },
+      "sol": {
+        "target_path": "annotations",
+        "transform": "wrap_array",
+        "field_name": "expected_solution"
+      },
+      "eval_MRN": {
+        "target_path": ["annotations", "expected_answer"],
+        "transform": "direct"
+      }
+    },
+    "static_fields": {
+      "description": {
+        "purpose": "Find patient MRN by name and date of birth",
+        "relevant_policies": null,
+        "notes": null
+      },
+      "user_scenario": {
+        "persona": null,
+        "instructions": {
+          "domain": "clinical",
+          "reason_for_call": "Looking up patient information",
+          "task_instructions": null,
+          "known_info": null,
+          "unknown_info": null
+        }
+      },
+      "initial_state": null,
+      "evaluation_criteria": {
+        "actions": [],
+        "communicate_info": [],
+        "nl_assertions": []
+      },
+      "annotations": {
+        "source_format": "medagentbench_v2"
+      }
+    },
+    "dynamic_field_extractors": {
+      "known_info": {
+        "source_field": "instruction",
+        "pattern": "name ([\\w\\s]+) and DOB of ([\\d\\-]+)",
+        "template": "Patient name: {name}, DOB: {dob}"
+      },
+      "ticket": {
+        "source_field": "instruction",
+        "transform": "direct"
+      },
+      "nl_assertions": {
+        "source_field": "eval_MRN",
+        "template": "Agent should correctly identify the MRN as {value}"
+      }
+    },
+    "post_processors": [
+      {
+        "name": "add_ticket_field",
+        "operation": "copy",
+        "source": "instruction",
+        "target": "ticket"
+      },
+      {
+        "name": "extract_patient_info",
+        "operation": "regex_extract",
+        "source": "instruction",
+        "pattern": "name ([\\w\\s]+) and DOB of ([\\d\\-]+)",
+        "target": "user_scenario.instructions.known_info",
+        "format": "Patient name: {1}, DOB: {2}"
+      },
+      {
+        "name": "generate_nl_assertion",
+        "operation": "template",
+        "source": "eval_MRN",
+        "target": "evaluation_criteria.nl_assertions[0]",
+        "template": "Agent should correctly identify the MRN as {value}"
+      }
+    ]
+  },
+  "alternative_mapping": {
+    "note": "This section documents the user's requested mapping for reference",
+    "user_requested_mappings": {
+      "task_id": "id",
+      "patient_id": "patient.identifier",
+      "patient_info.name": "patient.full_name",
+      "patient_info.age": "patient.age",
+      "patient_info.sex": "patient.gender",
+      "patient_info.past_medical_history": "patient.medical_history",
+      "task_description": "scenario",
+      "evaluation_criteria": "criteria"
+    },
+    "actual_source_fields": {
+      "id": "Task identifier (e.g., 'task1_1')",
+      "instruction": "Task description/question text",
+      "context": "Additional context (usually empty)",
+      "sol": "Array of expected solution values",
+      "eval_MRN": "Expected MRN value for evaluation"
+    },
+    "mapping_discrepancy_note": "The actual source file has a simple flat structure without the nested patient_info fields mentioned in the user's mapping request. This adapter handles the actual structure found in test_data_v2.json"
+  }
+}

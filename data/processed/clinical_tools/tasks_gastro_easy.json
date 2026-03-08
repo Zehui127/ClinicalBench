@@ -1,0 +1,52 @@
+[
+  {
+    "id": "T007",
+    "task_id": "T007",
+    "patient_info": {
+      "age": 38,
+      "egfr": 48,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 142,
+      "blood_pressure_diastolic": 88,
+      "contraindications": [
+        "gastric_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive CKD with peptic ulcer",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "2.5mg qd (50% dose for eGFR 48)"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "edema"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer",
+        "CKD"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must avoid NSAIDs for gastric ulcer, and adjust Amlodipine dose for eGFR < 60. Must prescribe PPI gastroprotection. Evaluation points: tool timing (allergy check before prescription), parameter completeness (all 5 fields), policy compliance (NSAID contraindication)."
+  }
+]

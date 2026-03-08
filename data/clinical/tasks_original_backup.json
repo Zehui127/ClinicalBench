@@ -1,0 +1,250 @@
+[
+  {
+    "id": "task1_1",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Peter Stafford and DOB of 1932-12-29? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Peter Stafford, DOB: 1932-12-29",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Peter Stafford and DOB of 1932-12-29? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S6534835"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S6534835",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_2",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Maria Alvarez and DOB of 1940-03-05? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Maria Alvarez, DOB: 1940-03-05",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Maria Alvarez and DOB of 1940-03-05? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S6426560"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S6426560",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_3",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Dana Sandoval and DOB of 1989-04-19? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Dana Sandoval, DOB: 1989-04-19",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Dana Sandoval and DOB of 1989-04-19? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S1986380"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S1986380",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_4",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name James Snyder and DOB of 1953-08-03? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: James Snyder, DOB: 1953-08-03",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name James Snyder and DOB of 1953-08-03? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S6484983"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S6484983",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_5",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Justin Gould and DOB of 1943-05-19? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Justin Gould, DOB: 1943-05-19",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Justin Gould and DOB of 1943-05-19? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S2703270"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S2703270",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_6",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Andrew Bishop and DOB of 1963-01-29? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Andrew Bishop, DOB: 1963-01-29",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Andrew Bishop and DOB of 1963-01-29? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S2874099"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S2874099",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_7",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Kevin Vasquez and DOB of 1953-11-19? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Kevin Vasquez, DOB: 1953-11-19",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Kevin Vasquez and DOB of 1953-11-19? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S6200102"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S6200102",
+      "source_format": "medagentbench_v2"
+    }
+  },
+  {
+    "id": "task1_8",
+    "description": {
+      "purpose": "Find patient MRN by name and date of birth",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What's the MRN of the patient with name Brian Buchanan and DOB of 1954-08-10? If the patient does not exist, the answer should be \"Patient not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Looking up patient information",
+        "known_info": "Patient name: Brian Buchanan, DOB: 1954-08-10",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What's the MRN of the patient with name Brian Buchanan and DOB of 1954-08-10? If the patient does not exist, the answer should be \"Patient not found\"",
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent should correctly identify the MRN as S6530532"
+      ]
+    },
+    "annotations": {
+      "expected_answer": "S6530532",
+      "source_format": "medagentbench_v2"
+    }
+  }
+]

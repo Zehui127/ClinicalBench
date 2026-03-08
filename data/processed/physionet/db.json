@@ -1,0 +1,94 @@
+{
+  "qa_pairs": {
+    "physionet_001": {
+      "id": "qa_physionet_001",
+      "question": "What is the creatinine level of patient 10032?",
+      "answer": "1.2 mg/dL",
+      "task_id": "physionet_001",
+      "patient_id": "10032",
+      "lab_type": "Chemistry",
+      "unit": "mg/dL"
+    },
+    "physionet_002": {
+      "id": "qa_physionet_002",
+      "question": "What is the heart rate of patient 10058?",
+      "answer": "86 bpm",
+      "task_id": "physionet_002",
+      "patient_id": "10058",
+      "lab_type": "Vital Signs",
+      "unit": "bpm"
+    },
+    "physionet_003": {
+      "id": "qa_physionet_003",
+      "question": "What is the diagnosis for patient 10147?",
+      "answer": "Sepsis",
+      "task_id": "physionet_003",
+      "patient_id": "10147",
+      "lab_type": "Diagnosis",
+      "unit": null
+    },
+    "physionet_004": {
+      "id": "qa_physionet_004",
+      "question": "What is the SpO2 level of patient 10256?",
+      "answer": "94%",
+      "task_id": "physionet_004",
+      "patient_id": "10256",
+      "lab_type": "Vital Signs",
+      "unit": "%"
+    },
+    "physionet_005": {
+      "id": "qa_physionet_005",
+      "question": "What is the glucose level of patient 10389?",
+      "answer": "142 mg/dL",
+      "task_id": "physionet_005",
+      "patient_id": "10389",
+      "lab_type": "Chemistry",
+      "unit": "mg/dL"
+    },
+    "physionet_006": {
+      "id": "qa_physionet_006",
+      "question": "What is the blood pressure of patient 10421?",
+      "answer": "120/80 mmHg",
+      "task_id": "physionet_006",
+      "patient_id": "10421",
+      "lab_type": "Vital Signs",
+      "unit": "mmHg"
+    },
+    "physionet_007": {
+      "id": "qa_physionet_007",
+      "question": "What is the WBC count of patient 10567?",
+      "answer": "11.2 K/uL",
+      "task_id": "physionet_007",
+      "patient_id": "10567",
+      "lab_type": "Hematology",
+      "unit": "K/uL"
+    },
+    "physionet_008": {
+      "id": "qa_physionet_008",
+      "question": "What is the platelet count of patient 10689?",
+      "answer": "180 x10^3/uL",
+      "task_id": "physionet_008",
+      "patient_id": "10689",
+      "lab_type": "Hematology",
+      "unit": "x10^3/uL"
+    },
+    "physionet_009": {
+      "id": "qa_physionet_009",
+      "question": "What is the potassium level of patient 10723?",
+      "answer": "4.2 mEq/L",
+      "task_id": "physionet_009",
+      "patient_id": "10723",
+      "lab_type": "Chemistry",
+      "unit": "mEq/L"
+    },
+    "physionet_010": {
+      "id": "qa_physionet_010",
+      "question": "What is the respiratory rate of patient 10845?",
+      "answer": "18 breaths/min",
+      "task_id": "physionet_010",
+      "patient_id": "10845",
+      "lab_type": "Vital Signs",
+      "unit": "breaths/min"
+    }
+  }
+}

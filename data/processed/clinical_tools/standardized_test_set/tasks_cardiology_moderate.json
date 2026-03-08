@@ -1,0 +1,5341 @@
+[
+  {
+    "id": "CM0510",
+    "task_id": "CM0510",
+    "patient_info": {
+      "age": 41,
+      "egfr": 66,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 116,
+      "blood_pressure_diastolic": 113,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "retrieve_medication_details",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.34,
+      "scenario_realism": 4.8,
+      "evaluation_completeness": 4.13,
+      "difficulty_appropriateness": 4.78,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CM0549",
+    "task_id": "CM0549",
+    "patient_info": {
+      "age": 35,
+      "egfr": 60,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 179,
+      "blood_pressure_diastolic": 98,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 5.0,
+      "scenario_realism": 4.77,
+      "evaluation_completeness": 4.09,
+      "difficulty_appropriateness": 4.72,
+      "average": 4.64
+    }
+  },
+  {
+    "id": "CH0716",
+    "task_id": "CH0716",
+    "patient_info": {
+      "age": 62,
+      "egfr": 97,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 154,
+      "blood_pressure_diastolic": 98,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "assess_risk_level",
+        "retrieve_clinical_guideline",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.2,
+      "scenario_realism": 4.53,
+      "evaluation_completeness": 4.42,
+      "difficulty_appropriateness": 4.87,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CH0666",
+    "task_id": "CH0666",
+    "patient_info": {
+      "age": 69,
+      "egfr": 76,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 103,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan",
+        "ask_symptom_details",
+        "assess_risk_level",
+        "retrieve_medication_details",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.01,
+      "scenario_realism": 4.96,
+      "evaluation_completeness": 4.12,
+      "difficulty_appropriateness": 4.89,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CM0588",
+    "task_id": "CM0588",
+    "patient_info": {
+      "age": 47,
+      "egfr": 67,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 139,
+      "blood_pressure_diastolic": 93,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.03,
+      "scenario_realism": 4.37,
+      "evaluation_completeness": 4.73,
+      "difficulty_appropriateness": 4.16,
+      "average": 4.32
+    }
+  },
+  {
+    "id": "CH0632",
+    "task_id": "CH0632",
+    "patient_info": {
+      "age": 35,
+      "egfr": 61,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 134,
+      "blood_pressure_diastolic": 98,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "ask_symptom_details",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.11,
+      "scenario_realism": 4.63,
+      "evaluation_completeness": 4.54,
+      "difficulty_appropriateness": 4.81,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CE0479",
+    "task_id": "CE0479",
+    "patient_info": {
+      "age": 50,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 158,
+      "blood_pressure_diastolic": 93,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.28,
+      "scenario_realism": 4.64,
+      "evaluation_completeness": 4.8,
+      "difficulty_appropriateness": 4.28,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CM0530",
+    "task_id": "CM0530",
+    "patient_info": {
+      "age": 65,
+      "egfr": 107,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 123,
+      "blood_pressure_diastolic": 99,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "generate_follow_up_plan",
+        "retrieve_medication_details",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.89,
+      "scenario_realism": 4.65,
+      "evaluation_completeness": 4.65,
+      "difficulty_appropriateness": 4.97,
+      "average": 4.79
+    }
+  },
+  {
+    "id": "CE0474",
+    "task_id": "CE0474",
+    "patient_info": {
+      "age": 77,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 86,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.69,
+      "scenario_realism": 4.2,
+      "evaluation_completeness": 4.6,
+      "difficulty_appropriateness": 4.63,
+      "average": 4.53
+    }
+  },
+  {
+    "id": "CM0522",
+    "task_id": "CM0522",
+    "patient_info": {
+      "age": 62,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 162,
+      "blood_pressure_diastolic": 106,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "prescribe_medication_safe",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.89,
+      "scenario_realism": 4.19,
+      "evaluation_completeness": 4.41,
+      "difficulty_appropriateness": 4.93,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CH0688",
+    "task_id": "CH0688",
+    "patient_info": {
+      "age": 50,
+      "egfr": 73,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 156,
+      "blood_pressure_diastolic": 111,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe",
+        "ask_symptom_details",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.4,
+      "scenario_realism": 4.92,
+      "evaluation_completeness": 4.16,
+      "difficulty_appropriateness": 4.94,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CM0600",
+    "task_id": "CM0600",
+    "patient_info": {
+      "age": 75,
+      "egfr": 69,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 150,
+      "blood_pressure_diastolic": 83,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "assess_risk_level",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.08,
+      "scenario_realism": 4.75,
+      "evaluation_completeness": 4.51,
+      "difficulty_appropriateness": 4.91,
+      "average": 4.56
+    }
+  },
+  {
+    "id": "CM0589",
+    "task_id": "CM0589",
+    "patient_info": {
+      "age": 70,
+      "egfr": 91,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 95,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "record_diagnosis_icd10",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.59,
+      "scenario_realism": 4.12,
+      "evaluation_completeness": 4.32,
+      "difficulty_appropriateness": 4.86,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "CM0571",
+    "task_id": "CM0571",
+    "patient_info": {
+      "age": 72,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 105,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "record_diagnosis_icd10",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.17,
+      "scenario_realism": 4.14,
+      "evaluation_completeness": 4.49,
+      "difficulty_appropriateness": 4.39,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "CM0514",
+    "task_id": "CM0514",
+    "patient_info": {
+      "age": 64,
+      "egfr": 99,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 142,
+      "blood_pressure_diastolic": 90,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.87,
+      "scenario_realism": 4.11,
+      "evaluation_completeness": 4.78,
+      "difficulty_appropriateness": 4.2,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "CH0682",
+    "task_id": "CH0682",
+    "patient_info": {
+      "age": 59,
+      "egfr": 91,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 117,
+      "blood_pressure_diastolic": 99,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline",
+        "ask_symptom_details",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.91,
+      "scenario_realism": 4.91,
+      "evaluation_completeness": 4.65,
+      "difficulty_appropriateness": 4.53,
+      "average": 4.75
+    }
+  },
+  {
+    "id": "CH0665",
+    "task_id": "CH0665",
+    "patient_info": {
+      "age": 35,
+      "egfr": 69,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 192,
+      "blood_pressure_diastolic": 82,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "retrieve_medication_details",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.6,
+      "scenario_realism": 4.66,
+      "evaluation_completeness": 4.51,
+      "difficulty_appropriateness": 4.39,
+      "average": 4.54
+    }
+  },
+  {
+    "id": "CE0389",
+    "task_id": "CE0389",
+    "patient_info": {
+      "age": 50,
+      "egfr": 94,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 129,
+      "blood_pressure_diastolic": 105,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.94,
+      "scenario_realism": 4.51,
+      "evaluation_completeness": 4.81,
+      "difficulty_appropriateness": 4.19,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CM0577",
+    "task_id": "CM0577",
+    "patient_info": {
+      "age": 85,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 163,
+      "blood_pressure_diastolic": 76,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "prescribe_medication_safe",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.29,
+      "scenario_realism": 4.3,
+      "evaluation_completeness": 4.88,
+      "difficulty_appropriateness": 4.83,
+      "average": 4.58
+    }
+  },
+  {
+    "id": "CE0379",
+    "task_id": "CE0379",
+    "patient_info": {
+      "age": 39,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 171,
+      "blood_pressure_diastolic": 112,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.03,
+      "scenario_realism": 4.98,
+      "evaluation_completeness": 4.27,
+      "difficulty_appropriateness": 4.86,
+      "average": 4.53
+    }
+  },
+  {
+    "id": "CH0602",
+    "task_id": "CH0602",
+    "patient_info": {
+      "age": 72,
+      "egfr": 100,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 165,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "assess_risk_level",
+        "prescribe_medication_safe",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.42,
+      "scenario_realism": 4.5,
+      "evaluation_completeness": 4.4,
+      "difficulty_appropriateness": 4.89,
+      "average": 4.55
+    }
+  },
+  {
+    "id": "CE0407",
+    "task_id": "CE0407",
+    "patient_info": {
+      "age": 64,
+      "egfr": 104,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 132,
+      "blood_pressure_diastolic": 97,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.87,
+      "scenario_realism": 4.93,
+      "evaluation_completeness": 4.68,
+      "difficulty_appropriateness": 4.69,
+      "average": 4.79
+    }
+  },
+  {
+    "id": "CE0432",
+    "task_id": "CE0432",
+    "patient_info": {
+      "age": 61,
+      "egfr": 85,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 147,
+      "blood_pressure_diastolic": 114,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.5,
+      "scenario_realism": 4.96,
+      "evaluation_completeness": 4.76,
+      "difficulty_appropriateness": 4.81,
+      "average": 4.76
+    }
+  },
+  {
+    "id": "CH0713",
+    "task_id": "CH0713",
+    "patient_info": {
+      "age": 75,
+      "egfr": 93,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 177,
+      "blood_pressure_diastolic": 83,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "assess_risk_level",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.12,
+      "scenario_realism": 4.58,
+      "evaluation_completeness": 4.7,
+      "difficulty_appropriateness": 4.98,
+      "average": 4.6
+    }
+  },
+  {
+    "id": "CE0435",
+    "task_id": "CE0435",
+    "patient_info": {
+      "age": 47,
+      "egfr": 61,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 146,
+      "blood_pressure_diastolic": 94,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.82,
+      "scenario_realism": 4.55,
+      "evaluation_completeness": 4.89,
+      "difficulty_appropriateness": 4.56,
+      "average": 4.71
+    }
+  },
+  {
+    "id": "CH0702",
+    "task_id": "CH0702",
+    "patient_info": {
+      "age": 73,
+      "egfr": 82,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 184,
+      "blood_pressure_diastolic": 105,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "ask_symptom_details",
+        "transfer_to_specialist",
+        "get_medical_history_key",
+        "prescribe_medication_safe",
+        "assess_risk_level",
+        "generate_follow_up_plan",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.14,
+      "scenario_realism": 4.97,
+      "evaluation_completeness": 4.49,
+      "difficulty_appropriateness": 4.43,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CM0564",
+    "task_id": "CM0564",
+    "patient_info": {
+      "age": 85,
+      "egfr": 68,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 181,
+      "blood_pressure_diastolic": 113,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist",
+        "generate_follow_up_plan",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.46,
+      "scenario_realism": 4.51,
+      "evaluation_completeness": 4.24,
+      "difficulty_appropriateness": 4.35,
+      "average": 4.39
+    }
+  },
+  {
+    "id": "CH0712",
+    "task_id": "CH0712",
+    "patient_info": {
+      "age": 55,
+      "egfr": 89,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 176,
+      "blood_pressure_diastolic": 107,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "record_diagnosis_icd10",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "ask_symptom_details",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.85,
+      "scenario_realism": 4.3,
+      "evaluation_completeness": 4.83,
+      "difficulty_appropriateness": 4.84,
+      "average": 4.71
+    }
+  },
+  {
+    "id": "CM0544",
+    "task_id": "CM0544",
+    "patient_info": {
+      "age": 76,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 120,
+      "blood_pressure_diastolic": 108,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.64,
+      "scenario_realism": 4.21,
+      "evaluation_completeness": 4.08,
+      "difficulty_appropriateness": 4.9,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "CE0382",
+    "task_id": "CE0382",
+    "patient_info": {
+      "age": 38,
+      "egfr": 77,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 132,
+      "blood_pressure_diastolic": 82,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.72,
+      "scenario_realism": 4.99,
+      "evaluation_completeness": 4.72,
+      "difficulty_appropriateness": 4.94,
+      "average": 4.84
+    }
+  },
+  {
+    "id": "CM0503",
+    "task_id": "CM0503",
+    "patient_info": {
+      "age": 66,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 119,
+      "blood_pressure_diastolic": 92,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "copd",
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "assess_risk_level",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.5,
+      "scenario_realism": 4.13,
+      "evaluation_completeness": 4.72,
+      "difficulty_appropriateness": 4.72,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CM0501",
+    "task_id": "CM0501",
+    "patient_info": {
+      "age": 35,
+      "egfr": 60,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 101,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "generate_follow_up_plan",
+        "retrieve_medication_details",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.41,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.76,
+      "difficulty_appropriateness": 4.84,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CH0623",
+    "task_id": "CH0623",
+    "patient_info": {
+      "age": 77,
+      "egfr": 65,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 159,
+      "blood_pressure_diastolic": 104,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "ask_symptom_details",
+        "generate_follow_up_plan",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "assess_risk_level",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.05,
+      "scenario_realism": 4.81,
+      "evaluation_completeness": 4.27,
+      "difficulty_appropriateness": 4.89,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CM0517",
+    "task_id": "CM0517",
+    "patient_info": {
+      "age": 58,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 136,
+      "blood_pressure_diastolic": 108,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 2",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "ask_symptom_details",
+        "record_diagnosis_icd10",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.68,
+      "scenario_realism": 4.47,
+      "evaluation_completeness": 4.0,
+      "difficulty_appropriateness": 4.94,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CH0678",
+    "task_id": "CH0678",
+    "patient_info": {
+      "age": 56,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 122,
+      "blood_pressure_diastolic": 90,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "generate_follow_up_plan",
+        "retrieve_medication_details",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.36,
+      "scenario_realism": 4.2,
+      "evaluation_completeness": 4.91,
+      "difficulty_appropriateness": 4.95,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CE0469",
+    "task_id": "CE0469",
+    "patient_info": {
+      "age": 65,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 117,
+      "blood_pressure_diastolic": 82,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.23,
+      "scenario_realism": 4.8,
+      "evaluation_completeness": 4.99,
+      "difficulty_appropriateness": 4.19,
+      "average": 4.55
+    }
+  },
+  {
+    "id": "CM0533",
+    "task_id": "CM0533",
+    "patient_info": {
+      "age": 50,
+      "egfr": 70,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 150,
+      "blood_pressure_diastolic": 115,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "get_medical_history_key",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.54,
+      "scenario_realism": 4.79,
+      "evaluation_completeness": 4.37,
+      "difficulty_appropriateness": 4.05,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "CE0366",
+    "task_id": "CE0366",
+    "patient_info": {
+      "age": 69,
+      "egfr": 82,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 157,
+      "blood_pressure_diastolic": 94,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.97,
+      "scenario_realism": 4.26,
+      "evaluation_completeness": 4.79,
+      "difficulty_appropriateness": 4.67,
+      "average": 4.67
+    }
+  },
+  {
+    "id": "CH0701",
+    "task_id": "CH0701",
+    "patient_info": {
+      "age": 62,
+      "egfr": 64,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 177,
+      "blood_pressure_diastolic": 110,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "copd",
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "record_diagnosis_icd10",
+        "retrieve_medication_details",
+        "get_medical_history_key",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.93,
+      "scenario_realism": 4.78,
+      "evaluation_completeness": 4.24,
+      "difficulty_appropriateness": 4.78,
+      "average": 4.68
+    }
+  },
+  {
+    "id": "CH0672",
+    "task_id": "CH0672",
+    "patient_info": {
+      "age": 49,
+      "egfr": 72,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 135,
+      "blood_pressure_diastolic": 102,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "record_diagnosis_icd10",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.31,
+      "scenario_realism": 4.81,
+      "evaluation_completeness": 4.55,
+      "difficulty_appropriateness": 4.62,
+      "average": 4.57
+    }
+  },
+  {
+    "id": "CH0649",
+    "task_id": "CH0649",
+    "patient_info": {
+      "age": 80,
+      "egfr": 89,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 134,
+      "blood_pressure_diastolic": 107,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "copd",
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "transfer_to_specialist",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.7,
+      "scenario_realism": 4.82,
+      "evaluation_completeness": 4.53,
+      "difficulty_appropriateness": 4.76,
+      "average": 4.7
+    }
+  },
+  {
+    "id": "CM0594",
+    "task_id": "CM0594",
+    "patient_info": {
+      "age": 82,
+      "egfr": 80,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 142,
+      "blood_pressure_diastolic": 93,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.18,
+      "scenario_realism": 4.43,
+      "evaluation_completeness": 4.08,
+      "difficulty_appropriateness": 4.66,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "CM0531",
+    "task_id": "CM0531",
+    "patient_info": {
+      "age": 52,
+      "egfr": 72,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 115,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "assess_risk_level",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.44,
+      "scenario_realism": 4.29,
+      "evaluation_completeness": 4.47,
+      "difficulty_appropriateness": 4.19,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "CH0660",
+    "task_id": "CH0660",
+    "patient_info": {
+      "age": 43,
+      "egfr": 82,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 151,
+      "blood_pressure_diastolic": 107,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist",
+        "generate_follow_up_plan",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.95,
+      "scenario_realism": 4.19,
+      "evaluation_completeness": 4.61,
+      "difficulty_appropriateness": 4.5,
+      "average": 4.56
+    }
+  },
+  {
+    "id": "CE0471",
+    "task_id": "CE0471",
+    "patient_info": {
+      "age": 67,
+      "egfr": 97,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 106,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "record_diagnosis_icd10"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.34,
+      "scenario_realism": 4.58,
+      "evaluation_completeness": 4.53,
+      "difficulty_appropriateness": 4.62,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CM0580",
+    "task_id": "CM0580",
+    "patient_info": {
+      "age": 67,
+      "egfr": 105,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 134,
+      "blood_pressure_diastolic": 83,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "ask_symptom_details",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.01,
+      "scenario_realism": 4.37,
+      "evaluation_completeness": 4.68,
+      "difficulty_appropriateness": 4.77,
+      "average": 4.46
+    }
+  },
+  {
+    "id": "CM0554",
+    "task_id": "CM0554",
+    "patient_info": {
+      "age": 80,
+      "egfr": 68,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 140,
+      "blood_pressure_diastolic": 106,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "ask_symptom_details",
+        "get_medical_history_key",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.5,
+      "scenario_realism": 4.82,
+      "evaluation_completeness": 4.41,
+      "difficulty_appropriateness": 4.62,
+      "average": 4.59
+    }
+  },
+  {
+    "id": "CM0488",
+    "task_id": "CM0488",
+    "patient_info": {
+      "age": 70,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 130,
+      "blood_pressure_diastolic": 113,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.08,
+      "scenario_realism": 4.88,
+      "evaluation_completeness": 4.57,
+      "difficulty_appropriateness": 4.36,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "CM0590",
+    "task_id": "CM0590",
+    "patient_info": {
+      "age": 78,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 121,
+      "blood_pressure_diastolic": 96,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.93,
+      "scenario_realism": 4.41,
+      "evaluation_completeness": 4.04,
+      "difficulty_appropriateness": 4.59,
+      "average": 4.49
+    }
+  },
+  {
+    "id": "CM0481",
+    "task_id": "CM0481",
+    "patient_info": {
+      "age": 45,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 122,
+      "blood_pressure_diastolic": 100,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe",
+        "record_diagnosis_icd10"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.46,
+      "scenario_realism": 4.31,
+      "evaluation_completeness": 4.54,
+      "difficulty_appropriateness": 4.76,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CM0512",
+    "task_id": "CM0512",
+    "patient_info": {
+      "age": 77,
+      "egfr": 103,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 133,
+      "blood_pressure_diastolic": 78,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.85,
+      "scenario_realism": 4.38,
+      "evaluation_completeness": 4.06,
+      "difficulty_appropriateness": 4.72,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CH0639",
+    "task_id": "CH0639",
+    "patient_info": {
+      "age": 80,
+      "egfr": 77,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 165,
+      "blood_pressure_diastolic": 81,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "transfer_to_specialist",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "generate_follow_up_plan",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.33,
+      "scenario_realism": 4.94,
+      "evaluation_completeness": 4.74,
+      "difficulty_appropriateness": 4.7,
+      "average": 4.67
+    }
+  },
+  {
+    "id": "CM0516",
+    "task_id": "CM0516",
+    "patient_info": {
+      "age": 70,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 87,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.71,
+      "scenario_realism": 4.39,
+      "evaluation_completeness": 4.33,
+      "difficulty_appropriateness": 4.34,
+      "average": 4.44
+    }
+  },
+  {
+    "id": "CE0361",
+    "task_id": "CE0361",
+    "patient_info": {
+      "age": 59,
+      "egfr": 102,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 187,
+      "blood_pressure_diastolic": 86,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.78,
+      "scenario_realism": 4.3,
+      "evaluation_completeness": 4.04,
+      "difficulty_appropriateness": 4.97,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CE0470",
+    "task_id": "CE0470",
+    "patient_info": {
+      "age": 53,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 165,
+      "blood_pressure_diastolic": 78,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.44,
+      "scenario_realism": 4.39,
+      "evaluation_completeness": 4.76,
+      "difficulty_appropriateness": 4.46,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CM0523",
+    "task_id": "CM0523",
+    "patient_info": {
+      "age": 67,
+      "egfr": 94,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 125,
+      "blood_pressure_diastolic": 92,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan",
+        "ask_symptom_details",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.74,
+      "scenario_realism": 4.03,
+      "evaluation_completeness": 4.25,
+      "difficulty_appropriateness": 4.31,
+      "average": 4.33
+    }
+  },
+  {
+    "id": "CE0440",
+    "task_id": "CE0440",
+    "patient_info": {
+      "age": 58,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 162,
+      "blood_pressure_diastolic": 94,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.98,
+      "scenario_realism": 4.96,
+      "evaluation_completeness": 4.98,
+      "difficulty_appropriateness": 4.98,
+      "average": 4.98
+    }
+  },
+  {
+    "id": "CM0565",
+    "task_id": "CM0565",
+    "patient_info": {
+      "age": 77,
+      "egfr": 104,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 119,
+      "blood_pressure_diastolic": 113,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "retrieve_medication_details",
+        "get_medical_history_key",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.69,
+      "scenario_realism": 4.42,
+      "evaluation_completeness": 4.92,
+      "difficulty_appropriateness": 4.61,
+      "average": 4.66
+    }
+  },
+  {
+    "id": "CE0402",
+    "task_id": "CE0402",
+    "patient_info": {
+      "age": 53,
+      "egfr": 70,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 169,
+      "blood_pressure_diastolic": 101,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 2",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.73,
+      "scenario_realism": 4.45,
+      "evaluation_completeness": 4.92,
+      "difficulty_appropriateness": 4.56,
+      "average": 4.66
+    }
+  },
+  {
+    "id": "CH0645",
+    "task_id": "CH0645",
+    "patient_info": {
+      "age": 58,
+      "egfr": 99,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 128,
+      "blood_pressure_diastolic": 76,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "record_diagnosis_icd10",
+        "assess_risk_level",
+        "ask_symptom_details",
+        "prescribe_medication_safe",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.92,
+      "scenario_realism": 4.69,
+      "evaluation_completeness": 4.35,
+      "difficulty_appropriateness": 4.59,
+      "average": 4.64
+    }
+  },
+  {
+    "id": "CM0482",
+    "task_id": "CM0482",
+    "patient_info": {
+      "age": 52,
+      "egfr": 93,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 84,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "retrieve_medication_details",
+        "retrieve_clinical_guideline",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.5,
+      "scenario_realism": 4.3,
+      "evaluation_completeness": 4.45,
+      "difficulty_appropriateness": 4.45,
+      "average": 4.42
+    }
+  },
+  {
+    "id": "CM0552",
+    "task_id": "CM0552",
+    "patient_info": {
+      "age": 47,
+      "egfr": 87,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 136,
+      "blood_pressure_diastolic": 102,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "get_medical_history_key",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.83,
+      "scenario_realism": 4.66,
+      "evaluation_completeness": 4.55,
+      "difficulty_appropriateness": 4.73,
+      "average": 4.69
+    }
+  },
+  {
+    "id": "CM0562",
+    "task_id": "CM0562",
+    "patient_info": {
+      "age": 49,
+      "egfr": 96,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 191,
+      "blood_pressure_diastolic": 79,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.19,
+      "scenario_realism": 4.57,
+      "evaluation_completeness": 4.94,
+      "difficulty_appropriateness": 4.79,
+      "average": 4.62
+    }
+  },
+  {
+    "id": "CM0545",
+    "task_id": "CM0545",
+    "patient_info": {
+      "age": 55,
+      "egfr": 71,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 171,
+      "blood_pressure_diastolic": 115,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "transfer_to_specialist",
+        "retrieve_medication_details",
+        "record_diagnosis_icd10",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.91,
+      "scenario_realism": 4.73,
+      "evaluation_completeness": 4.56,
+      "difficulty_appropriateness": 4.26,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CE0448",
+    "task_id": "CE0448",
+    "patient_info": {
+      "age": 53,
+      "egfr": 106,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 139,
+      "blood_pressure_diastolic": 101,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "diabetes"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.72,
+      "scenario_realism": 4.86,
+      "evaluation_completeness": 4.24,
+      "difficulty_appropriateness": 4.86,
+      "average": 4.67
+    }
+  },
+  {
+    "id": "CH0646",
+    "task_id": "CH0646",
+    "patient_info": {
+      "age": 79,
+      "egfr": 63,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 148,
+      "blood_pressure_diastolic": 77,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "get_medical_history_key",
+        "assess_risk_level",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.58,
+      "scenario_realism": 4.53,
+      "evaluation_completeness": 4.25,
+      "difficulty_appropriateness": 4.69,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CM0499",
+    "task_id": "CM0499",
+    "patient_info": {
+      "age": 48,
+      "egfr": 97,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 180,
+      "blood_pressure_diastolic": 93,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.61,
+      "scenario_realism": 4.83,
+      "evaluation_completeness": 4.94,
+      "difficulty_appropriateness": 4.26,
+      "average": 4.66
+    }
+  },
+  {
+    "id": "CM0592",
+    "task_id": "CM0592",
+    "patient_info": {
+      "age": 47,
+      "egfr": 69,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 169,
+      "blood_pressure_diastolic": 76,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.24,
+      "scenario_realism": 4.67,
+      "evaluation_completeness": 4.81,
+      "difficulty_appropriateness": 4.65,
+      "average": 4.59
+    }
+  },
+  {
+    "id": "CM0532",
+    "task_id": "CM0532",
+    "patient_info": {
+      "age": 53,
+      "egfr": 101,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 173,
+      "blood_pressure_diastolic": 97,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.04,
+      "scenario_realism": 4.21,
+      "evaluation_completeness": 4.32,
+      "difficulty_appropriateness": 4.16,
+      "average": 4.18
+    }
+  },
+  {
+    "id": "CH0677",
+    "task_id": "CH0677",
+    "patient_info": {
+      "age": 78,
+      "egfr": 107,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 117,
+      "blood_pressure_diastolic": 110,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "transfer_to_specialist",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.68,
+      "scenario_realism": 4.1,
+      "evaluation_completeness": 4.89,
+      "difficulty_appropriateness": 4.78,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CM0568",
+    "task_id": "CM0568",
+    "patient_info": {
+      "age": 53,
+      "egfr": 69,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 141,
+      "blood_pressure_diastolic": 88,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.63,
+      "scenario_realism": 4.23,
+      "evaluation_completeness": 4.15,
+      "difficulty_appropriateness": 4.1,
+      "average": 4.28
+    }
+  },
+  {
+    "id": "CM0485",
+    "task_id": "CM0485",
+    "patient_info": {
+      "age": 54,
+      "egfr": 78,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 83,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "assess_risk_level",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.33,
+      "scenario_realism": 4.02,
+      "evaluation_completeness": 4.24,
+      "difficulty_appropriateness": 4.31,
+      "average": 4.23
+    }
+  },
+  {
+    "id": "CM0521",
+    "task_id": "CM0521",
+    "patient_info": {
+      "age": 45,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 147,
+      "blood_pressure_diastolic": 110,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.93,
+      "scenario_realism": 4.55,
+      "evaluation_completeness": 4.05,
+      "difficulty_appropriateness": 4.2,
+      "average": 4.43
+    }
+  },
+  {
+    "id": "CE0369",
+    "task_id": "CE0369",
+    "patient_info": {
+      "age": 42,
+      "egfr": 73,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 181,
+      "blood_pressure_diastolic": 104,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.51,
+      "scenario_realism": 4.89,
+      "evaluation_completeness": 4.04,
+      "difficulty_appropriateness": 4.73,
+      "average": 4.54
+    }
+  },
+  {
+    "id": "CM0576",
+    "task_id": "CM0576",
+    "patient_info": {
+      "age": 64,
+      "egfr": 65,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 147,
+      "blood_pressure_diastolic": 102,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.74,
+      "scenario_realism": 4.69,
+      "evaluation_completeness": 4.82,
+      "difficulty_appropriateness": 4.2,
+      "average": 4.61
+    }
+  },
+  {
+    "id": "CM0498",
+    "task_id": "CM0498",
+    "patient_info": {
+      "age": 50,
+      "egfr": 94,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 169,
+      "blood_pressure_diastolic": 110,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "transfer_to_specialist",
+        "ask_symptom_details",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.12,
+      "scenario_realism": 4.57,
+      "evaluation_completeness": 4.6,
+      "difficulty_appropriateness": 4.24,
+      "average": 4.38
+    }
+  },
+  {
+    "id": "CM0483",
+    "task_id": "CM0483",
+    "patient_info": {
+      "age": 56,
+      "egfr": 84,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 131,
+      "blood_pressure_diastolic": 108,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "get_medical_history_key",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.31,
+      "scenario_realism": 4.94,
+      "evaluation_completeness": 4.42,
+      "difficulty_appropriateness": 4.2,
+      "average": 4.47
+    }
+  },
+  {
+    "id": "CE0466",
+    "task_id": "CE0466",
+    "patient_info": {
+      "age": 51,
+      "egfr": 103,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 128,
+      "blood_pressure_diastolic": 102,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.72,
+      "scenario_realism": 4.91,
+      "evaluation_completeness": 4.62,
+      "difficulty_appropriateness": 4.46,
+      "average": 4.68
+    }
+  },
+  {
+    "id": "CE0380",
+    "task_id": "CE0380",
+    "patient_info": {
+      "age": 82,
+      "egfr": 86,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 140,
+      "blood_pressure_diastolic": 99,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.78,
+      "scenario_realism": 4.39,
+      "evaluation_completeness": 4.69,
+      "difficulty_appropriateness": 4.68,
+      "average": 4.63
+    }
+  },
+  {
+    "id": "CM0528",
+    "task_id": "CM0528",
+    "patient_info": {
+      "age": 40,
+      "egfr": 70,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 128,
+      "blood_pressure_diastolic": 110,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist",
+        "ask_symptom_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "ask_symptom_details"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.95,
+      "scenario_realism": 4.31,
+      "evaluation_completeness": 4.71,
+      "difficulty_appropriateness": 4.14,
+      "average": 4.53
+    }
+  },
+  {
+    "id": "CE0385",
+    "task_id": "CE0385",
+    "patient_info": {
+      "age": 70,
+      "egfr": 108,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 116,
+      "blood_pressure_diastolic": 101,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.39,
+      "scenario_realism": 4.73,
+      "evaluation_completeness": 4.78,
+      "difficulty_appropriateness": 4.38,
+      "average": 4.57
+    }
+  },
+  {
+    "id": "CE0378",
+    "task_id": "CE0378",
+    "patient_info": {
+      "age": 74,
+      "egfr": 108,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 173,
+      "blood_pressure_diastolic": 77,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.71,
+      "scenario_realism": 4.37,
+      "evaluation_completeness": 4.67,
+      "difficulty_appropriateness": 4.5,
+      "average": 4.56
+    }
+  },
+  {
+    "id": "CH0637",
+    "task_id": "CH0637",
+    "patient_info": {
+      "age": 57,
+      "egfr": 90,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 113,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "ask_symptom_details",
+        "transfer_to_specialist",
+        "generate_follow_up_plan",
+        "get_medical_history_key",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 9 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.85,
+      "scenario_realism": 4.73,
+      "evaluation_completeness": 4.22,
+      "difficulty_appropriateness": 4.9,
+      "average": 4.68
+    }
+  },
+  {
+    "id": "CE0467",
+    "task_id": "CE0467",
+    "patient_info": {
+      "age": 77,
+      "egfr": 107,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 192,
+      "blood_pressure_diastolic": 106,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 3 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.57,
+      "scenario_realism": 4.45,
+      "evaluation_completeness": 4.04,
+      "difficulty_appropriateness": 4.95,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CM0508",
+    "task_id": "CM0508",
+    "patient_info": {
+      "age": 42,
+      "egfr": 65,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 122,
+      "blood_pressure_diastolic": 77,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 2",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "peptic_ulcer",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "get_medical_history_key",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.76,
+      "scenario_realism": 4.48,
+      "evaluation_completeness": 4.3,
+      "difficulty_appropriateness": 4.85,
+      "average": 4.6
+    }
+  },
+  {
+    "id": "CE0371",
+    "task_id": "CE0371",
+    "patient_info": {
+      "age": 66,
+      "egfr": 98,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 193,
+      "blood_pressure_diastolic": 89,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.62,
+      "scenario_realism": 4.41,
+      "evaluation_completeness": 4.64,
+      "difficulty_appropriateness": 4.72,
+      "average": 4.6
+    }
+  },
+  {
+    "id": "CH0609",
+    "task_id": "CH0609",
+    "patient_info": {
+      "age": 39,
+      "egfr": 67,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 102,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 3",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "blurred_vision"
+      ],
+      "comorbidities": [
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline",
+        "get_medical_history_key",
+        "assess_risk_level",
+        "record_diagnosis_icd10",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.4,
+      "scenario_realism": 4.31,
+      "evaluation_completeness": 4.75,
+      "difficulty_appropriateness": 4.6,
+      "average": 4.51
+    }
+  },
+  {
+    "id": "CM0582",
+    "task_id": "CM0582",
+    "patient_info": {
+      "age": 38,
+      "egfr": 65,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 151,
+      "blood_pressure_diastolic": 110,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [
+        "copd",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "generate_follow_up_plan",
+        "assess_risk_level",
+        "transfer_to_specialist",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 6 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.79,
+      "scenario_realism": 4.45,
+      "evaluation_completeness": 4.26,
+      "difficulty_appropriateness": 4.7,
+      "average": 4.55
+    }
+  },
+  {
+    "id": "CH0614",
+    "task_id": "CH0614",
+    "patient_info": {
+      "age": 62,
+      "egfr": 103,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 173,
+      "blood_pressure_diastolic": 110,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "generate_follow_up_plan",
+        "ask_symptom_details",
+        "retrieve_medication_details",
+        "get_medical_history_key",
+        "transfer_to_specialist",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.28,
+      "scenario_realism": 4.49,
+      "evaluation_completeness": 4.51,
+      "difficulty_appropriateness": 4.88,
+      "average": 4.54
+    }
+  },
+  {
+    "id": "CH0616",
+    "task_id": "CH0616",
+    "patient_info": {
+      "age": 36,
+      "egfr": 75,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 151,
+      "blood_pressure_diastolic": 85,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 2",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "syncope",
+        "presyncope",
+        "palpitations"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "get_medical_history_key",
+        "transfer_to_specialist",
+        "ask_symptom_details",
+        "generate_follow_up_plan",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.61,
+      "scenario_realism": 4.15,
+      "evaluation_completeness": 4.76,
+      "difficulty_appropriateness": 4.59,
+      "average": 4.53
+    }
+  },
+  {
+    "id": "CH0630",
+    "task_id": "CH0630",
+    "patient_info": {
+      "age": 53,
+      "egfr": 102,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 170,
+      "blood_pressure_diastolic": 115,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "copd"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "ask_symptom_details",
+        "retrieve_medication_details",
+        "generate_follow_up_plan",
+        "get_medical_history_key",
+        "assess_risk_level",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.39,
+      "scenario_realism": 4.79,
+      "evaluation_completeness": 4.96,
+      "difficulty_appropriateness": 4.21,
+      "average": 4.59
+    }
+  },
+  {
+    "id": "CM0487",
+    "task_id": "CM0487",
+    "patient_info": {
+      "age": 66,
+      "egfr": 106,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 168,
+      "blood_pressure_diastolic": 85,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        },
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "copd",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "prescribe_medication_safe",
+        "assess_risk_level",
+        "retrieve_clinical_guideline"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_clinical_guideline"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.27,
+      "scenario_realism": 4.43,
+      "evaluation_completeness": 4.19,
+      "difficulty_appropriateness": 4.46,
+      "average": 4.34
+    }
+  },
+  {
+    "id": "CM0578",
+    "task_id": "CM0578",
+    "patient_info": {
+      "age": 52,
+      "egfr": 60,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 127,
+      "blood_pressure_diastolic": 99,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details",
+        "ask_symptom_details",
+        "prescribe_medication_safe",
+        "get_medical_history_key"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "get_medical_history_key"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.3,
+      "scenario_realism": 4.84,
+      "evaluation_completeness": 4.5,
+      "difficulty_appropriateness": 4.6,
+      "average": 4.56
+    }
+  },
+  {
+    "id": "CH0669",
+    "task_id": "CH0669",
+    "patient_info": {
+      "age": 80,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 132,
+      "blood_pressure_diastolic": 92,
+      "contraindications": [
+        "aspirin_allergy"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 4",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "copd",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline",
+        "generate_follow_up_plan",
+        "record_diagnosis_icd10",
+        "retrieve_medication_details",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 8 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.54,
+      "scenario_realism": 4.27,
+      "evaluation_completeness": 4.83,
+      "difficulty_appropriateness": 4.36,
+      "average": 4.5
+    }
+  },
+  {
+    "id": "CH0680",
+    "task_id": "CH0680",
+    "patient_info": {
+      "age": 84,
+      "egfr": 95,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 152,
+      "blood_pressure_diastolic": 90,
+      "contraindications": [
+        "av_block"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 1",
+      "medications": [
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_clinical_guideline",
+        "assess_risk_level",
+        "generate_follow_up_plan",
+        "transfer_to_specialist",
+        "ask_symptom_details",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 7 tools for hard level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.83,
+      "scenario_realism": 4.98,
+      "evaluation_completeness": 4.66,
+      "difficulty_appropriateness": 4.9,
+      "average": 4.84
+    }
+  },
+  {
+    "id": "CE0419",
+    "task_id": "CE0419",
+    "patient_info": {
+      "age": 78,
+      "egfr": 83,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 137,
+      "blood_pressure_diastolic": 75,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "orthopnea",
+        "paroxysmal_nocturnal_dyspnea",
+        "edema"
+      ],
+      "comorbidities": [
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "find_patient_basic_info"
+    },
+    "call_scenario": "Agent must use 1 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.81,
+      "scenario_realism": 4.69,
+      "evaluation_completeness": 4.49,
+      "difficulty_appropriateness": 4.16,
+      "average": 4.54
+    }
+  },
+  {
+    "id": "CM0567",
+    "task_id": "CM0567",
+    "patient_info": {
+      "age": 68,
+      "egfr": 106,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 151,
+      "blood_pressure_diastolic": 93,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Heart failure with reduced EF",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe",
+        "assess_risk_level"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "assess_risk_level"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.05,
+      "scenario_realism": 4.82,
+      "evaluation_completeness": 4.29,
+      "difficulty_appropriateness": 4.04,
+      "average": 4.3
+    }
+  },
+  {
+    "id": "CM0555",
+    "task_id": "CM0555",
+    "patient_info": {
+      "age": 61,
+      "egfr": 88,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 195,
+      "blood_pressure_diastolic": 114,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        },
+        {
+          "name": "Aspirin",
+          "dosage": "81mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "retrieve_medication_details",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Agent must use 4 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.83,
+      "scenario_realism": 4.94,
+      "evaluation_completeness": 4.18,
+      "difficulty_appropriateness": 4.26,
+      "average": 4.55
+    }
+  },
+  {
+    "id": "CE0458",
+    "task_id": "CE0458",
+    "patient_info": {
+      "age": 56,
+      "egfr": 62,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 194,
+      "blood_pressure_diastolic": 103,
+      "contraindications": [
+        "asthma"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Atorvastatin",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "retrieve_medication_details"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "retrieve_medication_details"
+    },
+    "call_scenario": "Agent must use 2 tools for easy level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.98,
+      "scenario_realism": 4.27,
+      "evaluation_completeness": 4.08,
+      "difficulty_appropriateness": 4.77,
+      "average": 4.52
+    }
+  },
+  {
+    "id": "CM0561",
+    "task_id": "CM0561",
+    "patient_info": {
+      "age": 45,
+      "egfr": 108,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 126,
+      "blood_pressure_diastolic": 81,
+      "contraindications": [
+        "bradycardia"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Metoprolol",
+          "dosage": "25mg bid"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "palpitations",
+        "fatigue",
+        "exercise_intolerance"
+      ],
+      "comorbidities": [
+        "heart_failure",
+        "peptic_ulcer"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "record_diagnosis_icd10",
+        "assess_risk_level",
+        "generate_follow_up_plan",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must use 5 tools for moderate level cardiology consultation.",
+    "_quality_scores": {
+      "clinical_accuracy": 4.72,
+      "scenario_realism": 4.15,
+      "evaluation_completeness": 4.25,
+      "difficulty_appropriateness": 4.25,
+      "average": 4.34
+    }
+  }
+]

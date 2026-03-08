@@ -1,0 +1,222 @@
+[
+  {
+    "id": "physionet_001",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10032, Lab Type: Chemistry"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the creatinine level of patient 10032? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10032, Type: Chemistry",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the creatinine level of patient 10032? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_002",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10058, Lab Type: Vital Signs"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the heart rate of patient 10058? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10058, Type: Vital Signs",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the heart rate of patient 10058? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_003",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10147, Lab Type: Diagnosis"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the diagnosis for patient 10147? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10147, Type: Diagnosis",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the diagnosis for patient 10147? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_004",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10256, Lab Type: Vital Signs"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the SpO2 level of patient 10256? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10256, Type: Vital Signs",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the SpO2 level of patient 10256? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_005",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10389, Lab Type: Chemistry"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the glucose level of patient 10389? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10389, Type: Chemistry",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the glucose level of patient 10389? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_006",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10421, Lab Type: Vital Signs"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the blood pressure of patient 10421? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10421, Type: Vital Signs",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the blood pressure of patient 10421? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_007",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10567, Lab Type: Hematology"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the WBC count of patient 10567? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10567, Type: Hematology",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the WBC count of patient 10567? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_008",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10689, Lab Type: Hematology"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the platelet count of patient 10689? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10689, Type: Hematology",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the platelet count of patient 10689? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_009",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10723, Lab Type: Chemistry"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the potassium level of patient 10723? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10723, Type: Chemistry",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the potassium level of patient 10723? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  },
+  {
+    "id": "physionet_010",
+    "description": {
+      "purpose": "Clinical data query",
+      "relevant_policies": null,
+      "notes": "Patient ID: 10845, Lab Type: Vital Signs"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "task_instructions": "What is the respiratory rate of patient 10845? If the answer does not exist, the answer should be \"Not found\"",
+        "domain": "clinical",
+        "reason_for_call": "Patient data lookup",
+        "known_info": "Patient: 10845, Type: Vital Signs",
+        "unknown_info": null
+      }
+    },
+    "ticket": "What is the respiratory rate of patient 10845? If the answer does not exist, the answer should be \"Not found\"",
+    "initial_state": null,
+    "evaluation_criteria": null,
+    "annotations": null
+  }
+]

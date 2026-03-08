@@ -1,0 +1,406 @@
+[
+  {
+    "id": "T002",
+    "task_id": "T002",
+    "patient_info": {
+      "age": 25,
+      "egfr": 120,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 120,
+      "blood_pressure_diastolic": 80,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Chronic kidney disease stage 5",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "40mg qd"
+        }
+      ],
+      "symptoms": [
+        "none"
+      ],
+      "comorbidities": [],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Patient requires renal replacement therapy evaluation."
+  },
+  {
+    "id": "T001",
+    "task_id": "T001",
+    "patient_info": {
+      "age": 65,
+      "egfr": 35,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 158,
+      "blood_pressure_diastolic": 92,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 3b",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "2.5mg qd (50% reduced for eGFR 35)"
+        }
+      ],
+      "symptoms": [
+        "mild_edema",
+        "fatigue"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must check allergy history before prescribing Amlodipine, and eGFR must be < 60 for dosage adjustment. Diagnosis must match ICD-10 code I12.9. Tool timing: allergy check before prescription. Score 2 points for missing required parameters."
+  },
+  {
+    "id": "T005",
+    "task_id": "T005",
+    "patient_info": {
+      "age": 45,
+      "egfr": 95,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 125,
+      "blood_pressure_diastolic": 82,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Essential hypertension",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "asymptomatic"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Standard hypertension management."
+  },
+  {
+    "id": "T010",
+    "task_id": "T010",
+    "patient_info": {
+      "age": 52,
+      "egfr": 15,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 195,
+      "blood_pressure_diastolic": 115,
+      "contraindications": [
+        "angioedema_history"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 5",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "5mg qd"
+        }
+      ],
+      "symptoms": [
+        "severe_edema",
+        "shortness_of_breath"
+      ],
+      "comorbidities": [
+        "hypertension"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Prescribe Amlodipine without checking angioedema contraindication."
+  },
+  {
+    "id": "T007",
+    "task_id": "T007",
+    "patient_info": {
+      "age": 38,
+      "egfr": 48,
+      "ckd_stage": "stage_3b",
+      "blood_pressure_systolic": 142,
+      "blood_pressure_diastolic": 88,
+      "contraindications": [
+        "gastric_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive CKD with peptic ulcer",
+      "medications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg qd"
+        },
+        {
+          "name": "Amlodipine",
+          "dosage": "2.5mg qd (50% dose for eGFR 48)"
+        }
+      ],
+      "symptoms": [
+        "epigastric_pain",
+        "edema"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "peptic_ulcer",
+        "CKD"
+      ],
+      "department": "gastroenterology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "retrieve_medication_details",
+        "prescribe_medication_safe",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must avoid NSAIDs for gastric ulcer, and adjust Amlodipine dose for eGFR < 60. Must prescribe PPI gastroprotection. Evaluation points: tool timing (allergy check before prescription), parameter completeness (all 5 fields), policy compliance (NSAID contraindication)."
+  },
+  {
+    "id": "T006",
+    "task_id": "T006",
+    "patient_info": {
+      "age": 58,
+      "egfr": 22,
+      "ckd_stage": "stage_5",
+      "blood_pressure_systolic": 188,
+      "blood_pressure_diastolic": 112,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "End stage renal disease",
+      "medications": [],
+      "symptoms": [
+        "severe_edema",
+        "confusion",
+        "nausea",
+        "decreased_urine_output"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "diabetes"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "transfer_to_specialist",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must recognize ESRD (eGFR 22) and recommend emergent nephrology referral for dialysis evaluation. This is not general practice level - requires specialist management."
+  },
+  {
+    "id": "T009",
+    "task_id": "T009",
+    "patient_info": {
+      "age": 28,
+      "egfr": 110,
+      "ckd_stage": "stage_1",
+      "blood_pressure_systolic": 118,
+      "blood_pressure_diastolic": 76,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Acute myocardial infarction",
+      "medications": [],
+      "symptoms": [
+        "chest_pain",
+        "shortness_of_breath",
+        "diaphoresis"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "transfer_to_specialist"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "transfer_to_specialist"
+    },
+    "call_scenario": "Young patient with AMI - rare but possible. Requires emergency cardiology referral. Only 3 tools (insufficient evaluation criteria)."
+  },
+  {
+    "id": "T003",
+    "task_id": "T003",
+    "patient_info": {
+      "age": 55,
+      "egfr": 75,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 168,
+      "blood_pressure_diastolic": 96,
+      "contraindications": [
+        "peptic_ulcer"
+      ]
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertension stage 2",
+      "medications": [
+        {
+          "name": "Ibuprofen",
+          "dosage": "400mg tid"
+        }
+      ],
+      "symptoms": [
+        "headache"
+      ],
+      "comorbidities": [],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "prescribe_medication_safe"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "prescribe_medication_safe"
+    },
+    "call_scenario": "Prescribe ibuprofen for pain management."
+  },
+  {
+    "id": "T004",
+    "task_id": "T004",
+    "patient_info": {
+      "age": 72,
+      "egfr": 28,
+      "ckd_stage": "stage_4",
+      "blood_pressure_systolic": 175,
+      "blood_pressure_diastolic": 105,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Hypertensive chronic kidney disease stage 4",
+      "medications": [
+        {
+          "name": "Amlodipine",
+          "dosage": "2.5mg qd (adjusted for renal impairment)"
+        }
+      ],
+      "symptoms": [
+        "edema",
+        "shortness_of_breath",
+        "fatigue"
+      ],
+      "comorbidities": [
+        "hypertension",
+        "heart_failure"
+      ],
+      "department": "nephrology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "assess_risk_level",
+        "get_medical_history_key",
+        "ask_symptom_details",
+        "retrieve_clinical_guideline",
+        "prescribe_medication_safe",
+        "record_diagnosis_icd10",
+        "transfer_to_specialist",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Agent must: 1) Check allergies before prescribing, 2) Verify eGFR < 30 triggers nephrology referral (urgency: urgent), 3) Adjust drug dosage for eGFR 28 (50% reduction), 4) Use ICD-10 code I12.9 for hypertensive CKD, 5) Document CKD stage 4 with eGFR value, 6) Red flag symptoms: return if BP > 180/120 or edema worsens. Evaluation: 5 points for correct tool sequence, 5 points for complete parameters, 10 points for appropriate urgency referral."
+  },
+  {
+    "id": "T008",
+    "task_id": "T008",
+    "patient_info": {
+      "age": 62,
+      "egfr": 88,
+      "ckd_stage": "stage_2",
+      "blood_pressure_systolic": 145,
+      "blood_pressure_diastolic": 92,
+      "contraindications": []
+    },
+    "clinical_scenario": {
+      "diagnosis": "Type 2 diabetes with hypertension",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg bid"
+        },
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg qd"
+        }
+      ],
+      "symptoms": [
+        "polyuria",
+        "polydipsia"
+      ],
+      "comorbidities": [
+        "diabetes",
+        "hypertension"
+      ],
+      "department": "cardiology"
+    },
+    "tool_call_requirements": {
+      "required_tools": [
+        "find_patient_basic_info",
+        "ask_symptom_details",
+        "prescribe_medication_safe",
+        "record_diagnosis_icd10",
+        "generate_follow_up_plan"
+      ],
+      "first_tool": "find_patient_basic_info",
+      "last_tool": "generate_follow_up_plan"
+    },
+    "call_scenario": "Common comorbidity scenario (hypertension + diabetes). Agent should recognize this requires 2 medications and appropriate follow-up timing."
+  }
+]
