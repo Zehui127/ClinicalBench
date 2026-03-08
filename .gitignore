@@ -215,3 +215,6 @@ DataQualityFiltering/
 UniClinicalDataEngine/
 data/raw/MedXpertQA/
 data/raw/PhysioNet/
+
+# Claude local configuration
+.claude/settings.local.json
