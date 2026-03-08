@@ -1,0 +1,17 @@
+# UniClinicalDataEngine Requirements
+# Core dependencies for ETL Pipeline
+
+# No external dependencies required for core functionality!
+# All adapters use Python standard library.
+
+# Optional: For Excel support
+openpyxl>=3.1.0      # Excel .xlsx support
+xlrd>=2.0.0          # Excel .xls support (legacy)
+
+# Development dependencies (optional)
+# pytest>=7.0.0       # Testing framework
+# black>=23.0.0       # Code formatter
+# mypy>=1.0.0         # Type checker
+
+# Note: The core ETL pipeline works with zero external dependencies!
+# JSON/JSONL and CSV formats are fully supported using Python standard library.

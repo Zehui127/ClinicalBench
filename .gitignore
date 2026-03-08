@@ -34,3 +34,8 @@ dist/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+
+# External repositories (don't include as submodules)
+MedAgentBench/
+data/raw/MedXpertQA/
+data/raw/PhysioNet/
