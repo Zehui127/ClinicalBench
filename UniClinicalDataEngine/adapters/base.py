@@ -1,9 +1,19 @@
 """Base adapter ABC for clinical data sources."""
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+import importlib.util
+from pathlib import Path
 
-from UniClinicalDataEngine.models import ClinicalScenario, PatientRecord
+# Import from models.py file directly to avoid conflict with models/ directory
+_models_spec = importlib.util.spec_from_file_location(
+    "uni_clinical_models",
+    Path(__file__).parent.parent / "models.py"
+)
+_models_module = importlib.util.module_from_spec(_models_spec)
+_models_spec.loader.exec_module(_models_module)
+ClinicalScenario = _models_module.ClinicalScenario
+PatientRecord = _models_module.PatientRecord
 
 
 class BaseAdapter(ABC):
@@ -18,6 +28,7 @@ class BaseAdapter(ABC):
     def __init__(self, source_path: str, **kwargs: Any):
         self.source_path = source_path
         self.kwargs = kwargs
+        self._task_processor = kwargs.get("task_processor")
 
     @abstractmethod
     def load_raw_data(self) -> List[Dict[str, Any]]:
@@ -56,6 +67,9 @@ class BaseAdapter(ABC):
     def extract_scenarios(self) -> List[ClinicalScenario]:
         """Template method: load -> normalize -> build for all records.
 
+        Optionally applies post-processing (deduplication and merging) if
+        a task_processor is configured.
+
         Returns:
             List of ClinicalScenarios.
         """
@@ -65,4 +79,9 @@ class BaseAdapter(ABC):
             record = self.normalize_record(raw)
             scenario = self.build_scenario(record, i)
             scenarios.append(scenario)
+
+        # Apply post-processing if task processor is configured
+        if self._task_processor is not None:
+            scenarios = self._task_processor.process(scenarios)
+
         return scenarios

@@ -4,7 +4,17 @@ import csv
 from typing import Any, Dict, List, Optional
 
 from UniClinicalDataEngine.adapters.base import BaseAdapter
-from UniClinicalDataEngine.models import ClinicalScenario, PatientRecord
+# Import from models.py file directly to avoid conflict with models/ directory
+import importlib.util
+from pathlib import Path
+_models_spec = importlib.util.spec_from_file_location(
+    "uni_clinical_models",
+    Path(__file__).parent.parent / "models.py"
+)
+_models_module = importlib.util.module_from_spec(_models_spec)
+_models_spec.loader.exec_module(_models_module)
+ClinicalScenario = _models_module.ClinicalScenario
+PatientRecord = _models_module.PatientRecord
 
 
 DEFAULT_COLUMN_MAPPING = {

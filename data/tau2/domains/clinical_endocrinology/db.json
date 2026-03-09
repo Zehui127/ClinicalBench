@@ -1,1 +1,1236 @@
-{"patients": {}}
+{
+  "patients": {
+    "MRN469300": {
+      "name": "Susan Williams",
+      "age": 34,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN876442": {
+      "name": "Susan Miller",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN141901": {
+      "name": "Richard Martinez",
+      "age": 18,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been fever and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN403358": {
+      "name": "Michael Miller",
+      "age": 59,
+      "gender": "male",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN960828": {
+      "name": "Jessica Smith",
+      "age": 52,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN273754": {
+      "name": "Barbara Davis",
+      "age": 24,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about nausea.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN779242": {
+      "name": "Susan Jones",
+      "age": 33,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN829026": {
+      "name": "Mary Jones",
+      "age": 19,
+      "gender": "female",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN553043": {
+      "name": "Susan Johnson",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been fatigue and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN847306": {
+      "name": "James Smith",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN178858": {
+      "name": "James Johnson",
+      "age": 6,
+      "gender": "male",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN733418": {
+      "name": "Susan Garcia",
+      "age": 45,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN326949": {
+      "name": "Mary Miller",
+      "age": 65,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about pain.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN398333": {
+      "name": "Susan Smith",
+      "age": 17,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN628866": {
+      "name": "Linda Miller",
+      "age": 32,
+      "gender": "female",
+      "chief_complaint": "I've been feeling headache and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN531420": {
+      "name": "Susan Garcia",
+      "age": 15,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN327486": {
+      "name": "Patricia Johnson",
+      "age": 80,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing pain and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN445226": {
+      "name": "Robert Garcia",
+      "age": 47,
+      "gender": "male",
+      "chief_complaint": "I have a history of {condition} and I'm having headache now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN183673": {
+      "name": "Jennifer Brown",
+      "age": 55,
+      "gender": "female",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN412561": {
+      "name": "James Jones",
+      "age": 79,
+      "gender": "male",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN295076": {
+      "name": "Sarah Garcia",
+      "age": 46,
+      "gender": "female",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN890573": {
+      "name": "Joseph Williams",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN780819": {
+      "name": "Patricia Johnson",
+      "age": 52,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN671264": {
+      "name": "Karen Garcia",
+      "age": 44,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing fatigue and I'm concerned about my hypertension.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN496832": {
+      "name": "Linda Brown",
+      "age": 44,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN835224": {
+      "name": "Michael Davis",
+      "age": 28,
+      "gender": null,
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN600503": {
+      "name": "James Davis",
+      "age": 27,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing palpitations and I'm concerned about my diabetes.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN486523": {
+      "name": "Mary Johnson",
+      "age": 17,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been numbness and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN841249": {
+      "name": "William Smith",
+      "age": 52,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN113008": {
+      "name": "Patricia Williams",
+      "age": 38,
+      "gender": "female",
+      "chief_complaint": "I've been feeling headache and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN183779": {
+      "name": "Karen Garcia",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN952831": {
+      "name": "Richard Smith",
+      "age": 35,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been cough and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN680957": {
+      "name": "Karen Johnson",
+      "age": 92,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN875250": {
+      "name": "Elizabeth Miller",
+      "age": 45,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having pain now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN640639": {
+      "name": "James Garcia",
+      "age": 31,
+      "gender": null,
+      "chief_complaint": "I've been feeling weakness and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN946228": {
+      "name": "Robert Rodriguez",
+      "age": 15,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN399856": {
+      "name": "Michael Martinez",
+      "age": 17,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN663570": {
+      "name": "John Jones",
+      "age": 25,
+      "gender": "male",
+      "chief_complaint": "I have a history of asthma and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN262625": {
+      "name": "Karen Garcia",
+      "age": 39,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about fatigue.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN131349": {
+      "name": "Patricia Rodriguez",
+      "age": 30,
+      "gender": "female",
+      "chief_complaint": "I've been feeling fatigue and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN732222": {
+      "name": "Linda Martinez",
+      "age": 24,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having pain now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN287054": {
+      "name": "James Jones",
+      "age": 57,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN931695": {
+      "name": "Sarah Martinez",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN542614": {
+      "name": "Barbara Jones",
+      "age": null,
+      "gender": "female",
+      "chief_complaint": "I've noticed vomiting lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN564062": {
+      "name": "Sarah Williams",
+      "age": 35,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN336904": {
+      "name": "Patricia Johnson",
+      "age": 24,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN641995": {
+      "name": "Sarah Garcia",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN159509": {
+      "name": "Jessica Williams",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having nausea now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN790350": {
+      "name": "Thomas Brown",
+      "age": 42,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN406760": {
+      "name": "Richard Miller",
+      "age": 27,
+      "gender": "male",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN367790": {
+      "name": "Patricia Johnson",
+      "age": 64,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN163778": {
+      "name": "Elizabeth Johnson",
+      "age": 51,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been pain and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN714134": {
+      "name": "Jennifer Williams",
+      "age": 49,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN662029": {
+      "name": "Susan Williams",
+      "age": 77,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having headache now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN630478": {
+      "name": "Linda Williams",
+      "age": 52,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been weakness and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN729914": {
+      "name": "Barbara Brown",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN202150": {
+      "name": "Barbara Brown",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "I've noticed palpitations lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN239798": {
+      "name": "Joseph Martinez",
+      "age": 4,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN298386": {
+      "name": "James Brown",
+      "age": 17,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my diabetes.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN835443": {
+      "name": "Patricia Smith",
+      "age": 22,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN325223": {
+      "name": "John Brown",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about vomiting.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN110780": {
+      "name": "Karen Miller",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN907004": {
+      "name": "Charles Miller",
+      "age": 40,
+      "gender": "male",
+      "chief_complaint": "I've been feeling weakness and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN662439": {
+      "name": "Patricia Smith",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing fatigue and I'm concerned about my my condition.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN211780": {
+      "name": "Michael Rodriguez",
+      "age": 64,
+      "gender": "male",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN655691": {
+      "name": "James Johnson",
+      "age": 15,
+      "gender": "male",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN116755": {
+      "name": "Susan Smith",
+      "age": 6,
+      "gender": "female",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN516789": {
+      "name": "William Rodriguez",
+      "age": 61,
+      "gender": "male",
+      "chief_complaint": "I have a history of hypertension and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN171456": {
+      "name": "Jessica Davis",
+      "age": 56,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having bleeding now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN887707": {
+      "name": "Jessica Jones",
+      "age": 32,
+      "gender": "female",
+      "chief_complaint": "I've been feeling nausea and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN653952": {
+      "name": "Patricia Garcia",
+      "age": 72,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having pain now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN957188": {
+      "name": "Charles Smith",
+      "age": 57,
+      "gender": "male",
+      "chief_complaint": "I have a history of diabetes and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN486979": {
+      "name": "John Jones",
+      "age": 38,
+      "gender": "male",
+      "chief_complaint": "I've been feeling vomiting and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN662242": {
+      "name": "Joseph Brown",
+      "age": 42,
+      "gender": "male",
+      "chief_complaint": "I have a history of depression and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN332663": {
+      "name": "Patricia Garcia",
+      "age": 21,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN464758": {
+      "name": "John Jones",
+      "age": 26,
+      "gender": "male",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN114674": {
+      "name": "Barbara Miller",
+      "age": 27,
+      "gender": "female",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN175646": {
+      "name": "Robert Garcia",
+      "age": 35,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN171925": {
+      "name": "Karen Johnson",
+      "age": 43,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about pain.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN415447": {
+      "name": "Karen Davis",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN448663": {
+      "name": "Jessica Williams",
+      "age": 36,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN959815": {
+      "name": "Joseph Rodriguez",
+      "age": 20,
+      "gender": "male",
+      "chief_complaint": "I've noticed fatigue lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN685022": {
+      "name": "Barbara Rodriguez",
+      "age": 56,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having weakness now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN171656": {
+      "name": "Linda Garcia",
+      "age": 32,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN685428": {
+      "name": "David Martinez",
+      "age": 57,
+      "gender": "male",
+      "chief_complaint": "I've been feeling fatigue and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN611324": {
+      "name": "Linda Davis",
+      "age": 53,
+      "gender": "female",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN781743": {
+      "name": "Richard Smith",
+      "age": 16,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN146361": {
+      "name": "James Miller",
+      "age": 48,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about numbness.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN197937": {
+      "name": "John Miller",
+      "age": 15,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN568708": {
+      "name": "David Martinez",
+      "age": 68,
+      "gender": "male",
+      "chief_complaint": "I've been feeling swelling and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN448573": {
+      "name": "James Brown",
+      "age": 16,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing headache and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN721874": {
+      "name": "Robert Miller",
+      "age": 8,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN405404": {
+      "name": "Linda Jones",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN812066": {
+      "name": "Joseph Rodriguez",
+      "age": 76,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN235262": {
+      "name": "Michael Garcia",
+      "age": 6,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN221333": {
+      "name": "Barbara Jones",
+      "age": 45,
+      "gender": "female",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN253812": {
+      "name": "Elizabeth Jones",
+      "age": null,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having fever now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN279965": {
+      "name": "Charles Johnson",
+      "age": 42,
+      "gender": "male",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN463611": {
+      "name": "Patricia Garcia",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN977201": {
+      "name": "Charles Garcia",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN269113": {
+      "name": "Sarah Miller",
+      "age": 30,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN691148": {
+      "name": "Robert Martinez",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN524713": {
+      "name": "Barbara Martinez",
+      "age": 25,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been fatigue and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN339905": {
+      "name": "William Williams",
+      "age": 16,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN208837": {
+      "name": "Susan Johnson",
+      "age": 58,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about headache.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN474381": {
+      "name": "Jessica Williams",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN877593": {
+      "name": "Mary Jones",
+      "age": 35,
+      "gender": "female",
+      "chief_complaint": "I have a history of diabetes and I'm having pain now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN463177": {
+      "name": "Barbara Martinez",
+      "age": 44,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about fatigue.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN704147": {
+      "name": "William Garcia",
+      "age": 62,
+      "gender": "male",
+      "chief_complaint": "I've been feeling symptoms and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN849842": {
+      "name": "Barbara Miller",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN576087": {
+      "name": "Jennifer Smith",
+      "age": 15,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN796616": {
+      "name": "Jennifer Brown",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN613828": {
+      "name": "Mary Smith",
+      "age": 29,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN780392": {
+      "name": "Jennifer Garcia",
+      "age": 67,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been nausea and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN515527": {
+      "name": "Richard Brown",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN796437": {
+      "name": "William Williams",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN392072": {
+      "name": "Thomas Jones",
+      "age": 5,
+      "gender": "male",
+      "chief_complaint": "I have a history of {condition} and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN691019": {
+      "name": "Barbara Brown",
+      "age": 40,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having palpitations now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN721558": {
+      "name": "Sarah Brown",
+      "age": 35,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my my condition.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN766461": {
+      "name": "Elizabeth Johnson",
+      "age": 86,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN624605": {
+      "name": "Sarah Jones",
+      "age": 28,
+      "gender": "female",
+      "chief_complaint": "I've noticed fatigue lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN900261": {
+      "name": "John Davis",
+      "age": 6,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about pain.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN672897": {
+      "name": "Susan Johnson",
+      "age": 58,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN170753": {
+      "name": "Michael Jones",
+      "age": 65,
+      "gender": "male",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN451861": {
+      "name": "Elizabeth Jones",
+      "age": 40,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN930477": {
+      "name": "Charles Johnson",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN583002": {
+      "name": "Susan Martinez",
+      "age": 55,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having rash now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN155831": {
+      "name": "Mary Jones",
+      "age": 8,
+      "gender": "female",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN886237": {
+      "name": "Susan Johnson",
+      "age": 27,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN478920": {
+      "name": "Karen Davis",
+      "age": 37,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing headache and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN315787": {
+      "name": "Charles Johnson",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about vomiting.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN362909": {
+      "name": "Linda Davis",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN646835": {
+      "name": "Sarah Smith",
+      "age": 14,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN527788": {
+      "name": "William Miller",
+      "age": 34,
+      "gender": "male",
+      "chief_complaint": "I've been feeling rash and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN156720": {
+      "name": "Jessica Johnson",
+      "age": 15,
+      "gender": "female",
+      "chief_complaint": "I've been feeling fever and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN397025": {
+      "name": "William Johnson",
+      "age": 66,
+      "gender": "male",
+      "chief_complaint": "I've been feeling cough and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN716553": {
+      "name": "David Jones",
+      "age": 6,
+      "gender": "male",
+      "chief_complaint": "I've noticed fever lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN489670": {
+      "name": "Joseph Brown",
+      "age": 52,
+      "gender": "male",
+      "chief_complaint": "I've been feeling fatigue and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN730056": {
+      "name": "Michael Miller",
+      "age": 72,
+      "gender": "male",
+      "chief_complaint": "I've been feeling fatigue and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN521417": {
+      "name": "Susan Garcia",
+      "age": 3,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN938368": {
+      "name": "Michael Garcia",
+      "age": 17,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN265394": {
+      "name": "Linda Davis",
+      "age": 42,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN844071": {
+      "name": "Barbara Rodriguez",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN182868": {
+      "name": "Karen Davis",
+      "age": 19,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about headache.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN983281": {
+      "name": "Karen Garcia",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "I've been feeling headache and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN185146": {
+      "name": "Barbara Johnson",
+      "age": 65,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about pain.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN975699": {
+      "name": "Elizabeth Davis",
+      "age": 60,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN347966": {
+      "name": "John Rodriguez",
+      "age": null,
+      "gender": null,
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN838951": {
+      "name": "Elizabeth Williams",
+      "age": 33,
+      "gender": "female",
+      "chief_complaint": "I've been feeling headache and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN775605": {
+      "name": "William Johnson",
+      "age": 22,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been bleeding and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN679379": {
+      "name": "Michael Rodriguez",
+      "age": 48,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing weakness and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN535704": {
+      "name": "Mary Rodriguez",
+      "age": 27,
+      "gender": "female",
+      "chief_complaint": "I've noticed symptoms lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN966209": {
+      "name": "Charles Miller",
+      "age": 37,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been vomiting and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN317449": {
+      "name": "Jessica Williams",
+      "age": 36,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN435907": {
+      "name": "Linda Brown",
+      "age": 4,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about nausea.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN778944": {
+      "name": "John Davis",
+      "age": 64,
+      "gender": "male",
+      "chief_complaint": "Doctor, I've been experiencing symptoms and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN220425": {
+      "name": "Patricia Brown",
+      "age": 22,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing nausea and I'm concerned about my diabetes.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN114201": {
+      "name": "Charles Brown",
+      "age": 52,
+      "gender": "male",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN581074": {
+      "name": "Joseph Garcia",
+      "age": null,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been fever and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN911921": {
+      "name": "James Jones",
+      "age": 60,
+      "gender": "male",
+      "chief_complaint": "Doctor, I have a question about cough.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN526737": {
+      "name": "Patricia Davis",
+      "age": 23,
+      "gender": "female",
+      "chief_complaint": "I've noticed nausea lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN439198": {
+      "name": "Elizabeth Johnson",
+      "age": 43,
+      "gender": "female",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN188164": {
+      "name": "Karen Martinez",
+      "age": 16,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having fatigue now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN189060": {
+      "name": "Robert Smith",
+      "age": 40,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN465393": {
+      "name": "Elizabeth Johnson",
+      "age": 28,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having symptoms now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN823567": {
+      "name": "James Brown",
+      "age": 81,
+      "gender": "male",
+      "chief_complaint": "I've noticed palpitations lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN929680": {
+      "name": "James Williams",
+      "age": 17,
+      "gender": "male",
+      "chief_complaint": "I've noticed pain lately and I wonder if my hormones are imbalanced.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN928408": {
+      "name": "Thomas Smith",
+      "age": 27,
+      "gender": "male",
+      "chief_complaint": "My energy levels have been pain and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN228394": {
+      "name": "Mary Johnson",
+      "age": 30,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about symptoms.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN911311": {
+      "name": "Mary Garcia",
+      "age": 55,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been headache and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN356697": {
+      "name": "Sarah Johnson",
+      "age": 42,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing headache and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN235119": {
+      "name": "Mary Brown",
+      "age": 56,
+      "gender": "female",
+      "chief_complaint": "Doctor, I have a question about pain.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN229327": {
+      "name": "Susan Davis",
+      "age": 29,
+      "gender": "female",
+      "chief_complaint": "My energy levels have been symptoms and I'm concerned.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN119140": {
+      "name": "Linda Martinez",
+      "age": 67,
+      "gender": "female",
+      "chief_complaint": "I have a history of {condition} and I'm having pain now.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN603503": {
+      "name": "Barbara Garcia",
+      "age": 59,
+      "gender": "female",
+      "chief_complaint": "I've been feeling pain and I think it might be hormonal.",
+      "department": "clinical_endocrinology"
+    },
+    "MRN442392": {
+      "name": "Susan Davis",
+      "age": 63,
+      "gender": "female",
+      "chief_complaint": "Doctor, I've been experiencing pain and I'm concerned about my {condition}.",
+      "department": "clinical_endocrinology"
+    }
+  }
+}

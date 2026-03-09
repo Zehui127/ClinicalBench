@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-03-09 00:08:39",
+  "total_input": 2450,
+  "total_output": 2450,
+  "total_failed": 0,
+  "total_time_seconds": 1.3979840278625488,
+  "departments": {
+    "clinical_cardiology": {
+      "input_count": 758,
+      "output_count": 758,
+      "failed": 0,
+      "time": 0.37496495246887207,
+      "output_file": "C:\\Users\\方正\\tau2-bench\\data\\tau2\\domains\\clinical_cardiology\\tasks.json"
+    },
+    "clinical_endocrinology": {
+      "input_count": 176,
+      "output_count": 176,
+      "failed": 0,
+      "time": 0.09051752090454102,
+      "output_file": "C:\\Users\\方正\\tau2-bench\\data\\tau2\\domains\\clinical_endocrinology\\tasks.json"
+    },
+    "clinical_gastroenterology": {
+      "input_count": 475,
+      "output_count": 475,
+      "failed": 0,
+      "time": 0.24420166015625,
+      "output_file": "C:\\Users\\方正\\tau2-bench\\data\\tau2\\domains\\clinical_gastroenterology\\tasks.json"
+    },
+    "clinical_nephrology": {
+      "input_count": 300,
+      "output_count": 300,
+      "failed": 0,
+      "time": 0.15587210655212402,
+      "output_file": "C:\\Users\\方正\\tau2-bench\\data\\tau2\\domains\\clinical_nephrology\\tasks.json"
+    },
+    "clinical_neurology": {
+      "input_count": 741,
+      "output_count": 741,
+      "failed": 0,
+      "time": 0.3047637939453125,
+      "output_file": "C:\\Users\\方正\\tau2-bench\\data\\tau2\\domains\\clinical_neurology\\tasks.json"
+    }
+  }
+}

@@ -1,15 +1,16 @@
 # Clinical Cardiology Domain Policy
 
 ## Overview
-This domain specializes in heart and cardiovascular system tasks.
+This domain specializes in heart and cardiovascular system consultations.
 
 ## Clinical Guidelines
-- Assess blood pressure using ACC/AHA guidelines
-- Calculate QTc using Bazett's formula
-- Interpret heart rate based on age-specific norms
+- Assess cardiovascular risk factors
+- Evaluate chest pain using typical/atypical features
+- Monitor blood pressure and heart rate
+- Screen for cardiac red flags
 
 ## Available Tools
-- `assess_blood_pressure(systolic, diastolic, age)`: Classify blood pressure
-- `calculate_qtc(qt_interval, heart_rate)`: Calculate corrected QT interval
-- `interpret_heart_rate(heart_rate, age)`: Assess heart rate
-- `get_patient_by_mrn(mrn)`: Find patients
+- `assess_cardiovascular_risk(age, bp, cholesterol)`: Assess cardiac risk
+- `interpret_ekg(ekg_data)`: Interpret EKG results
+- `evaluate_blood_pressure(systolic, diastolic)`: Classify BP severity
+- `get_patient_by_mrn(mrn)`: Find patients by MRN

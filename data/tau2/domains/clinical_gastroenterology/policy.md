@@ -1,7 +1,7 @@
 # Clinical Gastroenterology Domain Policy
 
 ## Overview
-This domain specializes in digestive system and GI tract tasks.
+This domain specializes in digestive system and GI tract consultations.
 
 ## Clinical Guidelines
 - Evaluate liver function tests (ALT, AST, bilirubin)

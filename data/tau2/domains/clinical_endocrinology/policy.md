@@ -1,15 +1,15 @@
 # Clinical Endocrinology Domain Policy
 
 ## Overview
-This domain specializes in hormone and metabolism-related tasks.
+This domain specializes in hormonal and metabolic consultations.
 
 ## Clinical Guidelines
-- Interpret blood glucose (fasting vs random)
-- Classify HbA1c for diabetes assessment
-- Evaluate thyroid function (TSH, T4)
+- Evaluate blood glucose levels
+- Assess thyroid function
+- Monitor hormonal imbalances
+- Screen for endocrine emergencies
 
 ## Available Tools
-- `interpret_blood_glucose(glucose, fasting)`: Classify glucose levels
-- `interpret_hba1c(hba1c)`: Assess diabetes control
-- `interpret_thyroid(tsh, t4)`: Evaluate thyroid function
-- `get_patient_by_mrn(mrn)`: Find patients
+- `evaluate_blood_glucose(glucose_level)`: Assess glucose status
+- `assess_thyroid_function(tsh, t4, t3)`: Evaluate thyroid function
+- `get_patient_by_mrn(mrn)`: Find patients by MRN

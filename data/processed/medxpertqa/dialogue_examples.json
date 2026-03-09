@@ -1,0 +1,182 @@
+[
+  {
+    "id": "medxpertqa_007",
+    "description": {
+      "purpose": "Clinical consultation - general consultation",
+      "relevant_policies": null,
+      "notes": "Generated from MCQ conversion. Department: clinical_neurology"
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "neurology",
+        "reason_for_call": "Medical consultation",
+        "known_info": "No specific information provided",
+        "dialogue": "You are a patient seeking medical consultation. Here's how the conversation should flow:\n\nPatient: I've been having symptoms and I'm worried it might be something serious with my nervous system.\nClinician: Have you had these symptoms before?\nPatient: Yes, I've been diagnosed with my condition.\nClinician: For your condition, I recommend medication to help manage your symptoms.\nPatient: That sounds good. Thank you, doctor."
+      }
+    },
+    "ticket": "I've been having symptoms and I'm worried it might be something serious with my nervous system.",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Jennifer Rodriguez",
+            "mrn": "MRN541085",
+            "age": null,
+            "gender": null
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "use_assess_stroke_risk",
+          "requestor": "assistant",
+          "name": "assess_stroke_risk",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_interpret_headache",
+          "requestor": "assistant",
+          "name": "interpret_headache",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_evaluate_seizure",
+          "requestor": "assistant",
+          "name": "evaluate_seizure",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_get_patient_by_mrn",
+          "requestor": "assistant",
+          "name": "get_patient_by_mrn",
+          "arguments": {}
+        }
+      ]
+    }
+  },
+  {
+    "id": "medxpertqa_005",
+    "description": {
+      "purpose": "Clinical consultation - general consultation",
+      "relevant_policies": null,
+      "notes": "Generated from MCQ conversion. Department: clinical_cardiology"
+    },
+    "user_scenario": {
+      "persona": "5-year-old male",
+      "instructions": {
+        "domain": "cardiology",
+        "reason_for_call": "Medical consultation",
+        "known_info": "History: hypertension, hypertension",
+        "dialogue": "You are a patient seeking medical consultation. Here's how the conversation should flow:\n\nPatient: I have chest discomfort and I'm worried it might be a heart problem.\nClinician: Have you noticed anything that makes the symptoms better or worse?\nPatient: For approximately about a month now.\nClinician: Are you taking any medications?\nPatient: No significant medical history aside from hypertension.\nClinician: Does this hurt when I press here?\nClinician: Your symptoms suggest hypertension. We should run some tests to confirm."
+      }
+    },
+    "ticket": "I have chest discomfort and I'm worried it might be a heart problem.",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "John Johnson",
+            "mrn": "MRN956286",
+            "age": 5,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "use_assess_cardiovascular_risk",
+          "requestor": "assistant",
+          "name": "assess_cardiovascular_risk",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_interpret_ekg",
+          "requestor": "assistant",
+          "name": "interpret_ekg",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_evaluate_blood_pressure",
+          "requestor": "assistant",
+          "name": "evaluate_blood_pressure",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_get_patient_by_mrn",
+          "requestor": "assistant",
+          "name": "get_patient_by_mrn",
+          "arguments": {}
+        }
+      ]
+    }
+  },
+  {
+    "id": "medxpertqa_021",
+    "description": {
+      "purpose": "Clinical consultation - fever",
+      "relevant_policies": null,
+      "notes": "Generated from MCQ conversion. Department: clinical_gastroenterology"
+    },
+    "user_scenario": {
+      "persona": "57-year-old male with fever",
+      "instructions": {
+        "domain": "gastroenterology",
+        "reason_for_call": "fever",
+        "known_info": "Symptoms: fever, fatigue, weakness; History: atrial fibrillation, hepatitis",
+        "dialogue": "You are a patient seeking medical consultation. Here's how the conversation should flow:\n\nPatient: Doctor, I've been experiencing digestive issues including fever.\nClinician: Can you tell me more about when the symptoms started?\nPatient: Since {timeframe}.\nClinician: Have you had these symptoms before?\nPatient: I've had atrial fibrillation for {duration}.\nClinician: I'm going to examine you now. Let me know if you feel any discomfort.\nClinician: Based on your symptoms and examination, I believe you have atrial fibrillation."
+      }
+    },
+    "ticket": "Doctor, I've been experiencing digestive issues including fever.",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "David Brown",
+            "mrn": "MRN980392",
+            "age": 57,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "use_get_patient_liver_function",
+          "requestor": "assistant",
+          "name": "get_patient_liver_function",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_evaluate_anemia",
+          "requestor": "assistant",
+          "name": "evaluate_anemia",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_assess_liver_fibrosis",
+          "requestor": "assistant",
+          "name": "assess_liver_fibrosis",
+          "arguments": {}
+        },
+        {
+          "action_id": "use_get_patient_by_mrn",
+          "requestor": "assistant",
+          "name": "get_patient_by_mrn",
+          "arguments": {}
+        }
+      ]
+    }
+  }
+]
