@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 
-def _interpret_liver_enzymes(labs: GILabResults) -> str:
+def _interpret_liver_enzymes(labs: 'GILabResults') -> str:
     """
     Interpret liver function test results.
 
