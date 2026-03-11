@@ -20,8 +20,6 @@ jobs:
         id: release
         with:
           release-type: python
-          package-name: tau2
-          changelog-path: CHANGELOG.md
 
       # Optional: Build and publish to PyPI when a release is created
       - uses: actions/checkout@v4

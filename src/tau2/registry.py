@@ -40,39 +40,39 @@ from tau2.domains.telecom.environment import (
     get_tasks_split as telecom_domain_get_tasks_split,
 )
 # Clinical domains
-from tau2.domains.clinical_nephrology.environment import (
+from tau2.domains.clinical.nephrology.environment import (
     get_environment as clinical_nephrology_get_environment,
 )
-from tau2.domains.clinical_nephrology.environment import get_tasks as clinical_nephrology_get_tasks
-from tau2.domains.clinical_nephrology.environment import (
+from tau2.domains.clinical.nephrology.environment import get_tasks as clinical_nephrology_get_tasks
+from tau2.domains.clinical.nephrology.environment import (
     get_tasks_split as clinical_nephrology_get_tasks_split,
 )
-from tau2.domains.clinical_gastroenterology.environment import (
+from tau2.domains.clinical.gastroenterology.environment import (
     get_environment as clinical_gastroenterology_get_environment,
 )
-from tau2.domains.clinical_gastroenterology.environment import get_tasks as clinical_gastroenterology_get_tasks
-from tau2.domains.clinical_gastroenterology.environment import (
+from tau2.domains.clinical.gastroenterology.environment import get_tasks as clinical_gastroenterology_get_tasks
+from tau2.domains.clinical.gastroenterology.environment import (
     get_tasks_split as clinical_gastroenterology_get_tasks_split,
 )
-from tau2.domains.clinical_cardiology.environment import (
+from tau2.domains.clinical.cardiology.environment import (
     get_environment as clinical_cardiology_get_environment,
 )
-from tau2.domains.clinical_cardiology.environment import get_tasks as clinical_cardiology_get_tasks
-from tau2.domains.clinical_cardiology.environment import (
+from tau2.domains.clinical.cardiology.environment import get_tasks as clinical_cardiology_get_tasks
+from tau2.domains.clinical.cardiology.environment import (
     get_tasks_split as clinical_cardiology_get_tasks_split,
 )
-from tau2.domains.clinical_neurology.environment import (
+from tau2.domains.clinical.neurology.environment import (
     get_environment as clinical_neurology_get_environment,
 )
-from tau2.domains.clinical_neurology.environment import get_tasks as clinical_neurology_get_tasks
-from tau2.domains.clinical_neurology.environment import (
+from tau2.domains.clinical.neurology.environment import get_tasks as clinical_neurology_get_tasks
+from tau2.domains.clinical.neurology.environment import (
     get_tasks_split as clinical_neurology_get_tasks_split,
 )
-from tau2.domains.clinical_endocrinology.environment import (
+from tau2.domains.clinical.endocrinology.environment import (
     get_environment as clinical_endocrinology_get_environment,
 )
-from tau2.domains.clinical_endocrinology.environment import get_tasks as clinical_endocrinology_get_tasks
-from tau2.domains.clinical_endocrinology.environment import (
+from tau2.domains.clinical.endocrinology.environment import get_tasks as clinical_endocrinology_get_tasks
+from tau2.domains.clinical.endocrinology.environment import (
     get_tasks_split as clinical_endocrinology_get_tasks_split,
 )
 from tau2.environment.environment import Environment

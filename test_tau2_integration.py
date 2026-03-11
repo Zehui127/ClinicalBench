@@ -84,7 +84,7 @@ def test_task_compatibility():
     print("="*70)
 
     # Load a generated task
-    tasks_file = Path("data/tau2/domains/clinical_neurology/tasks.json")
+    tasks_file = Path("data/tau2/domains/clinical/neurology/tasks.json")
 
     with open(tasks_file, "r") as f:
         generated_tasks = json.load(f)
