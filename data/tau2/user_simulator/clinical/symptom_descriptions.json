@@ -1,0 +1,91 @@
+{
+  "description": "Symptom descriptions for clinical domain consultations",
+  "version": "1.0",
+  "symptoms": {
+    "cardiology": {
+      "chest_pain": {
+        "typical_description": "Pressure or squeezing sensation in the center of the chest",
+        "associated_symptoms": ["shortness of breath", "nausea", "sweating", "pain radiating to arm or jaw"],
+        "red_flags": ["crushing pain", "pain at rest", "pain with exertion"]
+      },
+      "palpitations": {
+        "typical_description": "Awareness of heart beating, often described as skipping, racing, or fluttering",
+        "associated_symptoms": ["dizziness", "lightheadedness", "shortness of breath"],
+        "red_flags": ["associated with chest pain", "syncope", "severe tachycardia"]
+      },
+      "shortness_of_breath": {
+        "typical_description": "Difficulty breathing or feeling of not getting enough air",
+        "associated_symptoms": ["chest tightness", "wheezing", "cough", "ankle swelling"],
+        "red_flags": ["resting dyspnea", "orthopnea", "paroxysmal nocturnal dyspnea"]
+      }
+    },
+    "endocrinology": {
+      "polyuria": {
+        "typical_description": "Increased frequency and volume of urination",
+        "associated_symptoms": ["excessive thirst", "dry mouth", "fatigue"],
+        "red_flags": ["nocturia", "bedwetting in adults", "extreme volumes"]
+      },
+      "weight_gain": {
+        "typical_description": "Unintentional increase in body weight",
+        "associated_symptoms": ["fatigue", "cold intolerance", "hair loss", "dry skin"],
+        "red_flags": ["rapid weight gain", "central obesity", "moon facies"]
+      },
+      "heat_intolerance": {
+        "typical_description": "Feeling overheated even in normal temperatures",
+        "associated_symptoms": ["sweating", "tremors", "palpitations", "weight loss"],
+        "red_flags": ["severe tremors", "atrial fibrillation", "thyroid storm symptoms"]
+      }
+    },
+    "gastroenterology": {
+      "abdominal_pain": {
+        "typical_description": "Pain or discomfort in the abdominal area",
+        "associated_symptoms": ["nausea", "vomiting", "diarrhea", "constipation", "bloating"],
+        "red_flags": ["severe acute pain", "blood in stool", "weight loss", "fever"]
+      },
+      "chronic_diarrhea": {
+        "typical_description": "Loose stools lasting more than 4 weeks",
+        "associated_symptoms": ["abdominal cramping", "urgency", "bloating", "weight loss"],
+        "red_flags": ["bloody diarrhea", "nocturnal diarrhea", "severe weight loss"]
+      },
+      "dysphagia": {
+        "typical_description": "Difficulty swallowing food or liquids",
+        "associated_symptoms": ["chest pain", "regurgitation", "coughing during meals", "weight loss"],
+        "red_flags": ["progressive dysphagia", "odynophagia", "significant weight loss"]
+      }
+    },
+    "nephrology": {
+      "edema": {
+        "typical_description": "Swelling, typically in legs, ankles, or around eyes",
+        "associated_symptoms": ["weight gain", "shortness of breath", "fatigue"],
+        "red_flags": ["pulmonary edema", "severe swelling", "rapid weight gain"]
+      },
+      "oliguria": {
+        "typical_description": "Decreased urine output",
+        "associated_symptoms": ["fluid retention", "fatigue", "confusion", "nausea"],
+        "red_flags": ["anuria", "hyperkalemia symptoms", "uremic symptoms"]
+      },
+      "proteinuria": {
+        "typical_description": "Foamy or frothy urine",
+        "associated_symptoms": ["edema", "fatigue", "loss of appetite"],
+        "red_flags": ["nephrotic syndrome", "rapidly progressive glomerulonephritis"]
+      }
+    },
+    "neurology": {
+      "headache": {
+        "typical_description": "Pain in the head or upper neck",
+        "associated_symptoms": ["nausea", "photophobia", "phonophobia", "aura"],
+        "red_flags": ["thunderclap headache", "headache with fever", "headache with neurological deficits"]
+      },
+      "seizure": {
+        "typical_description": "Episode of abnormal electrical activity in the brain",
+        "associated_symptoms": ["loss of consciousness", "convulsions", "confusion", "automatisms"],
+        "red_flags": ["status epilepticus", "first seizure in adults", "seizure with focal deficits"]
+      },
+      "focal_weakness": {
+        "typical_description": "Weakness in specific parts of the body",
+        "associated_symptoms": ["numbness", "difficulty speaking", "vision changes", "coordination problems"],
+        "red_flags": ["sudden onset", "acute stroke symptoms", "rapid progression"]
+      }
+    }
+  }
+}

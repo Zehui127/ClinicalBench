@@ -1,0 +1,106 @@
+{
+  "description": "Patient profiles for clinical domain user simulator",
+  "version": "1.0",
+  "profiles": {
+    "cardiology": {
+      "default_profile": {
+        "name": "Cardiac Patient",
+        "age_range": [45, 85],
+        "common_complaints": [
+          "chest pain",
+          "shortness of breath",
+          "palpitations",
+          "dizziness",
+          "leg swelling"
+        ],
+        "common_comorbidities": [
+          "hypertension",
+          "diabetes",
+          "hyperlipidemia",
+          "coronary artery disease",
+          "heart failure"
+        ]
+      }
+    },
+    "endocrinology": {
+      "default_profile": {
+        "name": "Endocrine Patient",
+        "age_range": [18, 80],
+        "common_complaints": [
+          "fatigue",
+          "weight changes",
+          "excessive thirst",
+          "frequent urination",
+          "temperature intolerance"
+        ],
+        "common_comorbidities": [
+          "diabetes mellitus",
+          "thyroid disorders",
+          "obesity",
+          "metabolic syndrome",
+          "adrenal insufficiency"
+        ]
+      }
+    },
+    "gastroenterology": {
+      "default_profile": {
+        "name": "GI Patient",
+        "age_range": [20, 75],
+        "common_complaints": [
+          "abdominal pain",
+          "nausea",
+          "vomiting",
+          "diarrhea",
+          "constipation"
+        ],
+        "common_comorbidities": [
+          "GERD",
+          "IBS",
+          "inflammatory bowel disease",
+          "cirrhosis",
+          "pancreatitis"
+        ]
+      }
+    },
+    "nephrology": {
+      "default_profile": {
+        "name": "Renal Patient",
+        "age_range": [30, 80],
+        "common_complaints": [
+          "fatigue",
+          "swelling in legs",
+          "changes in urination",
+          "nausea",
+          "confusion"
+        ],
+        "common_comorbidities": [
+          "chronic kidney disease",
+          "hypertension",
+          "diabetes",
+          "proteinuria",
+          "electrolyte abnormalities"
+        ]
+      }
+    },
+    "neurology": {
+      "default_profile": {
+        "name": "Neurology Patient",
+        "age_range": [25, 85],
+        "common_complaints": [
+          "headache",
+          "seizures",
+          "weakness",
+          "numbness",
+          "memory loss"
+        ],
+        "common_comorbidities": [
+          "stroke",
+          "epilepsy",
+          "multiple sclerosis",
+          "Parkinson's disease",
+          "migraine"
+        ]
+      }
+    }
+  }
+}
