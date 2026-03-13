@@ -1,0 +1,60 @@
+{
+  "patients": {
+    "threadmed_sample_1": {
+      "patient_id": "threadmed_sample_1",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "I've been having frequent headaches for the past week. They're mostly on the right side of my head and get worse when I move my eyes. Should I be worried?",
+      "num_turns": 3
+    },
+    "threadmed_sample_2": {
+      "patient_id": "threadmed_sample_2",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "My 5-year-old developed a red rash on her arms and legs yesterday. It doesn't seem to itch much but she's been running a low-grade fever. Could this be an allergy?",
+      "num_turns": 2
+    },
+    "threadmed_sample_3": {
+      "patient_id": "threadmed_sample_3",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "For the past three days, I've been having mild chest pain that comes and goes. It's mostly on the left side and sometimes feels like burning. Is this acid reflux?",
+      "num_turns": 2
+    },
+    "threadmed_sample_4": {
+      "patient_id": "threadmed_sample_4",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "I've been having frequent headaches for the past week. They're mostly on the right side of my head and get worse when I move my eyes. Should I be worried?",
+      "num_turns": 3
+    },
+    "threadmed_sample_5": {
+      "patient_id": "threadmed_sample_5",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "My 5-year-old developed a red rash on her arms and legs yesterday. It doesn't seem to itch much but she's been running a low-grade fever. Could this be an allergy?",
+      "num_turns": 2
+    },
+    "threadmed_sample_6": {
+      "patient_id": "threadmed_sample_6",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "For the past three days, I've been having mild chest pain that comes and goes. It's mostly on the left side and sometimes feels like burning. Is this acid reflux?",
+      "num_turns": 2
+    },
+    "threadmed_sample_7": {
+      "patient_id": "threadmed_sample_7",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "I've been having frequent headaches for the past week. They're mostly on the right side of my head and get worse when I move my eyes. Should I be worried?",
+      "num_turns": 3
+    },
+    "threadmed_sample_8": {
+      "patient_id": "threadmed_sample_8",
+      "platform": "AskDocs",
+      "anonymized": true,
+      "chief_complaint": "My 5-year-old developed a red rash on her arms and legs yesterday. It doesn't seem to itch much but she's been running a low-grade fever. Could this be an allergy?",
+      "num_turns": 2
+    }
+  }
+}

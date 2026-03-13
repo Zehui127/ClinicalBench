@@ -1,0 +1,28 @@
+{
+  "train": [
+    "threadmed_sample_1",
+    "threadmed_sample_2",
+    "threadmed_sample_3",
+    "threadmed_sample_4",
+    "threadmed_sample_5",
+    "threadmed_sample_6",
+    "threadmed_sample_7",
+    "threadmed_sample_8",
+    "threadmed_sample_1",
+    "threadmed_sample_1",
+    "threadmed_sample_1",
+    "threadmed_sample_1",
+    "threadmed_sample_2",
+    "threadmed_sample_3",
+    "threadmed_sample_4",
+    "threadmed_sample_5"
+  ],
+  "validation": [
+    "threadmed_sample_6",
+    "threadmed_sample_7"
+  ],
+  "test": [
+    "threadmed_sample_8",
+    "threadmed_sample_1"
+  ]
+}
