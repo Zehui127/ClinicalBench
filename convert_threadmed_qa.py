@@ -376,7 +376,7 @@ def main():
 
     # Paths
     data_dir = project_root / "data" / "raw" / "medical_dialogues" / "threadmed_qa" / "data"
-    output_dir = project_root / "data" / "processed" / "medical_dialogues" / "threadmed_qa"
+    output_dir = project_root / "data" / "tau2" / "domains" / "clinical" / "threadmed_qa"
 
     print(f"\nInput directory: {data_dir}")
     print(f"Output directory: {output_dir}")

@@ -269,7 +269,29 @@ Access to patient data tools is gated by a token (password-based auth), consiste
 
 ---
 
-## 6. Dependencies
+## 6. Running Evaluations
+
+To run tau2-bench evaluations on the clinical domains, see [CLINICAL_BENCHMARK_GUIDE.md](CLINICAL_BENCHMARK_GUIDE.md).
+
+**Quick Start:**
+
+```bash
+# 1. Configure API key in .env file
+# 2. List available clinical domains
+python run_clinical_benchmark.py --list
+
+# 3. Run a test evaluation (1 task)
+python run_clinical_benchmark.py --domain clinical_neurology --max-tasks 1
+
+# 4. Run full evaluation (all domains)
+python run_clinical_benchmark.py --all --max-tasks 5
+```
+
+For detailed instructions, model options, and troubleshooting, refer to the [Clinical Benchmark Guide](CLINICAL_BENCHMARK_GUIDE.md).
+
+---
+
+## 7. Dependencies
 
 - **pydantic** — Data validation and models
 - **litellm** — LLM API abstraction (used by DataQualityFiltering)
