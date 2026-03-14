@@ -103,26 +103,61 @@ class ValidationResult:
 class MedicalDialogueValidator:
     """Validates medical consultation dialogue datasets."""
 
-    # Medical domain keywords
+    # Medical domain keywords (English + Chinese)
     MEDICAL_KEYWORDS = [
+        # English keywords
         "pain", "fever", "headache", "nausea", "vomiting", "cough",
         "doctor", "physician", "patient", "symptom", "diagnosis",
         "treatment", "medication", "prescription", "therapy",
         "blood pressure", "heart rate", "temperature", "examination",
-        "medical", "clinical", "health", "disease", "condition"
+        "medical", "clinical", "health", "disease", "condition",
+        # Chinese keywords - 症状
+        "疼痛", "发烧", "头痛", "恶心", "呕吐", "咳嗽",
+        "头晕", "乏力", "失眠", "腹泻", "便秘", "胸闷",
+        "气短", "心悸", "水肿", "麻木", "瘙痒",
+        # 中文关键词 - 医学名词
+        "医生", "患者", "症状", "诊断", "治疗",
+        "药物", "药品", "处方", "疗法", "手术",
+        "血压", "心率", "体温", "检查", "化验",
+        "医学", "临床", "健康", "疾病", "病情", "病症",
+        # 中文关键词 - 科室
+        "内科", "外科", "妇科", "儿科", "肿瘤科",
+        "神经科", "心脏科", "消化科", "内分泌", "肾病",
+        "男科", "妇产科", "骨科", "眼科", "耳鼻喉",
+        # 中文关键词 - 其他
+        "高血压", "糖尿病", "感冒", "炎症", "过敏",
+        "肿瘤", "癌症", "感染", "病毒", "细菌",
+        "住院", "门诊", "复查", "预约", "挂号"
     ]
 
-    # Consultation patterns
+    # Consultation patterns (English + Chinese)
     CONSULTATION_PATTERNS = [
+        # English patterns
         r"(what|how|should|can|could|i|i'm|i have|my)",
         r"(help|advice|concern|worried)",
-        r"(diagnosis|treatment|prescribe|recommend)"
+        r"(diagnosis|treatment|prescribe|recommend)",
+        # Chinese patterns
+        r"(怎么|如何|应该|可以|能否|我|我的)",
+        r"(帮助|建议|担心|咨询|请问)",
+        r"(诊断|治疗|开药|推荐)"
     ]
 
-    # Multi-turn indicators
+    # Multi-turn indicators (English + Chinese)
     MULTI_TURN_INDICATORS = [
+        # English indicators
         "follow-up", "follow up", "additional", "more information",
-        "clarification", "also", "another question", "further"
+        "clarification", "also", "another question", "further",
+        # Chinese indicators
+        "随访", "复查", "补充", "更多信息",
+        "澄清", "还有", "另外", "进一步", "另外想问"
+    ]
+
+    # Dialogue markers (English + Chinese)
+    DIALOGUE_MARKERS = [
+        # English markers
+        "patient:", "doctor:", "physician:", "assistant:", "user:", "clinician:",
+        # Chinese markers
+        "患者:", "医生:", "医师:", "助理:", "用户:", "临床医生:"
     ]
 
     def __init__(self, strict_mode: bool = False):
@@ -327,10 +362,9 @@ class MedicalDialogueValidator:
             return
 
         # Check for dialogue pattern
-        dialogue_indicators = ["patient:", "physician:", "doctor:", "assistant:", "user:"]
         has_dialogue_structure = any(
             indicator.lower() in task_instructions.lower()
-            for indicator in dialogue_indicators
+            for indicator in self.DIALOGUE_MARKERS
         )
 
         if has_dialogue_structure:
@@ -338,7 +372,7 @@ class MedicalDialogueValidator:
             lines = task_instructions.split('\n')
             dialogue_lines = [
                 line for line in lines
-                if any(indicator in line.lower() for indicator in dialogue_indicators)
+                if any(indicator in line.lower() for indicator in self.DIALOGUE_MARKERS)
             ]
             num_turns = len(dialogue_lines)
 
@@ -358,7 +392,7 @@ class MedicalDialogueValidator:
                 category="multi_turn",
                 message="task_instructions doesn't contain clear dialogue structure",
                 task_id=task_id,
-                suggestion="Use 'Patient:', 'Doctor:', or similar markers to structure dialogue"
+                suggestion="Use 'Patient:', 'Doctor:', or similar markers (including Chinese: '患者:', '医生:') to structure dialogue"
             ))
 
     def _validate_medical_content(self, task: Dict[str, Any], task_id: str, issues: List[ValidationIssue]) -> None:
