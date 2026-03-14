@@ -1,0 +1,57 @@
+{
+  "tasks": [
+    {
+      "id": "test_medical_001",
+      "description": {
+        "purpose": "患者咨询高血压相关问题"
+      },
+      "ticket": "医生，我最近血压有点高，想咨询一下应该怎么控制？",
+      "user_scenario": {
+        "role": "医生",
+        "instructions": {
+          "task_instructions": "Patient: 医生，我最近血压有点高，想咨询一下应该怎么控制？\nDoctor: 您好，血压高是需要重视的问题。请问您目前的血压是多少？有没有头晕、头痛的症状？\nPatient: 收缩压大概150左右，舒张压95左右。有时候会有点头晕。\nDoctor: 了解。您这个血压确实偏高。请问您平时作息怎么样？有没有家族高血压病史？\nPatient: 工作压力比较大，经常熬夜。父亲有高血压。"
+        }
+      },
+      "evaluation_criteria": [
+        "询问血压具体数值",
+        "了解症状",
+        "询问家族史"
+      ]
+    },
+    {
+      "id": "test_non_medical_001",
+      "description": {
+        "purpose": "非医学任务示例"
+      },
+      "ticket": "如何制作一道美味的蛋糕？",
+      "user_scenario": {
+        "role": "厨师",
+        "instructions": {
+          "task_instructions": "User: 如何制作蛋糕？\nAssistant: 制作蛋糕需要准备面粉、鸡蛋、糖等材料。"
+        }
+      },
+      "evaluation_criteria": [
+        "列出材料",
+        "说明步骤"
+      ]
+    },
+    {
+      "id": "test_medical_dialogue_002",
+      "description": {
+        "purpose": "糖尿病患者血糖管理咨询"
+      },
+      "ticket": "医生，我最近血糖控制得不太理想，想了解一下如何调整饮食和药物？",
+      "user_scenario": {
+        "role": "医生",
+        "instructions": {
+          "task_instructions": "Patient: 医生，我最近血糖控制得不太理想，想了解一下如何调整饮食和药物？\nDoctor: 您好，血糖不稳定确实需要注意。请问您目前的空腹血糖和餐后血糖分别是多少？\nPatient: 空腹大概8-9mmol/L，餐后2小时有时候会到12mmol/L。\nDoctor: 这个血糖确实偏高。请问您目前服用什么降糖药物？剂量是多少？\nPatient: 二甲双胍，每天两次，每次500mg。\nDoctor: 好的。除了药物调整，饮食控制也很重要。请问您平时的饮食习惯怎么样？"
+        }
+      },
+      "evaluation_criteria": [
+        "询问血糖数值",
+        "了解用药情况",
+        "询问饮食习惯"
+      ]
+    }
+  ]
+}

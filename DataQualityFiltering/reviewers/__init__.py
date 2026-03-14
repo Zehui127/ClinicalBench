@@ -346,3 +346,20 @@ class BatchReviewer:
             "average_score": round(avg_score, 2),
             "dimension_averages": dimension_scores,
         }
+
+
+# Import medical dialogue reviewer
+from .medical_dialogue_reviewer import (
+    MedicalDialogueReviewer,
+    BatchMedicalDialogueReviewer,
+)
+
+
+# Export all reviewers
+__all__ = [
+    "BaseReviewer",
+    "ClinicalReviewer",
+    "BatchReviewer",
+    "MedicalDialogueReviewer",
+    "BatchMedicalDialogueReviewer",
+]

@@ -462,3 +462,22 @@ class ValidatorPipeline:
             reports.append(report)
 
         return reports
+
+
+# Import medical dialogue validator
+from .medical_dialogue_validator import (
+    MedicalDialogueValidator,
+    MedicalDialoguePipeline,
+)
+
+
+# Export all validators
+__all__ = [
+    "BaseValidator",
+    "SchemaValidator",
+    "QualityValidator",
+    "DepartmentValidator",
+    "ValidatorPipeline",
+    "MedicalDialogueValidator",
+    "MedicalDialoguePipeline",
+]
