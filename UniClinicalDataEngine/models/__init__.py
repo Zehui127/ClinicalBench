@@ -189,3 +189,8 @@ CLINICAL_TASK_SCHEMA = {
         }
     }
 }
+
+
+# Alias for backward compatibility
+# ClinicalScenario is used in db_builder.py, but ClinicalTask is the actual class
+ClinicalScenario = ClinicalTask

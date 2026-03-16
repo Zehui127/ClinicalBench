@@ -1,0 +1,10 @@
+Medical Data Quality Report
+==================================================
+Total dialogues: 8
+Total turns: 19
+Average turns: 2.4
+Total characters: 5659
+Average length: 707
+==================================================
+Test completed successfully!
+No LLM API required - these are rule-based checks.
