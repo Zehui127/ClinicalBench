@@ -21,7 +21,14 @@ DataQualityFiltering - 统一的医学评估框架
 
 import argparse
 import sys
+import os
 from pathlib import Path
+
+# 设置控制台输出编码为 UTF-8（Windows 兼容）
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 
 def main():
@@ -150,6 +157,62 @@ def main():
         help="输出目录（可选）"
     )
 
+    # quality-threshold 命令
+    qt_parser = data_quality_subparsers.add_parser(
+        "quality-threshold",
+        help="质量阈值筛选（0-30分制）",
+        description="使用扩展的质量阈值筛选系统进行三级分类和自动改进",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+示例:
+  # 使用质量阈值筛选
+  python -m DataQualityFiltering data-quality quality-threshold --input tasks.json
+
+  # 自定义阈值
+  python -m DataQualityFiltering data-quality quality-threshold --input tasks.json --high 27 --medium 24
+
+  # 禁用自动改进
+  python -m DataQualityFiltering data-quality quality-threshold --input tasks.json --no-improvement
+
+  # 指定输出目录
+  python -m DataQualityFiltering data-quality quality-threshold --input tasks.json --output-dir ./results
+        """
+    )
+    qt_parser.add_argument(
+        "--input",
+        required=True,
+        help="输入 JSON 文件路径"
+    )
+    qt_parser.add_argument(
+        "--output-dir",
+        default="./outputs/quality_threshold",
+        help="输出目录（默认: ./outputs/quality_threshold）"
+    )
+    qt_parser.add_argument(
+        "--high",
+        type=float,
+        default=27.0,
+        dest="high_threshold",
+        help="高质量阈值（默认: 27.0）"
+    )
+    qt_parser.add_argument(
+        "--medium",
+        type=float,
+        default=24.0,
+        dest="medium_threshold",
+        help="中等质量阈值（默认: 24.0）"
+    )
+    qt_parser.add_argument(
+        "--no-improvement",
+        action="store_false",
+        dest="enable_improvement",
+        help="禁用自动改进功能"
+    )
+    qt_parser.add_argument(
+        "--scores-file",
+        help="预计算的分数文件（JSON 格式，可选）"
+    )
+
     # ============================================================================
     # Agent 性能评估子系统
     # ============================================================================
@@ -262,14 +325,18 @@ def main():
 def _handle_data_quality(args):
     """处理数据质量评估命令"""
     if not args.command:
-        print("错误: 请指定数据质量命令（check, filter, pipeline）")
+        print("错误: 请指定数据质量命令（check, filter, pipeline, quality-threshold）")
         print("使用 --help 查看帮助")
         return 1
 
+    # 处理 quality-threshold 命令（独立处理，避免导入问题）
+    if args.command == "quality-threshold":
+        return _handle_quality_threshold(args)
+
     # 导入数据质量模块
     try:
-        from .data_quality.cli import main as dq_main
-        from .data_quality.check_medical_dialogue import main as check_main
+        from data_quality.cli import main as dq_main
+        from data_quality.check_medical_dialogue import main as check_main
 
         if args.command == "check":
             # 调用医学对话检查
@@ -284,7 +351,7 @@ def _handle_data_quality(args):
 
         elif args.command == "filter":
             # 调用过滤功能
-            from .data_quality import QualityFilter, FilterConfig
+            from data_quality import QualityFilter, FilterConfig
             import json
 
             with open(args.input, "r", encoding="utf-8") as f:
@@ -301,8 +368,8 @@ def _handle_data_quality(args):
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(filtered, f, ensure_ascii=False, indent=2)
 
-            print(f"✅ 过滤完成: {len(filtered)}/{len(data)} 个任务通过")
-            print(f"📄 结果保存到: {output_file}")
+            print(f"过滤完成: {len(filtered)}/{len(data)} 个任务通过")
+            print(f"结果保存到: {output_file}")
             return 0
 
         elif args.command == "pipeline":
@@ -319,10 +386,108 @@ def _handle_data_quality(args):
             return dq_main()
 
     except Exception as e:
-        print(f"❌ 错误: {e}")
+        print(f"错误: {e}")
         import traceback
         traceback.print_exc()
         return 1
+
+
+def _handle_quality_threshold(args):
+    """处理质量阈值筛选命令"""
+    import json
+    import logging
+    try:
+        from scoring import ScoringConfig
+        from quality_threshold_pipeline import QualityThresholdPipeline
+    except ImportError:
+        # 添加当前目录到 Python 路径
+        import os
+        import sys
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        if current_dir not in sys.path:
+            sys.path.insert(0, current_dir)
+        from scoring import ScoringConfig
+        from quality_threshold_pipeline import QualityThresholdPipeline
+
+    # 配置日志
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+
+    print("=" * 60)
+    print("质量阈值筛选系统")
+    print("=" * 60)
+    print(f"输入文件: {args.input}")
+    print(f"输出目录: {args.output_dir}")
+    print(f"高质量阈值: {args.high_threshold}")
+    print(f"中等质量阈值: {args.medium_threshold}")
+    print(f"启用改进: {args.enable_improvement}")
+    print("=" * 60)
+    print()  # 添加空行
+
+    # 加载任务
+    print("加载任务...")
+    with open(args.input, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # 处理不同的数据格式
+    if isinstance(data, dict):
+        tasks = data.get("tasks", data.get("data", [data]))
+    elif isinstance(data, list):
+        tasks = data
+    else:
+        print(f"❌ 错误: 无法识别的数据格式")
+        return 1
+
+    print(f"加载了 {len(tasks)} 个任务")
+
+    # 加载或生成分数
+    scores_list = None
+    original_scores_list = None
+
+    if args.scores_file:
+        print(f"加载预计算的分数...")
+        with open(args.scores_file, "r", encoding="utf-8") as f:
+            scores_data = json.load(f)
+            scores_list = scores_data.get("extended_scores")
+            original_scores_list = scores_data.get("original_scores")
+        print(f"加载了 {len(scores_list) if scores_list else 0} 组分数")
+    else:
+        print(f"未提供分数文件，将使用默认分数（测试模式）")
+        print(f"   实际使用时，请先运行评分系统或提供 --scores-file")
+    print()  # 添加空行
+
+    # 创建配置
+    config = ScoringConfig(
+        HIGH_THRESHOLD=args.high_threshold,
+        MEDIUM_THRESHOLD=args.medium_threshold
+    )
+
+    # 创建并运行管道
+    print("运行质量阈值筛选管道...")
+    print()
+    pipeline = QualityThresholdPipeline(
+        config=config,
+        enable_improvement=args.enable_improvement,
+        output_dir=args.output_dir
+    )
+
+    results = pipeline.run(tasks, scores_list, original_scores_list)
+
+    # 打印最终结果
+    print()
+    print("=" * 60)
+    print("质量阈值筛选完成")
+    print("=" * 60)
+    print(f"高质量任务: {len(results['high_quality'])}")
+    print(f"中等质量改进成功: {len(results['medium_quality_improved'])}")
+    print(f"中等质量改进失败: {len(results['medium_quality_failed'])}")
+    print(f"低质量任务: {len(results['low_quality'])}")
+    print(f"\n结果保存到: {args.output_dir}")
+    print("=" * 60)
+
+    return 0
 
 
 def _handle_agent_eval(args):
