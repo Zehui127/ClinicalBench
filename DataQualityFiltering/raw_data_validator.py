@@ -346,6 +346,10 @@ class RawDataValidator:
         """
         加载CSV文件并转换为对话格式
 
+        支持两种格式：
+        1. 对话轮次格式: department, dialogue_id, role, content
+        2. 问答格式: department, title, ask, answer
+
         Args:
             csv_path: CSV文件路径
             encoding: 文件编码
@@ -353,28 +357,58 @@ class RawDataValidator:
         Returns:
             对话数据列表
         """
-        dialogues = defaultdict(lambda: {"department": "", "dialogue_id": "", "turns": []})
+        dialogues = []
 
         with open(csv_path, "r", encoding=encoding, errors="ignore") as f:
+            # 读取第一行判断格式
+            first_line = f.readline()
+            f.seek(0)
             reader = csv.DictReader(f)
 
-            for row in reader:
-                department = row.get("department", "")
-                dialogue_id = row.get("dialogue_id", "")
-                role = row.get("role", "")
-                content = row.get("content", "")
+            if "ask" in first_line and "answer" in first_line:
+                # 问答格式: department, title, ask, answer
+                for idx, row in enumerate(reader):
+                    department = row.get("department", "")
+                    title = row.get("title", "")
+                    ask = row.get("ask", "")
+                    answer = row.get("answer", "")
 
-                if not dialogue_id:
-                    continue
+                    if not ask or not answer:
+                        continue
 
-                dialogues[dialogue_id]["department"] = department
-                dialogues[dialogue_id]["dialogue_id"] = dialogue_id
-                dialogues[dialogue_id]["turns"].append({
-                    "role": role,
-                    "content": content
-                })
+                    # 构造对话轮次格式
+                    dialogues.append({
+                        "department": department,
+                        "dialogue_id": f"D{idx:04d}",
+                        "title": title,
+                        "turns": [
+                            {"role": "patient", "content": ask},
+                            {"role": "doctor", "content": answer}
+                        ]
+                    })
+            else:
+                # 对话轮次格式: department, dialogue_id, role, content
+                dialogue_dict = defaultdict(lambda: {"department": "", "dialogue_id": "", "turns": []})
 
-        return list(dialogues.values())
+                for row in reader:
+                    department = row.get("department", "")
+                    dialogue_id = row.get("dialogue_id", "")
+                    role = row.get("role", "")
+                    content = row.get("content", "")
+
+                    if not dialogue_id:
+                        continue
+
+                    dialogue_dict[dialogue_id]["department"] = department
+                    dialogue_dict[dialogue_id]["dialogue_id"] = dialogue_id
+                    dialogue_dict[dialogue_id]["turns"].append({
+                        "role": role,
+                        "content": content
+                    })
+
+                dialogues = list(dialogue_dict.values())
+
+        return dialogues
 
     def generate_summary(self, report: ValidationReport) -> str:
         """
