@@ -1,0 +1,115 @@
+{
+  "summary": {
+    "total": 5,
+    "passed": 2,
+    "failed": 3,
+    "pass_rate": "40.0%"
+  },
+  "statistics": {
+    "department_distribution": {
+      "内科": 3,
+      "外科": 1,
+      "儿科": 1
+    },
+    "failure_reasons": {
+      "对话轮数不足：1 < 2": 3,
+      "未检测到医学关键词，可能不是医学咨询": 3,
+      "缺少患者主诉": 1
+    },
+    "warning_distribution": {
+      "患者主诉过短：1 < 5": 1,
+      "缺少医生回答": 2,
+      "患者主诉过短：2 < 5": 1
+    }
+  },
+  "details": [
+    {
+      "passed": true,
+      "dialogue_id": "D001",
+      "department": "内科",
+      "issues": [],
+      "warnings": [],
+      "metrics": {
+        "total_turns": 2,
+        "patient_turns": 1,
+        "patient_content_length": 12,
+        "doctor_turns": 1,
+        "doctor_content_length": 19,
+        "medical_keywords_count": 3
+      }
+    },
+    {
+      "passed": false,
+      "dialogue_id": "D002",
+      "department": "内科",
+      "issues": [
+        "对话轮数不足：1 < 2",
+        "未检测到医学关键词，可能不是医学咨询"
+      ],
+      "warnings": [
+        "患者主诉过短：1 < 5",
+        "缺少医生回答"
+      ],
+      "metrics": {
+        "total_turns": 1,
+        "patient_turns": 1,
+        "patient_content_length": 1,
+        "doctor_turns": 0,
+        "medical_keywords_count": 0
+      }
+    },
+    {
+      "passed": true,
+      "dialogue_id": "D003",
+      "department": "外科",
+      "issues": [],
+      "warnings": [],
+      "metrics": {
+        "total_turns": 4,
+        "patient_turns": 2,
+        "patient_content_length": 41,
+        "doctor_turns": 2,
+        "doctor_content_length": 82,
+        "medical_keywords_count": 7
+      }
+    },
+    {
+      "passed": false,
+      "dialogue_id": "D004",
+      "department": "儿科",
+      "issues": [
+        "对话轮数不足：1 < 2",
+        "未检测到医学关键词，可能不是医学咨询"
+      ],
+      "warnings": [
+        "患者主诉过短：2 < 5",
+        "缺少医生回答"
+      ],
+      "metrics": {
+        "total_turns": 1,
+        "patient_turns": 1,
+        "patient_content_length": 2,
+        "doctor_turns": 0,
+        "medical_keywords_count": 0
+      }
+    },
+    {
+      "passed": false,
+      "dialogue_id": "D005",
+      "department": "内科",
+      "issues": [
+        "对话轮数不足：1 < 2",
+        "缺少患者主诉",
+        "未检测到医学关键词，可能不是医学咨询"
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_turns": 1,
+        "patient_turns": 0,
+        "doctor_turns": 1,
+        "doctor_content_length": 12,
+        "medical_keywords_count": 0
+      }
+    }
+  ]
+}

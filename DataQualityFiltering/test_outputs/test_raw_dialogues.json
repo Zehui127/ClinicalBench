@@ -1,0 +1,41 @@
+[
+  {
+    "department": "内科",
+    "dialogue_id": "D001",
+    "turns": [
+      {"role": "patient", "content": "医生，我最近头痛怎么办？"},
+      {"role": "doctor", "content": "请问您头痛持续多久了？有没有其他症状？"}
+    ]
+  },
+  {
+    "department": "内科",
+    "dialogue_id": "D002",
+    "turns": [
+      {"role": "patient", "content": "我"}
+    ]
+  },
+  {
+    "department": "外科",
+    "dialogue_id": "D003",
+    "turns": [
+      {"role": "patient", "content": "我最近血压有点高，能不能吃硝苯地平？我有高血压病史。"},
+      {"role": "doctor", "content": "您好，请问您今年多大了？硝苯地平是处方药，需要在医生指导下使用。您目前有其他症状吗？比如头晕、心悸？"},
+      {"role": "patient", "content": "我今年45岁，有时候会头晕。"},
+      {"role": "doctor", "content": "好的，我建议您先做一个血压监测，然后来医院检查。不要自行用药。"}
+    ]
+  },
+  {
+    "department": "儿科",
+    "dialogue_id": "D004",
+    "turns": [
+      {"role": "patient", "content": "你好"}
+    ]
+  },
+  {
+    "department": "内科",
+    "dialogue_id": "D005",
+    "turns": [
+      {"role": "doctor", "content": "您好，有什么可以帮您的？"}
+    ]
+  }
+]

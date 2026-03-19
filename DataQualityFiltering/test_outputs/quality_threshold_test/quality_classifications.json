@@ -1,0 +1,1002 @@
+[
+  {
+    "task_id": "clinical_internal_medicine_0",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908907"
+  },
+  {
+    "task_id": "clinical_internal_medicine_1",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908928"
+  },
+  {
+    "task_id": "clinical_internal_medicine_2",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908939"
+  },
+  {
+    "task_id": "clinical_internal_medicine_3",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908946"
+  },
+  {
+    "task_id": "clinical_internal_medicine_4",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908953"
+  },
+  {
+    "task_id": "clinical_internal_medicine_5",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908961"
+  },
+  {
+    "task_id": "clinical_internal_medicine_6",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908968"
+  },
+  {
+    "task_id": "clinical_internal_medicine_7",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908975"
+  },
+  {
+    "task_id": "clinical_internal_medicine_8",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908981"
+  },
+  {
+    "task_id": "clinical_internal_medicine_9",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908988"
+  },
+  {
+    "task_id": "clinical_internal_medicine_10",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.908994"
+  },
+  {
+    "task_id": "clinical_internal_medicine_11",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909000"
+  },
+  {
+    "task_id": "clinical_internal_medicine_12",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909010"
+  },
+  {
+    "task_id": "clinical_internal_medicine_13",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909016"
+  },
+  {
+    "task_id": "clinical_internal_medicine_14",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909022"
+  },
+  {
+    "task_id": "clinical_internal_medicine_15",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909028"
+  },
+  {
+    "task_id": "clinical_internal_medicine_16",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909035"
+  },
+  {
+    "task_id": "clinical_internal_medicine_17",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909041"
+  },
+  {
+    "task_id": "clinical_internal_medicine_18",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909048"
+  },
+  {
+    "task_id": "clinical_internal_medicine_19",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909054"
+  },
+  {
+    "task_id": "clinical_internal_medicine_20",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909060"
+  },
+  {
+    "task_id": "clinical_internal_medicine_21",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909067"
+  },
+  {
+    "task_id": "clinical_internal_medicine_22",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909073"
+  },
+  {
+    "task_id": "clinical_internal_medicine_23",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909081"
+  },
+  {
+    "task_id": "clinical_internal_medicine_24",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909087"
+  },
+  {
+    "task_id": "clinical_internal_medicine_25",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909094"
+  },
+  {
+    "task_id": "clinical_internal_medicine_26",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909102"
+  },
+  {
+    "task_id": "clinical_internal_medicine_27",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909109"
+  },
+  {
+    "task_id": "clinical_internal_medicine_28",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909115"
+  },
+  {
+    "task_id": "clinical_internal_medicine_29",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909121"
+  },
+  {
+    "task_id": "clinical_internal_medicine_30",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909127"
+  },
+  {
+    "task_id": "clinical_internal_medicine_31",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909133"
+  },
+  {
+    "task_id": "clinical_internal_medicine_32",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909139"
+  },
+  {
+    "task_id": "clinical_internal_medicine_33",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909145"
+  },
+  {
+    "task_id": "clinical_internal_medicine_34",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909151"
+  },
+  {
+    "task_id": "clinical_internal_medicine_35",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909157"
+  },
+  {
+    "task_id": "clinical_internal_medicine_36",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909164"
+  },
+  {
+    "task_id": "clinical_internal_medicine_37",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909170"
+  },
+  {
+    "task_id": "clinical_internal_medicine_38",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909176"
+  },
+  {
+    "task_id": "clinical_internal_medicine_39",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909182"
+  },
+  {
+    "task_id": "clinical_internal_medicine_40",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909189"
+  },
+  {
+    "task_id": "clinical_internal_medicine_41",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909196"
+  },
+  {
+    "task_id": "clinical_internal_medicine_42",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909202"
+  },
+  {
+    "task_id": "clinical_internal_medicine_43",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909208"
+  },
+  {
+    "task_id": "clinical_internal_medicine_44",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909216"
+  },
+  {
+    "task_id": "clinical_internal_medicine_45",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909222"
+  },
+  {
+    "task_id": "clinical_internal_medicine_46",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909228"
+  },
+  {
+    "task_id": "clinical_internal_medicine_47",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909235"
+  },
+  {
+    "task_id": "clinical_internal_medicine_48",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909241"
+  },
+  {
+    "task_id": "clinical_internal_medicine_49",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-18T21:48:13.909247"
+  }
+]
