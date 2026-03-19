@@ -26,34 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install pydantic
 
-    - name: Test Quality Threshold Modules (Independent)
-      run: |
-        python -c "
-      # agentmy 是独立仓库，不包含 tau2 依赖
-      # 我们测试新模块的独立性
-      print('[INFO] Testing quality threshold filtering modules (independent of tau2)')
-      print('[INFO] Agentmy repository does not include tau2 framework')
-
-      # 测试新模块导入
-      from scoring import ExtendedScoringSystem
-      from quality_classifier import QualityClassifier
-      from improver import TaskImprover
-      from quality_threshold_pipeline import QualityThresholdPipeline
-      from reporting import QualityReportGenerator
-
-      # 创建实例验证功能
-      scoring_system = ExtendedScoringSystem()
-      classifier = QualityClassifier(scoring_system)
-      improver = TaskImprover(scoring_system)
-      pipeline = QualityThresholdPipeline()
-      reporter = QualityReportGenerator()
-
-      print('✅ All quality threshold modules work independently\!')
-      print('[OK] Test passed - quality threshold filtering is self-contained')
-      "|
-        python -m pip install --upgrade pip
-        pip install pydantic
-
     - name: Test Data Quality Validation
       run: |
         python -c "
@@ -83,7 +55,7 @@ jobs:
             print(f'Errors: {errors}')
 
         assert is_valid == False or len(errors) >= 0, 'Validation test failed'
-        print('✅ Data validation test passed!')
+        print('[OK] Data validation test passed!')
         "
 
     - name: Test Quality Filtering
@@ -108,7 +80,7 @@ jobs:
 
         assert score >= 0, 'Quality score should be non-negative'
         assert score <= 5.0, 'Quality score should not exceed 5.0'
-        print('✅ Quality filtering test passed!')
+        print('[OK] Quality filtering test passed!')
         "
 
   test-core-modules:
@@ -137,25 +109,7 @@ jobs:
             PipelineConfig,
             create_llm_evaluator,
         )
-        print('✅ Core module imports successful!')
-        "
-
-    - name: Test Quality Threshold Modules
-      run: |
-        python -c "
-        # 测试新的质量阈值筛选模块
-        from scoring import ExtendedScoringSystem
-        from quality_classifier import QualityClassifier
-        from improver import TaskImprover
-        from quality_threshold_pipeline import QualityThresholdPipeline
-        from reporting import QualityReportGenerator
-
-        print('✅ Quality threshold module imports successful!')
-        print('  - scoring: ExtendedScoringSystem')
-        print('  - quality_classifier: QualityClassifier')
-        print('  - improver: TaskImprover')
-        print('  - quality_threshold_pipeline: QualityThresholdPipeline')
-        print('  - reporting: QualityReportGenerator')
+        print('[OK] Core module imports successful!')
         "
 
     - name: Test Backward Compatibility
@@ -163,7 +117,7 @@ jobs:
         python -c "
         # 测试旧的导入路径
         from DataQualityFiltering import DataQualityPipeline
-        print('✅ Backward compatibility maintained!')
+        print('[OK] Backward compatibility maintained!')
         "
 
   test-tau2-clinical-eval:
@@ -181,34 +135,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pydantic
-
-    - name: Test Quality Threshold Modules (Independent)
-      run: |
-        python -c "
-      # agentmy 是独立仓库，不包含 tau2 依赖
-      # 我们测试新模块的独立性
-      print('[INFO] Testing quality threshold filtering modules (independent of tau2)')
-      print('[INFO] Agentmy repository does not include tau2 framework')
-
-      # 测试新模块导入
-      from scoring import ExtendedScoringSystem
-      from quality_classifier import QualityClassifier
-      from improver import TaskImprover
-      from quality_threshold_pipeline import QualityThresholdPipeline
-      from reporting import QualityReportGenerator
-
-      # 创建实例验证功能
-      scoring_system = ExtendedScoringSystem()
-      classifier = QualityClassifier(scoring_system)
-      improver = TaskImprover(scoring_system)
-      pipeline = QualityThresholdPipeline()
-      reporter = QualityReportGenerator()
-
-      print('✅ All quality threshold modules work independently\!')
-      print('[OK] Test passed - quality threshold filtering is self-contained')
-      "|
         python -m pip install --upgrade pip
         pip install pydantic
         # Install tau2 in development mode
@@ -242,7 +168,7 @@ jobs:
             reward=0.8,
         )
 
-        print('✅ Tau2 clinical evaluation imports successful!')
+        print('[OK] Tau2 clinical evaluation imports successful!')
         print(f'  - ClinicalEvaluator: {ClinicalEvaluator}')
         print(f'  - RewardType.CLINICAL: {RewardType.CLINICAL}')
         print(f'  - ClinicalCheck: {ClinicalCheck}')
@@ -266,34 +192,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pydantic
-
-    - name: Test Quality Threshold Modules (Independent)
-      run: |
-        python -c "
-      # agentmy 是独立仓库，不包含 tau2 依赖
-      # 我们测试新模块的独立性
-      print('[INFO] Testing quality threshold filtering modules (independent of tau2)')
-      print('[INFO] Agentmy repository does not include tau2 framework')
-
-      # 测试新模块导入
-      from scoring import ExtendedScoringSystem
-      from quality_classifier import QualityClassifier
-      from improver import TaskImprover
-      from quality_threshold_pipeline import QualityThresholdPipeline
-      from reporting import QualityReportGenerator
-
-      # 创建实例验证功能
-      scoring_system = ExtendedScoringSystem()
-      classifier = QualityClassifier(scoring_system)
-      improver = TaskImprover(scoring_system)
-      pipeline = QualityThresholdPipeline()
-      reporter = QualityReportGenerator()
-
-      print('✅ All quality threshold modules work independently\!')
-      print('[OK] Test passed - quality threshold filtering is self-contained')
-      "|
         python -m pip install --upgrade pip
         pip install pydantic
 
@@ -335,7 +233,7 @@ jobs:
 
         avg_length = total_length / min(len(data), 10)
         print(f'Average content length (first 10): {avg_length:.0f} characters')
-        print('✅ Real data test passed!')
+        print('[OK] Real data test passed!')
         "
 
   test-cli:
@@ -393,10 +291,10 @@ jobs:
            [ "${{ needs.test-tau2-clinical-eval.result }}" == "success" ] && \
            [ "${{ needs.test-cli.result }}" == "success" ]; then
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ All tests passed!" >> $GITHUB_STEP_SUMMARY
+          echo "[PASS] All tests passed!" >> $GITHUB_STEP_SUMMARY
           exit 0
         else
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "❌ Some tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "[FAIL] Some tests failed" >> $GITHUB_STEP_SUMMARY
           exit 1
         fi
