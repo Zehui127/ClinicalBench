@@ -1,0 +1,42 @@
+{
+  "departments": {
+    "内科": {
+      "original_count": 500,
+      "merged_count": 494,
+      "reduction_rate": "1.2%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_内科.json"
+    },
+    "外科": {
+      "original_count": 500,
+      "merged_count": 212,
+      "reduction_rate": "57.6%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_外科.json"
+    },
+    "妇产科": {
+      "original_count": 500,
+      "merged_count": 171,
+      "reduction_rate": "65.8%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_妇产科.json"
+    },
+    "儿科": {
+      "original_count": 500,
+      "merged_count": 38,
+      "reduction_rate": "92.4%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_儿科.json"
+    },
+    "肿瘤科": {
+      "original_count": 500,
+      "merged_count": 378,
+      "reduction_rate": "24.4%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_肿瘤科.json"
+    },
+    "男科": {
+      "original_count": 500,
+      "merged_count": 183,
+      "reduction_rate": "63.4%",
+      "output_file": "DataQualityFiltering\\test_outputs\\merged_tasks\\merged_男科.json"
+    }
+  },
+  "total_original": 3000,
+  "total_merged": 1476
+}
