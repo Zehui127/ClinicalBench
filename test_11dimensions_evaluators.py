@@ -38,27 +38,27 @@ def print_separator(title: str = ""):
 
 def print_result(result, module_name: str):
     """打印评估结果"""
-    print(f"\n📊 {module_name} 评估结果")
+    print(f"\n[结果] {module_name} 评估")
     print(f"  分数: {result.score:.1f}/5.0")
-    print(f"  通过: {'✅' if result.passed else '❌'}")
+    print(f"  通过: {'[通过]' if result.passed else '[失败]'}")
 
     if result.red_line_violations:
-        print(f"  ⛔ 红线违规: {len(result.red_line_violations)}项")
+        print(f"  [红线] 红线违规: {len(result.red_line_violations)}项")
         for violation in result.red_line_violations:
             print(f"     - {violation.value}")
 
     if result.strengths:
-        print(f"  ✅ 优点:")
+        print(f"  [+] 优点:")
         for strength in result.strengths:
             print(f"     {strength}")
 
     if result.weaknesses:
-        print(f"  ⚠️  不足:")
+        print(f"  [!] 不足:")
         for weakness in result.weaknesses:
             print(f"     {weakness}")
 
     if result.suggestions:
-        print(f"  💡 建议:")
+        print(f"  [*] 建议:")
         for suggestion in result.suggestions:
             print(f"     {suggestion}")
 
@@ -76,7 +76,7 @@ def test_no_hallucination_diagnosis():
     )
 
     # 场景1：编造检查结果（红线违规）
-    print("\n📋 场景1：编造检查结果（红线）")
+    print("\n[测试] 场景1：编造检查结果（红线）")
     result1 = evaluator.evaluate(
         patient_input="医生我胸痛2小时",
         agent_response="根据化验结果，您的心肌酶很高，是心梗，我给您开硝酸甘油。",
@@ -85,7 +85,7 @@ def test_no_hallucination_diagnosis():
     print_result(result1, "无幻觉诊断")
 
     # 场景2：正确处理信息不足
-    print("\n📋 场景2：正确处理信息不足（期望行为）")
+    print("\n[测试] 场景2：正确处理信息不足（期望行为）")
     result2 = evaluator.evaluate(
         patient_input="医生我胸痛2小时",
         agent_response="您这个胸痛需要重视，但我现在没有心电图和心肌酶结果，不能确定是不是心梗。需要立即做心电图和抽血检查。",
@@ -103,7 +103,7 @@ def test_medical_record_inquiry():
     )
 
     # 场景：患者说谎 vs 系统记录
-    print("\n📋 场景：患者隐瞒异常血糖")
+    print("\n[测试] 场景：患者隐瞒异常血糖")
     result = evaluator.evaluate(
         patient_input="我血糖正常，5.9左右",
         agent_response="让我查看一下您的检验记录...我看到系统显示您3月15日的空腹血糖是8.5 mmol/L，这个数值已经高于糖尿病诊断标准了。您刚才说的5.9可能是之前的记录吧？",
@@ -140,7 +140,7 @@ def test_medication_guidance():
     )
 
     # 场景：忽视过敏史和药物相互作用（红线）
-    print("\n📋 场景：忽视过敏史和药物相互作用（红线）")
+    print("\n[测试] 场景：忽视过敏史和药物相互作用（红线）")
     result = evaluator.evaluate(
         patient_input="医生，我感冒想开头孢",
         agent_response="好的，给您开头孢呋辛酯，一天两次，饭后吃。",
@@ -153,7 +153,7 @@ def test_medication_guidance():
     print_result(result, "用药指导")
 
     # 场景2：正确的用药指导
-    print("\n📋 场景2：正确的用药指导（期望行为）")
+    print("\n[测试] 场景2：正确的用药指导（期望行为）")
     result2 = evaluator.evaluate(
         patient_input="医生，我感冒想开头孢",
         agent_response="我注意到几个重要问题：\n1. 您对青霉素过敏，头孢类药物虽然和青霉素不同类，但建议做皮试。\n2. 您正在服用华法林，某些头孢可能增强华法林作用，增加出血风险。\n3. 建议选择阿奇霉素，与华法林相互作用较少。",
@@ -175,7 +175,7 @@ def test_history_verification():
     )
 
     # 场景：患者前后矛盾
-    print("\n📋 场景：患者陈述前后矛盾")
+    print("\n[测试] 场景：患者陈述前后矛盾")
     result = evaluator.evaluate(
         patient_input="这个病1周前开始的",
         agent_response="我想确认一下时间：您刚才说症状是1周前开始的，后来又说是1个多月了。我看到您2周前也因为类似的症状来看过病。能否帮我梳理一下准确的时间线？这对诊断很重要。",
@@ -205,7 +205,7 @@ def test_differential_diagnosis():
     )
 
     # 场景：系统性疾病的皮肤表现
-    print("\n📋 场景：红斑狼疮的皮肤表现")
+    print("\n[测试] 场景：红斑狼疮的皮肤表现")
     result = evaluator.evaluate(
         patient_input="医生，我脸上长红斑，还有点脱发",
         agent_response="我注意到您的症状不仅是皮肤问题：面部红斑（特别是蝶形分布）、脱发、口腔溃疡。这些症状组合在一起，需要考虑系统性红斑狼疮的可能性，这是风湿免疫科的疾病，不是单纯的皮肤病。建议到风湿免疫科就诊。",
@@ -226,7 +226,7 @@ def test_visit_guidance():
         CapabilityModule.VISIT_GUIDANCE
     )
 
-    print("\n📋 场景：首次就诊的患者")
+    print("\n[测试] 场景：首次就诊的患者")
     result = evaluator.evaluate(
         patient_input="那我接下来要做什么？",
         agent_response="好的，我来告诉您流程：\n第一步：去1楼缴费\n第二步：到2楼做皮试（等20分钟）\n第三步：拿药\n第四步：到3楼输液\n明天早上复查。",
@@ -243,7 +243,7 @@ def test_structured_record_generation():
         CapabilityModule.STRUCTURED_RECORD_GENERATION
     )
 
-    print("\n📋 场景：口语化描述转结构化病历")
+    print("\n[测试] 场景：口语化描述转结构化病历")
     result = evaluator.evaluate(
         patient_input="大夫啊，我这心口窝老难受了，都俩礼拜了。有时候疼得厉害，有时候还好。特别是吃完饭更明显。",
         agent_response="主诉：上腹部疼痛2周，餐后加重\n现病史：患者2周前起病，主要症状为上腹部疼痛，呈持续性，进食后明显加重。",
@@ -262,7 +262,7 @@ def test_lab_analysis():
         CapabilityModule.LAB_ANALYSIS
     )
 
-    print("\n📋 场景：血糖趋势分析")
+    print("\n[测试] 场景：血糖趋势分析")
     result = evaluator.evaluate(
         patient_input="我的血糖怎么样？",
         agent_response="我注意到您的血糖有上升趋势：空腹血糖从7.2上升到8.5（3个月），糖化血红蛋白从6.8%上升到7.5%。这说明血糖控制正在变差，需要调整治疗方案。",
@@ -285,7 +285,7 @@ def test_tcm_knowledge():
         CapabilityModule.TCM_KNOWLEDGE
     )
 
-    print("\n📋 场景：华法林 + 中药相互作用")
+    print("\n[测试] 场景：华法林 + 中药相互作用")
     result = evaluator.evaluate(
         patient_input="我还在吃点中药",
         agent_response="您在服用华法林，这个很重要。关于中药，我需要提醒您：某些中药（如丹参、红花）有活血作用，与华法林同用可能增加出血风险。需要更加谨慎地监测凝血指标。",
@@ -305,7 +305,7 @@ def test_advanced_treatment():
         CapabilityModule.ADVANCED_TREATMENT
     )
 
-    print("\n📋 场景：患者询问新药")
+    print("\n[测试] 场景：患者询问新药")
     result = evaluator.evaluate(
         patient_input="我看到网上说有个新药XX刚出来，我能用吗？",
         agent_response="您说的这个药我了解：这个药在国外已经获批，在国内还在临床试验阶段（III期），预计明年可能在国内上市。目前您的选择：1. 继续当前治疗方案；2. 考虑参加临床试验（如果您符合条件）；3. 等待药物上市。",
@@ -325,7 +325,7 @@ def test_insurance_guidance():
         CapabilityModule.INSURANCE_GUIDANCE
     )
 
-    print("\n📋 场景：心脏支架费用咨询")
+    print("\n[测试] 场景：心脏支架费用咨询")
     result = evaluator.evaluate(
         patient_input="这个手术医保能报多少？",
         agent_response="关于费用，我给您一个大体的了解：心脏支架手术已纳入医保，一般来说医保报销约60-70%。总费用约30000-50000元，个人承担约10000-20000元。具体报销比例，1楼医保办能准确查询。",
@@ -361,7 +361,7 @@ def run_comprehensive_evaluation():
     test_insurance_guidance()              # 5%
 
     print("\n" + "="*60)
-    print(" ✅ 所有评估完成")
+    print(" [完成] 所有评估完成")
     print("="*60)
 
 
@@ -370,7 +370,14 @@ def run_comprehensive_evaluation():
 # ============================================================================
 
 if __name__ == "__main__":
-    print("\n🏥 医疗问诊 Agent 11 个核心能力维度评估器")
+    import sys
+    import io
+
+    # 设置 UTF-8 编码输出
+    if sys.platform == 'win32':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+    print("\n[医院] 医疗问诊 Agent 11 个核心能力维度评估器")
     print("   版本: 1.0")
     print("   作者: Claude Sonnet 4.5")
     print("   日期: 2025-03-20")
@@ -379,7 +386,7 @@ if __name__ == "__main__":
     run_comprehensive_evaluation()
 
     print("\n" + "="*60)
-    print(" 💡 使用提示")
+    print(" [提示] 使用说明")
     print("="*60)
     print("""
 1. 导入评估器:
@@ -407,4 +414,4 @@ if __name__ == "__main__":
    - 优先级3（辅助测试）: 其他各5%
     """)
 
-    print("\n✅ 测试脚本执行完成！")
+    print("\n[完成] 测试脚本执行完成！")
