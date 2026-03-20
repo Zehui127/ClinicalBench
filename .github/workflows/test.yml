@@ -99,17 +99,38 @@ jobs:
     - name: Test Core Imports
       run: |
         python -c "
-        from DataQualityFiltering.core import (
-            LLMEvaluator,
-            BaseEvaluator,
-            BaseReviewer,
-            BaseConfig,
-            LLMConfig,
-            EvaluationConfig,
-            PipelineConfig,
-            create_llm_evaluator,
-        )
-        print('[OK] Core module imports successful!')
+        import sys
+        import os
+        import traceback
+
+        # 确保当前目录在Python路径中
+        if '.' not in sys.path:
+            sys.path.insert(0, '.')
+        if '' not in sys.path:
+            sys.path.insert(0, '')
+
+        print('Working directory:', os.getcwd())
+        print('Python path:', sys.path[:3])
+        print()
+
+        try:
+            from DataQualityFiltering.core import (
+                LLMEvaluator,
+                BaseEvaluator,
+                BaseReviewer,
+                BaseConfig,
+                LLMConfig,
+                EvaluationConfig,
+                PipelineConfig,
+                create_llm_evaluator,
+            )
+            print('[OK] Core module imports successful!')
+        except Exception as e:
+            print('[ERROR] Import failed!')
+            print(f'Error type: {type(e).__name__}')
+            print(f'Error message: {e}')
+            traceback.print_exc()
+            sys.exit(1)
         "
 
     - name: Test Backward Compatibility
