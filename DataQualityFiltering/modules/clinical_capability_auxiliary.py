@@ -24,7 +24,7 @@ import re
 from datetime import datetime, timedelta
 
 # 导入基础类
-from clinical_capability_11dimensions import (
+from .clinical_capability_11dimensions import (
     BaseCapabilityEvaluator,
     CapabilityModule,
     RedLineViolation,
