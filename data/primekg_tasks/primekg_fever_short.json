@@ -1,0 +1,75 @@
+{
+  "task_id": "primekg_fever_short",
+  "patient_profile": {
+    "age": 46,
+    "gender": "female",
+    "chief_complaint": "Periodic fever",
+    "duration_days": 8,
+    "severity": "severe",
+    "underlying_condition": "juvenile arthritis due to defect in LACC1"
+  },
+  "dialogue": [
+    {
+      "role": "patient",
+      "content": "Doctor, I've been experiencing Periodic fever for about 8 days."
+    },
+    {
+      "role": "doctor",
+      "content": "I see. Can you describe the Periodic fever in more detail? Is it severe?"
+    },
+    {
+      "role": "patient",
+      "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+    },
+    {
+      "role": "doctor",
+      "content": "Based on your symptoms, I suspect you may have juvenile arthritis due to defect in LACC1. Let me explain the treatment options."
+    },
+    {
+      "role": "doctor",
+      "content": "I recommend Cortisone acetate which is indicated for your condition."
+    },
+    {
+      "role": "doctor",
+      "content": "Do you have any questions about your diagnosis or treatment plan?"
+    }
+  ],
+  "metadata": {
+    "path_length": 3,
+    "node_types": [
+      "effect/phenotype",
+      "disease",
+      "drug"
+    ],
+    "edge_types": [
+      "unknown",
+      "phenotype present",
+      "indication"
+    ]
+  },
+  "path": {
+    "nodes": [
+      "32323",
+      "32920",
+      "DB01380"
+    ],
+    "edges": [
+      {
+        "node_type": "effect/phenotype",
+        "node_name": "Periodic fever"
+      },
+      {
+        "source": "32323",
+        "target": "32920",
+        "edge_type": "phenotype present",
+        "weight": 0.5
+      },
+      {
+        "source": "32920",
+        "target": "DB01380",
+        "edge_type": "indication",
+        "weight": 0.5
+      }
+    ]
+  }
+}

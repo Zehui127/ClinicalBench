@@ -180,7 +180,7 @@ def test_real_kg_usage():
         # 完整加载流程
         nodes, edges, graph = loader.load(
             version="v2",
-            focus_types=["disease", "drug/drug", "symptom"],
+            focus_types=["disease", "drug", "anatomy", "effect/phenotype"],
             min_weight=0.2,
             keep_top_k=10,
             use_cache=True

@@ -1,0 +1,47 @@
+{
+  "total_tasks": 6,
+  "tasks": [
+    {
+      "task_id": "primekg_pain_short",
+      "symptom": "Groin pain",
+      "path_length": 2,
+      "dialogue_turns": 5,
+      "file": "primekg_pain_short.json"
+    },
+    {
+      "task_id": "primekg_pain_medium",
+      "symptom": "Groin pain",
+      "path_length": 2,
+      "dialogue_turns": 5,
+      "file": "primekg_pain_medium.json"
+    },
+    {
+      "task_id": "primekg_fever_short",
+      "symptom": "Periodic fever",
+      "path_length": 3,
+      "dialogue_turns": 6,
+      "file": "primekg_fever_short.json"
+    },
+    {
+      "task_id": "primekg_fever_medium",
+      "symptom": "Periodic fever",
+      "path_length": 3,
+      "dialogue_turns": 6,
+      "file": "primekg_fever_medium.json"
+    },
+    {
+      "task_id": "primekg_hypertension_short",
+      "symptom": "Ocular hypertension",
+      "path_length": 2,
+      "dialogue_turns": 5,
+      "file": "primekg_hypertension_short.json"
+    },
+    {
+      "task_id": "primekg_hypertension_medium",
+      "symptom": "Ocular hypertension",
+      "path_length": 3,
+      "dialogue_turns": 6,
+      "file": "primekg_hypertension_medium.json"
+    }
+  ]
+}

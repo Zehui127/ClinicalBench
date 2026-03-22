@@ -44,49 +44,57 @@ class PrimeKGLoader:
         self.cache_dir = cache_dir or CACHE_DIR
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
-        # PrimeKG 数据 URL
+        # PrimeKG 数据 URL（多个数据源）
+        # 主要来源：Harvard Dataverse（官方）
         self.primekg_urls = {
-            "v1": "https://github.com/mims-harvard/PrimeKG/raw/main/data/primekg_v1.csv",
-            "v2": "https://github.com/mims-harvard/PrimeKG/raw/main/data/primekg_v2.csv"
+            "harvard_dataverse": "https://dataverse.harvard.edu/api/access/datafile/6180620",
+            "harvard_dataverse_alt": "https://dataverse.harvard.edu/api/access/datafile/6180620?format=original",
         }
 
-        # 医疗相关的节点类型
+        # 医疗相关的节点类型（基于 PrimeKG 实际类型）
         self.medical_node_types = {
-            "disease",      # 疾病
-            "drug/drug",     # 药物
-            "symptom",       # 症状
-            "phenotype",     # 表型
-            "anatomy",       # 解剖
-            "pathway",       # 通路
-            "biological_process",  # 生物过程
-            "gene",          # 基因
-            "protein",       # 蛋白质
-            "EFO"            # 实验性因子本体
+            "disease",              # 疾病 (682K occurrences)
+            "drug",                 # 药物 (5.6M occurrences)
+            "gene/protein",         # 基因/蛋白质 (5.3M occurrences)
+            "anatomy",              # 解剖 (3.1M occurrences)
+            "effect/phenotype",     # 效应/表型 (514K occurrences)
+            "pathway",              # 通路 (95K occurrences)
+            "exposure",             # 暴露 (19K occurrences)
+            "biological_process",   # 生物过程 (504K occurrences)
+            "molecular_function",   # 分子功能 (193K occurrences)
+            "cellular_component",   # 细胞成分 (186K occurrences)
         }
 
-        # 医疗相关的边类型
+        # 医疗相关的边类型（基于 PrimeKG 实际边类型）
         self.medical_edge_types = {
-            "treats",              # 治疗
-            "associates_with",     # 相关
-            "interacts_with",      # 相互作用
-            "manifestation_of",    # 表现为
-            "causes",              # 导致
-            "prevents",            # 预防
-            "contraindicates",     # 禁忌
-            "side_effect",         # 副作用
-            "diagnoses",           # 诊断
-            "palliates",           # 缓解
-            "produces",            # 产生
-            "targets",             # 靶向
-            "regulates",           # 调节
-            "binds",               # 结合
-            "metabolizes",         # 代谢
-            "transporter",         # 转运
-            "expressed_in",        # 表达于
-            "localized_in",        # 定位于
-            "overlaps",            # 重叠
-            "resembles",           # 类似
-            "homologous_to",       # 同源于
+            # PrimeKG 实际边类型
+            "phenotype present",        # 表型存在
+            "contraindication",         # 禁忌症
+            "indication",               # 适应症
+            "off-label use",           # 标签外使用
+            "phenotype absent",        # 表型不存在
+            "ppi",                     # protein-protein interaction
+            "ddi",                     # drug-drug interaction
+            "transporter",             # 转运体
+            "target",                  # 靶向
+            "enzyme",                  # 酶
+            "carrier",                 # 载体
+            "associates_with",         # 相关
+            "interacts_with",          # 相互作用
+            # 通用医疗边类型
+            "treats",                  # 治疗
+            "causes",                  # 导致
+            "prevents",                # 预防
+            "side_effect",             # 副作用
+            "diagnoses",               # 诊断
+            "palliates",               # 缓解
+            "produces",                # 产生
+            "targets",                 # 靶向
+            "regulates",               # 调节
+            "binds",                   # 结合
+            "metabolizes",             # 代谢
+            "expressed_in",            # 表达于
+            "localized_in",            # 定位于
         }
 
         # 中文映射（英文→中文）
@@ -106,46 +114,57 @@ class PrimeKGLoader:
         下载 PrimeKG 数据
 
         Args:
-            version: PrimeKG 版本 (v1 or v2)
+            version: PrimeKG 版本 (保留参数，但实际使用统一数据)
             force: 强制重新下载
 
         Returns:
             下载的文件路径
         """
-        url = self.primekg_urls.get(version, self.primekg_urls["v2"])
-        filename = self.cache_dir / f"primekg_{version}.csv"
+        # PrimeKG 使用单一数据文件（kg.csv）
+        filename = self.cache_dir / "primekg_kg.csv"
 
         if filename.exists() and not force:
             print(f"[PrimeKG] 使用缓存: {filename}")
             return filename
 
         print(f"[PrimeKG] 下载数据...")
-        print(f"  URL: {url}")
-        print(f"  目标: {filename}")
+        print(f"  来源: Harvard Dataverse")
 
-        try:
-            response = requests.get(url, stream=True, timeout=60)
-            response.raise_for_status()
+        # 尝试所有可用的 URL
+        for source_name, url in self.primekg_urls.items():
+            print(f"  尝试: {source_name}")
+            print(f"  URL: {url}")
 
-            total_size = int(response.headers.get('content-length', 0))
-            block_size = 8192
-            downloaded = 0
+            try:
+                response = requests.get(url, stream=True, timeout=120)
+                response.raise_for_status()
 
-            with open(filename, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=block_size):
-                    if chunk:
-                        f.write(chunk)
-                        downloaded += len(chunk)
-                        if total_size > 0:
-                            progress = downloaded / total_size * 100
-                            print(f"  进度: {progress:.1f}%", end='\r')
+                total_size = int(response.headers.get('content-length', 0))
+                block_size = 8192
+                downloaded = 0
 
-            print(f"\n[PrimeKG] ✓ 下载完成: {filename.stat().size() / 1024 / 1024:.1f} MB")
-            return filename
+                with open(filename, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=block_size):
+                        if chunk:
+                            f.write(chunk)
+                            downloaded += len(chunk)
+                            if total_size > 0:
+                                progress = downloaded / total_size * 100
+                                print(f"  进度: {progress:.1f}%", end='\r')
 
-        except Exception as e:
-            print(f"\n[PrimeKG] ✗ 下载失败: {e}")
-            raise
+                file_size = os.path.getsize(filename) / 1024 / 1024
+                print(f"\n[PrimeKG] [OK] Download complete: {file_size:.1f} MB")
+                return filename
+
+            except Exception as e:
+                print(f"\n[PrimeKG] [FAIL] {source_name} failed: {e}")
+                # 删除部分下载的文件
+                if filename.exists():
+                    filename.unlink()
+                continue
+
+        # 所有来源都失败
+        raise Exception("所有数据源下载失败。请检查网络连接或稍后重试。")
 
     def parse_primekg_csv(self, csv_file: Path) -> Tuple[Dict, List[Dict]]:
         """
@@ -157,8 +176,8 @@ class PrimeKGLoader:
         Returns:
             (节点字典, 边列表)
         """
-        print(f"[PrimeKG] 解析 CSV 文件...")
-        print(f"  文件: {csv_file}")
+        print(f"[PrimeKG] Parsing CSV file...")
+        print(f"  File: {csv_file}")
 
         nodes = {}
         edges = []
@@ -180,29 +199,35 @@ class PrimeKGLoader:
 
                 # 读取列名
                 fieldnames = reader.fieldnames
-                print(f"  列名: {fieldnames}")
+                print(f"  Columns: {fieldnames}")
 
                 # 读取数据
                 row_count = 0
                 for row in reader:
                     row_count += 1
 
-                    if row_count % 10000 == 0:
-                        print(f"  进度: {row_count} 行")
+                    if row_count % 50000 == 0:
+                        print(f"  Progress: {row_count} rows")
+
+                    # PrimeKG CSV 格式：
+                    # relation, display_relation, x_index, x_id, x_type, x_name, x_source,
+                    # y_index, y_id, y_type, y_name, y_source
 
                     # 提取源节点
-                    source_id = row.get("source", "")
-                    source_name = row.get("source_name", "")
-                    source_type = row.get("source_type", "").split("/")[-1] if "/" in row.get("source_type", "") else row.get("source_type", "")
+                    source_id = row.get("x_id", "")
+                    source_name = row.get("x_name", "")
+                    source_type = row.get("x_type", "")
 
                     # 提取目标节点
-                    target_id = row.get("target", "")
-                    target_name = row.get("target_name", "")
-                    target_type = row.get("target_type", "").split("/")[-1] if "/" in row.get("target_type", "") else row.get("target_type", "")
+                    target_id = row.get("y_id", "")
+                    target_name = row.get("y_name", "")
+                    target_type = row.get("y_type", "")
 
                     # 提取边信息
-                    edge_type = row.get("edge_type", "")
-                    weight = float(row.get("weight", 0.0))
+                    edge_type = row.get("display_relation", row.get("relation", ""))
+
+                    # 权重：PrimeKG 没有明确的权重，使用固定值
+                    weight = 0.5
 
                     # 只处理医疗相关的节点和边
                     if not self._is_medical_node(source_type) or not self._is_medical_node(target_type):
@@ -237,23 +262,25 @@ class PrimeKGLoader:
                     })
                     edge_type_counts[edge_type] += 1
 
-            print(f"\n[PrimeKG] ✓ 解析完成")
-            print(f"  总行数: {row_count}")
-            print(f"  节点数: {len(nodes)}")
-            print(f"  边数: {len(edges)}")
+            print(f"\n[PrimeKG] [OK] Parsing complete")
+            print(f"  Total rows: {row_count}")
+            print(f"  Nodes: {len(nodes)}")
+            print(f"  Edges: {len(edges)}")
 
-            print(f"\n节点类型分布:")
+            print(f"\nNode type distribution:")
             for node_type, count in sorted(node_type_counts.items(), key=lambda x: -x[1])[:10]:
                 print(f"  {node_type}: {count}")
 
-            print(f"\n边类型分布:")
+            print(f"\nEdge type distribution:")
             for edge_type, count in sorted(edge_type_counts.items(), key=lambda x: -x[1])[:10]:
                 print(f"  {edge_type}: {count}")
 
             return nodes, edges
 
         except Exception as e:
-            print(f"[PrimeKG] ✗ 解析失败: {e}")
+            print(f"[PrimeKG] [FAIL] Parsing failed: {e}")
+            import traceback
+            traceback.print_exc()
             raise
 
     def _is_medical_node(self, node_type: str) -> bool:
@@ -261,28 +288,16 @@ class PrimeKGLoader:
         if not node_type:
             return False
 
-        node_type_lower = node_type.lower()
-
-        # 检查是否在预定义的医疗类型中
-        for medical_type in self.medical_node_types:
-            if medical_type.lower() in node_type_lower:
-                return True
-
-        return False
+        # 使用精确匹配（因为现在我们知道了 PrimeKG 的确切类型）
+        return node_type in self.medical_node_types
 
     def _is_medical_edge(self, edge_type: str) -> bool:
         """判断是否为医疗相关边"""
         if not edge_type:
             return False
 
-        edge_type_lower = edge_type.lower()
-
-        # 检查是否在预定义的医疗边类型中
-        for medical_edge in self.medical_edge_types:
-            if medical_edge.lower() in edge_type_lower:
-                return True
-
-        return False
+        # 使用精确匹配（因为现在我们知道了 PrimeKG 的确切边类型）
+        return edge_type in self.medical_edge_types
 
     def filter_medical_subgraph(
         self,
@@ -528,7 +543,7 @@ class PrimeKGLoader:
         完整加载流程
 
         Args:
-            version: PrimeKG 版本
+            version: PrimeKG 版本（保留参数，实际使用统一数据）
             focus_types: 重点关注节点类型
             min_weight: 最小权重阈值
             keep_top_k: 每个节点保留的前K个邻居
@@ -539,7 +554,7 @@ class PrimeKGLoader:
             (节点字典, 边列表, NetworkX图)
         """
         # 检查缓存
-        cache_prefix = f"primekg_{version}_filtered"
+        cache_prefix = "primekg_filtered"
         cache_files_exist = all([
             (self.cache_dir / f"{cache_prefix}_nodes.json").exists(),
             (self.cache_dir / f"{cache_prefix}_edges.json").exists(),
