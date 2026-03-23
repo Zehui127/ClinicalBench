@@ -40,11 +40,11 @@ def integrated_generate(
     print("集成数据生成 - Integrated Data Generation")
     print("=" * 70)
 
-    # 默认症状列表
+    # 默认症状列表（使用英文，因为PrimeKG是英文知识图谱）
     if symptoms is None:
         symptoms = [
-            "头痛", "胸痛", "发热", "咳嗽", "腹痛",
-            "恶心", "疲劳", "头晕", "呼吸困难", "心悸"
+            "headache", "chest pain", "fever", "cough", "nausea",
+            "fatigue", "dizziness", "hypertension", "diabetes", "pain"
         ]
 
     # Step 1: 使用kg_generator生成新任务
@@ -182,14 +182,16 @@ def integrated_generate(
     print(f"  ✓ 质量优化 (datagenerator)")
     print(f"  ✓ 最佳组合")
 
+    return optimized_tasks
+
 
 def main():
     """主函数"""
-    # 配置
+    # 配置（使用英文症状关键词）
     symptoms = [
-        "头痛", "胸痛", "发热", "咳嗽", "腹痛",
-        "恶心", "疲劳", "头晕", "呼吸困难", "心悸",
-        "高血压", "糖尿病", "呕吐", "腹泻", "失眠"
+        "headache", "chest pain", "fever", "cough", "nausea",
+        "fatigue", "dizziness", "hypertension", "diabetes", "pain",
+        "vomiting", "diarrhea", "insomnia", "anxiety", "depression"
     ]
 
     output_file = "data/tau2/domains/clinical/primekg/tasks_integrated.json"
