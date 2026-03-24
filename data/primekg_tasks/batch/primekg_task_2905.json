@@ -1,0 +1,62 @@
+{
+  "task_id": "primekg_task_2905",
+  "patient_profile": {
+    "age": 69,
+    "gender": "male",
+    "chief_complaint": "Groin pain",
+    "duration_days": 29,
+    "severity": "moderate",
+    "underlying_condition": "avascular necrosis"
+  },
+  "dialogue": [
+    {
+      "role": "patient",
+      "content": "Doctor, I've been experiencing Groin pain for about 29 days."
+    },
+    {
+      "role": "doctor",
+      "content": "I see. Can you describe the Groin pain in more detail? Is it moderate?"
+    },
+    {
+      "role": "patient",
+      "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+    },
+    {
+      "role": "doctor",
+      "content": "Based on your symptoms, I suspect you may have avascular necrosis. Let me explain the treatment options."
+    },
+    {
+      "role": "doctor",
+      "content": "Do you have any questions about your diagnosis or treatment plan?"
+    }
+  ],
+  "metadata": {
+    "path_length": 2,
+    "node_types": [
+      "effect/phenotype",
+      "disease"
+    ],
+    "edge_types": [
+      "unknown",
+      "phenotype present"
+    ]
+  },
+  "path": {
+    "nodes": [
+      "31520",
+      "18376_18375"
+    ],
+    "edges": [
+      {
+        "node_type": "effect/phenotype",
+        "node_name": "Groin pain"
+      },
+      {
+        "source": "31520",
+        "target": "18376_18375",
+        "edge_type": "phenotype present",
+        "weight": 0.5
+      }
+    ]
+  }
+}

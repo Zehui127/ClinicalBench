@@ -9,6 +9,7 @@ from typing import Optional
 from tau2.data_model.tasks import Task
 from tau2.domains.clinical.user_simulator import ClinicalUserDB, ClinicalUserTools
 from tau2.environment.environment import Environment
+from tau2.environment.toolkit import ToolKitBase
 from tau2.utils import DATA_DIR, load_file
 
 
@@ -17,6 +18,12 @@ DOMAIN_DIR = DATA_DIR / "tau2" / "domains" / "clinical" / "primekg"
 TASKS_PATH = DOMAIN_DIR / "tasks.json"
 SPLIT_PATH = DOMAIN_DIR / "split_tasks.json"
 POLICY_PATH = DOMAIN_DIR / "policy.md"
+
+
+class PrimeKGTools(ToolKitBase):
+    """ToolKit for PrimeKG domain - no specific tools needed for medical consultation"""
+
+    pass
 
 
 def get_default_policy() -> str:
@@ -46,9 +53,12 @@ You are a medical consultation AI assistant. Your role is to:
 """
 
 
-def get_environment() -> Environment:
+def get_environment(solo_mode: bool = False) -> Environment:
     """
     Create and configure the PrimeKG domain environment.
+
+    Args:
+        solo_mode: Whether to run in solo mode (agent handles user interactions)
 
     Returns:
         Configured Environment instance
@@ -57,6 +67,9 @@ def get_environment() -> Environment:
     user_db = ClinicalUserDB()
     user_tools = ClinicalUserTools(user_db)
 
+    # Create tools (empty toolkit for PrimeKG - no specific tools needed)
+    tools = PrimeKGTools()
+
     # Load policy
     try:
         with open(POLICY_PATH, "r") as fp:
@@ -64,12 +77,13 @@ def get_environment() -> Environment:
     except Exception:
         policy = get_default_policy()
 
-    # Create environment (no agent tools needed for consultation)
+    # Create environment
     env = Environment(
         domain_name="primekg",
         policy=policy,
-        tools=None,  # No tools needed for medical consultation
+        tools=tools,
         user_tools=user_tools,
+        solo_mode=solo_mode,
     )
 
     return env
