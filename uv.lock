@@ -3248,7 +3248,7 @@ wheels = [
 
 [[package]]
 name = "tau2"
-version = "0.2.1.dev0"
+version = "0.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "addict" },
