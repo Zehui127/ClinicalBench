@@ -54,6 +54,9 @@ data/primekg_cache/
 # Old location - unified to medical_task_suite/generation/
 data/primekg_tasks/
 
+# Generated demonstration datasets
+# data/from_scratch.json  # Now located at medical_task_suite/examples/data/from_scratch.json
+
 # 输出目录
 output/
 outputs/
