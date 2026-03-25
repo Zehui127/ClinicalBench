@@ -11,6 +11,14 @@ from typing_extensions import Annotated
 
 from tau2.data_model.message import Message, ToolCall, ToolRequestor
 
+# Import medical models if available
+try:
+    from tau2.data_model.medical_tasks import MedicalEvaluationCriteria
+    MEDICAL_MODELS_AVAILABLE = True
+except ImportError:
+    MEDICAL_MODELS_AVAILABLE = False
+    MedicalEvaluationCriteria = None
+
 
 class StructuredUserInstructions(BaseModel):
     """
@@ -276,6 +284,15 @@ class EvaluationCriteria(BaseModel):
         ),
     ]
 
+    # Medical evaluation criteria (optional)
+    medical_criteria: Annotated[
+        Optional[object],
+        Field(
+            description="Medical domain evaluation criteria (MedicalEvaluationCriteria if available).",
+            default=None,
+        ),
+    ]
+
     def __str__(self) -> str:
         lines = []
         if self.actions is not None:
@@ -301,6 +318,9 @@ class EvaluationCriteria(BaseModel):
             lines.extend(
                 [textwrap.indent(assertion, "\t") for assertion in self.nl_assertions]
             )
+        if self.medical_criteria is not None:
+            lines.append("Medical Criteria:")
+            lines.append(textwrap.indent(str(self.medical_criteria), "\t"))
         return "\n".join(lines)
 
     def info(self) -> dict:
