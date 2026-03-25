@@ -62,7 +62,7 @@ class NeurologyDB(BaseModel):
         return self.patients.get(patient_id)
 
 
-def get_environment(db: Optional["NeurologyDB"] = None) -> Environment:
+def get_environment(db: Optional["NeurologyDB"] = None, solo_mode: bool = False) -> Environment:
     """Create neurology domain environment"""
     if db is None:
         try:

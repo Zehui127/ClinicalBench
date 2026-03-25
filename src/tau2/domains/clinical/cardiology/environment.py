@@ -73,7 +73,7 @@ class CardiologyDB(BaseModel):
 
     def get_patient(self, patient_id: str) -> Optional[PatientRecord]:
         return self.patients.get(patient_id)
-def get_environment(db: Optional[CardiologyDB] = None) -> Environment:
+def get_environment(db: Optional[CardiologyDB] = None, solo_mode: bool = False) -> Environment:
     """Create cardiology domain environment"""
     if db is None:
         try:

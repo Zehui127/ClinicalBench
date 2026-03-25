@@ -95,7 +95,7 @@ class NephrologyDB(BaseModel):
     def add_patient(self, patient: PatientRecord) -> None:
         """Add patient to database"""
         self.patients[patient.patient_id] = patient
-def get_environment(db: Optional[NephrologyDB] = None) -> Environment:
+def get_environment(db: Optional[NephrologyDB] = None, solo_mode: bool = False) -> Environment:
     """
     Create and configure the nephrology domain environment.
 

@@ -65,7 +65,7 @@ class EndocrinologyDB(BaseModel):
 
     def get_patient(self, patient_id: str) -> Optional[PatientRecord]:
         return self.patients.get(patient_id)
-def get_environment(db: Optional[EndocrinologyDB] = None) -> Environment:
+def get_environment(db: Optional[EndocrinologyDB] = None, solo_mode: bool = False) -> Environment:
     """Create endocrinology domain environment"""
     if db is None:
         try:

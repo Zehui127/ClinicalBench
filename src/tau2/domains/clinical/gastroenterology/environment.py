@@ -91,7 +91,7 @@ class GastroenterologyDB(BaseModel):
     def get_patient(self, patient_id: str) -> Optional[PatientRecord]:
         """Get patient by ID"""
         return self.patients.get(patient_id)
-def get_environment(db: Optional[GastroenterologyDB] = None) -> Environment:
+def get_environment(db: Optional[GastroenterologyDB] = None, solo_mode: bool = False) -> Environment:
     """Create the gastroenterology domain environment"""
     if db is None:
         try:
