@@ -39,6 +39,7 @@ dist/
 MedAgentBench/
 data/raw/MedXpertQA/
 data/raw/PhysioNet/
+data/raw/ProdMedBench/
 
 # Medical dialogue raw datasets (too large for Git)
 data/raw/medical_dialogues/*/
