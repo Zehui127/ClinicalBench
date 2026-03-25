@@ -51,7 +51,8 @@ data/primekg_cache/
 *.gml
 
 # PrimeKG generated tasks (keep source code, ignore generated data)
-# data/primekg_tasks/  # Uncomment if you want to ignore generated tasks
+# Old location - unified to medical_task_suite/generation/
+data/primekg_tasks/
 
 # 输出目录
 output/
