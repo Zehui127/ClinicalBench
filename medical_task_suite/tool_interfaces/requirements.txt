@@ -1,0 +1,12 @@
+# Additional dependencies for real interfaces
+# These are in addition to the main project requirements
+
+# Configuration management
+PyYAML>=6.0
+
+# HTTP requests (usually already installed, but listed for completeness)
+requests>=2.31.0
+
+# Testing dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
