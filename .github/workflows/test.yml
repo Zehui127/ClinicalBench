@@ -1,16 +1,16 @@
-name: DataQualityFiltering Tests
+name: Basic Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, sync-quality-threshold-modules, feature/* ]
   pull_request:
     branches: [ main, develop ]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
-  test-data-quality:
+  basic-check:
     runs-on: ubuntu-latest
-    name: Test Data Quality Module (No LLM Required)
+    name: Basic Health Check
 
     steps:
     - name: Checkout code
@@ -21,19 +21,37 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install tau2
       run: |
-        python -m pip install --upgrade pip
-        pip install pydantic
+        pip install -e .
 
-    - name: Test Data Quality Validation
+    - name: Test 1 - Import Check
+      run: |
+        python -c "
+        import sys
+        sys.path.insert(0, '.')
+
+        # 测试基本导入
+        import DataQualityFiltering
+        print('[OK] DataQualityFiltering imported')
+
+        import tau2
+        print('[OK] tau2 imported')
+        "
+
+    - name: Test 2 - Tau2 Evaluators
+      run: |
+        python -c "
+        from tau2.evaluator import ClinicalEvaluator
+        print('[OK] ClinicalEvaluator imported')
+        "
+
+    - name: Test 3 - Data Quality
       run: |
         python -c "
         import sys
         sys.path.insert(0, '.')
         from DataQualityFiltering.data_quality import MedicalDialogueValidator
-
-        # 测试数据验证
         validator = MedicalDialogueValidator()
         test_task = {
             'task_id': 'github_test_001',
@@ -56,9 +74,10 @@ jobs:
 
         assert is_valid == False or len(errors) >= 0, 'Validation test failed'
         print('[OK] Data validation test passed!')
+        print('[OK] MedicalDialogueValidator works')
         "
 
-    - name: Test Quality Filtering
+    - name: Test 4 - Quality Filtering
       run: |
         python -c "
         import sys
@@ -82,6 +101,11 @@ jobs:
         assert score <= 5.0, 'Quality score should not exceed 5.0'
         print('[OK] Quality filtering test passed!')
         "
+
+    - name: Success
+      run: |
+        echo "All basic tests passed!"
+        echo "[SUCCESS] Repository is healthy"
 
   test-core-modules:
     runs-on: ubuntu-latest
@@ -273,7 +297,7 @@ jobs:
   summary:
     runs-on: ubuntu-latest
     name: Test Summary
-    needs: [test-data-quality, test-core-modules, test-tau2-clinical-eval, test-cli]
+    needs: [basic-check, test-core-modules, test-tau2-clinical-eval, test-cli, test-with-real-data]
     if: always()
 
     steps:
@@ -281,17 +305,18 @@ jobs:
       run: |
         echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- Data Quality Tests: ${{ needs.test-data-quality.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Basic Check Tests: ${{ needs.basic-check.result }}" >> $GITHUB_STEP_SUMMARY
         echo "- Core Modules Tests: ${{ needs.test-core-modules.result }}" >> $GITHUB_STEP_SUMMARY
         echo "- Tau2 Clinical Eval Tests: ${{ needs.test-tau2-clinical-eval.result }}" >> $GITHUB_STEP_SUMMARY
         echo "- CLI Tests: ${{ needs.test-cli.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Real Data Tests: ${{ needs.test-with-real-data.result }}" >> $GITHUB_STEP_SUMMARY
 
-        if [ "${{ needs.test-data-quality.result }}" == "success" ] && \
+        if [ "${{ needs.basic-check.result }}" == "success" ] && \
            [ "${{ needs.test-core-modules.result }}" == "success" ] && \
            [ "${{ needs.test-tau2-clinical-eval.result }}" == "success" ] && \
            [ "${{ needs.test-cli.result }}" == "success" ]; then
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "[PASS] All tests passed!" >> $GITHUB_STEP_SUMMARY
+          echo "[PASS] All required tests passed!" >> $GITHUB_STEP_SUMMARY
           exit 0
         else
           echo "" >> $GITHUB_STEP_SUMMARY

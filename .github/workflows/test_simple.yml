@@ -1,0 +1,66 @@
+name: Simple Tests
+
+on:
+  push:
+    branches: [ main, develop, sync-quality-threshold-modules ]
+  workflow_dispatch:
+
+jobs:
+  test-basic:
+    runs-on: ubuntu-latest
+    name: Test Basic Imports
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Test 1 - Directory Check
+      run: |
+        echo "Checking directory structure..."
+        ls -la
+        echo ""
+        echo "Checking DataQualityFiltering..."
+        ls -la DataQualityFiltering/
+        echo ""
+        echo "Checking DataQualityFiltering/core..."
+        ls -la DataQualityFiltering/core/
+        echo ""
+        echo "Checking src/tau2..."
+        ls -la src/tau2/
+
+    - name: Test 2 - Python Path
+      run: |
+        python -c "
+        import sys
+        import os
+        print('Working dir:', os.getcwd())
+        print('Python path:')
+        for p in sys.path[:5]:
+            print('  -', p)
+        "
+
+    - name: Test 3 - Simple Import
+      run: |
+        python -c "
+        import sys
+        sys.path.insert(0, '.')
+        print('Test: import DataQualityFiltering')
+        import DataQualityFiltering
+        print('[OK] DataQualityFiltering imported')
+        "
+
+    - name: Test 4 - Core Import
+      run: |
+        python -c "
+        import sys
+        sys.path.insert(0, '.')
+        print('Test: import core')
+        from DataQualityFiltering import core
+        print('[OK] core imported')
+        print('Items in core:', dir(core)[:10])
+        "

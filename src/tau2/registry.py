@@ -75,6 +75,14 @@ from tau2.domains.clinical.endocrinology.environment import get_tasks as clinica
 from tau2.domains.clinical.endocrinology.environment import (
     get_tasks_split as clinical_endocrinology_get_tasks_split,
 )
+# PrimeKG domain
+from tau2.domains.clinical.primekg.environment import (
+    get_environment as primekg_get_environment,
+)
+from tau2.domains.clinical.primekg.environment import get_tasks as primekg_get_tasks
+from tau2.domains.clinical.primekg.environment import (
+    get_tasks_split as primekg_get_tasks_split,
+)
 from tau2.environment.environment import Environment
 from tau2.user.base import BaseUser
 from tau2.user.user_simulator import DummyUser, UserSimulator
@@ -314,6 +322,14 @@ try:
         clinical_endocrinology_get_tasks,
         "clinical_endocrinology",
         get_task_splits=clinical_endocrinology_get_tasks_split,
+    )
+
+    # PrimeKG domain
+    registry.register_domain(primekg_get_environment, "primekg")
+    registry.register_tasks(
+        primekg_get_tasks,
+        "primekg",
+        get_task_splits=primekg_get_tasks_split,
     )
 
     logger.debug(

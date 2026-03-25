@@ -1,0 +1,23 @@
+{
+  "total_tasks": 500,
+  "improved_tasks": 500,
+  "improvements_applied": {
+    "uncertainty_added": 166,
+    "distraction_added": 131,
+    "contradiction_added": 67,
+    "emotion_change_added": 181,
+    "interruption_added": 112,
+    "nested_questions_added": 212,
+    "scenario_classified": 500,
+    "safety_rules_added": 500,
+    "threshold_rules_added": 500
+  },
+  "scenario_distribution": {
+    "INFORMATION_QUERY": 317,
+    "SYMPTOM_ANALYSIS": 171,
+    "LIFESTYLE_ADVICE": 7,
+    "EMERGENCY_CONCERN": 5
+  },
+  "uncertainty_coverage": 0.466,
+  "complexity_coverage": 1.01
+}

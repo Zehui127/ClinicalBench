@@ -44,3 +44,32 @@ data/raw/PhysioNet/
 data/raw/medical_dialogues/*/
 !data/raw/medical_dialogues/*/.gitkeep
 !data/raw/medical_dialogues/README.md
+
+# PrimeKG cache (too large for Git)
+data/primekg_cache/
+*.csv
+*.gml
+
+# PrimeKG generated tasks (keep source code, ignore generated data)
+# data/primekg_tasks/  # Uncomment if you want to ignore generated tasks
+
+# 输出目录
+output/
+outputs/
+results/
+
+# 备份和临时文件
+*.tar.gz
+*.backup
+*.bak
+nul
+test_output.txt
+
+# 临时JSON数据文件
+chinese_internal_medicine_tasks_improved.json
+chinese_internal_medicine_tasks_original.json
+chinese_internal_medicine_tasks_v2.json
+improvement_statistics_v2.json
+
+# 中文目录
+医学数据标注/

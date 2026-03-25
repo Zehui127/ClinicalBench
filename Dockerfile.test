@@ -1,0 +1,29 @@
+# 使用Docker完全模拟GitHub Actions的Ubuntu环境
+
+# 1. 构建测试镜像
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装Python 3.10
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    python3.10-venv \
+    && ln -s /usr/bin/python3.10 /usr/bin/python
+
+# 设置工作目录
+WORKDIR /workspace
+
+# 复制项目文件
+COPY . .
+
+# 安装依赖
+RUN pip install --upgrade pip
+RUN pip install -e .
+
+# 运行测试
+CMD python -c "import sys; sys.path.insert(0, '.'); from tau2.evaluator import ClinicalEvaluator; from DataQualityFiltering.data_quality import MedicalDialogueValidator; print('[OK] All imports successful!')"

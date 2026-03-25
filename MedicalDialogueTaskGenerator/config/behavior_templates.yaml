@@ -1,0 +1,219 @@
+# 患者行为模板配置
+# Medical Dialogue Task Generator - Behavior Templates
+
+# 信息隐瞒行为配置
+withholding:
+  # 可隐藏的信息类型
+  items:
+    - key: "current_medications"
+      name: "当前用药"
+      priority: "high"
+      reveal_question: "在吃什么药"
+      reveal_round: 3
+    - key: "allergies"
+      name: "过敏史"
+      priority: "high"
+      reveal_question: "有没有药物过敏"
+      reveal_round: 4
+    - key: "duration"
+      name: "症状持续时间"
+      priority: "medium"
+      reveal_question: "持续多久了"
+      reveal_round: 2
+    - key: "severity"
+      name: "严重程度"
+      priority: "medium"
+      reveal_question: "严重程度如何"
+      reveal_round: 2
+    - key: "past_medical_history"
+      name: "既往病史"
+      priority: "medium"
+      reveal_question: "以前有什么病"
+      reveal_round: 3
+    - key: "family_history"
+      name: "家族史"
+      priority: "low"
+      reveal_question: "家人有什么病"
+      reveal_round: 4
+
+  # 隐瞒原因
+  reasons:
+    - "患者认为不重要"
+    - "担心医生评价"
+    - "忘记了"
+    - "认为与当前问题无关"
+    - "不想多说"
+
+# 说谎行为配置
+lying:
+  scenarios:
+    - type: "smoking_denial"
+      truth: "每天吸烟10支"
+      lie: "不吸烟"
+      detection_method: "system_record"
+    - type: "medication_nonadherence"
+      truth: "经常忘记吃药"
+      lie: "每天都按时吃药"
+      detection_method: "contradiction"
+    - type: "alcohol_underreport"
+      truth: "每天饮酒"
+      lie: "偶尔喝一点"
+      detection_method: "timeline_inconsistency"
+
+# 情绪状态配置
+emotional:
+  states:
+    - type: "anxious"
+      name: "焦虑"
+      intensity_levels: ["low", "medium", "high"]
+      triggers:
+        - "新发症状"
+        - "检查等待"
+        - "担心严重疾病"
+        - "对疾病不了解"
+      typical_statements:
+        - "我很担心"
+        - "会不会严重"
+        - "这要紧吗"
+        - "我好害怕"
+      impact_on_communication: "可能影响信息收集，需要安抚"
+
+    - type: "fearful"
+      name: "恐惧"
+      intensity_levels: ["medium", "high"]
+      triggers:
+        - "以往就医创伤"
+        - "亲人因病去世"
+        - "误诊/漏诊经历"
+        - "痛苦的治疗经历"
+      typical_statements:
+        - "我邻居就是头晕，后来脑出血走了"
+        - "上次医生说我没事，结果严重了"
+        - "我怕检查出来更严重的病"
+        - "我不想做检查"
+      impact_on_communication: "可能拒绝检查或治疗，需要建立信任"
+
+    - type: "angry"
+      name: "愤怒"
+      intensity_levels: ["medium", "high"]
+      triggers:
+        - "以往误诊经历"
+        - "对医疗系统不信任"
+        - "等待时间过长"
+        - "对治疗效果不满"
+      typical_statements:
+        - "你们都是骗人的"
+        - "上次医生说..."
+        - "我都等了这么久了"
+        - "你们根本不关心"
+      impact_on_communication: "可能对抗性强，需要耐心沟通"
+
+    - type: "panicked"
+      name: "恐慌"
+      intensity_levels: ["high"]
+      triggers:
+        - "急性症状"
+        - "严重不适"
+        - "呼吸困难"
+        - "剧烈疼痛"
+      typical_statements:
+        - "救命啊"
+        - "我快不行了"
+        - "快救救我"
+        - "我受不了了"
+      impact_on_communication: "需要快速评估和稳定情绪"
+
+# 矛盾类型配置
+contradictions:
+  types:
+    - type: "patient_vs_record"
+      name: "患者陈述与系统记录矛盾"
+      description: "患者所说与系统记录不一致"
+      examples:
+        - "患者说'没吃过阿司匹林'，但系统记录显示正在服用"
+        - "患者说'没有高血压'，但系统记录有高血压病史"
+      agent_requirement: "需要主动查询系统记录并澄清差异"
+
+    - type: "timeline_inconsistency"
+      name: "时间线前后不一致"
+      description: "患者在不同时间对同一事件的陈述矛盾"
+      examples:
+        - "先说'症状从上周开始'，后说'已经一个月了'"
+        - "先说'刚确诊'，后说'得这个病好几年了'"
+      agent_requirement: "需要仔细核对时间线"
+
+    - type: "statement_contradiction"
+      name: "前后陈述互相矛盾"
+      description: "同一对话中前后陈述矛盾"
+      examples:
+        - "先说'每天都吃药'，后说'经常忘记吃药'"
+        - "先说'不抽烟不喝酒'，后说'偶尔应酬喝一点'"
+      agent_requirement: "需要识别并澄清矛盾信息"
+
+# 医学知识缺乏配置
+low_knowledge:
+  gaps:
+    - type: "internet_misconception"
+      name: "网络搜索误解"
+      examples:
+        - "网上说这个病治不好"
+        - "网上说这种药有副作用"
+      correction_approach: "解释可靠信息来源，纠正误解"
+
+    - type: "folk_remedy_belief"
+      name: "听信偏方"
+      examples:
+        - "听说吃这个能治好"
+        - "邻居说偏方有效"
+      correction_approach: "科学解释，建议规范治疗"
+
+    - type: "disease_misunderstanding"
+      name: "对疾病机制误解"
+      examples:
+        - "觉得这个病传染"
+        - "认为这个病是因为...引起的"
+      correction_approach: "科学解释疾病机制"
+
+# 记忆问题配置
+poor_memory:
+  issues:
+    - type: "forget_time"
+      name: "记不住时间"
+      examples:
+        - "记不清什么时候开始的"
+        - "忘了是什么时候停的药"
+      agent_strategy: "使用参照事件帮助回忆"
+
+    - type: "confuse_exam_results"
+      name: "混淆检查结果"
+      examples:
+        - "记不清是哪个检查"
+        - "搞混了检查结果"
+      agent_strategy: "查询系统记录确认"
+
+    - type: "forget_medication_names"
+      name: "忘记药物名称"
+      examples:
+        - "是个小白片"
+        - "药名记不住了"
+      agent_strategy: "描述药物特征或查询系统记录"
+
+# 行为组合规则
+behavior_combinations:
+  L2:
+    required:
+      - "withholding"
+    optional:
+      - "low_knowledge"
+    max_count: 2
+
+  L3:
+    required:
+      - "withholding"
+      - "contradicting"
+      - "emotional"
+    optional:
+      - "lying"
+      - "poor_memory"
+      - "low_knowledge"
+    max_count: 5

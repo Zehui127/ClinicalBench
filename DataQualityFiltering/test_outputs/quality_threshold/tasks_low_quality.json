@@ -1,0 +1,12 @@
+[
+  {
+    "id": "task_002",
+    "description": "中等质量任务",
+    "clinical_scenario": "患者头痛"
+  },
+  {
+    "id": "task_003",
+    "description": "低质量任务",
+    "clinical_scenario": "患者不舒服"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "task_id": "task_001",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-17T23:14:59.497434"
+  },
+  {
+    "task_id": "task_002",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-17T23:14:59.497454"
+  },
+  {
+    "task_id": "task_003",
+    "total_score": 22.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.0,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.0 < 24.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-17T23:14:59.497465"
+  }
+]

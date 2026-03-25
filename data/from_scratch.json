@@ -1,0 +1,1750 @@
+[
+  {
+    "id": "primekg_task_1279",
+    "description": {
+      "purpose": "Medical consultation - Cluster headache",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: cluster headache, familial. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "54-year-old male patient with Cluster headache",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Cluster headache",
+        "known_info": "Patient has Cluster headache for 21 days. Severity: severe.",
+        "unknown_info": "cluster headache, familial",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Cluster headache\n\nDuration: 21 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Cluster headache",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_1279",
+            "mrn": "MRNtask1279",
+            "age": 54,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Cluster headache"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Cluster headache for about 21 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Cluster headache in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have cluster headache, familial. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 1,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992920",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_1279"
+  },
+  {
+    "id": "primekg_task_8948",
+    "description": {
+      "purpose": "Medical consultation - Chest pain",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: autosomal dominant Ehlers-Danlos syndrome, vascular type. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "57-year-old female patient with Chest pain",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Chest pain",
+        "known_info": "Patient has Chest pain for 19 days. Severity: mild.",
+        "unknown_info": "autosomal dominant Ehlers-Danlos syndrome, vascular type",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Chest pain\n\nDuration: 19 days\nSeverity: mild\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Chest pain",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_8948",
+            "mrn": "MRNtask8948",
+            "age": 57,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Chest pain"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Chest pain for about 19 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Chest pain in more detail? Is it mild?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite mild. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have autosomal dominant Ehlers-Danlos syndrome, vascular type. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 2,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992949",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_8948"
+  },
+  {
+    "id": "primekg_task_7047",
+    "description": {
+      "purpose": "Medical consultation - Periodic fever",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: cyclic hematopoiesis. Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "47-year-old female patient with Periodic fever",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Periodic fever",
+        "known_info": "Patient has Periodic fever for 23 days. Severity: severe.",
+        "unknown_info": "cyclic hematopoiesis",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Periodic fever\n\nDuration: 23 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Periodic fever",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_7047",
+            "mrn": "MRNtask7047",
+            "age": 47,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Periodic fever"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Periodic fever for about 23 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Periodic fever in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have cyclic hematopoiesis. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Important note: Ganciclovir is contraindicated for your condition, so we'll avoid that."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "contraindication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 3,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992954",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_7047"
+  },
+  {
+    "id": "primekg_task_3682",
+    "description": {
+      "purpose": "Medical consultation - Productive cough",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: avian influenza. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "75-year-old male patient with Productive cough",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Productive cough",
+        "known_info": "Patient has Productive cough for 6 days. Severity: moderate.",
+        "unknown_info": "avian influenza",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Productive cough\n\nDuration: 6 days\nSeverity: moderate\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Productive cough",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_3682",
+            "mrn": "MRNtask3682",
+            "age": 75,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Productive cough"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Productive cough for about 6 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Productive cough in more detail? Is it moderate?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have avian influenza. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 4,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992957",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_3682"
+  },
+  {
+    "id": "primekg_task_9877",
+    "description": {
+      "purpose": "Medical consultation - Chronic fatigue",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: VIPoma. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "70-year-old male patient with Chronic fatigue",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Chronic fatigue",
+        "known_info": "Patient has Chronic fatigue for 12 days. Severity: severe.",
+        "unknown_info": "VIPoma",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Chronic fatigue\n\nDuration: 12 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Chronic fatigue",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_9877",
+            "mrn": "MRNtask9877",
+            "age": 70,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Chronic fatigue"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Chronic fatigue for about 12 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Chronic fatigue in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have VIPoma. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 5,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992959",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_9877"
+  },
+  {
+    "id": "primekg_task_8631",
+    "description": {
+      "purpose": "Medical consultation - Maintenance insomnia",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: insomnia (disease). Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "32-year-old male patient with Maintenance insomnia",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Maintenance insomnia",
+        "known_info": "Patient has Maintenance insomnia for 3 days. Severity: mild.",
+        "unknown_info": "insomnia (disease)",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Maintenance insomnia\n\nDuration: 3 days\nSeverity: mild\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Maintenance insomnia",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_8631",
+            "mrn": "MRNtask8631",
+            "age": 32,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Maintenance insomnia"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Maintenance insomnia for about 3 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Maintenance insomnia in more detail? Is it mild?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite mild. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have insomnia (disease). Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "I recommend Butobarbital which is indicated for your condition."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "indication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 6,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992961",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_8631"
+  },
+  {
+    "id": "primekg_task_3977",
+    "description": {
+      "purpose": "Medical consultation - Ocular hypertension",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: ichthyosis-short stature-brachydactyly-microspherophakia syndrome. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "71-year-old male patient with Ocular hypertension",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Ocular hypertension",
+        "known_info": "Patient has Ocular hypertension for 1 days. Severity: mild.",
+        "unknown_info": "ichthyosis-short stature-brachydactyly-microspherophakia syndrome",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Ocular hypertension\n\nDuration: 1 days\nSeverity: mild\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Ocular hypertension",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_3977",
+            "mrn": "MRNtask3977",
+            "age": 71,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Ocular hypertension"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Ocular hypertension for about 1 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Ocular hypertension in more detail? Is it mild?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite mild. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have ichthyosis-short stature-brachydactyly-microspherophakia syndrome. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 7,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992963",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_3977"
+  },
+  {
+    "id": "primekg_task_6807",
+    "description": {
+      "purpose": "Medical consultation - Insulin-dependent but ketosis-resistant diabetes",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: pancreatitis. Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "71-year-old male patient with Insulin-dependent but ketosis-resistant diabetes",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Insulin-dependent but ketosis-resistant diabetes",
+        "known_info": "Patient has Insulin-dependent but ketosis-resistant diabetes for 10 days. Severity: severe.",
+        "unknown_info": "pancreatitis",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Insulin-dependent but ketosis-resistant diabetes\n\nDuration: 10 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Insulin-dependent but ketosis-resistant diabetes",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_6807",
+            "mrn": "MRNtask6807",
+            "age": 71,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Insulin-dependent but ketosis-resistant diabetes"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Insulin-dependent but ketosis-resistant diabetes for about 10 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Insulin-dependent but ketosis-resistant diabetes in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have pancreatitis. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "I recommend Trepibutone which is indicated for your condition."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "indication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 8,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992965",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_6807"
+  },
+  {
+    "id": "primekg_task_9853",
+    "description": {
+      "purpose": "Medical consultation - Aspirin-induced asthma",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: asthma. Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "50-year-old female patient with Aspirin-induced asthma",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Aspirin-induced asthma",
+        "known_info": "Patient has Aspirin-induced asthma for 29 days. Severity: moderate.",
+        "unknown_info": "asthma",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Aspirin-induced asthma\n\nDuration: 29 days\nSeverity: moderate\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Aspirin-induced asthma",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_9853",
+            "mrn": "MRNtask9853",
+            "age": 50,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Aspirin-induced asthma"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Aspirin-induced asthma for about 29 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Aspirin-induced asthma in more detail? Is it moderate?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have asthma. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "I recommend Desonide which is indicated for your condition."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "indication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 9,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992967",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_9853"
+  },
+  {
+    "id": "primekg_task_4713",
+    "description": {
+      "purpose": "Medical consultation - Acute aspiration pneumonia",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: aspiration pneumonia (disease). Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "42-year-old male patient with Acute aspiration pneumonia",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Acute aspiration pneumonia",
+        "known_info": "Patient has Acute aspiration pneumonia for 22 days. Severity: moderate.",
+        "unknown_info": "aspiration pneumonia (disease)",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Acute aspiration pneumonia\n\nDuration: 22 days\nSeverity: moderate\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Acute aspiration pneumonia",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_4713",
+            "mrn": "MRNtask4713",
+            "age": 42,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Acute aspiration pneumonia"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Acute aspiration pneumonia for about 22 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Acute aspiration pneumonia in more detail? Is it moderate?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have aspiration pneumonia (disease). Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "I recommend Benzylpenicillin which is indicated for your condition."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "indication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 10,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992968",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_4713"
+  },
+  {
+    "id": "primekg_task_2099",
+    "description": {
+      "purpose": "Medical consultation - Episodic abdominal pain",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: GRFoma. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "35-year-old female patient with Episodic abdominal pain",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Episodic abdominal pain",
+        "known_info": "Patient has Episodic abdominal pain for 24 days. Severity: mild.",
+        "unknown_info": "GRFoma",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Episodic abdominal pain\n\nDuration: 24 days\nSeverity: mild\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Episodic abdominal pain",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_2099",
+            "mrn": "MRNtask2099",
+            "age": 35,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Episodic abdominal pain"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Episodic abdominal pain for about 24 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Episodic abdominal pain in more detail? Is it mild?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite mild. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have GRFoma. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 11,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992970",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_2099"
+  },
+  {
+    "id": "primekg_task_5449",
+    "description": {
+      "purpose": "Medical consultation - Anxiety",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: autism, susceptibility to. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "33-year-old female patient with Anxiety",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Anxiety",
+        "known_info": "Patient has Anxiety for 13 days. Severity: severe.",
+        "unknown_info": "autism, susceptibility to",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Anxiety\n\nDuration: 13 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Anxiety",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_5449",
+            "mrn": "MRNtask5449",
+            "age": 33,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Anxiety"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Anxiety for about 13 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Anxiety in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have autism, susceptibility to. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 12,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992972",
+      "quality_score": 6.53,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_5449"
+  },
+  {
+    "id": "primekg_task_2831",
+    "description": {
+      "purpose": "Medical consultation - ST segment depression",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: hypertrophic cardiomyopathy. Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "36-year-old female patient with ST segment depression",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "ST segment depression",
+        "known_info": "Patient has ST segment depression for 6 days. Severity: moderate.",
+        "unknown_info": "hypertrophic cardiomyopathy",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: ST segment depression\n\nDuration: 6 days\nSeverity: moderate\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "ST segment depression",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_2831",
+            "mrn": "MRNtask2831",
+            "age": 36,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "ST segment depression"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing ST segment depression for about 6 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the ST segment depression in more detail? Is it moderate?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have hypertrophic cardiomyopathy. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "I recommend Propranolol which is indicated for your condition."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "indication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 13,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992977",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_2831"
+  },
+  {
+    "id": "primekg_task_2704",
+    "description": {
+      "purpose": "Medical consultation - Abnormal cardiac exercise stress test",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: familial long QT syndrome. Path: effect/phenotype → disease → drug"
+    },
+    "user_scenario": {
+      "persona": "53-year-old female patient with Abnormal cardiac exercise stress test",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Abnormal cardiac exercise stress test",
+        "known_info": "Patient has Abnormal cardiac exercise stress test for 18 days. Severity: moderate.",
+        "unknown_info": "familial long QT syndrome",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Abnormal cardiac exercise stress test\n\nDuration: 18 days\nSeverity: moderate\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Abnormal cardiac exercise stress test",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_2704",
+            "mrn": "MRNtask2704",
+            "age": 53,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Abnormal cardiac exercise stress test"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Abnormal cardiac exercise stress test for about 18 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Abnormal cardiac exercise stress test in more detail? Is it moderate?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite moderate. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have familial long QT syndrome. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Important note: Vemurafenib is contraindicated for your condition, so we'll avoid that."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 3,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease",
+        "drug"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present",
+        "contraindication"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 14,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992978",
+      "quality_score": 6.83,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_2704"
+  },
+  {
+    "id": "primekg_task_4586",
+    "description": {
+      "purpose": "Medical consultation - Chronic constipation",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: neurodevelopmental disorder with dysmorphic facies, impaired speech, and hypotonia. Path: effect/phenotype → disease"
+    },
+    "user_scenario": {
+      "persona": "34-year-old female patient with Chronic constipation",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Chronic constipation",
+        "known_info": "Patient has Chronic constipation for 11 days. Severity: severe.",
+        "unknown_info": "neurodevelopmental disorder with dysmorphic facies, impaired speech, and hypotonia",
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Chronic constipation\n\nDuration: 11 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Chronic constipation",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_4586",
+            "mrn": "MRNtask4586",
+            "age": 34,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Chronic constipation"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Chronic constipation for about 11 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Chronic constipation in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on your symptoms, I suspect you may have neurodevelopmental disorder with dysmorphic facies, impaired speech, and hypotonia. Let me explain the treatment options."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 2,
+      "primekg_node_types": [
+        "effect/phenotype",
+        "disease"
+      ],
+      "primekg_edge_types": [
+        "unknown",
+        "phenotype present"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 15,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992980",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_4586"
+  },
+  {
+    "id": "primekg_task_7136",
+    "description": {
+      "purpose": "Medical consultation - Mucoid diarrhea",
+      "relevant_policies": null,
+      "notes": "Generated from PrimeKG knowledge graph. Diagnosis: Unknown condition. Path: effect/phenotype"
+    },
+    "user_scenario": {
+      "persona": "34-year-old male patient with Mucoid diarrhea",
+      "instructions": {
+        "domain": "primekg",
+        "reason_for_call": "Mucoid diarrhea",
+        "known_info": "Patient has Mucoid diarrhea for 5 days. Severity: severe.",
+        "unknown_info": null,
+        "task_instructions": "You are a patient seeking medical advice.\n\nYour concern: Mucoid diarrhea\n\nDuration: 5 days\nSeverity: severe\n\nPlease engage in a natural conversation with the doctor about your health concern."
+      }
+    },
+    "ticket": "Mucoid diarrhea",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_primekg_task_7136",
+            "mrn": "MRNtask7136",
+            "age": 34,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "provide_medical_advice",
+          "requestor": "assistant",
+          "name": "provide_medical_advice",
+          "arguments": {
+            "should_address": "Mucoid diarrhea"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "helpful_response",
+          "criteria": "Response should address patient's concern",
+          "weight": 1.0
+        },
+        {
+          "check_id": "medical_accuracy",
+          "criteria": "Medical advice should be accurate based on PrimeKG knowledge",
+          "weight": 1.0
+        }
+      ]
+    },
+    "reference_dialogue": [
+      {
+        "role": "user",
+        "content": "Doctor, I've been experiencing Mucoid diarrhea for about 5 days."
+      },
+      {
+        "role": "assistant",
+        "content": "I see. Can you describe the Mucoid diarrhea in more detail? Is it severe?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have any questions about your diagnosis or treatment plan?"
+      }
+    ],
+    "metadata": {
+      "source": "PrimeKG Random Walk Generator",
+      "primekg_path_length": 1,
+      "primekg_node_types": [
+        "effect/phenotype"
+      ],
+      "primekg_edge_types": [
+        "unknown"
+      ],
+      "generation_date": "2025-03-22"
+    },
+    "conversion_metadata": {
+      "converted_from": "realistic_v3",
+      "converter_version": "2.0",
+      "conversion_index": 16,
+      "optimizations_applied": [
+        "scenario_balancing",
+        "evaluation_enhancement",
+        "metadata_enrichment"
+      ],
+      "base_dataset": "Chinese MedDialog",
+      "optimization_timestamp": "2026-03-23T23:11:48.992982",
+      "quality_score": 6.73,
+      "quality_level": "acceptable"
+    },
+    "original_task_id": "primekg_task_7136"
+  }
+]

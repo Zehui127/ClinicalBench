@@ -1,0 +1,32 @@
+{
+  "train": [
+    "primekg_task_8605",
+    "primekg_pain_short",
+    "primekg_task_4490",
+    "primekg_pain_medium",
+    "primekg_task_2833",
+    "primekg_task_4442",
+    "primekg_task_6281",
+    "primekg_task_6784",
+    "primekg_task_1650",
+    "primekg_task_3969",
+    "primekg_task_6496",
+    "primekg_task_2905",
+    "primekg_fever_short",
+    "primekg_task_3066",
+    "primekg_hypertension_medium",
+    "primekg_task_6436"
+  ],
+  "test": [
+    "primekg_task_2107",
+    "primekg_task_2152",
+    "primekg_fever_medium",
+    "primekg_hypertension_short"
+  ],
+  "metadata": {
+    "total_tasks": 20,
+    "train_size": 16,
+    "test_size": 4,
+    "split_ratio": "80/20"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "total_tasks": 3,
+  "high_quality": 0,
+  "medium_quality": 0,
+  "low_quality": 3,
+  "keep": 0,
+  "improve": 0,
+  "reject": 3,
+  "average_score": 22.0,
+  "score_distribution": {
+    "0-10": 0,
+    "10-15": 0,
+    "15-20": 0,
+    "20-24": 3,
+    "24-27": 0,
+    "27-30": 0
+  },
+  "pass_rate": 0.0
+}

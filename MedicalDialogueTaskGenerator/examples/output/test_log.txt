@@ -1,0 +1,31 @@
+Medical Dialogue Task Generator - Test Log
+======================================================================
+
+Test Case 1:
+  ID: test_001
+  Difficulty: L1
+  Scenario: 信息查询
+  Cooperation: good
+  Behaviors: None
+
+Test Case 2:
+  ID: test_002
+  Difficulty: L1
+  Scenario: 信息查询
+  Cooperation: good
+  Behaviors: None
+
+Test Case 3:
+  ID: test_003
+  Difficulty: L1
+  Scenario: 信息查询
+  Cooperation: good
+  Behaviors: None
+
+Test Case 4:
+  ID: test_004
+  Difficulty: L2
+  Scenario: 症状分析
+  Cooperation: partial
+  Behaviors: withholding, low_knowledge
+

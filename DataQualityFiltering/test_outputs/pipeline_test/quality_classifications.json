@@ -1,0 +1,67 @@
+[
+  {
+    "task_id": "task_001",
+    "total_score": 28.0,
+    "quality_level": "HIGH",
+    "dimension_scores": {
+      "clinical_accuracy": 9.0,
+      "scenario_realism": 7.5,
+      "evaluation_completeness": 6.5,
+      "difficulty_appropriateness": 5.0
+    },
+    "action": "KEEP",
+    "reasons": [
+      "所有维度都达到高标准",
+      "总分 28.0 ≥ 27.0"
+    ],
+    "suggestions": [
+      "任务质量优秀，建议保留"
+    ],
+    "timestamp": "2026-03-17T23:17:32.393418"
+  },
+  {
+    "task_id": "task_002",
+    "total_score": 22.5,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 7.5,
+      "scenario_realism": 6.0,
+      "evaluation_completeness": 5.0,
+      "difficulty_appropriateness": 4.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 22.5 < 24.0"
+    ],
+    "suggestions": [
+      "评估完整性：补充评估标准中的缺失项"
+    ],
+    "timestamp": "2026-03-17T23:17:32.393439"
+  },
+  {
+    "task_id": "task_003",
+    "total_score": 16.0,
+    "quality_level": "LOW",
+    "dimension_scores": {
+      "clinical_accuracy": 5.0,
+      "scenario_realism": 4.0,
+      "evaluation_completeness": 4.0,
+      "difficulty_appropriateness": 3.0
+    },
+    "action": "REJECT",
+    "reasons": [
+      "总分 16.0 < 24.0",
+      "clinical_accuracy: 5.0 低于最低要求 7.0",
+      "scenario_realism: 4.0 低于最低要求 6.0",
+      "evaluation_completeness: 4.0 低于最低要求 5.0",
+      "difficulty_appropriateness: 3.0 低于最低要求 4.0"
+    ],
+    "suggestions": [
+      "临床准确性：添加更详细的医学背景信息",
+      "场景真实性：增强患者对话的自然性",
+      "评估完整性：补充评估标准中的缺失项",
+      "难度适当性：调整任务难度级别"
+    ],
+    "timestamp": "2026-03-17T23:17:32.393483"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-03-19",
+  "departments_tested": [
+    {
+      "name": "内科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/IM_内科/内科5000-33000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    },
+    {
+      "name": "外科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/Surgical_外科/外科5-14000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    },
+    {
+      "name": "妇产科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/OAGD_妇产科/妇产科6-28000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    },
+    {
+      "name": "儿科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/Pediatric_儿科/儿科5-10000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    },
+    {
+      "name": "肿瘤科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/Oncology_肿瘤科/肿瘤科5-10000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    },
+    {
+      "name": "男科",
+      "csv_pattern": "./data/raw/medical_dialogues/chinese_meddialog/Data_数据/Andriatria_男科/男科5-14000.csv",
+      "output": "DataQualityFiltering/test_outputs/validation_{dept}.json"
+    }
+  ],
+  "results": {
+    "内科": true,
+    "外科": true,
+    "妇产科": true,
+    "儿科": true,
+    "肿瘤科": true,
+    "男科": true
+  }
+}

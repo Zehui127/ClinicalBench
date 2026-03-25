@@ -1,0 +1,14 @@
+{
+  "domain": "primekg_internal_medicine",
+  "description": "Medical consultation tasks generated from PrimeKG knowledge graph using Random Walk algorithm",
+  "source": "Harvard Medical School PrimeKG",
+  "task_count": 6,
+  "metadata": {
+    "primekg_version": "v2",
+    "primekg_nodes": 23087,
+    "primekg_edges": 617118,
+    "generated_by": "PrimeKG Random Walk Generator",
+    "generated_date": "2025-03-22",
+    "algorithm": "Random Walk with weighted edge selection"
+  }
+}

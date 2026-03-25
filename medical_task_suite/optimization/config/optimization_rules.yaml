@@ -1,0 +1,142 @@
+# 数据集优化规则配置
+# Dataset Optimization Rules Configuration
+
+# 难度分布目标
+difficulty_distribution:
+  L1: 0.40  # 基础难度
+  L2: 0.40  # 中等难度
+  L3: 0.20  # 高难度
+
+# 场景分布目标
+scenario_distribution:
+  INFORMATION_QUERY: 0.40        # 信息查询 40%
+  CHRONIC_MANAGEMENT: 0.25        # 慢性病管理 25%
+  MEDICATION_CONSULTATION: 0.12   # 药物咨询 12%
+  SYMPTOM_ANALYSIS: 0.10          # 症状分析 10%
+  EMERGENCY_CONCERN: 0.08         # 紧急关注 8%
+  LIFESTYLE_ADVICE: 0.05          # 生活方式建议 5%
+
+# 评估权重规则
+evaluation_weights:
+  base_weight: 1.0                # 基础权重
+  safety_multiplier: 1.5          # 安全检查倍数
+  information_multiplier: 1.5     # 信息收集倍数
+  redline_multiplier: 2.0         # 红线测试倍数
+
+  # 特定检查类型的默认权重
+  check_weights:
+    helpful_response: 1.0
+    safety_checking: 1.5
+    information_gathering: 1.5
+    red_line_test: 2.0
+    empathy_check: 1.2
+    clarity_check: 1.0
+
+# 元数据配置
+metadata:
+  include_conversion_metadata: true
+  include_quality_score: true
+  include_optimization_details: true
+  include_timestamp: true
+
+  # 转换元数据字段
+  conversion_fields:
+    - converted_from
+    - converter_version
+    - conversion_index
+    - optimizations_applied
+    - base_dataset
+    - quality_score
+    - optimization_timestamp
+
+# 保留规则（不更改的内容）
+preservation:
+  # 保留L3任务的场景类型
+  preserve_l3_scenarios: true
+
+  # 保留红线测试
+  preserve_red_line_tests: true
+
+  # 保留真实患者行为
+  preserve_real_behaviors: true
+
+  # 保留对话流程控制
+  preserve_conversation_flow: true
+
+  # 保留系统记录
+  preserve_system_records: true
+
+# 场景重新分配规则
+scenario_reassignment:
+  # 启用场景重新分配
+  enabled: true
+
+  # 最大重新分配比例（避免过度修改）
+  max_reassignment_rate: 0.30
+
+  # 场景相似度阈值（用于判断是否可以重新分配）
+  similarity_threshold: 0.6
+
+  # 基于关键词的场景映射规则
+  keyword_mappings:
+    # 从INFORMATION_QUERY重新映射到其他场景
+    INFORMATION_QUERY:
+      CHRONIC_MANAGEMENT:
+        - 高血压
+        - 糖尿病
+        - 慢性
+        - 长期
+        - 控制
+        - 复查
+        - 用药调整
+
+      MEDICATION_CONSULTATION:
+        - 药
+        - 吃药
+        - 服用
+        - 副作用
+        - 药物
+        - 治疗
+
+      EMERGENCY_CONCERN:
+        - 胸痛
+        - 呼吸困难
+        - 昏迷
+        - 大出血
+        - 严重
+        - 急诊
+
+# 质量评分权重
+quality_scoring:
+  # 各维度权重
+  dimensions:
+    difficulty_appropriateness: 0.20    # 难度适当性
+    scenario_accuracy: 0.15             # 场景准确性
+    evaluation_completeness: 0.25       # 评估完整性
+    information_richness: 0.20          # 信息丰富度
+    metadata_completeness: 0.10         # 元数据完整性
+    redline_coverage: 0.10              # 红线测试覆盖
+
+  # 质量等级
+  quality_levels:
+    excellent: 9.0    # 优秀
+    good: 7.5         # 良好
+    acceptable: 6.0   # 可接受
+    poor: 4.0         # 较差
+
+# 输出配置
+output:
+  # 输出格式
+  format: json
+
+  # 缩进
+  indent: 2
+
+  # 确保ASCII
+  ensure_ascii: false
+
+  # 生成统计报告
+  generate_statistics: true
+
+  # 生成质量报告
+  generate_quality_report: true

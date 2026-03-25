@@ -1,0 +1,50 @@
+{
+  "departments": {
+    "内科": {
+      "total_tasks": 494,
+      "merged_tasks": 3,
+      "multi_dept_tasks": 3,
+      "single_dept_tasks": 0,
+      "referral_tasks": 2
+    },
+    "外科": {
+      "total_tasks": 212,
+      "merged_tasks": 58,
+      "multi_dept_tasks": 58,
+      "single_dept_tasks": 0,
+      "referral_tasks": 58
+    },
+    "妇产科": {
+      "total_tasks": 171,
+      "merged_tasks": 46,
+      "multi_dept_tasks": 46,
+      "single_dept_tasks": 0,
+      "referral_tasks": 46
+    },
+    "儿科": {
+      "total_tasks": 38,
+      "merged_tasks": 23,
+      "multi_dept_tasks": 23,
+      "single_dept_tasks": 0,
+      "referral_tasks": 23
+    },
+    "肿瘤科": {
+      "total_tasks": 378,
+      "merged_tasks": 23,
+      "multi_dept_tasks": 23,
+      "single_dept_tasks": 0,
+      "referral_tasks": 23
+    },
+    "男科": {
+      "total_tasks": 183,
+      "merged_tasks": 46,
+      "multi_dept_tasks": 46,
+      "single_dept_tasks": 0,
+      "referral_tasks": 46
+    }
+  },
+  "total_tasks": 1476,
+  "total_merged": 199,
+  "total_multi_dept": 199,
+  "total_referral": 198
+}

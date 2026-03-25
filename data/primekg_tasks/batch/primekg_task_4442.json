@@ -1,0 +1,75 @@
+{
+  "task_id": "primekg_task_4442",
+  "patient_profile": {
+    "age": 32,
+    "gender": "female",
+    "chief_complaint": "Cluster headache",
+    "duration_days": 20,
+    "severity": "severe",
+    "underlying_condition": "trigeminal neuralgia"
+  },
+  "dialogue": [
+    {
+      "role": "patient",
+      "content": "Doctor, I've been experiencing Cluster headache for about 20 days."
+    },
+    {
+      "role": "doctor",
+      "content": "I see. Can you describe the Cluster headache in more detail? Is it severe?"
+    },
+    {
+      "role": "patient",
+      "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+    },
+    {
+      "role": "doctor",
+      "content": "Based on your symptoms, I suspect you may have trigeminal neuralgia. Let me explain the treatment options."
+    },
+    {
+      "role": "doctor",
+      "content": "I recommend Carbamazepine which is indicated for your condition."
+    },
+    {
+      "role": "doctor",
+      "content": "Do you have any questions about your diagnosis or treatment plan?"
+    }
+  ],
+  "metadata": {
+    "path_length": 3,
+    "node_types": [
+      "effect/phenotype",
+      "disease",
+      "drug"
+    ],
+    "edge_types": [
+      "unknown",
+      "phenotype present",
+      "indication"
+    ]
+  },
+  "path": {
+    "nodes": [
+      "12199",
+      "8599",
+      "DB00564"
+    ],
+    "edges": [
+      {
+        "node_type": "effect/phenotype",
+        "node_name": "Cluster headache"
+      },
+      {
+        "source": "12199",
+        "target": "8599",
+        "edge_type": "phenotype present",
+        "weight": 0.5
+      },
+      {
+        "source": "8599",
+        "target": "DB00564",
+        "edge_type": "indication",
+        "weight": 0.5
+      }
+    ]
+  }
+}

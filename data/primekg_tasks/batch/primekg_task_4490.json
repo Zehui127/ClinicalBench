@@ -1,0 +1,75 @@
+{
+  "task_id": "primekg_task_4490",
+  "patient_profile": {
+    "age": 43,
+    "gender": "male",
+    "chief_complaint": "Periodic fever",
+    "duration_days": 8,
+    "severity": "severe",
+    "underlying_condition": "cyclic hematopoiesis"
+  },
+  "dialogue": [
+    {
+      "role": "patient",
+      "content": "Doctor, I've been experiencing Periodic fever for about 8 days."
+    },
+    {
+      "role": "doctor",
+      "content": "I see. Can you describe the Periodic fever in more detail? Is it severe?"
+    },
+    {
+      "role": "patient",
+      "content": "Yes, it's quite severe. I'm worried about what might be causing this."
+    },
+    {
+      "role": "doctor",
+      "content": "Based on your symptoms, I suspect you may have cyclic hematopoiesis. Let me explain the treatment options."
+    },
+    {
+      "role": "doctor",
+      "content": "I recommend Filgrastim which is indicated for your condition."
+    },
+    {
+      "role": "doctor",
+      "content": "Do you have any questions about your diagnosis or treatment plan?"
+    }
+  ],
+  "metadata": {
+    "path_length": 3,
+    "node_types": [
+      "effect/phenotype",
+      "disease",
+      "drug"
+    ],
+    "edge_types": [
+      "unknown",
+      "phenotype present",
+      "indication"
+    ]
+  },
+  "path": {
+    "nodes": [
+      "32323",
+      "8090",
+      "DB00099"
+    ],
+    "edges": [
+      {
+        "node_type": "effect/phenotype",
+        "node_name": "Periodic fever"
+      },
+      {
+        "source": "32323",
+        "target": "8090",
+        "edge_type": "phenotype present",
+        "weight": 0.5
+      },
+      {
+        "source": "8090",
+        "target": "DB00099",
+        "edge_type": "indication",
+        "weight": 0.5
+      }
+    ]
+  }
+}

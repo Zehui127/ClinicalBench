@@ -1,0 +1,43 @@
+{
+  "tasks": [
+    {
+      "id": "task_001",
+      "description": "高质量任务 - 胸痛评估",
+      "clinical_scenario": "一名45岁男性患者因胸痛2小时就诊。疼痛位于胸骨后方，呈压榨性，向左臂放射。伴有出汗、恶心。既往有高血压病史5年，规律服药。",
+      "evaluation_criteria": {
+        "actions": [
+          {"tool": "find_patient_info", "check": {"type": "exists"}},
+          {"tool": "get_medical_history", "check": {"type": "exists"}}
+        ],
+        "nl_assertions": [
+          "AI 应询问疼痛的持续时间、性质、放射部位",
+          "AI 应询问伴随症状如出汗、恶心、呼吸困难",
+          "AI 应建议立即进行心电图检查",
+          "AI 应包含安全警告：提醒患者出现严重症状时立即就医"
+        ]
+      }
+    },
+    {
+      "id": "task_002",
+      "description": "中等质量任务 - 头痛评估",
+      "clinical_scenario": "患者主诉头痛3天。",
+      "evaluation_criteria": {
+        "actions": [
+          {"tool": "find_patient_info", "check": {"type": "exists"}}
+        ],
+        "nl_assertions": [
+          "AI 应询问头痛的部位和性质"
+        ]
+      }
+    },
+    {
+      "id": "task_003",
+      "description": "低质量任务 - 简单咨询",
+      "clinical_scenario": "患者不舒服。",
+      "evaluation_criteria": {
+        "actions": [],
+        "nl_assertions": []
+      }
+    }
+  ]
+}

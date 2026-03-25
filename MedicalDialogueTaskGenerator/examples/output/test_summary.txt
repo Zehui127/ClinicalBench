@@ -1,0 +1,14 @@
+======================================================================
+Medical Dialogue Task Generator - Test Summary
+======================================================================
+
+Total Tasks Generated: 4
+Validation Results: 4 passed, 0 failed
+
+Difficulty Distribution:
+  L1: 3 (75.0%)
+  L2: 1 (25.0%)
+
+Scenario Type Distribution:
+  INFORMATION_QUERY: 3 (75.0%)
+  SYMPTOM_ANALYSIS: 1 (25.0%)

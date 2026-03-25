@@ -1,0 +1,248 @@
+[
+  {
+    "id": "kg_task_0000",
+    "description": {
+      "purpose": "医患问诊 - 头晕",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "55-year-old female patient with 头晕",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "头晕",
+        "dialogue": "患者: 医生，我头晕\n医生: 头晕持续多久了？\n患者: 从3天前开始的，有点难受\n医生: 根据您的头晕，我怀疑可能是焦虑症\n患者: 那需要怎么治疗焦虑症？\n医生: 针对您的情况，我建议使用舍曲林\n患者: 有什么副作用吗？"
+      }
+    },
+    "ticket": "医生，我头晕",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0000",
+            "age": 55,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "头晕",
+      "expected_diagnosis": "焦虑症",
+      "expected_tests": [],
+      "expected_treatments": [
+        "舍曲林"
+      ],
+      "path_length": 3,
+      "path_score": 2.0999999999999996
+    }
+  },
+  {
+    "id": "kg_task_0001",
+    "description": {
+      "purpose": "医患问诊 - 头晕",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "55-year-old female patient with 头晕",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "头晕",
+        "dialogue": "患者: 我主要是头晕，已经好几天了\n医生: 能详细描述一下头晕的情况吗？\n患者: 3天了，越来越有点难受\n医生: 根据您的头晕，我怀疑可能是高血压\n患者: 那需要怎么治疗高血压？\n医生: 针对您的情况，我建议使用氨氯地平\n患者: 这个氨氯地平需要吃多久？"
+      }
+    },
+    "ticket": "我主要是头晕，已经好几天了",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0001",
+            "age": 55,
+            "gender": "female"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "头晕",
+      "expected_diagnosis": "高血压",
+      "expected_tests": [],
+      "expected_treatments": [
+        "氨氯地平"
+      ],
+      "path_length": 3,
+      "path_score": 2.5
+    }
+  },
+  {
+    "id": "kg_task_0002",
+    "description": {
+      "purpose": "医患问诊 - 头痛",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "42-year-old male patient with 头痛",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "头痛",
+        "dialogue": "患者: 医生，我头痛\n医生: 除了头痛，还有其他不舒服吗？\n患者: 1周了，越来越还能忍受\n医生: 根据您的头痛，我怀疑可能是脑梗死\n患者: 那需要怎么治疗脑梗死？\n医生: 我建议您做个头颅CT\n患者: 好的，需要做哪些准备？"
+      }
+    },
+    "ticket": "医生，我头痛",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0002",
+            "age": 42,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "头痛",
+      "expected_diagnosis": "脑梗死",
+      "expected_tests": [
+        "头颅CT"
+      ],
+      "expected_treatments": [],
+      "path_length": 3,
+      "path_score": 2.4
+    }
+  },
+  {
+    "id": "kg_task_0003",
+    "description": {
+      "purpose": "医患问诊 - 头痛",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "42-year-old male patient with 头痛",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "头痛",
+        "dialogue": "患者: 我主要是头痛，已经好几天了\n医生: 能详细描述一下头痛的情况吗？\n患者: 从1周前开始的，还能忍受\n医生: 根据您的头痛，我怀疑可能是偏头痛\n患者: 这是偏头痛吗？我还以为是其他问题\n医生: 针对您的情况，我建议使用氟桂利嗪\n患者: 这个氟桂利嗪需要吃多久？"
+      }
+    },
+    "ticket": "我主要是头痛，已经好几天了",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0003",
+            "age": 42,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "头痛",
+      "expected_diagnosis": "偏头痛",
+      "expected_tests": [],
+      "expected_treatments": [
+        "氟桂利嗪"
+      ],
+      "path_length": 3,
+      "path_score": 2.4
+    }
+  },
+  {
+    "id": "kg_task_0004",
+    "description": {
+      "purpose": "医患问诊 - 胸痛",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "65-year-old male patient with 胸痛",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "胸痛",
+        "dialogue": "患者: 我胸痛，很难受\n医生: 胸痛持续多久了？\n患者: 已经2小时了，非常难受\n医生: 需要排除一下肺炎\n患者: 这是肺炎吗？我还以为是其他问题\n医生: 我建议您做个胸部X光\n患者: 多久能出结果？"
+      }
+    },
+    "ticket": "我胸痛，很难受",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0004",
+            "age": 65,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "胸痛",
+      "expected_diagnosis": "肺炎",
+      "expected_tests": [
+        "胸部X光"
+      ],
+      "expected_treatments": [],
+      "path_length": 3,
+      "path_score": 2.3
+    }
+  },
+  {
+    "id": "kg_task_0005",
+    "description": {
+      "purpose": "医患问诊 - 胸痛",
+      "notes": "基于知识图谱+Random Walk生成的动态对话"
+    },
+    "user_scenario": {
+      "persona": "65-year-old male patient with 胸痛",
+      "instructions": {
+        "domain": "internal_medicine",
+        "reason_for_call": "胸痛",
+        "dialogue": "患者: 我胸痛，很难受\n医生: 除了胸痛，还有其他不舒服吗？\n患者: 2小时了，越来越非常难受\n医生: 需要排除一下冠心病\n患者: 冠心病严重吗？\n医生: 针对您的情况，我建议使用阿司匹林\n患者: 有什么副作用吗？"
+      }
+    },
+    "ticket": "我胸痛，很难受",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Patient_kg_task_0005",
+            "age": 65,
+            "gender": "male"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "knowledge_graph_random_walk",
+      "generation_method": "KG + Random Walk + Task Generator",
+      "symptom": "胸痛",
+      "expected_diagnosis": "冠心病",
+      "expected_tests": [],
+      "expected_treatments": [
+        "阿司匹林"
+      ],
+      "path_length": 3,
+      "path_score": 2.6
+    }
+  }
+]

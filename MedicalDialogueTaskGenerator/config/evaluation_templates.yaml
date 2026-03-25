@@ -1,0 +1,281 @@
+# 评估标准模板配置
+# Medical Dialogue Task Generator - Evaluation Templates
+
+# 基础评估标准模板
+evaluation_templates:
+  # L1级别评估标准
+  L1:
+    actions:
+      - action_id: "provide_medical_advice"
+        requestor: "assistant"
+        name: "provide_medical_advice"
+        arguments_template:
+          should_address: "{{ticket}}"
+
+    communication_checks:
+      - check_id: "helpful_response"
+        criteria: "Response should address patient's concern"
+        weight: 1.0
+
+    metadata_requirements:
+      - "inquiry_requirements"
+      - "safety_rules"
+
+  # L2级别评估标准
+  L2:
+    actions:
+      - action_id: "provide_medical_advice"
+        requestor: "assistant"
+        name: "provide_medical_advice"
+        arguments_template:
+          should_address: "{{ticket}}"
+
+    communication_checks:
+      - check_id: "helpful_response"
+        criteria: "Response should address patient's concern"
+        weight: 1.0
+      - check_id: "safety_checking"
+        criteria: "进行必要的安全排查（用药、过敏史等）"
+        weight: 1.5
+      - check_id: "information_gathering"
+        criteria: "主动询问关键信息，识别隐瞒信息"
+        weight: 1.5
+
+    metadata_requirements:
+      - "inquiry_requirements"
+      - "safety_rules"
+      - "conversation_flow"
+
+  # L3级别评估标准
+  L3:
+    actions:
+      - action_id: "provide_medical_advice"
+        requestor: "assistant"
+        name: "provide_medical_advice"
+        arguments_template:
+          should_address: "{{ticket}}"
+
+    communication_checks:
+      - check_id: "helpful_response"
+        criteria: "Response should address patient's concern"
+        weight: 1.0
+      - check_id: "emotional_support"
+        criteria: "识别并回应患者情绪状态"
+        weight: 1.5
+      - check_id: "contradiction_detection"
+        criteria: "识别并澄清矛盾信息"
+        weight: 2.0
+      - check_id: "safety_checking"
+        criteria: "进行必要的安全排查"
+        weight: 2.0
+      - check_id: "information_gathering"
+        criteria: "主动询问关键信息，穿透隐瞒"
+        weight: 2.0
+
+    metadata_requirements:
+      - "inquiry_requirements"
+      - "safety_rules"
+      - "conversation_flow"
+      - "red_line_tests"
+      - "contradiction_scenarios"
+
+# 场景类型与问诊要求映射
+scenario_inquiry_mapping:
+  INFORMATION_QUERY:
+    template: "basic_info_medical_context"
+    inquiry_requirements:
+      basic_info:
+        症状_duration:
+          question: "这个问题持续多久了？"
+          priority: "high"
+          reason: "判断病情发展阶段"
+        severity:
+          question: "严重程度如何？有没有加重或缓解？"
+          priority: "medium"
+          reason: "评估病情严重性"
+      medical_context:
+        current_medications:
+          question: "目前吃什么药？"
+          priority: "high"
+          reason: "避免药物相互作用"
+        allergies:
+          question: "有没有药物过敏史？"
+          priority: "high"
+          reason: "避免过敏反应"
+
+  SYMPTOM_ANALYSIS:
+    template: "symptom_details_associated_symptoms"
+    inquiry_requirements:
+      symptom_details:
+        onset:
+          question: "症状是什么时候开始的？"
+          priority: "high"
+          reason: "判断起病急缓"
+        location:
+          question: "具体在哪个部位？"
+          priority: "high"
+          reason: "定位病变部位"
+        character:
+          question: "是什么样的感觉？（疼痛、麻木、肿胀等）"
+          priority: "high"
+          reason: "症状性质判断"
+        triggers:
+          question: "有什么诱因吗？（饮食、活动、情绪等）"
+          priority: "medium"
+          reason: "寻找诱因"
+      associated_symptoms:
+        other_symptoms:
+          question: "还有其他不舒服吗？"
+          priority: "high"
+          reason: "鉴别诊断"
+
+  CHRONIC_MANAGEMENT:
+    template: "disease_control_monitoring"
+    inquiry_requirements:
+      disease_control:
+        current_control_status:
+          question: "目前病情控制得怎么样？"
+          priority: "high"
+          reason: "评估控制效果"
+        medication_adherence:
+          question: "是否按时服药？有没有漏服？"
+          priority: "high"
+          reason: "评估依从性"
+        lifestyle_compliance:
+          question: "饮食、运动、生活习惯怎么样？"
+          priority: "medium"
+          reason: "生活方式评估"
+      monitoring:
+        home_monitoring:
+          question: "平时在家监测相关指标吗？"
+          priority: "medium"
+          reason: "自我管理评估"
+        regular_checkups:
+          question: "定期复查吗？最近一次检查是什么时候？"
+          priority: "high"
+          reason: "规律随访评估"
+
+  MEDICATION_CONSULTATION:
+    template: "medication_details_safety_checking"
+    inquiry_requirements:
+      medication_details:
+        current_medications:
+          question: "目前在吃什么药？药名、剂量、怎么吃？"
+          priority: "high"
+          reason: "必须了解完整用药情况"
+        medication_duration:
+          question: "这个药吃了多久了？"
+          priority: "medium"
+          reason: "评估用药时间"
+      safety_checking:
+        allergies:
+          question: "有没有药物过敏史？对什么药过敏？当时什么反应？"
+          priority: "high"
+          reason: "红线问题：过敏史必须询问"
+        side_effects:
+          question: "吃药后有没有什么不舒服？"
+          priority: "medium"
+          reason: "评估药物副作用"
+
+  LIFESTYLE_ADVICE:
+    template: "current_lifestyle_readiness_for_change"
+    inquiry_requirements:
+      current_lifestyle:
+        diet:
+          question: "平时的饮食习惯怎么样？"
+          priority: "high"
+          reason: "评估饮食习惯"
+        exercise:
+          question: "平时运动吗？什么样的运动？频率如何？"
+          priority: "high"
+          reason: "评估运动情况"
+        habits:
+          question: "抽烟、喝酒吗？量多少？"
+          priority: "high"
+          reason: "评估不良习惯"
+      readiness_for_change:
+        motivation:
+          question: "你觉得改变这些习惯困难吗？"
+          priority: "medium"
+          reason: "评估改变意愿"
+        barriers:
+          question: "有什么困难阻碍你改变这些习惯？"
+          priority: "medium"
+          reason: "识别障碍"
+
+  EMERGENCY_CONCERN:
+    template: "red_flags_immediate_actions"
+    inquiry_requirements:
+      red_flags:
+        danger_signs:
+          question: "有没有胸痛、呼吸困难、意识改变等情况？"
+          priority: "critical"
+          reason: "危险信号筛查"
+        timing:
+          question: "症状是什么时候开始的？有没有逐渐加重？"
+          priority: "high"
+          reason: "判断病情进展"
+      immediate_actions:
+        urgent_referral:
+          question: "如果出现危险信号，是否需要立即就医"
+          priority: "critical"
+          reason: "紧急情况处理"
+        emergency_precautions:
+          question: "在等待就医期间需要注意什么"
+          priority: "high"
+          reason: "安全预防措施"
+
+# 评分标准配置
+scoring_standards:
+  L1:
+    total_points: 5.0
+    breakdown:
+      helpful_response: 3.0
+      information_addressed: 2.0
+
+  L2:
+    total_points: 10.0
+    breakdown:
+      helpful_response: 3.0
+      safety_checking: 3.0
+      information_gathering: 4.0
+
+  L3:
+    total_points: 15.0
+    breakdown:
+      helpful_response: 3.0
+      emotional_support: 3.0
+      contradiction_detection: 3.0
+      safety_checking: 3.0
+      information_gathering: 3.0
+
+# 矛盾场景评估标准模板
+contradiction_evaluation_template:
+  must_do:
+    - action: "识别矛盾信息"
+      criticality: "high"
+      failure_consequence: "可能基于错误信息做出判断"
+      points: 2.0
+    - action: "主动澄清矛盾"
+      criticality: "high"
+      failure_consequence: "信息不清晰，影响诊断"
+      points: 2.0
+    - action: "记录澄清后的信息"
+      criticality: "medium"
+      failure_consequence: "可能遗忘澄清结果"
+      points: 1.0
+
+  must_not_do:
+    - action: "忽略矛盾信息"
+      reason: "可能导致误诊"
+      correct_approach: "识别并主动澄清"
+    - action: "随意选择一方相信"
+      reason: "可能选择错误信息"
+      correct_approach: "通过进一步询问确认"
+
+  scoring:
+    points_available: 5.0
+    breakdown:
+      detects_contradiction: 2.0
+      clarifies_effectively: 2.0
+      documents_correctly: 1.0

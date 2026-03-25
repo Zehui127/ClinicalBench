@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-03-19",
+  "departments_enhanced": [
+    {
+      "name": "内科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_内科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_内科.json"
+    },
+    {
+      "name": "外科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_外科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_外科.json"
+    },
+    {
+      "name": "妇产科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_妇产科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_妇产科.json"
+    },
+    {
+      "name": "儿科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_儿科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_儿科.json"
+    },
+    {
+      "name": "肿瘤科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_肿瘤科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_肿瘤科.json"
+    },
+    {
+      "name": "男科",
+      "input": "data/processed/medical_dialogues/chinese_meddialog/tasks_男科.json",
+      "output": "DataQualityFiltering/test_outputs/enhanced_tasks_男科.json"
+    }
+  ],
+  "results": {
+    "内科": true,
+    "外科": true,
+    "妇产科": true,
+    "儿科": true,
+    "肿瘤科": true,
+    "男科": true
+  },
+  "statistics": {}
+}

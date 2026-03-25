@@ -20,6 +20,7 @@ DataQualityFiltering - 统一的医学评估框架
 """
 
 import argparse
+import json
 import sys
 import os
 from pathlib import Path
@@ -62,6 +63,71 @@ def main():
         dest="subsystem",
         help="选择子系统",
         metavar="SUBSYSTEM"
+    )
+
+    # ============================================================================
+    # 原始数据验证子系统
+    # ============================================================================
+    raw_data_parser = subparsers.add_parser(
+        "raw-data",
+        help="原始数据验证",
+        description="验证原始医患对话数据是否适合转换"
+    )
+
+    raw_data_subparsers = raw_data_parser.add_subparsers(
+        dest="command",
+        help="原始数据验证命令",
+        metavar="COMMAND"
+    )
+
+    # validate 命令
+    rd_validate_parser = raw_data_subparsers.add_parser(
+        "validate",
+        help="验证原始对话数据",
+        description="验证原始医患对话数据的质量和完整性"
+    )
+    rd_validate_parser.add_argument(
+        "--input",
+        required=True,
+        help="输入文件路径（CSV或JSON格式）"
+    )
+    rd_validate_parser.add_argument(
+        "--output",
+        help="输出报告文件路径（JSON格式）"
+    )
+    rd_validate_parser.add_argument(
+        "--format",
+        choices=["csv", "json", "auto"],
+        default="auto",
+        help="输入文件格式（默认自动检测）"
+    )
+    rd_validate_parser.add_argument(
+        "--encoding",
+        default="utf-8",
+        help="文件编码（默认: utf-8）"
+    )
+    rd_validate_parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="严格模式（warnings也会导致验证失败）"
+    )
+    rd_validate_parser.add_argument(
+        "--min-patient-length",
+        type=int,
+        default=5,
+        help="患者主诉最小长度（默认: 5）"
+    )
+    rd_validate_parser.add_argument(
+        "--min-doctor-length",
+        type=int,
+        default=10,
+        help="医生回答最小长度（默认: 10）"
+    )
+    rd_validate_parser.add_argument(
+        "--min-turns",
+        type=int,
+        default=2,
+        help="最少对话轮数（默认: 2）"
     )
 
     # ============================================================================
@@ -313,12 +379,83 @@ def main():
         return 0
 
     # 路由到对应的处理器
-    if args.subsystem == "data-quality":
+    if args.subsystem == "raw-data":
+        return _handle_raw_data(args)
+    elif args.subsystem == "data-quality":
         return _handle_data_quality(args)
     elif args.subsystem == "agent-eval":
         return _handle_agent_eval(args)
     else:
         parser.print_help()
+        return 1
+
+
+def _handle_raw_data(args):
+    """处理原始数据验证命令"""
+    if not args.command:
+        print("错误: 请指定原始数据验证命令（validate）")
+        print("使用 --help 查看帮助")
+        return 1
+
+    if args.command == "validate":
+        # 导入原始数据验证器
+        try:
+            from raw_data_validator import RawDataValidator
+        except ImportError:
+            # 添加当前目录到路径
+            import sys
+            current_dir = Path(__file__).parent
+            if str(current_dir) not in sys.path:
+                sys.path.insert(0, str(current_dir))
+            from raw_data_validator import RawDataValidator
+
+        # 创建验证器配置
+        config = {
+            "min_patient_length": args.min_patient_length,
+            "min_doctor_length": args.min_doctor_length,
+            "min_total_turns": args.min_turns,
+            "strict_mode": args.strict
+        }
+
+        # 创建验证器
+        validator = RawDataValidator(config)
+
+        # 检测文件格式
+        file_path = Path(args.input)
+        if args.format == "auto":
+            file_format = file_path.suffix.lstrip(".")
+        else:
+            file_format = args.format
+
+        # 验证文件
+        try:
+            if file_format == "csv":
+                report = validator.validate_csv_file(args.input, args.encoding)
+            elif file_format == "json":
+                report = validator.validate_json_file(args.input, args.encoding)
+            else:
+                print(f"❌ 不支持的文件格式: {file_format}")
+                return 1
+
+            # 打印摘要
+            print(validator.generate_summary(report))
+
+            # 保存详细报告
+            if args.output:
+                with open(args.output, "w", encoding="utf-8") as f:
+                    json.dump(report.to_dict(), f, ensure_ascii=False, indent=2)
+                print(f"✅ 详细报告已保存到: {args.output}")
+
+            # 返回状态码
+            return 0 if report.failed_dialogues == 0 else 1
+
+        except Exception as e:
+            print(f"❌ 错误: {e}")
+            import traceback
+            traceback.print_exc()
+            return 1
+    else:
+        print(f"错误: 未知命令 '{args.command}'")
         return 1
 
 

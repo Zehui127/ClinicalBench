@@ -1,0 +1,66 @@
+# 难度分级规则配置
+# Medical Dialogue Task Generator Configuration
+
+# 难度级别分布配置
+difficulty_distribution:
+  L1: 0.4  # 40% L1任务（基础难度）
+  L2: 0.4  # 40% L2任务（中等难度）
+  L3: 0.2  # 20% L3任务（高难度）
+
+# 复杂度分数阈值（0-10分）
+complexity_thresholds:
+  L1:
+    min_score: 0
+    max_score: 3
+    description: "基础难度：患者配合，信息完整"
+  L2:
+    min_score: 4
+    max_score: 7
+    description: "中等难度：信息隐瞒，需要主动追问"
+  L3:
+    min_score: 8
+    max_score: 10
+    description: "高难度：多重问题，矛盾信息，情绪干扰"
+
+# 场景类型基础复杂度分数
+scenario_complexity_scores:
+  INFORMATION_QUERY: 1
+  LIFESTYLE_ADVICE: 2
+  SYMPTOM_ANALYSIS: 4
+  CHRONIC_MANAGEMENT: 5
+  MEDICATION_CONSULTATION: 6
+  EMERGENCY_CONCERN: 7
+  FOLLOW_UP: 3
+  SECOND_OPINION: 5
+
+# 复杂度计算权重
+complexity_weights:
+  question_length: 0.1        # 问题长度权重
+  multiple_questions: 1.0     # 多问题加分
+  medication_related: 1.0     # 涉及药物加分
+  symptom_description: 1.0    # 有症状描述加分
+  emotional_keywords: 1.5     # 情绪关键词加分
+  chronic_disease: 0.5        # 慢性病加分
+
+# 对话轮数配置
+conversation_rounds:
+  L2:
+    min: 3
+    max: 5
+    rounds_until_truth: 3
+  L3:
+    min: 4
+    max: 6
+    rounds_until_truth: 5
+
+# 行为数量配置
+behavior_count:
+  L1:
+    min: 0
+    max: 0
+  L2:
+    min: 1
+    max: 2
+  L3:
+    min: 3
+    max: 5
