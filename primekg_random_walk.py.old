@@ -24,8 +24,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from collections import defaultdict
 
-# Import PrimeKG loader from same package
-from .kg_loader import PrimeKGLoader, RealMedicalKnowledgeGraph
+# Import PrimeKG loader
+from primekg_loader import PrimeKGLoader, RealMedicalKnowledgeGraph
 
 
 # ========================================

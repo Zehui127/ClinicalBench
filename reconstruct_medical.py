@@ -5,7 +5,7 @@ from pathlib import Path
 base_dir = Path(r'C:\Users\方正\tau2-bench\data\processed')
 
 # Ensure directories exist
-for name in ['medagentbench', 'medxpertqa', 'physionet', 'prodmedbench']:
+for name in ['medagentbench', 'medxpertqa', 'physionet']:
     (base_dir / name).mkdir(parents=True, exist_ok=True)
 
 # Load sources
@@ -17,8 +17,6 @@ sources['tasks_medxpertqa'] = json.load(open(r'C:\Users\方正\tau2-bench\data\p
 sources['db_medxpertqa'] = json.load(open(r'C:\Users\方正\tau2-bench\data\processed\medxpertqa\db.json', encoding='utf-8'))
 sources['tasks_physionet'] = json.load(open(r'C:\Users\方正\tau2-bench\data\processed\physionet\tasks.json', encoding='utf-8'))
 sources['db_physionet'] = json.load(open(r'C:\Users\方正\tau2-bench\data\processed\physionet\db.json', encoding='utf-8'))
-sources['tasks_prodmedbench'] = json.load(open(r'C:\Users\方正\tau2-bench\data\processed\prodmedbench\tasks.json', encoding='utf-8'))
-sources['db_prodmedbench'] = json.load(open(r'C:\Users\方正\tau2-bench\data\processed\prodmedbench\db.json', encoding='utf-8'))
 
 print("Files loaded successfully")
 
@@ -157,57 +155,10 @@ for i, (qa_id, qa) in enumerate(physionet_db.items(), 1):
 
 reconstructed['physionet'] = physionet_tasks
 
-# Process ProdMedBench
-print("Processing ProdMedBench...")
-prodmedbench_tasks = []
-prodmedbench_db = sources['db_prodmedbench']['qa_pairs']
-
-for task in sources['tasks_prodmedbench']:
-    task_id = task['id']
-    ticket = task.get('ticket', '')
-    qa_data = prodmedbench_db.get(task_id, {})
-    answer = qa_data.get('answer', '')
-    options = qa_data.get('options', '')
-    cot = qa_data.get('cot', '')
-    
-    consultation_task = {
-        'id': task_id,
-        'task_type': 'mcq_screening',
-        'consultation_scenario': 'differential_diagnosis',
-        'question': 'Patient asks: ' + ticket,
-        'answer': 'Doctor answers: ' + answer,
-        'domain': 'clinical/consultation',
-        'ticket': ticket,
-        'original_format': 'ProdMedBench',
-        'options': options,
-        'cot': cot,
-        'description': {
-            'purpose': 'Differential diagnosis MCQ screening',
-            'relevant_policies': None,
-            'notes': 'Multiple choice with reasoning'
-        },
-        'user_scenario': {
-            'persona': None,
-            'instructions': {
-                'task_instructions': ticket,
-                'domain': 'clinical',
-                'reason_for_call': 'Medical consultation',
-                'known_info': 'MCQ format',
-                'unknown_info': None
-            }
-        },
-        'initial_state': None,
-        'evaluation_criteria': None,
-        'annotations': None
-    }
-    prodmedbench_tasks.append(consultation_task)
-
-reconstructed['prodmedbench'] = prodmedbench_tasks
-
 # Write all files
 print("Writing output files...")
 output_files = {}
-for name in ['medagentbench', 'medxpertqa', 'physionet', 'prodmedbench']:
+for name in ['medagentbench', 'medxpertqa', 'physionet']:
     output_file = base_dir / name / 'consultation_paradigm.json'
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(reconstructed[name], f, indent=2, ensure_ascii=False)
@@ -225,12 +176,11 @@ universal_template = {
         'description': 'Unified medical consultation task paradigm integrating multiple medical datasets',
         'task_types': {
             'core_consultation': 'Free-form doctor-patient dialogue (MedAgentBench/MedXpertQA)',
-            'structured_query': 'Pre-consultation data retrieval (PhysioNet)',
-            'mcq_screening': 'Differential diagnosis with MCQ (ProdMedBench)'
+            'structured_query': 'Pre-consultation data retrieval (PhysioNet)'
         },
         'mandatory_fields': {
             'id': 'unique_task_identifier',
-            'task_type': 'core_consultation|structured_query|mcq_screening',
+            'task_type': 'core_consultation|structured_query',
             'question': 'consultation_question',
             'answer': 'consultation_answer',
             'domain': 'clinical/consultation'
@@ -238,8 +188,7 @@ universal_template = {
         'consultation_workflow': {
             'step_1_pre_consultation': 'Structured query to retrieve patient data (PhysioNet)',
             'step_2_consultation': 'Free-form Q&A for diagnosis and treatment (MedAgentBench/MedXpertQA)',
-            'step_3_screening': 'MCQ with CoT for differential diagnosis (ProdMedBench)',
-            'step_4_resolution': 'Final diagnosis/advice in natural language'
+            'step_3_resolution': 'Final diagnosis/advice in natural language'
         }
     }
 }
@@ -267,7 +216,7 @@ for name, count in counts.items():
     print(f"  {name}: {count} tasks")
 print("")
 core_total = counts['medagentbench'] + counts['medxpertqa']
-supp_total = counts['physionet'] + counts['prodmedbench']
+supp_total = counts['physionet']
 all_total = core_total + supp_total
 print(f"  Total Core Consultation: {core_total}")
 print(f"  Total Supplementary: {supp_total}")

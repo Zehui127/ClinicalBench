@@ -1,0 +1,41 @@
+# API Configuration for Medical Task Suite Real Interfaces
+# This file contains configuration for connecting to real medical APIs
+
+# FHIR API Configuration (HAPI FHIR Public Test Server)
+fhir:
+  base_url: "https://hapi.fhir.org/baseR4"
+  timeout: 30
+  max_retries: 3
+  retry_delay: 1
+  cache_ttl: 3600  # 1 hour in seconds
+
+# OpenFDA API Configuration
+openfda:
+  base_url: "https://api.fda.gov"
+  drug_label_endpoint: "/drug/label.json"
+  drug_event_endpoint: "/drug/event.json"
+  api_key: null  # Set via environment variable OPENFDA_API_KEY for higher rate limits
+  timeout: 30
+  max_retries: 3
+  retry_delay: 1
+  rate_limit: 240  # Requests per minute (without API key)
+  rate_limit_burst: 10  # Burst requests per second
+  cache_ttl: 3600  # 1 hour in seconds
+
+# Cache Configuration
+cache:
+  enabled: true
+  default_ttl: 3600  # 1 hour in seconds
+  max_size: 1000  # Maximum number of cached items
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: null  # Set to a file path to enable file logging
+
+# Interface Selection
+interface:
+  use_real: false  # Set to true to use real APIs, false to use stubs
+  fallback_to_stub: true  # If real API fails, fallback to stub implementation
+  timeout_fallback: 5  # Seconds to wait before falling back on timeout

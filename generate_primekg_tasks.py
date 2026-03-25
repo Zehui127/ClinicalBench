@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-生成更多 PrimeKG 任务（简化版）
+生成更多 PrimeKG 任务（已迁移到 medical_task_suite/generation/）
+
+注意：此脚本现在使用 medical_task_suite/generation/ 模块
+推荐直接使用：from medical_task_suite.generation import PrimeKGRandomWalkPipeline
 """
 
 import sys
@@ -13,7 +16,12 @@ from pathlib import Path
 if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-from primekg_random_walk import PrimeKGRandomWalkPipeline
+# 从 medical_task_suite 导入（推荐方式）
+sys.path.insert(0, str(Path(__file__).parent / "medical_task_suite"))
+from generation import PrimeKGRandomWalkPipeline
+
+# 或者从旧的根目录脚本导入（向后兼容）
+# from primekg_random_walk import PrimeKGRandomWalkPipeline
 
 def main():
     print("="*70)
@@ -79,9 +87,20 @@ def main():
     print(" Complete!")
     print("="*70)
 
-    print(f"\nNext steps:")
-    print(f"  1. Convert to tau2: python primekg_to_tau2.py")
-    print(f"  2. Test tasks: python test_primekg_tasks.py")
+    print(f"\n📊 Generated: {task_count} tasks")
+    print(f"📍 Location: {output_dir}")
+
+    print(f"\n📖 Documentation:")
+    print(f"  - medical_task_suite/generation/README.md (完整指南)")
+    print(f"  - PRIMEKG_UNIFICATION.md (统一说明)")
+
+    print(f"\n🎯 Recommended usage:")
+    print(f"  from medical_task_suite.generation import PrimeKGRandomWalkPipeline")
+    print(f"  pipeline = PrimeKGRandomWalkPipeline(use_cache=True)")
+
+    print(f"\n📝 Next steps:")
+    print(f"  1. Test tasks: python test_primekg_complete.py")
+    print(f"  2. View documentation: cat medical_task_suite/generation/README.md")
 
 if __name__ == "__main__":
     main()

@@ -21,7 +21,7 @@ from medical_task_suite.optimization.core.task_optimizer import TaskOptimizer
 def generate_from_scratch(
     symptoms: list = None,
     walk_type: str = "medium",
-    output_file: str = "data/from_scratch.json"
+    output_file: str = "medical_task_suite/examples/data/from_scratch.json"
 ):
     """
     完全从零生成数据集
@@ -183,7 +183,7 @@ def main():
     tasks = generate_from_scratch(
         symptoms=None,  # 使用默认症状
         walk_type="medium",
-        output_file="data/from_scratch.json"
+        output_file="medical_task_suite/examples/data/from_scratch.json"
     )
 
     if tasks:

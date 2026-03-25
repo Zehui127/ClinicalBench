@@ -17,7 +17,8 @@ from dataclasses import dataclass
 if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-from primekg_random_walk import ConsultationTask, WalkPath
+# 从 core 模块导入（相对导入）
+from ..core.random_walk import ConsultationTask, WalkPath
 
 
 def convert_to_tau2_format(primekg_task: ConsultationTask, domain: str = "primekg") -> Dict[str, Any]:
