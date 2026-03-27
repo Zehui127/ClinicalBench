@@ -1,0 +1,580 @@
+{
+  "id": "COPD_EXAC_001_BENCHMARK",
+  "domain": "respiratory",
+  "task_type": "acute_management",
+  "difficulty": "medium_high",
+  "estimated_duration_minutes": 25,
+  "version": "benchmark_v1",
+
+  "description": {
+    "purpose": "COPD急性加重 - 68岁男性，咳嗽、咳痰、气促加重3天",
+    "clinical_scenario": "已知COPD患者因急性加重就诊，需要医生评估严重程度、鉴别诊断、制定治疗方案并决定是否住院",
+    "educational_objectives": [
+      "评估医生对COPD急性加重的识别能力",
+      "评估医生进行病情严重程度评估的能力",
+      "评估医生鉴别诊断（肺炎、心衰、肺栓塞）的能力",
+      "评估医生制定合理治疗方案的能力",
+      "评估医生判断住院指征的能力",
+      "评估医生的安全意识和底线思维"
+    ]
+  },
+
+  "user_scenario": {
+    "persona": "68岁男性患者，小学文化程度，退休工人，表达能力一般，吸烟40年",
+
+    "patient_profile": {
+      "age": 68,
+      "gender": "male",
+      "education_level": "elementary",
+      "communication_style": "simple",
+      "cooperation_level": "good",
+      "chief_complaint": "咳嗽、咳痰、气促加重3天"
+    },
+
+    "information_state": {
+      "patient_knows": {
+        "symptoms": ["咳嗽", "咳痰", "气促"],
+        "duration_approximate": "3天",
+        "copd_diagnosis": "知道自己有慢阻肺",
+        "smoking_history": "抽了40年烟",
+        "previous_exacerbations": "以前也住过院"
+      },
+
+      "patient_doesnt_know": {
+        "exacerbation_trigger": "病毒感染",
+        "blood_gas_level": "pH 7.35, PaCO2 52 mmHg, PaO2 58 mmHg",
+        "chest_xray": "肺气肿改变，无明确肺炎",
+        "severity": "中度急性加重，需要住院治疗"
+      },
+
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "主诉：咳嗽、咳痰、气促加重",
+          "持续时间：3天",
+          "基础病：有慢阻肺好几年了",
+          "吸烟史：抽了40年",
+          "痰液情况：痰变多、变黄了"
+        ],
+
+        "share_only_if_asked": [
+          "气促严重程度（需要医生追问：能平躺吗？走几步就喘？）",
+          "发热情况（有点低烧，37.5度左右）",
+          "胸痛（无）",
+          "下肢水肿（无）",
+          "意识状态（清醒）",
+          "既往急性加重次数（每年1-2次）",
+          "平时用药（有吸入药，但不太会用）",
+          "当前用药情况（这几天药用得更多了）",
+          "过敏史（无）",
+          "其他症状（无咯血、无胸痛）"
+        ],
+
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": ["医学术语", "检查名称"],
+          "emotional_state": "worried",
+          "may_express_fear": ["怕又要住院"]
+        }
+      }
+    },
+
+    "task_instructions": "你来扮演患者王XX，68岁男性，退休工人，小学文化。你有慢阻肺好几年了。最近3天咳嗽、咳痰、气促加重，痰变黄了。你对医学不太了解，不知道这次加重有多严重。医生问什么你就如实回答。"
+  },
+
+  "medical_persona": {
+    "age": 68,
+    "gender": "male",
+    "symptoms": [
+      "increased_cough": "咳嗽频率和强度增加",
+      "increased_sputum": "痰量增加，从平时的少量到每日50-100ml",
+      "purulent_sputum": "痰液变黄、变稠",
+      "increased_dyspnea": "气促明显加重，平时活动耐量mMRC 2级，现在升至3级",
+      "low_grade_fever": "体温37.5℃",
+      "fatigue": "乏力"
+    ],
+    "duration": "3天",
+    "severity": "moderate_to_severe",
+
+    "past_medical_history": [
+      "COPD诊断8年，GOLD 3级",
+      "每年急性加重1-2次",
+      "高血压5年"
+    ],
+
+    "current_medications": [
+      "长效支气管舒张剂（LAMA/LABA）",
+      "降压药（氨氯地平）",
+      "急性加重时自行增加吸入剂使用"
+    ],
+
+    "allergies": [],
+
+    "lab_results": {
+      "arterial_blood_gas": "pH 7.35, PaCO2 52 mmHg, PaO2 58 mmHg（吸空气）",
+      "wbc": "11.2×10^9/L",
+      "neutrophil": "82%",
+      "crp": "38 mg/L",
+      "chest_xray": "肺气肿改变，膈肌低平，无明确肺炎灶"
+    },
+
+    "vital_signs": {
+      "blood_pressure": "145/85 mmHg",
+      "heart_rate": "102次/分",
+      "respiratory_rate": "24次/分",
+      "temperature": "37.5℃",
+      "spo2": "90%（吸空气）",
+      "bmi": "22.0",
+      "physical_exam": "桶状胸，呼吸音减弱，双下肺少量湿啰音，心率102，律齐，无下肢水肿"
+    },
+
+    "lifestyle_factors": {
+      "smoking": "current_smoker",
+      "pack_years": "40 pack-years",
+      "alcohol": "no",
+      "exercise": "minimal_due_to_dyspnea"
+    },
+
+    "diagnosis": {
+      "primary": "COPD急性加重（中度，需住院治疗）",
+      "trigger": "病毒性上呼吸道感染",
+      "differential_diagnoses": [
+        "肺炎（排除：胸片无明确肺炎灶，但需警惕）",
+        "心力衰竭（排除：无下肢水肿，无夜间阵发性呼吸困难）",
+        "肺栓塞（排除：无胸痛，无单侧下肢肿胀，Wells评分低）",
+        "气胸（排除：双肺呼吸音对称，无气管偏移）"
+      ]
+    }
+  },
+
+  "ticket": "COPD患者咳嗽、咳痰、气促加重3天",
+
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "王XX",
+          "mrn": "050001",
+          "age": 68,
+          "gender": "male"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 68,
+            "gender": "male",
+            "symptoms": ["咳嗽加重", "咳痰增多", "痰液变黄", "气促加重"],
+            "duration": "3天",
+            "severity": "moderate_to_severe",
+            "past_history": ["COPD 8年", "高血压5年"]
+          },
+          "information_sharing_strategy": {
+            "volunteer": ["主诉", "持续时间", "基础病", "吸烟史", "痰液变化"],
+            "ask_only": ["气促严重程度", "发热", "胸痛", "下肢水肿", "平时用药", "用药依从性", "既往加重次数"]
+          },
+          "response_style": {
+            "honest": true,
+            "direct": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "assess_exacerbation_severity",
+        "requestor": "assistant",
+        "name": "assess_respiratory_status",
+        "arguments": {
+          "should_assess": ["dyspnea_level", "oxygen_saturation", "respiratory_rate"]
+        }
+      },
+      {
+        "action_id": "order_respiratory_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "should_include": ["chest_xray", "arterial_blood_gas", "cbc_crp"]
+        }
+      },
+      {
+        "action_id": "admission_decision",
+        "requestor": "assistant",
+        "name": "make_admission_decision",
+        "arguments": {
+          "should_decide": "admission_required"
+        }
+      }
+    ],
+
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "患者应该理解病情严重程度和治疗方案",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "使用适合小学文化水平的简单语言",
+        "weight": 1.0
+      },
+      {
+        "check_id": "inhaler_technique_check",
+        "criteria": "应该检查并纠正吸入剂使用方法",
+        "weight": 0.8
+      }
+    ],
+
+    "reward_basis": ["DB", "COMMUNICATE", "CLINICAL"],
+
+    "medical_criteria": {
+      "category": "treatment",
+
+      "information_gathering_requirements": {
+        "must_collect": {
+          "exacerbation_details": {
+            "required": true,
+            "description": "加重的具体表现（咳嗽、咳痰、气促的变化）",
+            "weight": 0.20
+          },
+          "baseline_function": {
+            "required": true,
+            "description": "基础肺功能（平时的气促程度、活动耐量）",
+            "weight": 0.15
+          },
+          "trigger_factors": {
+            "required": true,
+            "description": "诱因（感染、环境污染、停药等）",
+            "weight": 0.10
+          },
+          "current_medication_adherence": {
+            "required": true,
+            "description": "平时用药情况及依从性，吸入技术",
+            "weight": 0.15
+          },
+          "previous_exacerbations": {
+            "required": true,
+            "description": "既往急性加重次数、严重程度、是否住院",
+            "weight": 0.10
+          },
+          "comorbidities": {
+            "required": true,
+            "description": "合并症（心衰、缺血性心脏病等）",
+            "weight": 0.10
+          },
+          "red_flags": {
+            "required": true,
+            "description": "危险信号（严重呼吸困难、意识改变、紫绀、呼吸衰竭）",
+            "weight": 0.15
+          },
+          "alternative_diagnoses": {
+            "required": true,
+            "description": "需排除的其他诊断（肺炎、心衰、肺栓塞、气胸）",
+            "weight": 0.05
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+
+      "diagnostic_requirements": {
+        "severity_assessment": {
+          "required": true,
+          "must_assess": ["dyspnea_grade", "oxygen_saturation", "respiratory_rate", "blood_gas"],
+          "severity_classification": "moderate_to_severe",
+          "weight": 0.25
+        },
+
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "肺炎",
+            "心力衰竭",
+            "肺栓塞",
+            "气胸"
+          ],
+          "must_exclude": true,
+          "exclusion_method": "clinical_features_and_imaging",
+          "weight": 0.20
+        },
+
+        "appropriate_tests": {
+          "must_order": ["chest_xray", "arterial_blood_gas"],
+          "should_order": ["cbc", "crp", "ecg", "spirometry_if_stable"],
+          "weight": 0.15
+        },
+
+        "admission_decision": {
+          "required": true,
+          "must_assess": ["admission_indications"],
+          "correct_decision": "admit_to_hospital",
+          "reasoning": "moderate_to_severe_exacerbation_with_respiratory_insufficiency",
+          "weight": 0.20
+        },
+
+        "evidence_based": {
+          "required": true,
+          "decision_must_be_based_on": ["symptoms", "vital_signs", "abg", "chest_xray"],
+          "weight": 0.20
+        }
+      },
+
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": [
+            "bronchodilators",
+            "corticosteroids",
+            "antibiotics",
+            "oxygen_if_needed"
+          ],
+          "appropriate_combination": "短效支气管舒张剂 + 口服/静脉激素 + 抗生素（覆盖常见病原体）",
+          "weight": 0.25
+        },
+
+        "oxygen_therapy": {
+          "required": true,
+          "target_saturation": "88-92%",
+          "caution": "避免高浓度吸氧导致CO2潴留",
+          "weight": 0.15
+        },
+
+        "patient_education": {
+          "required": true,
+          "must_cover": [
+            "inhaler_technique_correction",
+            "medication_adherence",
+            "smoking_cessation",
+            "recognizing_worsening_symptoms",
+            "when_to_seek_emergency_care"
+          ],
+          "appropriate_level": "simple",
+          "weight": 0.20
+        },
+
+        "disposition_plan": {
+          "required": true,
+          "should_include": ["admission_decision", "treatment_setting", "followup_plan"],
+          "weight": 0.20
+        },
+
+        "followup_plan": {
+          "required": true,
+          "should_include": ["follow_up_time", "monitoring_targets", "pulmonary_rehab_referral"],
+          "weight": 0.10
+        },
+
+        "smoking_cessation": {
+          "required": true,
+          "must_address": true,
+          "provide_support": true,
+          "weight": 0.10
+        }
+      },
+
+      "safety_requirements": {
+        "safety_rules": {
+          "never_ignore_respiratory_distress": {
+            "required": true,
+            "severity": "critical",
+            "check_method": "check_respiratory_status_urgently",
+            "violation_penalty": -1.0
+          },
+          "never_give_high_concentration_oxygen_without_monitoring": {
+            "required": true,
+            "severity": "high",
+            "check_method": "check_oxygen_prescription_with_target_saturation",
+            "violation_penalty": -0.5
+          },
+          "never_miss_red_flags": {
+            "required": true,
+            "severity": "critical",
+            "check_method": "check_for_red_flag_assessment",
+            "violation_penalty": -1.0
+          },
+          "always_assess_for_alternative_diagnoses": {
+            "required": true,
+            "severity": "high",
+            "check_method": "check_differential_diagnosis_considered",
+            "violation_penalty": -0.5
+          },
+          "always_check_inhaler_technique": {
+            "required": true,
+            "severity": "medium",
+            "check_method": "check_inhaler_technique_assessed",
+            "violation_penalty": -0.3
+          }
+        },
+
+        "safety_checks": {
+          "assess_respiratory_status_urgently": {
+            "required": true,
+            "weight": 0.15
+          },
+          "check_allergies_before_prescribing": {
+            "required": true,
+            "weight": 0.10
+          },
+          "check_current_medications_before_prescribing": {
+            "required": true,
+            "weight": 0.10
+          },
+          "assess_arterial_blood_gas": {
+            "required": true,
+            "weight": 0.15
+          },
+          "identify_red_flags": {
+            "required": true,
+            "weight": 0.15
+          },
+          "assess_comorbidities": {
+            "required": true,
+            "weight": 0.10
+          }
+        }
+      },
+
+      "communication_requirements": {
+        "language_appropriateness": {
+          "required": true,
+          "target_audience": "elementary_education",
+          "avoid": ["complex_medical_terms", "vague_explanations"],
+          "use": ["simple_explanation", "analogy", "demonstration"],
+          "weight": 0.15
+        },
+
+        "empathy": {
+          "required": true,
+          "show_understanding": true,
+          "acknowledge_concerns": true,
+          "provide_reassurance": true,
+          "address_hospitalization_anxiety": true,
+          "weight": 0.10
+        },
+
+        "clarity": {
+          "required": true,
+          "explain_severity_clearly": true,
+          "explain_treatment_clearly": true,
+          "explain_admission_necessity_clearly": true,
+          "demonstrate_inhaler_technique": true,
+          "answer_questions": true,
+          "weight": 0.15
+        },
+
+        "urgency_appropriateness": {
+          "required": true,
+          "convey_appropriate_urgency": true,
+          "avoid_causing_excessive_anxiety": true,
+          "weight": 0.10
+        },
+
+        "turn_limits": {
+          "min_turns": 12,
+          "max_turns": 22,
+          "penalty_for_exceeding": true
+        }
+      },
+
+      "efficiency_requirements": {
+        "should_avoid": {
+          "repetitive_questions": {
+            "penalty": -0.05
+          },
+          "irrelevant_questions": {
+            "penalty": -0.05
+          },
+          "delay_respiratory_assessment": {
+            "penalty": -0.10
+          }
+        },
+
+        "should_optimize": {
+          "timely_severity_assessment": {
+            "expected_turns_to_assessment": 10,
+            "weight": 0.05
+          },
+          "timely_diagnosis": {
+            "expected_turns_to_diagnosis": 14,
+            "weight": 0.05
+          },
+          "timely_treatment": {
+            "expected_turns_to_treatment": 18,
+            "weight": 0.05
+          }
+        }
+      }
+    },
+
+    "scoring": {
+      "total_score": 100,
+      "weights": {
+        "information_gathering": 15,
+        "severity_assessment": 25,
+        "diagnosis_accuracy": 15,
+        "treatment_appropriateness": 25,
+        "admission_decision": 10,
+        "safety_compliance": 15,
+        "communication_quality": 5
+      },
+      "passing_score": 70,
+      "excellent_score": 85
+    }
+  },
+
+  "reference_dialogue": {
+    "note": "This is an example dialogue for illustration only. Agent is NOT required to follow this script.",
+    "dialogue": [
+      {"role": "assistant", "content": "您好，请问您叫什么名字？几岁了？"},
+      {"role": "user", "content": "我叫王XX，今年68岁。"},
+      {"role": "assistant", "content": "找到了，王XX先生。您有慢阻肺病史是吧？今天哪里不舒服？"},
+      {"role": "user", "content": "是啊，有这病好几年了。最近这三天……咳得厉害，痰也多，还变黄了。喘气也费劲。"},
+      {"role": "assistant", "content": "（立即测生命体征）血氧90%，呼吸24次，心率102。您能平躺吗？"},
+      {"role": "user", "content": "能平躺，但躺下也喘。"},
+      {"role": "assistant", "content": "平时不犯病的时候能走多远？能上楼吗？"},
+      {"role": "user", "content": "平时慢走还行，能上两层楼。现在走几步就喘。"},
+      {"role": "assistant", "content": "发烧吗？胸痛吗？腿肿吗？"},
+      {"role": "user", "content": "有点低烧，不烧得厉害。不胸痛，腿也不肿。"},
+      {"role": "assistant", "content": "平时吸的药怎么用？给我演示一下。"},
+      {"role": "user", "content": "（演示）就这样……摇一摇，对着嘴喷。"},
+      {"role": "assistant", "content": "喷的时候吸气了吗？要配合吸气。我待会教您正确的用法。以前有过这样的加重吗？"},
+      {"role": "user", "content": "有过，每年都要犯一两次，有时候还得住院。"},
+      {"role": "assistant", "content": "（听诊）双肺呼吸音减弱，有啰音。我给您开胸片和抽血检查，还要查个血气分析。"},
+      {"role": "user", "content": "好的。"},
+      {"role": "assistant", "content": "（查看结果）胸片是肺气肿，没有肺炎。血气分析有点缺氧，二氧化碳也偏高。"},
+      {"role": "assistant", "content": "您这是慢阻肺急性加重，中等偏重，需要住院治疗。住院给您用更强的药，输激素、抗生素，雾化吸入，还要吸氧。"},
+      {"role": "user", "content": "啊？又要住院啊……"},
+      {"role": "assistant", "content": "您现在血氧只有90%，呼吸也快，不住院观察治疗可能会有危险。住院几天就能好，不用担心。"},
+      {"role": "assistant", "content": "还有，您那个吸入剂用法不对，要重新教您。回去后一定要规律用药，最好把烟戒了。"},
+      {"role": "user", "content": "好吧，那听医生的，我住院。"}
+    ]
+  },
+
+  "metadata": {
+    "source": "Benchmark_Task_v1",
+    "created_date": "2025-03-27",
+    "clinical_domain": "respiratory",
+    "patient_education_level": "elementary",
+    "diagnosis": "COPD急性加重",
+    "complexity": "medium_high",
+    "expected_duration_minutes": 25,
+    "expected_turns": "14-22",
+    "key_learning_objectives": [
+      "COPD急性加重的评估",
+      "严重程度分级和住院指征判断",
+      "鉴别诊断（肺炎、心衰、肺栓塞）",
+      "COPD急性加重的规范化治疗",
+      "吸入剂技术教育",
+      "吸烟戒断指导"
+    ]
+  }
+}

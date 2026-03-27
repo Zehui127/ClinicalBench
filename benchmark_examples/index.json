@@ -1,0 +1,104 @@
+{
+  "benchmark_examples": [
+    {
+      "id": "DM_INIT_001_BENCHMARK",
+      "file": "diabetes_initial_v1.json",
+      "domain": "endocrinology",
+      "task_type": "initial_diagnosis",
+      "difficulty": "medium",
+      "diagnosis": "2型糖尿病",
+      "patient_profile": {
+        "age": 48,
+        "gender": "male",
+        "education": "elementary",
+        "chief_complaint": "口渴、多尿、体重下降1个月"
+      },
+      "key_learning_points": [
+        "糖尿病初诊诊断流程",
+        "鉴别诊断（甲亢、肾病、尿崩症）",
+        "与低学历患者沟通",
+        "慢性病患者教育"
+      ],
+      "evaluation_focus": [
+        "信息收集",
+        "诊断准确性",
+        "治疗合理性",
+        "安全合规",
+        "沟通质量"
+      ],
+      "estimated_turns": "10-18",
+      "estimated_duration_minutes": 15
+    },
+    {
+      "id": "ANGINA_INIT_001_BENCHMARK",
+      "file": "angina_initial_v1.json",
+      "domain": "cardiology",
+      "task_type": "initial_diagnosis",
+      "difficulty": "medium",
+      "diagnosis": "冠心病，心绞痛（CCS II级）",
+      "patient_profile": {
+        "age": 55,
+        "gender": "female",
+        "education": "junior_high",
+        "chief_complaint": "反复胸痛3个月，加重1周"
+      },
+      "key_learning_points": [
+        "心绞痛的诊断流程",
+        "心血管风险评估",
+        "胸痛鉴别诊断",
+        "冠心病患者的长期管理"
+      ],
+      "evaluation_focus": [
+        "信息收集",
+        "诊断准确性",
+        "风险分层",
+        "治疗合理性",
+        "安全合规",
+        "沟通质量"
+      ],
+      "estimated_turns": "12-20",
+      "estimated_duration_minutes": 20
+    },
+    {
+      "id": "COPD_EXAC_001_BENCHMARK",
+      "file": "copd_exacerbation_v1.json",
+      "domain": "respiratory",
+      "task_type": "acute_management",
+      "difficulty": "medium_high",
+      "diagnosis": "COPD急性加重（中度）",
+      "patient_profile": {
+        "age": 68,
+        "gender": "male",
+        "education": "elementary",
+        "chief_complaint": "咳嗽、咳痰、气促加重3天"
+      },
+      "key_learning_points": [
+        "COPD急性加重的评估",
+        "严重程度分级和住院指征判断",
+        "鉴别诊断（肺炎、心衰、肺栓塞）",
+        "规范化治疗",
+        "吸入剂技术教育",
+        "吸烟戒断指导"
+      ],
+      "evaluation_focus": [
+        "信息收集",
+        "严重程度评估",
+        "诊断准确性",
+        "治疗合理性",
+        "住院决策",
+        "安全合规",
+        "沟通质量"
+      ],
+      "estimated_turns": "14-22",
+      "estimated_duration_minutes": 25
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "created_date": "2025-03-27",
+    "total_examples": 3,
+    "domains_covered": ["endocrinology", "cardiology", "respiratory"],
+    "difficulty_levels": ["medium", "medium_high"],
+    "task_types": ["initial_diagnosis", "acute_management"]
+  }
+}

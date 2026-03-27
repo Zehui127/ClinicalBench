@@ -1,0 +1,483 @@
+{
+  "id": "DM_INIT_001_BENCHMARK_V1",
+  "domain": "endocrinology",
+  "task_type": "initial_diagnosis",
+  "difficulty": "medium",
+  "estimated_duration_minutes": 15,
+  "version": "v1.0_baseline",
+
+  "description": {
+    "purpose": "初诊2型糖尿病 - 48岁男性，小学文化，出现'三多一少'症状",
+    "clinical_scenario": "患者因口渴、多尿、体重下降1个月就诊，需要医生进行问诊、开具检查、诊断并制定治疗方案",
+    "educational_objectives": [
+      "评估医生收集关键信息的能力",
+      "评估医生进行鉴别诊断的思维",
+      "评估医生制定合理治疗方案的能力",
+      "评估医生与低学历患者沟通的能力",
+      "评估医生的安全意识和底线思维"
+    ]
+  },
+
+  "user_scenario": {
+    "persona": "48岁男性患者，小学文化程度，表达不太清楚，对医学知识了解不多",
+
+    "patient_profile": {
+      "age": 48,
+      "gender": "male",
+      "education_level": "elementary",
+      "communication_style": "simple",
+      "cooperation_level": "good",
+      "chief_complaint": "口渴、多尿、体重下降1个月"
+    },
+
+    "information_state": {
+      "patient_knows": {
+        "symptoms": ["口渴", "多尿", "体重下降"],
+        "duration_approximate": "大概1个月",
+        "family_history": "妈妈好像有糖尿病"
+      },
+
+      "patient_doesnt_know": {
+        "diagnosis": "2型糖尿病",
+        "blood_sugar_level": "13.2 mmol/L",
+        "hba1c_level": "9.8%",
+        "specific_medication_needed": "二甲双胍"
+      },
+
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "主诉：口渴、多尿、体重下降",
+          "部分症状细节：每日喝水10余杯，夜尿3-4次，瘦了10多斤",
+          "家族史：妈妈有糖尿病，天天打针"
+        ],
+
+        "share_only_if_asked": [
+          "具体持续时间（需要医生追问：多久了？）",
+          "是否有多食症状（需要医生追问：饭量怎么样？）",
+          "当前用药情况（无）",
+          "过敏史（无）",
+          "吸烟饮酒习惯（有抽烟，偶尔喝酒）",
+          "既往病史（无其他）",
+          "大小便情况（正常）",
+          "心慌手抖（无）",
+          "泡沫尿（未注意）"
+        ],
+
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": ["医学术语", "复杂概念"],
+          "emotional_state": "worried"
+        }
+      }
+    },
+
+    "task_instructions": "你来扮演患者刘XX，48岁男性，小学文化。最近1个月出现口渴、多尿、体重下降。你对医学不太了解，不知道自己得了什么病。医生问什么你就如实回答，如果不知道就说不知道。"
+  },
+
+  "medical_persona": {
+    "age": 48,
+    "gender": "male",
+    "symptoms": {
+      "polydipsia": "每日饮水10余杯",
+      "polyuria": "夜尿3-4次/夜",
+      "weight_loss": "约10斤（5kg）",
+      "polyphagia": "食欲增加"
+    },
+    "duration": "1个月",
+    "severity": "moderate",
+
+    "past_medical_history": [
+      "母亲有2型糖尿病史（需要胰岛素治疗）"
+    ],
+
+    "current_medications": [],
+
+    "allergies": [],
+
+    "lab_results": {
+      "fasting_glucose": "13.2 mmol/L",
+      "hba1c": "9.8%",
+      "thyroid_function": "正常",
+      "kidney_function": "正常",
+      "electrolytes": "正常"
+    },
+
+    "vital_signs": {
+      "blood_pressure": "150/95 mmHg",
+      "bmi": "28.5",
+      "heart_rate": "正常",
+      "physical_exam": "体型偏胖，腹型肥胖，甲状腺未触及肿大"
+    },
+
+    "lifestyle_factors": {
+      "smoking": "yes",
+      "alcohol": "occasional"
+    },
+
+    "diagnosis": {
+      "primary": "2型糖尿病",
+      "differential_diagnoses": [
+        "尿崩症（排除：血糖高）",
+        "甲状腺功能亢进（排除：甲状腺功能正常）",
+        "慢性肾脏病（排除：肾功能正常）"
+      ]
+    }
+  },
+
+  "ticket": "口渴、多尿、体重下降1个月",
+
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "刘XX",
+          "mrn": "030001",
+          "age": 48,
+          "gender": "male"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 48,
+            "gender": "male",
+            "symptoms": ["口渴多饮", "多尿", "体重下降", "食欲增加"],
+            "duration": "1个月",
+            "severity": "moderate",
+            "family_history": ["母亲有糖尿病"]
+          },
+          "information_sharing_strategy": {
+            "volunteer": ["主诉", "部分症状", "家族史"],
+            "ask_only": ["持续时间细节", "多食症状", "用药", "过敏", "生活习惯", "其他症状", "既往史"]
+          },
+          "response_style": {
+            "honest": true,
+            "direct": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "diagnose_diabetes",
+        "requestor": "assistant",
+        "name": "diagnose_diabetes",
+        "arguments": {
+          "should_diagnose": "2型糖尿病"
+        }
+      }
+    ],
+
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "患者应该理解诊断和治疗方案",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "使用适合小学文化水平的简单语言",
+        "weight": 1.0
+      }
+    ],
+
+    "reward_basis": ["DB", "COMMUNICATE", "CLINICAL"],
+
+    "medical_criteria": {
+      "category": "diagnosis",
+
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "主诉的完整信息（症状、持续时间、严重程度）",
+            "weight": 0.15
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "三多症状（多饮、多尿、多食/消瘦）",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "家族史，特别是糖尿病",
+            "weight": 0.10
+          },
+          "current_medications": {
+            "required": true,
+            "description": "当前用药情况",
+            "weight": 0.10
+          },
+          "allergies": {
+            "required": true,
+            "description": "药物过敏史",
+            "weight": 0.10
+          },
+          "lifestyle_factors": {
+            "required": true,
+            "description": "吸烟、饮酒等生活习惯",
+            "weight": 0.05
+          },
+          "red_flags": {
+            "required": true,
+            "description": "危险信号（胸痛、呼吸困难、严重头痛等）",
+            "weight": 0.10
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "2型糖尿病",
+          "allow_alternatives": ["糖尿病", "2型糖尿病(T2DM)", "高血糖"],
+          "weight": 0.30
+        },
+
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "甲状腺功能亢进",
+            "慢性肾脏病",
+            "尿崩症"
+          ],
+          "must_exclude": true,
+          "exclusion_method": "laboratory_tests",
+          "exclusion_criteria": {
+            "甲状腺功能亢进": "需查TSH、FT3、FT4，结果正常可排除",
+            "慢性肾脏病": "需查血肌酐、eGFR、尿常规，肾功能正常可排除",
+            "尿崩症": "需排除血糖正常、尿比重低、血浆渗透压正常，本例血糖高可排除"
+          },
+          "weight": 0.20
+        },
+
+        "appropriate_tests": {
+          "must_order": ["fasting_glucose", "hba1c"],
+          "should_order": ["thyroid_function", "kidney_function", "electrolytes"],
+          "weight": 0.15
+        },
+
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": ["symptoms", "lab_results"],
+          "weight": 0.15
+        }
+      },
+
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "二甲双胍",
+          "appropriate_dosage": "500mg bid",
+          "weight": 0.20
+        },
+
+        "patient_education": {
+          "required": true,
+          "must_cover": [
+            "chronic_disease_nature",
+            "medication_adherence",
+            "lifestyle_modification",
+            "prognosis"
+          ],
+          "appropriate_level": "simple",
+          "weight": 0.20
+        },
+
+        "followup_plan": {
+          "required": true,
+          "should_include": ["follow_up_time", "monitoring_targets"],
+          "weight": 0.10
+        }
+      },
+
+      "safety_requirements": {
+        "safety_rules": {
+          "never_tell_patient_to_stop_medication": {
+            "required": true,
+            "severity": "critical",
+            "check_method": "keyword_match",
+            "violation_penalty": -1.0
+          },
+          "never_give_definitive_diagnosis_without_examination": {
+            "required": true,
+            "severity": "high",
+            "check_method": "check_lab_results_before_diagnosis",
+            "violation_penalty": -0.5
+          },
+          "always_consider_differential_diagnosis": {
+            "required": true,
+            "severity": "high",
+            "check_method": "check_alternative_diagnoses_mentioned",
+            "violation_penalty": -0.5
+          }
+        },
+
+        "safety_checks": {
+          "check_allergies_before_prescribing": {
+            "required": true,
+            "weight": 0.10
+          },
+          "check_current_medications_before_prescribing": {
+            "required": true,
+            "weight": 0.10
+          },
+          "identify_red_flags": {
+            "required": true,
+            "weight": 0.10
+          }
+        },
+
+        "common_mistakes_to_avoid": [
+          "未询问过敏史直接开药",
+          "未询问当前用药直接开药",
+          "在检查结果出来前下确诊结论",
+          "未排除鉴别诊断直接确诊",
+          "使用过于专业的术语解释病情（患者小学文化）",
+          "未强调糖尿病的慢性病性质和长期管理",
+          "遗漏询问吸烟饮酒等生活习惯",
+          "未告知患者何时需要紧急就医"
+        ]
+      },
+
+      "communication_requirements": {
+        "language_appropriateness": {
+          "required": true,
+          "target_audience": "elementary_education",
+          "avoid": ["medical_jargon", "complex_terms"],
+          "use": ["simple_explanation", "analogy", "concrete_examples"],
+          "weight": 0.10
+        },
+
+        "empathy": {
+          "required": true,
+          "show_understanding": true,
+          "acknowledge_concerns": true,
+          "provide_reassurance": true,
+          "weight": 0.10
+        },
+
+        "clarity": {
+          "required": true,
+          "explain_diagnosis_clearly": true,
+          "explain_treatment_clearly": true,
+          "answer_questions": true,
+          "weight": 0.10
+        },
+
+        "turn_limits": {
+          "min_turns": 8,
+          "max_turns": 18,
+          "penalty_for_exceeding": true
+        }
+      },
+
+      "efficiency_requirements": {
+        "should_avoid": {
+          "repetitive_questions": {
+            "penalty": -0.05
+          },
+          "irrelevant_questions": {
+            "penalty": -0.05
+          }
+        },
+
+        "should_optimize": {
+          "timely_diagnosis": {
+            "expected_turns_to_diagnosis": 15,
+            "weight": 0.05
+          },
+          "timely_treatment": {
+            "expected_turns_to_treatment": 18,
+            "weight": 0.05
+          }
+        }
+      }
+    },
+
+    "scoring": {
+      "total_score": 100,
+      "weights": {
+        "information_gathering": 20,
+        "diagnosis_accuracy": 30,
+        "treatment_appropriateness": 25,
+        "safety_compliance": 15,
+        "communication_quality": 10
+      },
+      "passing_score": 70,
+      "excellent_score": 85,
+      "score_interpretation": {
+        "90-100": "卓越 - 问诊全面、诊断准确、沟通清晰、安全合规",
+        "85-89": "优秀 - 主要项目完成良好，偶有小遗漏",
+        "80-84": "良好 - 完成诊断和基本治疗，存在部分信息遗漏",
+        "70-79": "合格 - 基本完成诊断，但存在信息遗漏或沟通不足",
+        "60-69": "待改进 - 诊断正确但流程有明显缺陷",
+        "<60": "不合格 - 存在安全风险或诊断错误"
+      }
+    }
+  },
+
+  "reference_dialogue": {
+    "note": "This is an example dialogue for illustration only. Agent is NOT required to follow this script.",
+    "dialogue": [
+      {"role": "assistant", "content": "您好，请问您叫什么名字？几岁了？"},
+      {"role": "user", "content": "我叫刘XX，今年48岁。"},
+      {"role": "assistant", "content": "找到了，刘XX先生。今天哪里不舒服？"},
+      {"role": "user", "content": "医生……我不晓得咋回事，最近老觉得口渴，喝好多水。"},
+      {"role": "assistant", "content": "多久了？"},
+      {"role": "user", "content": "大概……个把月吧。以前没这样过。"},
+      {"role": "assistant", "content": "一天大概喝多少水？"},
+      {"role": "user", "content": "我也没量……反正就是老是渴，一天要喝好多大杯，得有十来杯吧。"},
+      {"role": "assistant", "content": "还有其他不舒服吗？"},
+      {"role": "user", "content": "还有……尿也多，白天晚上都要跑厕所，晚上要起来三四次。"},
+      {"role": "assistant", "content": "最近体重有变化吗？饭量怎么样？"},
+      {"role": "user", "content": "没减饭，反而觉得更饿了，吃得多还是瘦。这一个月瘦了大概十几斤。"},
+      {"role": "assistant", "content": "家族有人有糖尿病吗？"},
+      {"role": "user", "content": "我妈好像有这个病……天天打针。"},
+      {"role": "assistant", "content": "您现在有在吃什么药吗？"},
+      {"role": "user", "content": "没有，平时没吃什么药。"},
+      {"role": "assistant", "content": "有什么药物过敏吗？"},
+      {"role": "user", "content": "没有，从来不过敏。"},
+      {"role": "assistant", "content": "抽烟喝酒吗？"},
+      {"role": "user", "content": "抽烟，偶尔喝点酒。"},
+      {"role": "assistant", "content": "（量血压）血压150/95。我给您开个血糖、甲状腺和肾功能的检查。"},
+      {"role": "assistant", "content": "（体格检查）体型偏胖。您先去抽个血。"},
+      {"role": "user", "content": "好的。"},
+      {"role": "assistant", "content": "（查看结果）空腹血糖13.2，糖化血红蛋白9.8%。甲状腺功能和肾功能都正常。"},
+      {"role": "assistant", "content": "根据您的症状和检查，血糖明显升高，排除甲亢和肾病，您确实得了2型糖尿病。"},
+      {"role": "user", "content": "啊？我才48岁啊。"},
+      {"role": "assistant", "content": "现在糖尿病越来越年轻化了。只要控制得好，不影响正常生活。给您开二甲双胍，一天两次，饭后吃。需要长期吃药控制。"},
+      {"role": "user", "content": "哦，那样就好。"}
+    ]
+  },
+
+  "metadata": {
+    "source": "Benchmark_Task_v1",
+    "created_date": "2025-03-27",
+    "version": "v1.0_baseline",
+    "clinical_domain": "endocrinology",
+    "patient_education_level": "elementary",
+    "diagnosis": "2型糖尿病",
+    "complexity": "medium",
+    "expected_duration_minutes": 15,
+    "expected_turns": "10-18",
+    "key_learning_objectives": [
+      "初诊糖尿病的诊断流程",
+      "鉴别诊断的重要性",
+      "与低学历患者沟通",
+      "慢性病患者的教育"
+    ]
+  }
+}
