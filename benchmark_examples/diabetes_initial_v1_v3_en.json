@@ -980,7 +980,7 @@
           "symptoms_completeness": {
             "required": true,
             "description": "Three polys symptoms (polydipsia, polyuria, polyphagia/weight loss)",
-            "weight": 0.20,
+            "weight": 0.18,
             "tracking_ref": "information_collection_tracking.three_polys_symptoms"
           },
           "family_history": {
@@ -1010,19 +1010,13 @@
           "red_flags": {
             "required": true,
             "description": "Red flags (chest pain, dyspnea, severe headache, etc.)",
-            "weight": 0.14,
+            "weight": 0.16,
             "tracking_ref": "information_collection_tracking.red_flags"
-          },
-          "additional_symptoms": {
-            "required": true,
-            "description": "Proactive screening for vision, foot numbness, sexual function, GI symptoms",
-            "weight": 0.10,
-            "tracking_ref": "information_collection_tracking.additional_symptoms_screening"
           }
         },
         "scoring_method": "count",
         "pass_threshold": 0.8,
-        "weight_optimization_note": "Weights optimized: allergy and current medication weights increased (safety first), symptom completeness weight highest (diagnostic core). Items are tracked via information_collection_tracking state machine.",
+        "weight_optimization_note": "additional_symptoms_screening is excluded from must_collect because it has its own scoring dimension (scoring.weights.additional_symptoms_screening = 7). Remaining 7 items re-normalized to sum to 1.0.",
         "sub_weights_sum_to": 1.0
       },
 
@@ -1359,6 +1353,12 @@
       },
 
       "communication_requirements": {
+        "_sub_weights": {
+          "_note": "Authoritative sub-dimension weights for communication_quality. Referenced by scoring_formula.communication_quality. Sum to 1.0.",
+          "language_appropriateness": 0.33,
+          "empathy": 0.33,
+          "clarity": 0.34
+        },
         "language_appropriateness": {
           "required": true,
           "target_audience": "elementary_education",
@@ -1548,8 +1548,9 @@
 
         "evaluation_criteria": {
           "tool_usage_score": {
+            "_note": "This weight is DESCRIPTIVE ONLY — it mirrors scoring.weights.tool_usage (7%) for documentation consistency. It does NOT participate in scoring_formula calculations. The actual formula is defined in scoring_formula.tool_usage which directly uses scoring.weights.tool_usage.",
             "weight": 0.07,
-            "description": "Sub-dimension weight within tool_usage_requirements. The final tool_usage score maps to scoring.weights.tool_usage (7 points out of 100)."
+            "description": "Tool usage dimension contributes 7% to the total 100-point score (matches scoring.weights.tool_usage = 7)"
           },
 
           "scoring_breakdown": {
@@ -1638,25 +1639,42 @@
             "expected_timing": "after order_lab_tests",
             "expected_after": "order_lab_tests",
             "expected_result_usage": "Agent must read and interpret key abnormal values: glucose 13.2, HbA1c 9.8, eGFR 75, ALT 68, uric acid 480, TG 3.2, LDL-C 4.1",
-            "validation_rules": [
-              {
-                "rule": "must_reference_abnormal_values",
-                "required_values": ["13.2", "9.8", "eGFR 75"],
-                "check_method": "agent_utterance_contains",
-                "check_after": "get_lab_results call",
-                "within_turns": 3,
-                "penalty_missing": -0.1,
-                "description": "Agent must mention at minimum glucose 13.2, HbA1c 9.8, and eGFR 75 in subsequent utterances"
+            "validation_rules": {
+              "_check_method_specification": {
+                "agent_utterance_contains": {
+                  "description": "Check if ALL required_values appear literally or as substrings in any agent utterance within the specified turn window after the tool call",
+                  "implementation": "for each value in required_values: search agent_utterances[turn:turn+within_turns] for value as substring (case-insensitive). ALL values must be found.",
+                  "match_type": "case-insensitive substring match",
+                  "position": "any position within utterance",
+                  "turn_window": "defined by within_turns parameter"
+                },
+                "agent_utterance_contains_any": {
+                  "description": "Check if AT LEAST ONE of the required_keywords appears in any agent utterance within the specified turn window",
+                  "implementation": "for each keyword in required_keywords: search agent_utterances[turn:turn+within_turns] for keyword as substring (case-insensitive). Pass if ANY keyword found.",
+                  "match_type": "case-insensitive substring match, ANY match suffices",
+                  "position": "any position within utterance",
+                  "turn_window": "defined by within_turns parameter"
+                }
               },
-              {
-                "rule": "must_acknowledge_kidney_abnormality",
-                "required_keywords": ["kidney", "eGFR", "renal", "creatinine"],
-                "check_method": "agent_utterance_contains_any",
-                "penalty_missing": -0.05,
-                "description": "Agent must acknowledge kidney function is mildly abnormal"
-              }
-            ]
-          },
+              "rules": [
+                {
+                  "rule": "must_reference_abnormal_values",
+                  "required_values": ["13.2", "9.8", "eGFR 75"],
+                  "check_method": "agent_utterance_contains",
+                  "check_after": "get_lab_results call",
+                  "within_turns": 3,
+                  "penalty_missing": -0.1,
+                  "description": "Agent must mention at minimum glucose 13.2, HbA1c 9.8, and eGFR 75 in subsequent utterances"
+                },
+                {
+                  "rule": "must_acknowledge_kidney_abnormality",
+                  "required_keywords": ["kidney", "eGFR", "renal", "creatinine"],
+                  "check_method": "agent_utterance_contains_any",
+                  "penalty_missing": -0.05,
+                  "description": "Agent must acknowledge kidney function is mildly abnormal"
+                }
+              ]
+            },
 
           "assess_kidney_function": {
             "expected_parameters": {
@@ -1801,13 +1819,13 @@
           "sub_dimension_source": "treatment_requirements._sub_weights (authoritative sub-weights)",
           "max_points": 15,
           "sub_dimensions": {
-            "medication_appropriateness": {"weight_ref": "treatment_requirements._sub_weights.medication_appropriateness", "weight": 0.25},
-            "patient_misconception_management": {"weight_ref": "treatment_requirements._sub_weights.patient_misconception_management", "weight": 0.25},
-            "patient_education": {"weight_ref": "treatment_requirements._sub_weights.patient_education", "weight": 0.15},
-            "followup_plan": {"weight_ref": "treatment_requirements._sub_weights.followup_plan", "weight": 0.10},
-            "comorbidity_assessment": {"weight_ref": "treatment_requirements._sub_weights.comorbidity_assessment", "weight": 0.10},
-            "economic_consideration_management": {"weight_ref": "treatment_requirements._sub_weights.economic_consideration_management", "weight": 0.08},
-            "family_involvement_management": {"weight_ref": "treatment_requirements._sub_weights.family_involvement_management", "weight": 0.07}
+            "medication_appropriateness": {"weight_ref": "treatment_requirements._sub_weights.medication_appropriateness"},
+            "patient_misconception_management": {"weight_ref": "treatment_requirements._sub_weights.patient_misconception_management"},
+            "patient_education": {"weight_ref": "treatment_requirements._sub_weights.patient_education"},
+            "followup_plan": {"weight_ref": "treatment_requirements._sub_weights.followup_plan"},
+            "comorbidity_assessment": {"weight_ref": "treatment_requirements._sub_weights.comorbidity_assessment"},
+            "economic_consideration_management": {"weight_ref": "treatment_requirements._sub_weights.economic_consideration_management"},
+            "family_involvement_management": {"weight_ref": "treatment_requirements._sub_weights.family_involvement_management"}
           }
         },
 
@@ -1851,12 +1869,12 @@
         },
 
         "communication_quality": {
-          "formula": "(language_appropriateness * 0.33 + empathy * 0.33 + clarity * 0.34) * scoring.weights.communication_quality",
-          "sub_dimension_source": "communication_requirements",
+          "formula": "(language_appropriateness * communication_requirements._sub_weights.language_appropriateness + empathy * communication_requirements._sub_weights.empathy + clarity * communication_requirements._sub_weights.clarity) * scoring.weights.communication_quality",
+          "sub_dimension_source": "communication_requirements._sub_weights (authoritative sub-weights)",
           "max_points": 6,
 
           "language_appropriateness": {
-            "weight": 0.33,
+            "weight_ref": "communication_requirements._sub_weights.language_appropriateness",
             "scoring_method": "Based on auto_check_rules in communication_checks[appropriate_language]",
             "auto_rules_mapping": {
               "avoid_terms_check": "For each medical term in avoid_terms found in agent utterance, subtract 0.1; floor at 0",
@@ -1868,7 +1886,7 @@
           },
 
           "empathy": {
-            "weight": 0.33,
+            "weight_ref": "communication_requirements._sub_weights.empathy",
             "scoring_method": "Based on communication_requirements.empathy",
             "auto_rules": {
               "show_understanding": "Check for phrases like 'I understand', 'that's a valid concern', 'I hear you' (+0.25 per occurrence, max 3)",
@@ -1879,7 +1897,7 @@
           },
 
           "clarity": {
-            "weight": 0.34,
+            "weight_ref": "communication_requirements._sub_weights.clarity",
             "scoring_method": "Based on communication_requirements.clarity",
             "auto_rules": {
               "explain_diagnosis_clearly": "Agent must state diagnosis in simple terms within 1 turn of receiving lab results (+0.34 if done)",
@@ -2030,4 +2048,5 @@
       "Correct use of AI Agent tool calling (consultation + diagnosis + treatment tools)"
     ]
   }
+}
 }
