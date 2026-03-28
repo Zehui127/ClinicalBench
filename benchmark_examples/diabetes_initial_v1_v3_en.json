@@ -1685,17 +1685,28 @@
             "expected_after": "get_lab_results",
             "expected_usage": "must_use_before_prescribing_metformin",
             "expected_result_usage": "Agent should recognize CKD stage 2 and adjust metformin dose accordingly",
-            "validation_rules": [
-              {
-                "rule": "must_use_result_in_prescribing",
-                "required_keywords": ["eGFR", "kidney function", "adjust dose", "low dose", "caution"],
-                "check_method": "agent_utterance_contains_any",
-                "check_after": "assess_kidney_function call",
-                "within_turns": 3,
-                "penalty_missing": -0.1,
-                "description": "Agent must reference kidney function result when prescribing metformin"
-              }
-            ]
+            "validation_rules": {
+              "_check_method_specification": {
+                "agent_utterance_contains_any": {
+                  "description": "Check if AT LEAST ONE of the required_keywords appears in any agent utterance within the specified turn window",
+                  "implementation": "for each keyword in required_keywords: search agent_utterances[turn:turn+within_turns] for keyword as substring (case-insensitive). Pass if ANY keyword found.",
+                  "match_type": "case-insensitive substring match, ANY match suffices",
+                  "position": "any position within utterance",
+                  "turn_window": "defined by within_turns parameter"
+                }
+              },
+              "rules": [
+                {
+                  "rule": "must_use_result_in_prescribing",
+                  "required_keywords": ["eGFR", "kidney function", "adjust dose", "low dose", "caution"],
+                  "check_method": "agent_utterance_contains_any",
+                  "check_after": "assess_kidney_function call",
+                  "within_turns": 3,
+                  "penalty_missing": -0.1,
+                  "description": "Agent must reference kidney function result when prescribing metformin"
+                }
+              ]
+            }
           },
 
           "interpret_blood_glucose": {
