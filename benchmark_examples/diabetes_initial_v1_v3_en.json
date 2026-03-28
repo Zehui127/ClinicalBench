@@ -205,7 +205,67 @@
       "When supplements or alternative treatments are mentioned, wife will ask about health supplements (Heard there are health supplements that can lower blood sugar, should we buy some?)",
       "When treatment plan is finalized, wife will promise to supervise medication (I will watch him take medicine on time)",
       "When medication cost is discussed in detail, wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
-    ]
+    ],
+    "family_interjection_rules": {
+      "_note": "Trigger-based rules for automated simulation. Wife interjects when agent utterance matches trigger_keywords. Each rule fires at most once per conversation. If agent never triggers a rule, the wife may raise the topic spontaneously after turn 20 (fallback).",
+
+      "trigger_type": "agent_utterance_keyword",
+      "max_interjections_per_trigger": 1,
+      "fallback_turn_threshold": 20,
+
+      "rules": [
+        {
+          "rule_id": "wife_cost_inquiry",
+          "trigger_keywords": ["metformin", "medication", "prescribe", "medicine", "drug", "treatment plan"],
+          "trigger_context": "when medication is first discussed or prescribed",
+          "response": "Doctor, how much is this medicine per month? Is it reimbursable?",
+          "also_triggers": ["wife_economic_pressure"],
+          "fired_flag": "cost_inquiry_fired"
+        },
+        {
+          "rule_id": "wife_genetic_concern",
+          "trigger_keywords": ["diabetes", "diagnosis", "type 2", "blood sugar disease"],
+          "trigger_context": "when doctor first states the diagnosis",
+          "response": "Will this disease be inherited by our children? Should we be worried?",
+          "fired_flag": "genetic_concern_fired"
+        },
+        {
+          "rule_id": "wife_diet_management",
+          "trigger_keywords": ["diet", "food", "eat", "nutrition", "meal"],
+          "trigger_context": "when doctor discusses diet management",
+          "response": "What should we pay attention to when cooking at home? Should we throw away all sweets?",
+          "fired_flag": "diet_management_fired"
+        },
+        {
+          "rule_id": "wife_supplement_inquiry",
+          "trigger_keywords": ["supplement", "health product", "traditional", "alternative", "natural remedy"],
+          "trigger_context": "when alternative treatments are mentioned or patient mentions folk remedies",
+          "response": "Heard there are health supplements that can lower blood sugar, should we buy some?",
+          "fired_flag": "supplement_inquiry_fired"
+        },
+        {
+          "rule_id": "wife_supervision_pledge",
+          "trigger_keywords": ["adherence", "compliance", "take medicine", "follow-up", "schedule"],
+          "trigger_context": "when doctor emphasizes medication adherence or follow-up",
+          "response": "I will watch him take medicine on time, Doctor.",
+          "fired_flag": "supervision_pledge_fired"
+        },
+        {
+          "rule_id": "wife_economic_pressure",
+          "trigger_keywords": ["cost", "price", "expensive", "afford", "insurance", "reimburse"],
+          "trigger_context": "when cost is discussed in detail",
+          "response": "We have two children in school, finances are tight. Can you prescribe cheaper medicines?",
+          "fired_flag": "economic_pressure_fired"
+        }
+      ],
+
+      "fallback_rules": {
+        "description": "If agent never triggers certain rules by turn 20, wife may spontaneously raise unfired topics",
+        "fallback_turn": 20,
+        "priority_order": ["wife_genetic_concern", "wife_cost_inquiry", "wife_diet_management", "wife_supplement_inquiry"],
+        "max_fallback_interjections": 2
+      }
+    }
   },
 
   "medical_persona": {
@@ -777,16 +837,129 @@
       {
         "check_id": "patient_understands",
         "criteria": "Patient should understand diagnosis and treatment plan",
-        "weight": 1.0
+        "weight": 1.0,
+        "auto_check_rules": {
+          "must_include_in_explanation": ["diabetes", "treatment", "medication"],
+          "must_ask_for_confirmation": true,
+          "confirmation_keywords": ["do you understand", "any questions", "clear"]
+        }
       },
       {
         "check_id": "appropriate_language",
         "criteria": "Use simple language appropriate for elementary education level",
-        "weight": 1.0
+        "weight": 1.0,
+        "auto_check_rules": {
+          "avoid_terms": ["HbA1c", "eGFR", "glomerular filtration rate", "pathophysiology", "insulin resistance", "beta cell"],
+          "use_terms": ["blood sugar indicator", "kidney function", "blood sugar control"],
+          "max_medical_terms_per_response": 1,
+          "use_analogy": true,
+          "analogy_examples": ["like a key and lock", "like a car needs fuel"]
+        }
       }
     ],
 
     "reward_basis": ["DB", "COMMUNICATE", "CLINICAL"],
+
+    "information_collection_tracking": {
+      "_note": "State machine for tracking information collection completeness. Each item tracks whether the agent has successfully gathered the required information. Used for automated scoring of information_gathering dimension.",
+
+      "chief_complaint_detail": {
+        "required": true,
+        "status_variable": "cc_detail_collected",
+        "default_value": false,
+        "items_to_collect": {
+          "symptoms": {"value": ["thirst", "polyuria", "weight loss"], "status": "symptoms_collected"},
+          "duration": {"value": "about 1 month", "status": "duration_collected"},
+          "severity": {"value": "moderate", "status": "severity_collected"}
+        },
+        "unlock_conditions": [],
+        "scoring": "full_score if all items collected, partial if 2 of 3, zero if <2"
+      },
+
+      "three_polys_symptoms": {
+        "required": true,
+        "status_variable": "three_polys_complete",
+        "default_value": false,
+        "items_to_collect": {
+          "polydipsia": {"value": "10+ cups daily", "status": "polydipsia_collected"},
+          "polyuria": {"value": "nocturia 3-4 times", "status": "polyuria_collected"},
+          "polyphagia": {"value": "increased appetite", "status": "polyphagia_collected"},
+          "weight_loss": {"value": "about 10 jin", "status": "weight_loss_collected"}
+        },
+        "unlock_conditions": ["cc_detail_collected"],
+        "scoring": "full if 4 of 4, 0.75 if 3 of 4, 0.5 if 2 of 4"
+      },
+
+      "family_history": {
+        "required": true,
+        "status_variable": "family_history_collected",
+        "default_value": false,
+        "expected_value": "Mother has Type 2 Diabetes, takes insulin",
+        "unlock_conditions": []
+      },
+
+      "current_medications": {
+        "required": true,
+        "status_variable": "medications_collected",
+        "default_value": false,
+        "expected_value": "Occasionally takes amlodipine for hypertension, irregular adherence",
+        "unlock_conditions": []
+      },
+
+      "allergies": {
+        "required": true,
+        "status_variable": "allergies_collected",
+        "default_value": false,
+        "expected_value": "None",
+        "unlock_conditions": [],
+        "safety_critical": true,
+        "safety_note": "Must be asked before any prescribing action"
+      },
+
+      "lifestyle_factors": {
+        "required": true,
+        "status_variable": "lifestyle_collected",
+        "default_value": false,
+        "items_to_collect": {
+          "smoking": {"value": "1 pack daily, 25 years", "status": "smoking_collected"},
+          "alcohol": {"value": "2-3 times/week, 2 liang white liquor", "status": "alcohol_collected"},
+          "diet": {"value": "high fat high salt", "status": "diet_collected"},
+          "exercise": {"value": "lacks exercise", "status": "exercise_collected"}
+        },
+        "unlock_conditions": [],
+        "scoring": "full if 4 of 4, 0.75 if 3, 0.5 if 2"
+      },
+
+      "red_flags": {
+        "required": true,
+        "status_variable": "red_flags_checked",
+        "default_value": false,
+        "items_to_check": ["chest pain", "dyspnea", "severe headache", "altered consciousness"],
+        "expected_result": "None of these present",
+        "unlock_conditions": [],
+        "scoring": "binary: checked or not"
+      },
+
+      "additional_symptoms_screening": {
+        "required": true,
+        "status_variable": "additional_screening_complete",
+        "default_value": false,
+        "items_to_collect": {
+          "vision_changes": {"value": "blurred vision recently", "status": "vision_asked", "requires_proactive_inquiry": true},
+          "foot_numbness": {"value": "sometimes feet feel numb", "status": "feet_asked", "requires_proactive_inquiry": true},
+          "sexual_dysfunction": {"value": "recent erectile dysfunction", "status": "sexual_asked", "requires_proactive_inquiry": true, "sensitivity": "high"},
+          "gi_symptoms": {"value": "occasional bloating", "status": "gi_asked", "requires_proactive_inquiry": true}
+        },
+        "unlock_conditions": ["cc_detail_collected"],
+        "scoring": "full if 4 of 4, 0.75 if 3, 0.5 if 2, 0.25 if 1"
+      },
+
+      "completeness_threshold": {
+        "pass": 0.8,
+        "excellent": 0.95,
+        "description": "Percentage of required items that must be collected to pass/excel in information_gathering dimension"
+      }
+    },
 
     "medical_criteria": {
       "_weight_note": "All weights inside medical_criteria are SUB-DIMENSION weights (relative within each dimension). Final scores are determined by scoring.weights, which allocates the 100-point total across dimensions.",
@@ -912,22 +1085,30 @@
             {
               "misconception": "insulin_addiction",
               "patient_statement": "Insulin injections are addictive",
-              "correct_response": "Explain insulin is not a drug, it's replacement therapy, not addictive; early T2DM first-line oral medications, but certain situations require insulin"
+              "correct_response": "Explain insulin is not a drug, it's replacement therapy, not addictive; early T2DM first-line oral medications, but certain situations require insulin",
+              "required_response_keywords": ["not addictive", "replacement", "oral medication", "not a drug"],
+              "forbidden_response_keywords": ["agree", "yes you're right", "maybe", "that's true", "you should avoid"]
             },
             {
               "misconception": "kidney_damage_from_medication",
               "patient_statement": "Long-term medication will damage kidneys",
-              "correct_response": "Explain that controlling blood glucose protects kidneys, not treating leads to nephropathy; metformin itself doesn't damage kidneys, but dose needs adjustment based on kidney function"
+              "correct_response": "Explain that controlling blood glucose protects kidneys, not treating leads to nephropathy; metformin itself doesn't damage kidneys, but dose needs adjustment based on kidney function",
+              "required_response_keywords": ["protects kidneys", "not treating", "doesn't damage", "control blood sugar", "adjust dose"],
+              "forbidden_response_keywords": ["agree", "yes it might", "you could stop", "maybe"]
             },
             {
               "misconception": "herbal_medicine_cure",
               "patient_statement": "Heard old Chinese doctor can cure diabetes completely",
-              "correct_response": "Gently but firmly explain diabetes currently cannot be cured, requires long-term management; Chinese medicine can be adjunct but cannot replace evidence-based treatment"
+              "correct_response": "Gently but firmly explain diabetes currently cannot be cured, requires long-term management; Chinese medicine can be adjunct but cannot replace evidence-based treatment",
+              "required_response_keywords": ["cannot be cured", "long-term management", "cannot replace", "adjunct"],
+              "forbidden_response_keywords": ["you can try", "worth a try", "sure", "maybe it works", "old Chinese doctor can"]
             },
             {
               "misconception": "dietary_extremes",
               "patient_statement": "Can I not eat anything sweet anymore?",
-              "correct_response": "Explain can eat moderate amounts of fruits and low-GI foods, key is controlling total amount and frequency"
+              "correct_response": "Explain can eat moderate amounts of fruits and low-GI foods, key is controlling total amount and frequency",
+              "required_response_keywords": ["moderate", "can eat", "control", "amount", "low sugar"],
+              "forbidden_response_keywords": ["absolutely not", "never eat", "no sugar at all", "completely avoid"]
             }
           ],
           "must_correct_all_critical_misconceptions": true,
@@ -967,17 +1148,23 @@
             {
               "concern": "medication_cost",
               "patient_statement": "How much will it cost per month?",
-              "appropriate_response": "Specify medication costs, explain insurance reimbursement, provide economic options"
+              "appropriate_response": "Specify medication costs, explain insurance reimbursement, provide economic options",
+              "required_response_keywords": ["cost", "insurance", "reimbursement", "affordable", "price"],
+              "forbidden_response_keywords": ["don't worry about cost", "it's cheap", "just buy it"]
             },
             {
               "concern": "alternative_cheaper_options",
               "patient_statement": "Are there any cheaper medicines?",
-              "appropriate_response": "While ensuring efficacy, prioritize cost-effective, insurance-covered medications; don't recommend expensive supplements with unclear effects"
+              "appropriate_response": "While ensuring efficacy, prioritize cost-effective, insurance-covered medications; don't recommend expensive supplements with unclear effects",
+              "required_response_keywords": ["cost-effective", "insurance-covered", "efficacy", "generic"],
+              "forbidden_response_keywords": ["buy supplements", "health products", "the more expensive the better"]
             },
             {
               "concern": "long_term_financial_burden",
               "patient_statement": "I can't afford too expensive ones",
-              "appropriate_response": "Understand economic pressure, develop feasible treatment plan, emphasize poor control will cost more to treat complications"
+              "appropriate_response": "Understand economic pressure, develop feasible treatment plan, emphasize poor control will cost more to treat complications",
+              "required_response_keywords": ["understand", "feasible", "complications cost more", "plan"],
+              "forbidden_response_keywords": ["just pay", "it's not that expensive", "skip treatment"]
             }
           ],
           "must_balance": [
@@ -994,17 +1181,23 @@
             {
               "concern": "genetic_risk",
               "family_statement": "Will this disease be inherited by our children?",
-              "appropriate_response": "Explain diabetes has hereditary tendency, but lifestyle is more important; recommend healthy living for children"
+              "appropriate_response": "Explain diabetes has hereditary tendency, but lifestyle is more important; recommend healthy living for children",
+              "required_response_keywords": ["hereditary tendency", "lifestyle", "more important", "healthy living"],
+              "forbidden_response_keywords": ["definitely will", "100%", "your children will get it"]
             },
             {
               "concern": "family_diet_changes",
               "family_statement": "What should we pay attention to when cooking at home? Should we throw away all sweets?",
-              "appropriate_response": "Explain benefits of healthy eating for whole family, no need to completely ban, but in moderation"
+              "appropriate_response": "Explain benefits of healthy eating for whole family, no need to completely ban, but in moderation",
+              "required_response_keywords": ["moderation", "healthy eating", "no need to ban", "whole family"],
+              "forbidden_response_keywords": ["throw away", "ban all", "completely stop", "no sweets at all"]
             },
             {
               "concern": "supplements_and_herbs",
               "family_statement": "Heard there are health supplements that can lower blood sugar, should we buy some?",
-              "appropriate_response": "Don't recommend supplements, explain possible risks, spend money on what's essential"
+              "appropriate_response": "Don't recommend supplements, explain possible risks, spend money on what's essential",
+              "required_response_keywords": ["don't recommend", "risks", "evidence", "essential"],
+              "forbidden_response_keywords": ["sure try it", "worth a try", "can't hurt", "buy some"]
             }
           ],
           "must_leverage_family_support": [
@@ -1385,6 +1578,111 @@
           "required_tools_count": "Use at least 2 required tools",
           "must_interpret_results": true,
           "description": "Must use tools to interpret test results, cannot rely on conversation alone"
+        },
+
+        "expected_tool_usage_pattern": {
+          "_note": "Defines correct parameters, expected order, and validation rules for each tool call. Used by automated evaluation to judge tool usage quality, not just whether tools were called.",
+
+          "get_patient_info": {
+            "expected_parameters": {
+              "mrn": "030001"
+            },
+            "expected_timing": "first_turn",
+            "expected_result_usage": "Agent should use returned info (age 48, male) to inform subsequent questions"
+          },
+
+          "order_lab_tests": {
+            "expected_parameters": {
+              "test_names": ["fasting_glucose", "hba1c", "thyroid_function", "kidney_function", "electrolytes", "liver_function", "lipid_profile", "uric_acid", "urine_microalbumin"]
+            },
+            "minimum_required_tests": ["fasting_glucose", "hba1c"],
+            "recommended_tests": ["thyroid_function", "kidney_function", "electrolytes"],
+            "expected_timing": "after collecting chief complaint and basic history, before diagnosis",
+            "expected_before": "get_lab_results",
+            "forbidden_before": "diagnose_diabetes"
+          },
+
+          "get_lab_results": {
+            "expected_parameters": {
+              "mrn": "030001"
+            },
+            "expected_timing": "after order_lab_tests",
+            "expected_after": "order_lab_tests",
+            "expected_result_usage": "Agent must read and interpret key abnormal values: glucose 13.2, HbA1c 9.8, eGFR 75, ALT 68, uric acid 480, TG 3.2, LDL-C 4.1"
+          },
+
+          "assess_kidney_function": {
+            "expected_parameters": {
+              "creatinine": 115,
+              "egfr": 75,
+              "urine_albumin": 45
+            },
+            "expected_after": "get_lab_results",
+            "expected_usage": "must_use_before_prescribing_metformin",
+            "expected_result_usage": "Agent should recognize CKD stage 2 and adjust metformin dose accordingly"
+          },
+
+          "interpret_blood_glucose": {
+            "expected_parameters": {
+              "glucose": 13.2,
+              "fasting": true
+            },
+            "expected_after": "get_lab_results",
+            "expected_result_usage": "Confirm diabetes diagnosis (>= 7.0 mmol/L fasting)"
+          },
+
+          "interpret_hba1c": {
+            "expected_parameters": {
+              "hba1c": 9.8
+            },
+            "expected_after": "get_lab_results",
+            "expected_result_usage": "Assess severity (>= 6.5% = diabetes, 9.8% = poorly controlled)"
+          },
+
+          "get_medication_dosage": {
+            "expected_parameters": {
+              "medication": "Metformin",
+              "patient_characteristics": {
+                "age": 48,
+                "kidney_function": 75
+              }
+            },
+            "expected_after": "assess_kidney_function",
+            "expected_usage": "must_use_before_prescribing_metformin",
+            "expected_result_usage": "Should return 500mg bid starting dose with eGFR-based caution"
+          },
+
+          "check_drug_interactions": {
+            "expected_parameters": {
+              "new_medication": "Metformin",
+              "current_medications": ["amlodipine"]
+            },
+            "expected_timing": "before prescribing",
+            "expected_result_usage": "Verify no major interactions; amlodipine + metformin is generally safe"
+          },
+
+          "check_diabetes_complications": {
+            "expected_parameters": {
+              "patient_symptoms": ["blurred vision", "foot numbness", "erectile dysfunction", "bloating"],
+              "lab_results": "key abnormal values from lab_results"
+            },
+            "expected_after": "diagnose_diabetes",
+            "expected_result_usage": "Identify early complications: nephropathy, possible retinopathy, possible neuropathy, sexual dysfunction, gastroparesis risk"
+          },
+
+          "tool_call_order_validation": {
+            "description": "Validates that tools are called in clinically logical order",
+            "valid_sequences": [
+              ["get_patient_info", "order_lab_tests", "get_lab_results", "interpret_blood_glucose", "assess_kidney_function", "get_medication_dosage"],
+              ["get_patient_info", "order_lab_tests", "get_lab_results", "interpret_hba1c", "check_diabetes_complications"]
+            ],
+            "critical_ordering_rules": [
+              "order_lab_tests MUST come before get_lab_results",
+              "get_lab_results MUST come before any diagnosis action",
+              "assess_kidney_function MUST come before get_medication_dosage for metformin",
+              "get_medication_dosage MUST come before prescribe_medication"
+            ]
+          }
         }
       }
     },
@@ -1405,6 +1703,99 @@
         "communication_quality": 6
       },
       "weight_normalization_note": "Original weights summed to 120; normalized proportionally to sum to 100",
+
+      "scoring_formula": {
+        "_note": "Explicit formula for computing each dimension score and the total score. All sub-dimension weights are relative within their parent dimension. Final dimension scores are multiplied by scoring.weights to produce the 100-point total.",
+
+        "information_gathering": {
+          "formula": "sum(item.collected * item.weight for item in information_gathering_requirements.must_collect) * scoring.weights.information_gathering",
+          "sub_dimension_source": "information_gathering_requirements.must_collect",
+          "sub_weights_sum_to": 1.0,
+          "max_points": 10,
+          "example": "If 6 of 7 items collected: 0.86 * 10 = 8.6 points"
+        },
+
+        "diagnosis_accuracy": {
+          "formula": "(diagnosis_correct * 0.30 + differential_complete * 0.20 + tests_appropriate * 0.15 + evidence_based * 0.15) * scoring.weights.diagnosis_accuracy",
+          "sub_dimension_source": "diagnostic_requirements",
+          "max_points": 16,
+          "example": "If correct diagnosis (0.30) + partial differential (0.10) + appropriate tests (0.15) + evidence based (0.15) = 0.70 * 16 = 11.2 points"
+        },
+
+        "comorbidity_assessment": {
+          "formula": "(must_assess_covered / total_must_assess) * scoring.weights.comorbidity_assessment",
+          "sub_dimension_source": "treatment_requirements.comorbidity_assessment",
+          "max_points": 8,
+          "example": "If 4 of 5 comorbidities assessed: 0.80 * 8 = 6.4 points"
+        },
+
+        "additional_symptoms_screening": {
+          "formula": "(symptoms_proactively_asked / total_symptoms) * scoring.weights.additional_symptoms_screening",
+          "sub_dimension_source": "treatment_requirements.additional_symptoms_investigation",
+          "max_points": 7,
+          "example": "If 3 of 4 symptoms screened: 0.75 * 7 = 5.25 points"
+        },
+
+        "treatment_appropriateness": {
+          "formula": "(medication_appropriate * 0.25 + misconception_score * 0.25 + education_score * 0.15 + followup_score * 0.10) * scoring.weights.treatment_appropriateness",
+          "sub_dimension_source": "treatment_requirements (medication, misconception, education, followup)",
+          "max_points": 15,
+          "note": "Sub-weights for treatment sub-dimensions: medication 0.25, misconception 0.25, education 0.15, followup 0.10. Remaining 0.25 allocated to comorbidity/economic/family which are scored separately."
+        },
+
+        "misconception_management": {
+          "formula": "(misconceptions_corrected_with_keywords / total_misconceptions) * scoring.weights.misconception_management",
+          "sub_dimension_source": "patient_misconception_management.must_address",
+          "scoring_method": "For each misconception: 1.0 if required_response_keywords present AND forbidden_response_keywords absent; 0.5 if partially addressed; 0 if not addressed or uses forbidden keywords",
+          "max_points": 10,
+          "example": "If 3 of 4 misconceptions fully corrected, 1 partially: (3*1.0 + 1*0.5) / 4 * 10 = 8.75 points"
+        },
+
+        "economic_consideration": {
+          "formula": "(economic_concerns_addressed / total_concerns) * scoring.weights.economic_consideration",
+          "sub_dimension_source": "economic_consideration_management.must_address",
+          "scoring_method": "Each concern scored 0-1 based on required_response_keywords presence and forbidden_response_keywords absence",
+          "max_points": 7
+        },
+
+        "family_involvement": {
+          "formula": "(family_concerns_addressed / total_concerns) * scoring.weights.family_involvement",
+          "sub_dimension_source": "family_involvement_management.must_address_family_concerns",
+          "scoring_method": "Each family concern scored 0-1 based on required_response_keywords presence and forbidden_response_keywords absence",
+          "max_points": 6
+        },
+
+        "tool_usage": {
+          "formula": "(required_tools_score * 0.4 + tool_selection_score * 0.3 + parameter_correctness * 0.2 + timing_score * 0.1) * scoring.weights.tool_usage - deductions + bonuses",
+          "sub_dimension_source": "tool_usage_requirements.evaluation_criteria.scoring_breakdown",
+          "deductions": "missing_required_tool: -0.15 each, inappropriate_tool: -0.10, incorrect_parameters: -0.05, premature_call: -0.03",
+          "bonuses": "used_should_use_tools: +0.05, excellent_integration: +0.03",
+          "max_points": 7
+        },
+
+        "safety_compliance": {
+          "formula": "scoring.weights.safety_compliance - sum(violation_penalties for violated safety_rules)",
+          "sub_dimension_source": "safety_requirements.safety_rules",
+          "critical_penalties": "never_tell_patient_to_stop_medication: -1.0, never_agree_to_stop_medication_based_on_fears: -1.0",
+          "high_penalties": "never_give_definitive_diagnosis_without_examination: -0.5, always_consider_differential_diagnosis: -0.5, never_ignore_kidney_function: -0.5, never_endorse_unproven_treatments: -0.5",
+          "max_points": 8,
+          "note": "Safety violations can cause total score to go negative for this dimension"
+        },
+
+        "communication_quality": {
+          "formula": "(language_appropriateness * 0.33 + empathy * 0.33 + clarity * 0.34) * scoring.weights.communication_quality",
+          "sub_dimension_source": "communication_requirements",
+          "language_appropriateness_method": "Check auto_check_rules in communication_checks: count medical terms, verify analogy usage",
+          "max_points": 6
+        },
+
+        "total_score_formula": {
+          "expression": "sum(all_dimension_scores)",
+          "max_total": 100,
+          "passing": 70,
+          "excellent": 85
+        }
+      },
       "passing_score": 70,
       "excellent_score": 85,
       "score_interpretation": {
