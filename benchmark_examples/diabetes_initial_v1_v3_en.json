@@ -163,14 +163,17 @@
           "GI concerns (my stomach is not good, will medication irritate it?)"
         ],
 
-        "family_member_will_interject": [
-          "Wife will ask about cost (Doctor, how much is this medicine per month? Is it reimbursable?)",
-          "Wife will express genetic concerns (Will this disease be inherited by our children?)",
-          "Wife will ask about diet management (What should we pay attention to when cooking at home? Should we throw away all sweets?)",
-          "Wife will ask about health supplements (Heard there are health supplements that can lower blood sugar, should we buy some?)",
-          "Wife will promise supervision (I will watch him take medicine on time)",
-          "Wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
-        ],
+        "family_member_will_interject": {
+          "_note": "This is a SUMMARY. The authoritative definition is in family_member_scenario.interaction_timing. Any conflicts defer to that section.",
+          "items": [
+            "Wife will ask about cost (Doctor, how much is this medicine per month? Is it reimbursable?)",
+            "Wife will express genetic concerns (Will this disease be inherited by our children?)",
+            "Wife will ask about diet management (What should we pay attention to when cooking at home? Should we throw away all sweets?)",
+            "Wife will ask about health supplements (Heard there are health supplements that can lower blood sugar, should we buy some?)",
+            "Wife will promise supervision (I will watch him take medicine on time)",
+            "Wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
+          ]
+        },
 
         "response_style": {
           "honest": true,
@@ -194,11 +197,14 @@
     "scenario": "Wife accompanies patient to visit, participates throughout in the exam room",
     "role": "Wife will: 1) Ask about medication costs; 2) Express economic pressure; 3) Ask about genetic issues; 4) Ask about health supplements; 5) Promise to supervise medication use",
     "interaction_timing": [
-      "When doctor mentions long-term medication, wife will ask about cost",
-      "After doctor explains diagnosis, wife will ask if it's hereditary",
+      "When doctor mentions long-term medication, wife will ask about cost (Doctor, how much is this medicine per month? Is it reimbursable?)",
+      "After doctor explains diagnosis, wife will ask if it's hereditary (Will this disease be inherited by our children?)",
       "When doctor prescribes, wife will ask about price and reimbursement",
-      "When doctor mentions diet management, wife will ask specifically how to cook",
-      "When patient expresses hesitation, wife will encourage or express concern"
+      "When doctor mentions diet management, wife will ask specifically how to cook (What should we pay attention to when cooking at home? Should we throw away all sweets?)",
+      "When patient expresses hesitation, wife will encourage or express concern",
+      "When supplements or alternative treatments are mentioned, wife will ask about health supplements (Heard there are health supplements that can lower blood sugar, should we buy some?)",
+      "When treatment plan is finalized, wife will promise to supervise medication (I will watch him take medicine on time)",
+      "When medication cost is discussed in detail, wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
     ]
   },
 
@@ -356,23 +362,24 @@
         "usage_scenario": "Initialize medical persona at task start, called by initialization actions",
         "parameters": {
           "patient_profile": {
-            "age": "Age",
-            "gender": "Gender",
-            "symptoms": "List of symptoms",
-            "duration": "Symptom duration",
-            "severity": "Severity level",
-            "family_history": "Family history list"
+            "age": "Age (integer)",
+            "gender": "Gender (string)",
+            "symptoms": "List of symptoms (array of strings)",
+            "duration": "Symptom duration (string)",
+            "severity": "Severity level (string)",
+            "family_history": "Family history list (array of strings)"
           },
           "information_sharing_strategy": {
-            "volunteer": "Information volunteered without asking",
-            "ask_only": "Information shared only when asked"
+            "volunteer": "Information volunteered without asking (array of strings)",
+            "ask_only": "Information shared only when asked (array of strings)"
           },
           "response_style": {
             "honest": "Whether patient is honest (boolean)",
             "direct": "Whether patient is direct (boolean)",
             "limited_medical_knowledge": "Whether patient has limited medical knowledge (boolean)"
           }
-        }
+        },
+        "initial_state_usage_example": "See initial_state.initialization_actions for the actual call with this tool"
       }
     ],
 
@@ -620,6 +627,78 @@
           "medication_choices": "Medication choice recommendations",
           "targets": "Treatment targets (e.g., HbA1c targets)"
         }
+      },
+      {
+        "name": "prescribe_medication",
+        "category": "treatment",
+        "purpose": "Prescribe medication",
+        "description": "Formally prescribe medication to the patient with dosage, frequency, and duration",
+        "usage_scenario": "After determining treatment plan and confirming dosage",
+        "parameters": {
+          "medication": "Medication name",
+          "dosage": "Dosage (e.g., 500mg)",
+          "frequency": "Frequency (e.g., bid)",
+          "duration": "Duration (e.g., ongoing)",
+          "notes": "Special instructions (optional)"
+        },
+        "returns": {
+          "prescription_id": "Prescription ID",
+          "medication": "Medication name",
+          "dosage": "Prescribed dosage",
+          "frequency": "Prescribed frequency",
+          "status": "Prescription status"
+        }
+      },
+      {
+        "name": "provide_patient_education",
+        "category": "treatment",
+        "purpose": "Provide patient education",
+        "description": "Deliver structured patient education on disease management, lifestyle modifications, and self-monitoring",
+        "usage_scenario": "After diagnosis and treatment decisions, before ending consultation",
+        "parameters": {
+          "topic": "Education topic (e.g., diabetes_management, diet, exercise)",
+          "education_level": "Target education level (e.g., elementary)",
+          "language": "Language style (simple/professional)"
+        },
+        "returns": {
+          "education_provided": "List of topics covered",
+          "patient_understanding_check": "Whether patient comprehension was verified"
+        }
+      },
+      {
+        "name": "schedule_followup",
+        "category": "treatment",
+        "purpose": "Schedule follow-up appointment",
+        "description": "Schedule a follow-up appointment with specific monitoring targets and timeline",
+        "usage_scenario": "At end of consultation, after treatment plan is established",
+        "parameters": {
+          "timeframe": "Follow-up timeframe (e.g., 2-4 weeks)",
+          "monitoring_targets": "What to monitor at follow-up (e.g., HbA1c, kidney function)",
+          "referrals": "Specialist referrals needed (optional)"
+        },
+        "returns": {
+          "appointment_id": "Appointment ID",
+          "scheduled_date_range": "Scheduled date range",
+          "monitoring_plan": "Monitoring plan"
+        }
+      },
+      {
+        "name": "refer_to_specialist",
+        "category": "treatment",
+        "purpose": "Specialist referral",
+        "description": "Refer patient to a specialist for evaluation of specific complications or conditions",
+        "usage_scenario": "When complications requiring specialist evaluation are identified",
+        "parameters": {
+          "specialty": "Specialty (e.g., ophthalmology, neurology, nephrology)",
+          "reason": "Reason for referral",
+          "urgency": "Urgency level (routine/urgent)"
+        },
+        "returns": {
+          "referral_id": "Referral ID",
+          "specialty": "Referred specialty",
+          "reason": "Referral reason",
+          "status": "Referral status"
+        }
       }
     ],
 
@@ -710,6 +789,7 @@
     "reward_basis": ["DB", "COMMUNICATE", "CLINICAL"],
 
     "medical_criteria": {
+      "_weight_note": "All weights inside medical_criteria are SUB-DIMENSION weights (relative within each dimension). Final scores are determined by scoring.weights, which allocates the 100-point total across dimensions.",
       "category": "diagnosis",
 
       "information_gathering_requirements": {
@@ -1246,8 +1326,8 @@
 
         "evaluation_criteria": {
           "tool_usage_score": {
-            "weight": 0.08,
-            "description": "Tool usage assessment weight"
+            "weight": 0.07,
+            "description": "Sub-dimension weight within tool_usage_requirements. The final tool_usage score maps to scoring.weights.tool_usage (7 points out of 100)."
           },
 
           "scoring_breakdown": {
@@ -1417,10 +1497,10 @@
       "- Need to leverage family support while addressing family concerns",
       "",
       "[New assessment dimensions]",
-      "- Economic consideration management (8% weight)",
-      "- Family involvement management (7% weight)",
-      "- Additional symptom proactive screening (8% weight)",
-      "- Tool usage assessment (8% weight) - evaluate whether AI Agent correctly uses tools",
+      "- Economic consideration management (7% weight)",
+      "- Family involvement management (6% weight)",
+      "- Additional symptom proactive screening (7% weight)",
+      "- Tool usage assessment (7% weight) - evaluate whether AI Agent correctly uses tools",
       "",
       "[Tool usage assessment]",
       "- Required tools: get_patient_info, order_lab_tests, get_lab_results",
