@@ -196,7 +196,9 @@
     "_note": "This is the SINGLE SOURCE OF TRUTH for family member behavior. The family_member_will_interject list in user_scenario.information_state.information_sharing_strategy is a summary; any conflicts should defer to this section.",
     "scenario": "Wife accompanies patient to visit, participates throughout in the exam room",
     "role": "Wife will: 1) Ask about medication costs; 2) Express economic pressure; 3) Ask about genetic issues; 4) Ask about health supplements; 5) Promise to supervise medication use",
-    "interaction_timing": [
+    "interaction_timing": {
+      "_legacy_description": "Human-readable description for reference only. The authoritative executable rules are in family_interjection_rules below.",
+      "items": [
       "When doctor mentions long-term medication, wife will ask about cost (Doctor, how much is this medicine per month? Is it reimbursable?)",
       "After doctor explains diagnosis, wife will ask if it's hereditary (Will this disease be inherited by our children?)",
       "When doctor prescribes, wife will ask about price and reimbursement (Doctor, how much does this medicine cost? Can our employee insurance cover it?)",
@@ -204,8 +206,9 @@
       "When patient expresses hesitation, wife will encourage or express concern (Listen to the doctor, take your medicine properly, don't risk your health)",
       "When supplements or alternative treatments are mentioned, wife will ask about health supplements (Heard there are health supplements that can lower blood sugar, should we buy some?)",
       "When treatment plan is finalized, wife will promise to supervise medication (I will watch him take medicine on time)",
-      "When medication cost is discussed in detail, wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
-    ],
+        "When medication cost is discussed in detail, wife may express economic pressure (We have two children in school, finances are tight, can you prescribe cheaper medicines?)"
+      ]
+    },
     "family_interjection_rules": {
       "_note": "Trigger-based rules for automated simulation. Wife interjects when agent utterance matches trigger_keywords. Each rule fires at most once per conversation. If agent never triggers a rule, the wife may raise the topic spontaneously after turn 20 (fallback).",
 
@@ -966,46 +969,61 @@
       "category": "diagnosis",
 
       "information_gathering_requirements": {
+        "_note": "This section defines weights for information gathering sub-items. The SINGLE SOURCE OF TRUTH for what must be collected and how to track it is information_collection_tracking. The weights below are used by scoring_formula.information_gathering to compute the dimension score.",
         "must_collect": {
           "chief_complaint_detail": {
             "required": true,
             "description": "Complete information about chief complaint (symptoms, duration, severity)",
-            "weight": 0.14
+            "weight": 0.14,
+            "tracking_ref": "information_collection_tracking.chief_complaint_detail"
           },
           "symptoms_completeness": {
             "required": true,
             "description": "Three polys symptoms (polydipsia, polyuria, polyphagia/weight loss)",
-            "weight": 0.20
+            "weight": 0.20,
+            "tracking_ref": "information_collection_tracking.three_polys_symptoms"
           },
           "family_history": {
             "required": true,
             "description": "Family history, especially diabetes",
-            "weight": 0.09
+            "weight": 0.09,
+            "tracking_ref": "information_collection_tracking.family_history"
           },
           "current_medications": {
             "required": true,
             "description": "Current medication status",
-            "weight": 0.17
+            "weight": 0.17,
+            "tracking_ref": "information_collection_tracking.current_medications"
           },
           "allergies": {
             "required": true,
             "description": "Medication allergy history",
-            "weight": 0.20
+            "weight": 0.20,
+            "tracking_ref": "information_collection_tracking.allergies"
           },
           "lifestyle_factors": {
             "required": true,
             "description": "Lifestyle factors such as smoking, alcohol",
-            "weight": 0.06
+            "weight": 0.06,
+            "tracking_ref": "information_collection_tracking.lifestyle_factors"
           },
           "red_flags": {
             "required": true,
             "description": "Red flags (chest pain, dyspnea, severe headache, etc.)",
-            "weight": 0.14
+            "weight": 0.14,
+            "tracking_ref": "information_collection_tracking.red_flags"
+          },
+          "additional_symptoms": {
+            "required": true,
+            "description": "Proactive screening for vision, foot numbness, sexual function, GI symptoms",
+            "weight": 0.10,
+            "tracking_ref": "information_collection_tracking.additional_symptoms_screening"
           }
         },
         "scoring_method": "count",
         "pass_threshold": 0.8,
-        "weight_optimization_note": "Weights optimized: allergy and current medication weights increased (safety first), symptom completeness weight highest (diagnostic core)"
+        "weight_optimization_note": "Weights optimized: allergy and current medication weights increased (safety first), symptom completeness weight highest (diagnostic core). Items are tracked via information_collection_tracking state machine.",
+        "sub_weights_sum_to": 1.0
       },
 
       "diagnostic_requirements": {
@@ -1047,6 +1065,17 @@
       },
 
       "treatment_requirements": {
+        "_sub_weights": {
+          "_note": "Sub-dimension weights used by scoring_formula.treatment_appropriateness. These are the authoritative weights; scoring_formula references these, not hardcoded values.",
+          "medication_appropriateness": 0.25,
+          "patient_misconception_management": 0.25,
+          "patient_education": 0.15,
+          "followup_plan": 0.10,
+          "comorbidity_assessment": 0.10,
+          "economic_consideration_management": 0.08,
+          "family_involvement_management": 0.07
+        },
+
         "comorbidity_assessment": {
           "required": true,
           "must_assess": [
@@ -1608,7 +1637,25 @@
             },
             "expected_timing": "after order_lab_tests",
             "expected_after": "order_lab_tests",
-            "expected_result_usage": "Agent must read and interpret key abnormal values: glucose 13.2, HbA1c 9.8, eGFR 75, ALT 68, uric acid 480, TG 3.2, LDL-C 4.1"
+            "expected_result_usage": "Agent must read and interpret key abnormal values: glucose 13.2, HbA1c 9.8, eGFR 75, ALT 68, uric acid 480, TG 3.2, LDL-C 4.1",
+            "validation_rules": [
+              {
+                "rule": "must_reference_abnormal_values",
+                "required_values": ["13.2", "9.8", "eGFR 75"],
+                "check_method": "agent_utterance_contains",
+                "check_after": "get_lab_results call",
+                "within_turns": 3,
+                "penalty_missing": -0.1,
+                "description": "Agent must mention at minimum glucose 13.2, HbA1c 9.8, and eGFR 75 in subsequent utterances"
+              },
+              {
+                "rule": "must_acknowledge_kidney_abnormality",
+                "required_keywords": ["kidney", "eGFR", "renal", "creatinine"],
+                "check_method": "agent_utterance_contains_any",
+                "penalty_missing": -0.05,
+                "description": "Agent must acknowledge kidney function is mildly abnormal"
+              }
+            ]
           },
 
           "assess_kidney_function": {
@@ -1619,7 +1666,18 @@
             },
             "expected_after": "get_lab_results",
             "expected_usage": "must_use_before_prescribing_metformin",
-            "expected_result_usage": "Agent should recognize CKD stage 2 and adjust metformin dose accordingly"
+            "expected_result_usage": "Agent should recognize CKD stage 2 and adjust metformin dose accordingly",
+            "validation_rules": [
+              {
+                "rule": "must_use_result_in_prescribing",
+                "required_keywords": ["eGFR", "kidney function", "adjust dose", "low dose", "caution"],
+                "check_method": "agent_utterance_contains_any",
+                "check_after": "assess_kidney_function call",
+                "within_turns": 3,
+                "penalty_missing": -0.1,
+                "description": "Agent must reference kidney function result when prescribing metformin"
+              }
+            ]
           },
 
           "interpret_blood_glucose": {
@@ -1708,11 +1766,13 @@
         "_note": "Explicit formula for computing each dimension score and the total score. All sub-dimension weights are relative within their parent dimension. Final dimension scores are multiplied by scoring.weights to produce the 100-point total.",
 
         "information_gathering": {
-          "formula": "sum(item.collected * item.weight for item in information_gathering_requirements.must_collect) * scoring.weights.information_gathering",
-          "sub_dimension_source": "information_gathering_requirements.must_collect",
+          "formula": "sum(tracking_item.status == true * must_collect_item.weight for each mapped pair) / 1.0 * scoring.weights.information_gathering",
+          "sub_dimension_source": "information_collection_tracking (status variables) joined with information_gathering_requirements.must_collect (weights)",
+          "authority_source": "information_collection_tracking is the SINGLE SOURCE OF TRUTH for collection status; must_collect.weights provide the scoring weights",
           "sub_weights_sum_to": 1.0,
           "max_points": 10,
-          "example": "If 6 of 7 items collected: 0.86 * 10 = 8.6 points"
+          "scoring_logic": "For each item in information_collection_tracking, check its status_variable. If collected, multiply by the corresponding weight from must_collect. Sum all, then multiply by scoring.weights.information_gathering.",
+          "example": "If tracking shows chief_complaint_detail(collected), three_polys(3/4), family_history(collected), medications(collected), allergies(collected), lifestyle(4/4), red_flags(not checked), additional_symptoms(2/4): weighted_score ≈ 0.14 + 0.15 + 0.09 + 0.17 + 0.20 + 0.06 + 0 + 0.05 = 0.86 * 10 = 8.6 points"
         },
 
         "diagnosis_accuracy": {
@@ -1737,10 +1797,18 @@
         },
 
         "treatment_appropriateness": {
-          "formula": "(medication_appropriate * 0.25 + misconception_score * 0.25 + education_score * 0.15 + followup_score * 0.10) * scoring.weights.treatment_appropriateness",
-          "sub_dimension_source": "treatment_requirements (medication, misconception, education, followup)",
+          "formula": "sum(sub_dimension_score * treatment_requirements._sub_weights[sub_dimension]) * scoring.weights.treatment_appropriateness",
+          "sub_dimension_source": "treatment_requirements._sub_weights (authoritative sub-weights)",
           "max_points": 15,
-          "note": "Sub-weights for treatment sub-dimensions: medication 0.25, misconception 0.25, education 0.15, followup 0.10. Remaining 0.25 allocated to comorbidity/economic/family which are scored separately."
+          "sub_dimensions": {
+            "medication_appropriateness": {"weight_ref": "treatment_requirements._sub_weights.medication_appropriateness", "weight": 0.25},
+            "patient_misconception_management": {"weight_ref": "treatment_requirements._sub_weights.patient_misconception_management", "weight": 0.25},
+            "patient_education": {"weight_ref": "treatment_requirements._sub_weights.patient_education", "weight": 0.15},
+            "followup_plan": {"weight_ref": "treatment_requirements._sub_weights.followup_plan", "weight": 0.10},
+            "comorbidity_assessment": {"weight_ref": "treatment_requirements._sub_weights.comorbidity_assessment", "weight": 0.10},
+            "economic_consideration_management": {"weight_ref": "treatment_requirements._sub_weights.economic_consideration_management", "weight": 0.08},
+            "family_involvement_management": {"weight_ref": "treatment_requirements._sub_weights.family_involvement_management", "weight": 0.07}
+          }
         },
 
         "misconception_management": {
@@ -1785,8 +1853,41 @@
         "communication_quality": {
           "formula": "(language_appropriateness * 0.33 + empathy * 0.33 + clarity * 0.34) * scoring.weights.communication_quality",
           "sub_dimension_source": "communication_requirements",
-          "language_appropriateness_method": "Check auto_check_rules in communication_checks: count medical terms, verify analogy usage",
-          "max_points": 6
+          "max_points": 6,
+
+          "language_appropriateness": {
+            "weight": 0.33,
+            "scoring_method": "Based on auto_check_rules in communication_checks[appropriate_language]",
+            "auto_rules_mapping": {
+              "avoid_terms_check": "For each medical term in avoid_terms found in agent utterance, subtract 0.1; floor at 0",
+              "max_medical_terms_per_response": "Responses exceeding 1 medical term: subtract 0.05 per extra term",
+              "use_analogy": "Add 0.1 if analogy used at least once during consultation",
+              "use_terms_check": "Add 0.05 per response that uses a term from use_terms"
+            },
+            "score_range": "0.0 to 1.0"
+          },
+
+          "empathy": {
+            "weight": 0.33,
+            "scoring_method": "Based on communication_requirements.empathy",
+            "auto_rules": {
+              "show_understanding": "Check for phrases like 'I understand', 'that's a valid concern', 'I hear you' (+0.25 per occurrence, max 3)",
+              "acknowledge_concerns": "After patient expresses fear/concern, agent must acknowledge within 1 turn (+0.25 per acknowledged concern)",
+              "provide_reassurance": "Check for reassurance phrases like 'we can manage this', 'you're not alone' (+0.25 if present)"
+            },
+            "score_range": "0.0 to 1.0"
+          },
+
+          "clarity": {
+            "weight": 0.34,
+            "scoring_method": "Based on communication_requirements.clarity",
+            "auto_rules": {
+              "explain_diagnosis_clearly": "Agent must state diagnosis in simple terms within 1 turn of receiving lab results (+0.34 if done)",
+              "explain_treatment_clearly": "Agent must explain treatment rationale in simple terms when prescribing (+0.33 if done)",
+              "answer_questions": "Agent must answer each patient/family question directly (+0.33 * questions_answered / total_questions)"
+            },
+            "score_range": "0.0 to 1.0"
+          }
         },
 
         "total_score_formula": {
