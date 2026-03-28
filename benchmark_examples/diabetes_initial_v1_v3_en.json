@@ -32,6 +32,7 @@
 
     "information_state": {
       "patient_knows": {
+        "_note": "What the patient is aware of; clinical details are defined in medical_persona",
         "symptoms": ["thirst", "polyuria", "weight loss"],
         "duration_approximate": "About 1 month",
         "family_history": "Mother seems to have diabetes",
@@ -189,6 +190,7 @@
   },
 
   "family_member_scenario": {
+    "_note": "This is the SINGLE SOURCE OF TRUTH for family member behavior. The family_member_will_interject list in user_scenario.information_state.information_sharing_strategy is a summary; any conflicts should defer to this section.",
     "scenario": "Wife accompanies patient to visit, participates throughout in the exam room",
     "role": "Wife will: 1) Ask about medication costs; 2) Express economic pressure; 3) Ask about genetic issues; 4) Ask about health supplements; 5) Promise to supervise medication use",
     "interaction_timing": [
@@ -345,10 +347,68 @@
           "age": "Age",
           "gender": "Gender"
         }
+      },
+      {
+        "name": "set_medical_persona",
+        "category": "suggestion",
+        "purpose": "Set medical persona for simulation",
+        "description": "Initialize the medical persona including patient profile, information sharing strategy, and response style for the role-play simulation",
+        "usage_scenario": "Initialize medical persona at task start, called by initialization actions",
+        "parameters": {
+          "patient_profile": {
+            "age": "Age",
+            "gender": "Gender",
+            "symptoms": "List of symptoms",
+            "duration": "Symptom duration",
+            "severity": "Severity level",
+            "family_history": "Family history list"
+          },
+          "information_sharing_strategy": {
+            "volunteer": "Information volunteered without asking",
+            "ask_only": "Information shared only when asked"
+          },
+          "response_style": {
+            "honest": "Whether patient is honest (boolean)",
+            "direct": "Whether patient is direct (boolean)",
+            "limited_medical_knowledge": "Whether patient has limited medical knowledge (boolean)"
+          }
+        }
       }
     ],
 
     "diagnosis_tools": [
+      {
+        "name": "order_lab_tests",
+        "category": "diagnosis",
+        "purpose": "Order laboratory tests",
+        "description": "Order specified laboratory tests for the patient, such as blood glucose, HbA1c, thyroid function, kidney function, liver function, lipids, etc.",
+        "usage_scenario": "After collecting initial symptom information, order necessary tests to confirm diagnosis",
+        "parameters": {
+          "test_names": "List of test names to order (array of strings)",
+          "urgency": "Urgency level (routine/urgent/stat, optional)"
+        },
+        "returns": {
+          "order_id": "Lab test order ID",
+          "tests_ordered": "List of tests ordered",
+          "estimated_completion_time": "Estimated time for results"
+        }
+      },
+      {
+        "name": "get_lab_results",
+        "category": "diagnosis",
+        "purpose": "Get laboratory test results",
+        "description": "Retrieve completed laboratory test results by order ID or patient MRN",
+        "usage_scenario": "After lab tests are completed, retrieve results for interpretation and diagnosis",
+        "parameters": {
+          "order_id": "Lab test order ID (string, optional)",
+          "mrn": "Medical record number (string, optional)"
+        },
+        "returns": {
+          "results": "Dictionary of test names to result values",
+          "status": "Completion status (partial/complete)",
+          "abnormal_flags": "List of flagged abnormal results"
+        }
+      },
       {
         "name": "interpret_blood_glucose",
         "category": "diagnosis",
@@ -560,6 +620,26 @@
           "medication_choices": "Medication choice recommendations",
           "targets": "Treatment targets (e.g., HbA1c targets)"
         }
+      }
+    ],
+
+    "utility_tools": [
+      {
+        "name": "transfer_to_human_agents",
+        "category": "utility",
+        "purpose": "Transfer conversation to human physician",
+        "description": "Escalate the consultation to a human physician when the AI Agent determines the case is beyond its capabilities. FORBIDDEN for this task.",
+        "usage_scenario": "When case complexity exceeds AI Agent scope (not applicable for this benchmark task)",
+        "parameters": {
+          "reason": "Reason for transfer (string)",
+          "urgency": "Urgency level (string)"
+        },
+        "returns": {
+          "transfer_status": "Transfer status",
+          "assigned_physician": "Assigned physician info"
+        },
+        "forbidden": true,
+        "forbidden_reason": "This task is within AI Agent's capabilities, no need to refer to human physician"
       }
     ]
   },
@@ -1232,18 +1312,19 @@
     "scoring": {
       "total_score": 100,
       "weights": {
-        "information_gathering": 12,
-        "diagnosis_accuracy": 20,
-        "comorbidity_assessment": 10,
-        "additional_symptoms_screening": 8,
-        "treatment_appropriateness": 18,
-        "misconception_management": 12,
-        "economic_consideration": 8,
-        "family_involvement": 7,
-        "tool_usage": 8,
-        "safety_compliance": 10,
-        "communication_quality": 7
+        "information_gathering": 10,
+        "diagnosis_accuracy": 16,
+        "comorbidity_assessment": 8,
+        "additional_symptoms_screening": 7,
+        "treatment_appropriateness": 15,
+        "misconception_management": 10,
+        "economic_consideration": 7,
+        "family_involvement": 6,
+        "tool_usage": 7,
+        "safety_compliance": 8,
+        "communication_quality": 6
       },
+      "weight_normalization_note": "Original weights summed to 120; normalized proportionally to sum to 100",
       "passing_score": 70,
       "excellent_score": 85,
       "score_interpretation": {
@@ -1258,7 +1339,7 @@
   },
 
   "reference_dialogue": {
-    "note": "This is an example dialogue for illustration only. Agent is NOT required to follow this script.",
+    "note": "This is a FLOW EXAMPLE ONLY, illustrating a basic consultation sequence. It is NOT a perfect-score dialogue. It intentionally omits: wife participation, economic pressure discussion, proactive screening for sexual dysfunction / vision changes / foot numbness, and some tool usage. Agents should address all evaluation criteria dimensions, not just what appears here.",
     "difficulty_level": "high",
     "key_challenges": [
       "9 comorbidities require comprehensive management (kidney, blood pressure, liver, lipids, uric acid, GI, vision, nerves, sexual function)",
