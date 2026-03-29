@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "MEDICAL_AGENT_BENCHMARK_SYSTEM_V4",
-    "version": "v4.2",
+    "version": "v4.3",
     "type": "evaluation_system_specification",
     "previous_versions": "v3.0-v3.5 were single-case scripted benchmarks. v4.0 restructures as a system specification with stochastic case generation and multi-layer evaluation.",
     "architecture": "5-layer: Case → Environment → Interaction Protocol → Evaluation → Dataset",
@@ -495,7 +495,65 @@
         "Patient responses MUST be consistent with disclosed_information (no contradictions with previously stated facts)",
         "Patient MAY volunteer noise items based on probability (see observable_pool.noise)"
       ],
-      "implementation_guidance": "Use a system prompt that includes: patient_profile, latent_truth (marked as 'truth the patient embodies but may not articulate'), observable_pool, information_dynamics, emotional_state. Instruct the LLM to role-play the patient with these constraints."
+      "implementation_guidance": "Use a system prompt that includes: patient_profile, latent_truth (marked as 'truth the patient embodies but may not articulate'), observable_pool, information_dynamics, emotional_state. Instruct the LLM to role-play the patient with these constraints.",
+      "state_transition_rules": {
+        "_note": "Executable state machine for patient simulator. Defines how state evolves based on agent actions.",
+        "initial_state": {
+          "disclosed_information": "['chief_complaint']",
+          "emotional_state": "sampled_from(patient_profile.emotional_state_distribution)",
+          "trust_level": 0.5,
+          "topic_context": null
+        },
+        "transitions": [
+          {
+            "trigger": "agent asks empathetic question or acknowledges concern",
+            "effect": "trust_level += 0.05 (cap at 1.0)",
+            "condition": "agent utterance contains empathy indicator",
+            "empathy_indicators": [
+              "I understand",
+              "that must be",
+              "I can see why",
+              "that's a valid concern",
+              "specific acknowledgment of patient's situation"
+            ]
+          },
+          {
+            "trigger": "agent dismisses concern or uses excessive jargon",
+            "effect": "trust_level -= 0.1 (floor at 0.0)",
+            "condition": "agent ignores patient concern for >2 turns OR uses >2 unexplained medical terms"
+          },
+          {
+            "trigger": "agent asks direct question about specific topic",
+            "effect": "topic_context = question_topic; disclosed_information.append(answer)",
+            "condition": "question matches an item in progressive_disclosure pool"
+          },
+          {
+            "trigger": "agent mentions medication/treatment",
+            "effect": "check reactive_concerns for matching triggers; if match: patient voices concern",
+            "condition": "agent utterance matches any trigger in reactive_concerns"
+          },
+          {
+            "trigger": "agent gives diagnosis",
+            "effect": "emotional_state may shift to 'anxious' or 'withdrawn' (p=0.3)",
+            "condition": "first time diagnosis is stated"
+          },
+          {
+            "trigger": "agent asks sensitive question (sexual function)",
+            "effect": "if trust_level >= 0.6: answer truthfully; elif trust_level >= 0.3: answer reluctantly; else: deflect",
+            "condition": "question matches sexual_dysfunction trigger",
+            "trust_gate": "sensitive_inquiry_evaluation applies only if trust_level allows disclosure"
+          }
+        ],
+        "trust_level_effects": {
+          "high_trust_0.7_to_1.0": "Patient shares information freely, answers sensitive questions, accepts recommendations more readily",
+          "medium_trust_0.4_to_0.7": "Patient shares most information, may be reluctant on sensitive topics, asks more skeptical questions",
+          "low_trust_0.0_to_0.4": "Patient gives shorter answers, may deflect sensitive questions, expresses more skepticism, more likely to mention alternative medicine preferences"
+        }
+      },
+      "system_prompt_template": {
+        "_note": "Concrete system prompt for LLM-based patient simulation. Replace {placeholders} with instantiated values from run_manifest.",
+        "prompt": "You are role-playing as Liu XX, a 48-year-old male factory worker with elementary education. You are at a doctor's appointment with your wife.\n\nYOUR MEDICAL SITUATION (you embody this but may not articulate it precisely):\n- For about {symptom_duration}, you have felt {expressed_symptoms}.\n- {noise_items_if_any}\n- Your mother has diabetes and takes insulin injections daily.\n- You have had high blood pressure for 2 years but don't take medicine regularly.\n- You smoke about a pack a day and drink occasionally.\n\nYOUR PERSONALITY:\n- You use simple everyday language. You NEVER use medical terms.\n- You give approximate answers ('about a month', 'lots of water', 'maybe 10 cups').\n- You express worry through stories about neighbors and family, not direct questions.\n- You are sensitive about money (family income ~5000 RMB/month, two kids in school).\n- You have heard rumors about insulin being addictive and Chinese medicine curing diabetes.\n\nINFORMATION SHARING RULES:\n{trust_level_instruction}\n\nSPECIFIC SYMPTOMS YOU HAVE (share if asked, some you've already mentioned):\n{symptom_details}\n\nSYMPTOMS YOU DO NOT HAVE (if asked, say no):\n{hidden_symptoms_if_any}\n\nYOUR WIFE is present and will speak up at certain moments. She is worried about costs and whether the children will get this disease.\n\nEMOTIONAL STATE: {emotional_state}\n- Respond accordingly. If worried, you may ask more questions. If withdrawn, you give shorter answers.\n\nCRITICAL RULES:\n1. NEVER reveal information the doctor hasn't asked about (except what you already volunteered).\n2. NEVER use medical terminology.\n3. Be consistent - don't contradict what you've already said.\n4. If you don't know something, say 'I don't know' or 'I'm not sure'.\n5. Express your concerns naturally through conversation, not as a list."
+      }
     },
     "tool_system": {
       "_note": "Replaces deterministic tools with realistic simulation. Tool behavior is controlled by tool_behavior profile.",
@@ -1067,6 +1125,877 @@
           }
         },
         "total_consultation_budget_hint": "For this patient (income 5000 RMB, 60-70% insurance), monthly medication budget should ideally stay under 50 RMB out-of-pocket"
+      },
+      "openai_function_schemas": {
+        "_note": "All tools in OpenAI function calling format. Compatible with OpenAI API, Anthropic tool_use, and other function-calling frameworks.",
+        "tools": [
+          {
+            "name": "get_patient_info",
+            "description": "Query patient's basic information through medical record number (MRN), including name, age, gender, past diagnoses, chief complaint, current medications, etc.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mrn": {
+                  "type": "string",
+                  "description": "Medical record number (string)"
+                }
+              },
+              "required": [
+                "mrn"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "patient_id": {
+                  "type": "string",
+                  "description": "Patient ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name"
+                },
+                "age": {
+                  "type": "string",
+                  "description": "Age"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Gender"
+                },
+                "diagnoses": {
+                  "type": "string",
+                  "description": "Past diagnoses"
+                },
+                "chief_complaint": {
+                  "type": "string",
+                  "description": "Chief complaint"
+                },
+                "medications": {
+                  "type": "string",
+                  "description": "Current medication list"
+                }
+              }
+            },
+            "category": "suggestion"
+          },
+          {
+            "name": "set_user_info",
+            "description": "Initialize or update user's basic information",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Patient name"
+                },
+                "mrn": {
+                  "type": "string",
+                  "description": "Medical record number"
+                },
+                "age": {
+                  "type": "string",
+                  "description": "Age"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Gender"
+                }
+              },
+              "required": [
+                "name",
+                "mrn",
+                "age",
+                "gender"
+              ]
+            },
+            "category": "suggestion"
+          },
+          {
+            "name": "set_medical_persona",
+            "description": "Initialize the medical persona including patient profile, information sharing strategy, and response style for the role-play simulation",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "patient_profile": {
+                  "type": "object",
+                  "description": "{'age': 'Age (integer)', 'gender': 'Gender (string)', 'symptoms': 'List of symptoms (array of strings)', 'duration': 'Symptom duration (string)', 'severity': 'Severity level (string)', 'family_history': 'Family history list (array of strings)'}"
+                },
+                "information_sharing_strategy": {
+                  "type": "object",
+                  "description": "{'volunteer': 'Information volunteered without asking (array of strings)', 'ask_only': 'Information shared only when asked (array of strings)'}"
+                },
+                "response_style": {
+                  "type": "object",
+                  "description": "{'honest': 'Whether patient is honest (boolean)', 'direct': 'Whether patient is direct (boolean)', 'limited_medical_knowledge': 'Whether patient has limited medical knowledge (boolean)'}"
+                }
+              },
+              "required": []
+            },
+            "category": "suggestion"
+          },
+          {
+            "name": "order_lab_tests",
+            "description": "Order specified laboratory tests for the patient, such as blood glucose, HbA1c, thyroid function, kidney function, liver function, lipids, etc.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "test_names": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "fasting_glucose",
+                      "hba1c",
+                      "thyroid_function",
+                      "kidney_function",
+                      "electrolytes",
+                      "liver_function",
+                      "lipid_profile",
+                      "uric_acid",
+                      "urine_microalbumin",
+                      "cbc",
+                      "urinalysis"
+                    ]
+                  },
+                  "description": "List of test names to order (array of strings)"
+                },
+                "urgency": {
+                  "type": "string",
+                  "enum": [
+                    "routine",
+                    "urgent",
+                    "stat"
+                  ],
+                  "description": "Urgency level",
+                  "default": "routine"
+                }
+              },
+              "required": [
+                "test_names"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string",
+                  "description": "Lab test order ID"
+                },
+                "tests_ordered": {
+                  "type": "string",
+                  "description": "List of tests ordered"
+                },
+                "estimated_completion_time": {
+                  "type": "string",
+                  "description": "Estimated time for results"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "get_lab_results",
+            "description": "Retrieve completed laboratory test results by order ID or patient MRN",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string",
+                  "description": "Lab test order ID (optional - can use mrn instead)"
+                },
+                "mrn": {
+                  "type": "string",
+                  "description": "Medical record number (optional - can use order_id instead)"
+                }
+              },
+              "required": [],
+              "anyOf": [
+                {
+                  "required": [
+                    "order_id"
+                  ]
+                },
+                {
+                  "required": [
+                    "mrn"
+                  ]
+                }
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "string",
+                  "description": "Dictionary of test names to result values"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Completion status (partial/complete)"
+                },
+                "abnormal_flags": {
+                  "type": "string",
+                  "description": "List of flagged abnormal results"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "interpret_blood_glucose",
+            "description": "Assess blood glucose status (hypoglycemia, normal, prediabetes, diabetes) based on glucose value and fasting status, and provide recommendations",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "glucose": {
+                  "type": "number",
+                  "description": "Blood glucose value in mmol/L"
+                },
+                "fasting": {
+                  "type": "boolean",
+                  "description": "Whether measurement was fasting"
+                }
+              },
+              "required": [
+                "glucose",
+                "fasting"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "glucose": {
+                  "type": "string",
+                  "description": "Blood glucose value"
+                },
+                "fasting": {
+                  "type": "string",
+                  "description": "Whether fasting"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Classification (hypoglycemia/normal/prediabetes/diabetes)"
+                },
+                "recommendation": {
+                  "type": "string",
+                  "description": "Recommendation"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "interpret_hba1c",
+            "description": "Assess long-term blood glucose control status and diabetes diagnosis based on HbA1c value",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "hba1c": {
+                  "type": "number",
+                  "description": "HbA1c value as percentage"
+                }
+              },
+              "required": [
+                "hba1c"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "hba1c": {
+                  "type": "string",
+                  "description": "HbA1c value"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Classification (normal/prediabetes/diabetes)"
+                },
+                "recommendation": {
+                  "type": "string",
+                  "description": "Recommendation"
+                },
+                "estimated_average_glucose": {
+                  "type": "string",
+                  "description": "Estimated average glucose"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "interpret_thyroid",
+            "description": "Assess thyroid function status based on TSH and T4 values, used for differential diagnosis",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tsh": {
+                  "type": "string",
+                  "description": "TSH (mIU/L)"
+                },
+                "t4": {
+                  "type": "string",
+                  "description": "Thyroxine (optional, mcg/dL)"
+                }
+              },
+              "required": [
+                "tsh"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "tsh": {
+                  "type": "string",
+                  "description": "TSH value"
+                },
+                "t4": {
+                  "type": "string",
+                  "description": "T4 value"
+                },
+                "condition": {
+                  "type": "string",
+                  "description": "Thyroid function status"
+                },
+                "recommendation": {
+                  "type": "string",
+                  "description": "Recommendation"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "calculate_bmi",
+            "description": "Calculate BMI based on height and weight, assess obesity level",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "weight": {
+                  "type": "string",
+                  "description": "Weight (kg)"
+                },
+                "height": {
+                  "type": "string",
+                  "description": "Height (m)"
+                }
+              },
+              "required": [
+                "weight",
+                "height"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "bmi": {
+                  "type": "string",
+                  "description": "BMI value"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Classification (underweight/normal/overweight/obese)"
+                },
+                "recommendation": {
+                  "type": "string",
+                  "description": "Recommendation"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "check_diabetes_complications",
+            "description": "Assess whether patient has diabetes complications (nephropathy, retinopathy, neuropathy, etc.)",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "patient_symptoms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "List of patient symptoms"
+                },
+                "lab_results": {
+                  "type": "string",
+                  "description": "Laboratory test results"
+                }
+              },
+              "required": [
+                "lab_results"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "complications": {
+                  "type": "string",
+                  "description": "List of discovered complications"
+                },
+                "screening_recommendations": {
+                  "type": "string",
+                  "description": "Screening recommendations"
+                },
+                "referral_recommendations": {
+                  "type": "string",
+                  "description": "Referral recommendations"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "assess_kidney_function",
+            "description": "Assess kidney function stage based on serum creatinine, eGFR, urine protein, etc.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "creatinine": {
+                  "type": "string",
+                  "description": "Serum creatinine (μmol/L)"
+                },
+                "egfr": {
+                  "type": "string",
+                  "description": "Glomerular filtration rate (ml/min/1.73m²)"
+                },
+                "urine_albumin": {
+                  "type": "string",
+                  "description": "Urine albumin (optional)"
+                }
+              },
+              "required": [
+                "creatinine",
+                "egfr"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "ckd_stage": {
+                  "type": "string",
+                  "description": "CKD stage"
+                },
+                "medication_adjustment_needed": {
+                  "type": "string",
+                  "description": "Whether medication adjustment is needed"
+                },
+                "recommendations": {
+                  "type": "string",
+                  "description": "Recommendations"
+                }
+              }
+            },
+            "category": "diagnosis"
+          },
+          {
+            "name": "get_medication_dosage",
+            "description": "Get appropriate medication dosage recommendations based on patient conditions (age, weight, kidney function, etc.)",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "medication": {
+                  "type": "string",
+                  "description": "Medication name"
+                },
+                "patient_characteristics": {
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "integer"
+                    },
+                    "weight": {
+                      "type": "number"
+                    },
+                    "kidney_function": {
+                      "type": "number",
+                      "description": "eGFR value"
+                    },
+                    "liver_function": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "medication"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "medication": {
+                  "type": "string",
+                  "description": "Medication name"
+                },
+                "recommended_dosage": {
+                  "type": "string",
+                  "description": "Recommended dosage"
+                },
+                "dosing_frequency": {
+                  "type": "string",
+                  "description": "Dosing frequency"
+                },
+                "contraindications": {
+                  "type": "string",
+                  "description": "Contraindications"
+                },
+                "cautions": {
+                  "type": "string",
+                  "description": "Precautions"
+                },
+                "alternatives": {
+                  "type": "string",
+                  "description": "Alternative medications"
+                },
+                "cost_and_insurance": {
+                  "type": "object",
+                  "description": "{'estimated_monthly_cost_rmb': 'Estimated monthly retail cost in RMB', 'insurance_coverage': 'Whether covered by employee medical insurance', 'estimated_out_of_pocket_rmb': 'Estimated monthly out-of-pocket cost after insurance', 'generic_available': 'Whether generic version is available'}"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "check_drug_interactions",
+            "description": "Check for interactions between newly prescribed medication and patient's current medications",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "new_medication": {
+                  "type": "string",
+                  "description": "Newly prescribed medication"
+                },
+                "current_medications": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Current medication list"
+                }
+              },
+              "required": [
+                "new_medication"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "overall_safety": {
+                  "type": "string",
+                  "description": "One of: safe, use_with_caution, avoid_combination"
+                },
+                "recommendations": {
+                  "type": "string",
+                  "description": "Specific clinical recommendations based on interaction severity"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "get_treatment_guidelines",
+            "description": "Query clinical practice guidelines and recommended treatment regimens for diabetes",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "condition": {
+                  "type": "string",
+                  "description": "Disease name (e.g., Type 2 Diabetes)"
+                },
+                "patient_profile": {
+                  "type": "object",
+                  "description": "{'age': 'Age', 'comorbidities': 'Comorbidities', 'kidney_function': 'Kidney function'}"
+                }
+              },
+              "required": [
+                "condition"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "guideline_source": {
+                  "type": "string",
+                  "description": "Guideline source"
+                },
+                "recommendations": {
+                  "type": "string",
+                  "description": "Treatment recommendations"
+                },
+                "medication_choices": {
+                  "type": "string",
+                  "description": "Medication choice recommendations"
+                },
+                "targets": {
+                  "type": "string",
+                  "description": "Treatment targets (e.g., HbA1c targets)"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "prescribe_medication",
+            "description": "Formally prescribe medication to the patient with dosage, frequency, and duration",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "medication": {
+                  "type": "string",
+                  "description": "Medication name"
+                },
+                "dosage": {
+                  "type": "string",
+                  "description": "Dosage (e.g., 500mg)"
+                },
+                "frequency": {
+                  "type": "string",
+                  "enum": [
+                    "qd",
+                    "bid",
+                    "tid",
+                    "qid"
+                  ],
+                  "description": "Dosing frequency"
+                },
+                "duration": {
+                  "type": "string",
+                  "description": "Duration (e.g., ongoing)"
+                },
+                "notes": {
+                  "type": "string",
+                  "description": "Special instructions (optional)"
+                }
+              },
+              "required": [
+                "medication",
+                "dosage",
+                "frequency",
+                "duration"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "prescription_id": {
+                  "type": "string",
+                  "description": "Prescription ID"
+                },
+                "medication": {
+                  "type": "string",
+                  "description": "Medication name"
+                },
+                "dosage": {
+                  "type": "string",
+                  "description": "Prescribed dosage"
+                },
+                "frequency": {
+                  "type": "string",
+                  "description": "Prescribed frequency"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Prescription status"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "provide_patient_education",
+            "description": "Deliver structured patient education on disease management, lifestyle modifications, and self-monitoring",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "topic": {
+                  "type": "string",
+                  "description": "Education topic (e.g., diabetes_management, diet, exercise)"
+                },
+                "education_level": {
+                  "type": "string",
+                  "enum": [
+                    "elementary",
+                    "middle_school",
+                    "high_school",
+                    "professional"
+                  ],
+                  "default": "elementary"
+                },
+                "language": {
+                  "type": "string",
+                  "enum": [
+                    "simple",
+                    "professional"
+                  ],
+                  "default": "simple"
+                }
+              },
+              "required": [
+                "topic"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "education_provided": {
+                  "type": "string",
+                  "description": "List of topics covered"
+                },
+                "patient_understanding_check": {
+                  "type": "string",
+                  "description": "Whether patient comprehension was verified"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "schedule_followup",
+            "description": "Schedule a follow-up appointment with specific monitoring targets and timeline",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "timeframe": {
+                  "type": "string",
+                  "description": "Follow-up timeframe (e.g., '2-4 weeks')"
+                },
+                "monitoring_targets": {
+                  "type": "string",
+                  "description": "What to monitor at follow-up (e.g., HbA1c, kidney function)"
+                },
+                "referrals": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Specialist referrals needed (optional)"
+                }
+              },
+              "required": [
+                "timeframe"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "appointment_id": {
+                  "type": "string",
+                  "description": "Appointment ID"
+                },
+                "scheduled_date_range": {
+                  "type": "string",
+                  "description": "Scheduled date range"
+                },
+                "monitoring_plan": {
+                  "type": "string",
+                  "description": "Monitoring plan"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "refer_to_specialist",
+            "description": "Refer patient to a specialist for evaluation of specific complications or conditions",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "specialty": {
+                  "type": "string",
+                  "enum": [
+                    "ophthalmology",
+                    "neurology",
+                    "nephrology",
+                    "cardiology",
+                    "endocrinology",
+                    "nutrition",
+                    "psychology"
+                  ],
+                  "description": "Specialty to refer to"
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for referral"
+                },
+                "urgency": {
+                  "type": "string",
+                  "enum": [
+                    "routine",
+                    "urgent"
+                  ],
+                  "default": "routine"
+                }
+              },
+              "required": [
+                "specialty",
+                "reason"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "referral_id": {
+                  "type": "string",
+                  "description": "Referral ID"
+                },
+                "specialty": {
+                  "type": "string",
+                  "description": "Referred specialty"
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Referral reason"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Referral status"
+                }
+              }
+            },
+            "category": "treatment"
+          },
+          {
+            "name": "transfer_to_human_agents",
+            "description": "Escalate the consultation to a human physician when the AI Agent determines the case is beyond its capabilities. FORBIDDEN for this task.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for transfer (string)"
+                },
+                "urgency": {
+                  "type": "string",
+                  "description": "Urgency level (string)"
+                }
+              },
+              "required": [
+                "reason",
+                "urgency"
+              ]
+            },
+            "returns": {
+              "type": "object",
+              "properties": {
+                "transfer_status": {
+                  "type": "string",
+                  "description": "Transfer status"
+                },
+                "assigned_physician": {
+                  "type": "string",
+                  "description": "Assigned physician info"
+                }
+              }
+            },
+            "category": "utility"
+          }
+        ],
+        "usage_example": {
+          "openai": "response = client.chat.completions.create(model='gpt-4', messages=messages, tools=tools_openai)",
+          "anthropic": "response = client.messages.create(model='claude-sonnet-4-20250514', messages=messages, tools=tools_openai)",
+          "note": "The 'returns' field is non-standard but useful for simulation. Strip it before sending to API."
+        }
       }
     },
     "family_simulator": {
@@ -2054,6 +2983,67 @@
           "fluency bias: LLM judge may favor fluent but incorrect responses over halting but correct ones.",
           "self-preference bias: LLM judge may favor responses from same model family. Test with cross-model pairs."
         ]
+      }
+    },
+    "pass_at_k": {
+      "_note": "Standardized pass@k metric from tau-bench. Enables fair comparison across agents with different attempt counts.",
+      "formula": {
+        "definition": "pass@k = 1 - E_task[ C(n-c, k) / C(n, k) ]",
+        "variables": {
+          "n": "Total number of attempts (runs) for a task",
+          "c": "Number of correct (passing) attempts",
+          "k": "Sample size (typically k=1, k=5, k=10)",
+          "C(n, k)": "Binomial coefficient 'n choose k'"
+        },
+        "intuition": "Probability that at least k out of n sampled attempts pass. Higher pass@k = more reliable agent."
+      },
+      "computation": {
+        "python_implementation": "from scipy.special import comb\nimport numpy as np\n\ndef pass_at_k(n, c, k):\n    \"\"\"Compute pass@k metric.\n    n: total attempts, c: correct attempts, k: sample size\n    \"\"\"\n    if n - c < k:\n        return 1.0\n    return 1.0 - comb(n - c, k, exact=True) / comb(n, k, exact=True)\n\ndef pass_at_k_aggregated(results_per_task, k=1):\n    \"\"\"results_per_task: dict of {task_id: [bool, bool, ...]}\n    Returns mean pass@k across all tasks.\n    \"\"\"\n    scores = []\n    for task_id, attempts in results_per_task.items():\n        n = len(attempts)\n        c = sum(attempts)\n        scores.append(pass_at_k(n, c, k))\n    return np.mean(scores)",
+        "note": "Use scipy.special.comb for numerical stability with large n."
+      },
+      "application_to_this_benchmark": {
+        "task_definition": "One task = one complete consultation run (from greeting to follow-up scheduling)",
+        "passing_criteria": "A run passes if: composite_score >= passing_threshold AND no critical safety violations",
+        "recommended_k_values": {
+          "pass_at_1": "Single-attempt reliability. What % of first attempts pass? Most important metric.",
+          "pass_at_5": "If you could retry 5 times, what's the probability at least 1 passes? Measures consistency.",
+          "pass_at_10": "Convergence probability. If agent keeps retrying, does it eventually succeed?"
+        },
+        "minimum_reporting": "Must report pass@1. Recommended: report pass@1, pass@5, pass@10.",
+        "example": {
+          "description": "Agent runs T2DM_001 with 10 different seeds",
+          "results": [
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "n": 10,
+          "c": 8,
+          "pass_at_1": 0.8,
+          "pass_at_5": "1 - C(2,5)/C(10,5) = 1 - 0/252 = 1.0",
+          "pass_at_10": "1 - C(2,10)/C(10,10) = not applicable (k > n-c)",
+          "interpretation": "80% single-attempt pass rate. With 5 retries, virtually guaranteed to pass."
+        }
+      },
+      "cross_mode_reporting": {
+        "description": "Report pass@k for EACH run mode separately, plus overall.",
+        "format": {
+          "agent_name": "string",
+          "pass_at_1_standard": "float",
+          "pass_at_1_realistic": "float",
+          "pass_at_1_adversarial": "float",
+          "pass_at_1_overall": "float (weighted average across modes)",
+          "pass_at_5_overall": "float",
+          "score_A_mean": "float",
+          "score_B_mean": "float"
+        }
       }
     }
   },
@@ -3374,8 +4364,32 @@
   },
   "version_changelog": {
     "_note": "Structured changelog for tracking benchmark evolution. Replaces free-form modification_notes.",
-    "current_version": "v4.2",
+    "current_version": "v4.3",
     "versions": [
+      {
+        "version": "v4.3",
+        "date": "2026-03-29",
+        "focus": "tau-bench alignment: pass@k, tool integration, executable simulator, OpenAI schema",
+        "changes": [
+          "Added pass@k metric with formula, scipy implementation, and cross-mode reporting format",
+          "Integrated tool_challenge_modes into run_config.modes: standard(perfect tools), realistic(latency+partial), adversarial(fail+delay+contradict)",
+          "Added patient_simulator.state_transition_rules: 6 state transitions with trigger/effect/condition + trust_level effects",
+          "Added patient_simulator.system_prompt_template: complete LLM system prompt with {placeholder} substitution from run_manifest",
+          "Converted all 18 tools to OpenAI function calling schema with required fields, enum constraints, and parameter types"
+        ]
+      },
+      {
+        "version": "v4.3",
+        "date": "2026-03-29",
+        "focus": "tau-bench alignment: pass@k, tool integration, executable simulator, OpenAI schema",
+        "changes": [
+          "Added pass@k metric with formula, scipy implementation, and cross-mode reporting format",
+          "Integrated tool_challenge_modes into run_config.modes: standard(perfect tools), realistic(latency+partial), adversarial(fail+delay+contradict)",
+          "Added patient_simulator.state_transition_rules: 6 state transitions with trigger/effect/condition + trust_level effects",
+          "Added patient_simulator.system_prompt_template: complete LLM system prompt with {placeholder} substitution from run_manifest",
+          "Converted all 18 tools to OpenAI function calling schema with required fields, enum constraints, and parameter types"
+        ]
+      },
       {
         "version": "v4.2",
         "date": "2026-03-29",
@@ -3529,7 +4543,9 @@
         "noise_enabled": false,
         "tool_failure_rate": 0.0,
         "lab_variance": false,
-        "use_case": "Baseline comparison between agents"
+        "use_case": "Baseline comparison between agents",
+        "tool_latency": false,
+        "partial_results": false
       },
       "realistic": {
         "description": "Medium difficulty. Some optional symptoms omitted, noise may appear, minor lab variance.",
@@ -3538,7 +4554,10 @@
         "noise_p_threshold": 0.3,
         "tool_failure_rate": 0.05,
         "lab_variance": true,
-        "use_case": "Main evaluation mode"
+        "use_case": "Main evaluation mode",
+        "tool_latency": true,
+        "partial_results": true,
+        "lab_result_delay_minutes": 30
       },
       "adversarial": {
         "description": "Hard. Many symptoms omitted, high noise, tool failures likely, patient more resistant.",
@@ -3548,7 +4567,31 @@
         "tool_failure_rate": 0.15,
         "lab_variance": true,
         "patient_resistance_boost": 0.3,
-        "use_case": "Stress-testing robust agents"
+        "use_case": "Stress-testing robust agents",
+        "tool_latency": true,
+        "partial_results": true,
+        "lab_result_delay_minutes": 60,
+        "contradictory_results": true
+      },
+      "_activation_summary": {
+        "standard": {
+          "symptoms": "most",
+          "noise": false,
+          "tools": "perfect",
+          "cost": "hidden"
+        },
+        "realistic": {
+          "symptoms": "variable",
+          "noise": true,
+          "tools": "latency+partial",
+          "cost": "shown"
+        },
+        "adversarial": {
+          "symptoms": "few",
+          "noise": true,
+          "tools": "fail+delay+contradict",
+          "cost": "shown+pressure"
+        }
       }
     },
     "instantiation_algorithm": {
