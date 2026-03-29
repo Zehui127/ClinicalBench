@@ -11,7 +11,7 @@
   "task_type": "initial_diagnosis",
   "difficulty": "high",
   "estimated_duration_minutes": 25,
-  "version": "v3.0",
+  "version": "v3.1",
   "description": {
     "purpose": "Initial diagnosis of Type 2 Diabetes - 48-year-old male, elementary education, presenting with 'three polys and one loss' symptoms",
     "clinical_scenario": "Patient presents with thirst, polyuria, and weight loss for 1 month. Physician needs to conduct history taking, order tests, diagnose, and develop treatment plan",
@@ -241,7 +241,11 @@
           "also_triggers": [
             "wife_economic_pressure"
           ],
-          "fired_flag": "cost_inquiry_fired"
+          "fired_flag": "cost_inquiry_fired",
+          "also_triggers_behavior": {
+            "delay_turns": 1,
+            "description": "After wife asks about cost, wife_economic_pressure fires on the next assistant turn if agent responds about cost/price/reimbursement. If agent does not address cost, wife_economic_pressure fires after 2 assistant turns regardless."
+          }
         },
         {
           "rule_id": "wife_genetic_concern",
@@ -319,6 +323,29 @@
           "wife_supplement_inquiry"
         ],
         "max_fallback_interjections": 2
+      },
+      "_priority_and_sequencing": {
+        "_note": "Defines how multiple interjection rules interact, especially for also_triggers chains.",
+        "also_triggers_behavior": {
+          "description": "When a rule fires and has also_triggers, the triggered rules do NOT fire simultaneously. They are queued and fire after a delay.",
+          "delay_between_triggered_rules": 1,
+          "delay_unit": "assistant turns",
+          "example": "If wife_cost_inquiry fires on turn T, wife_economic_pressure fires on the next assistant turn after the agent responds to the cost question"
+        },
+        "priority_order": [
+          "wife_genetic_concern",
+          "wife_cost_inquiry",
+          "wife_economic_pressure",
+          "wife_diet_management",
+          "wife_supplement_inquiry",
+          "wife_supervision_pledge"
+        ],
+        "mutual_exclusion": "If multiple rules would fire on the same turn, only the highest-priority rule fires. Others are queued for subsequent turns.",
+        "fallback_interaction_with_triggers": "If agent triggers a keyword at turn 19 (before fallback threshold of 20), the keyword trigger takes precedence over fallback. Fallback only applies to rules that have NEVER been triggered by turn 20.",
+        "edge_case_handling": {
+          "agent_never_mentions_medication": "If agent never discusses medication, wife_cost_inquiry remains unfired. At turn 20 fallback, it fires. Agent response scored independently: economic/social_context for addressing cost, treatment for prescribing quality.",
+          "multiple_unfired_at_fallback": "At most 2 fallback interjections fire, in priority order from fallback_rules.priority_order."
+        }
       }
     }
   },
@@ -1194,14 +1221,14 @@
       },
       "treatment_requirements": {
         "_sub_weights": {
-          "_note": "Sub-dimension weights used by scoring_formula.treatment_appropriateness. These are the authoritative weights; scoring_formula references these, not hardcoded values.",
-          "medication_appropriateness": 0.25,
+          "_note": "Sub-dimension weights for treatment_appropriateness. Economic/family alignment are also scored under social_context_management; here they assess treatment-plan-level integration only.",
+          "medication_appropriateness": 0.3,
           "patient_misconception_management": 0.25,
           "patient_education": 0.15,
           "followup_plan": 0.1,
           "comorbidity_assessment": 0.1,
-          "economic_consideration_management": 0.08,
-          "family_involvement_management": 0.07
+          "economic_treatment_alignment": 0.05,
+          "family_treatment_alignment": 0.05
         },
         "comorbidity_assessment": {
           "required": true,
@@ -1487,7 +1514,50 @@
               "action": "adjust_medication_if_needed"
             }
           ],
-          "weight": 0.08
+          "weight": 0.08,
+          "sensitive_inquiry_evaluation": {
+            "_note": "Evaluates quality of sensitive symptom inquiry (sexual dysfunction). Requires specific communication techniques.",
+            "applicable_to": [
+              "sexual_dysfunction"
+            ],
+            "required_techniques": {
+              "privacy_assurance": {
+                "description": "Agent assures patient of confidentiality before asking sensitive questions",
+                "example_phrases": [
+                  "just between us",
+                  "this is confidential",
+                  "this is private",
+                  "between doctor and patient"
+                ],
+                "scoring": "0.33 if any example phrase or equivalent present before or during the sensitive question"
+              },
+              "indirect_wording": {
+                "description": "Agent uses indirect or euphemistic wording rather than blunt clinical terms",
+                "example_phrases": [
+                  "changes in... sexual function",
+                  "personal question",
+                  "intimate matters",
+                  "any changes in that area"
+                ],
+                "forbidden_phrases": [
+                  "do you have erectile dysfunction",
+                  "impotence",
+                  "can you get an erection"
+                ],
+                "scoring": "0.34 if uses indirect wording; 0 if uses forbidden phrases or overly blunt terminology"
+              },
+              "permission_seeking": {
+                "description": "Agent asks for permission or signals the question is coming before asking",
+                "example_phrases": [
+                  "one more personal question",
+                  "this might feel uncomfortable but",
+                  "is it OK if I ask about"
+                ],
+                "scoring": "0.33 if any example phrase or equivalent present"
+              }
+            },
+            "composite_scoring": "sum of technique scores (0-1.0). 1.0 = all three techniques; 0.67 = two of three; 0.33 = one; 0 = none or uses forbidden phrases"
+          }
         }
       },
       "safety_requirements": {
@@ -1905,7 +1975,8 @@
                   "check_after": "get_lab_results call",
                   "within_turns": 3,
                   "penalty_missing": -0.1,
-                  "description": "Agent must mention at minimum glucose 13.2, HbA1c 9.8, and eGFR 75 in subsequent utterances"
+                  "description": "Agent must mention at minimum glucose 13.2, HbA1c 9.8, and eGFR 75 in subsequent utterances",
+                  "_synonym_matching_note": "For each value in required_values, also check corresponding synonym list in _synonym_libraries. Any match passes."
                 },
                 {
                   "rule": "must_acknowledge_kidney_abnormality",
@@ -1917,9 +1988,63 @@
                   ],
                   "check_method": "agent_utterance_contains_any",
                   "penalty_missing": -0.05,
-                  "description": "Agent must acknowledge kidney function is mildly abnormal"
+                  "description": "Agent must acknowledge kidney function is mildly abnormal",
+                  "_synonym_matching_note": "required_keywords already include common variants. _synonym_libraries.kidney_terms provides additional accepted terms."
                 }
-              ]
+              ],
+              "_synonym_libraries": {
+                "_note": "Synonym/variant mappings for robust keyword matching. When checking required_values or required_keywords, evaluators should match any entry in the synonym list (case-insensitive substring).",
+                "glucose_13_2": [
+                  "13.2",
+                  "thirteen point two",
+                  "13 point 2",
+                  "around 13",
+                  "over 13"
+                ],
+                "hba1c_9_8": [
+                  "9.8",
+                  "nine point eight",
+                  "9 point 8",
+                  "nearly 10",
+                  "close to 10"
+                ],
+                "egfr_75": [
+                  "eGFR 75",
+                  "eGFR is 75",
+                  "kidney filtration rate of 75",
+                  "GFR of 75",
+                  "filtration rate 75",
+                  "renal function 75",
+                  "75 milliliters"
+                ],
+                "kidney_terms": [
+                  "kidney",
+                  "eGFR",
+                  "renal",
+                  "creatinine",
+                  "kidney function",
+                  "filtration rate"
+                ],
+                "metformin_terms": [
+                  "metformin",
+                  "dimethylbiguanide",
+                  "glucophage",
+                  "sugar-lowering pill"
+                ],
+                "diabetes_terms": [
+                  "diabetes",
+                  "blood sugar disease",
+                  "high blood sugar",
+                  "sugar disease",
+                  "diabetic"
+                ],
+                "insulin_terms": [
+                  "insulin",
+                  "injection",
+                  "injectable",
+                  "shots"
+                ]
+              }
             },
             "assess_kidney_function": {
               "expected_parameters": {
@@ -2041,19 +2166,19 @@
       "scoring": {
         "total_score": 100,
         "weights": {
-          "information_gathering": 10,
-          "diagnosis_accuracy": 16,
+          "information_gathering": 9,
+          "diagnosis_accuracy": 15,
           "comorbidity_assessment": 8,
           "additional_symptoms_screening": 7,
-          "treatment_appropriateness": 15,
+          "treatment_appropriateness": 14,
           "misconception_management": 10,
-          "economic_consideration": 7,
-          "family_involvement": 6,
+          "social_context_management": 12,
+          "clinical_reasoning": 4,
           "tool_usage": 7,
           "safety_compliance": 8,
           "communication_quality": 6
         },
-        "weight_normalization_note": "Original weights summed to 120; normalized proportionally to sum to 100",
+        "weight_normalization_note": "v3.1: merged economic_consideration(7)+family_involvement(6) into social_context_management(12), added clinical_reasoning(4). Adjusted information_gathering(-1), diagnosis_accuracy(-1), treatment_appropriateness(-1). Sum=100.",
         "scoring_formula": {
           "_note": "Explicit formula for computing each dimension score and the total score. All sub-dimension weights are relative within their parent dimension. Final dimension scores are multiplied by scoring.weights to produce the 100-point total.",
           "information_gathering": {
@@ -2118,17 +2243,55 @@
             "max_points": 10,
             "example": "If 3 of 4 misconceptions fully corrected, 1 partially: (3*1.0 + 1*0.5) / 4 * 10 = 8.75 points"
           },
-          "economic_consideration": {
-            "formula": "(economic_concerns_addressed / total_concerns) * scoring.weights.economic_consideration",
-            "sub_dimension_source": "economic_consideration_management.must_address",
-            "scoring_method": "Each concern scored 0-1 based on required_response_keywords presence and forbidden_response_keywords absence",
-            "max_points": 7
+          "social_context_management": {
+            "formula": "(economic_score * 0.50 + family_score * 0.35 + integration_score * 0.15) * scoring.weights.social_context_management",
+            "sub_dimensions": {
+              "economic_score": {
+                "description": "How well agent addresses economic concerns (cost, insurance, affordability)",
+                "source": "treatment_requirements.economic_consideration_management.must_address",
+                "scoring_method": "Each concern scored 0-1 based on required_response_keywords presence and forbidden_response_keywords absence",
+                "weight": 0.5
+              },
+              "family_score": {
+                "description": "How well agent addresses family concerns (genetics, diet, supplements) and leverages family support",
+                "source": "treatment_requirements.family_involvement_management.must_address_family_concerns",
+                "scoring_method": "Each family concern scored 0-1 based on required_response_keywords and forbidden_response_keywords",
+                "weight": 0.35
+              },
+              "integration_score": {
+                "description": "How well agent proactively integrates economic/family context into the treatment plan (not just reactive responses)",
+                "scoring_method": "0.5 if agent mentions cost/insurance proactively without being asked; 0.5 if agent involves family in treatment plan",
+                "weight": 0.15
+              }
+            },
+            "max_points": 12
           },
-          "family_involvement": {
-            "formula": "(family_concerns_addressed / total_concerns) * scoring.weights.family_involvement",
-            "sub_dimension_source": "family_involvement_management.must_address_family_concerns",
-            "scoring_method": "Each family concern scored 0-1 based on required_response_keywords presence and forbidden_response_keywords absence",
-            "max_points": 6
+          "clinical_reasoning": {
+            "formula": "(differential_explanation * 0.35 + test_justification * 0.30 + treatment_rationale * 0.20 + patient_tailored_reasoning * 0.15) * scoring.weights.clinical_reasoning",
+            "sub_dimensions": {
+              "differential_explanation": {
+                "description": "Agent explains to patient WHY certain diagnoses were considered and ruled out (e.g., why thyroid was checked)",
+                "scoring_method": "1.0 if mentions at least one differential and explains exclusion; 0.5 if mentions differential without explaining exclusion; 0 if never mentions",
+                "weight": 0.35
+              },
+              "test_justification": {
+                "description": "Agent explains WHY specific tests were ordered (e.g., checking kidneys because diabetes can affect them)",
+                "scoring_method": "1.0 if explains rationale for key tests; 0.5 if explains for some; 0 if orders without explanation",
+                "weight": 0.3
+              },
+              "treatment_rationale": {
+                "description": "Agent explains WHY the chosen treatment (metformin first-line, dose adjustment) rather than just prescribing",
+                "scoring_method": "1.0 if explains treatment choice reasoning; 0.5 if partially; 0 if just prescribes",
+                "weight": 0.2
+              },
+              "patient_tailored_reasoning": {
+                "description": "Agent adapts clinical reasoning explanation to patient education level (analogies, no jargon)",
+                "scoring_method": "0.5 if uses analogy for reasoning; 0.5 if avoids jargon in explanations",
+                "weight": 0.15
+              }
+            },
+            "max_points": 4,
+            "example_score": "If agent explains differential (0.35) + test rationale (0.30) + treatment rationale (0.20) + uses analogy (0.075) = 0.925 * 4 = 3.7 points"
           },
           "tool_usage": {
             "formula": "(required_tools_score * 0.4 + tool_selection_score * 0.3 + parameter_correctness * 0.2 + timing_score * 0.1) * scoring.weights.tool_usage - deductions + bonuses",
@@ -2914,6 +3077,7 @@
   "created_date": "2025-03-27",
   "last_modified_date": "2025-03-27",
   "modification_notes": [
+    "[v3.1] Critical fixes: synonym libraries for keyword matching, tool call format specification, wife interjection priority/sequencing, dimension restructuring (social_context_management + clinical_reasoning), sensitive inquiry evaluation, cultural context notes",
     "[v3.0] Major upgrade - increased real-world complexity",
     "",
     "[New complication combinations]",
@@ -2974,5 +3138,83 @@
     "Communication skills with family participation",
     "Identification and correction of multiple misconceptions",
     "Correct use of AI Agent tool calling (consultation + diagnosis + treatment tools)"
-  ]
+  ],
+  "tool_call_format_specification": {
+    "_note": "Defines the canonical format for tool calls in dialogue entries and evaluation.",
+    "format_definition": {
+      "tool_call_field": "JSON object embedded in the dialogue entry, NOT a string",
+      "compatibility": "Aligned with OpenAI function calling format (tool_calls array with function name and arguments)",
+      "content_field_behavior": "content may be empty string when tool_call is present, or contain natural language that accompanies the tool call",
+      "system_role": "Returns tool execution results; excluded from turn counts"
+    },
+    "dialogue_entry_schema": {
+      "role": "One of: assistant, user, family_member, system",
+      "content": "String. Natural language text. May be empty when a tool_call is present.",
+      "tool_call": {
+        "tool": "String. Name of the tool being called.",
+        "arguments": "Object. Key-value parameters matching the tool parameter schema."
+      },
+      "trigger_rule": "String (optional). Only for family_member entries. References rule_id from family_interjection_rules."
+    },
+    "parallel_tool_calls": {
+      "supported": true,
+      "format": "Multiple tool_call objects may appear in a single assistant turn",
+      "example": "interpret_blood_glucose and interpret_hba1c can be called in parallel in the same turn"
+    },
+    "tool_result_format": {
+      "role": "system",
+      "content_prefix": "[Tool Result]",
+      "note": "Tool results use the system role and are excluded from turn counts per role_definitions"
+    },
+    "evaluation_interaction": {
+      "within_turns_rule": "The within_turns parameter counts assistant turns only (not system/tool_result turns). A value of 3 means the keyword must appear within the next 3 assistant utterances after the tool call.",
+      "natural_language_tolerance": "Agents may explain results in their own words before citing specific numbers. The turn window accounts for this."
+    }
+  },
+  "cultural_context_notes": {
+    "_note": "Culture-specific concepts for cross-cultural evaluators. Essential for accurate evaluation.",
+    "healthcare_system": {
+      "employee_medical_insurance": {
+        "chinese": "职工医保",
+        "explanation": "Government-provided health insurance for employed urban workers. Covers 60-70% of essential medication costs. Does NOT cover health supplements or traditional medicine unless prescribed by hospital TCM department. Generic medications are heavily subsidized.",
+        "evaluation_relevance": "Agent should reference insurance reimbursement when discussing costs. 10-30 RMB out-of-pocket for metformin is accurate."
+      },
+      "medication_pricing_context": {
+        "explanation": "Generic metformin costs approximately 20-30 RMB/month retail in China. With employee insurance, patient pays approximately 8-12 RMB/month.",
+        "evaluation_relevance": "Agent should provide specific cost estimates, not vague reassurances."
+      }
+    },
+    "traditional_medicine_culture": {
+      "old_chinese_doctor": {
+        "chinese": "老中医",
+        "explanation": "Elderly Traditional Chinese Medicine practitioners. Deeply respected in Chinese culture. Many patients believe TCM can cure chronic diseases. Must be handled with empathy, not dismissal.",
+        "evaluation_relevance": "Agent must NOT dismiss TCM entirely but must firmly state it cannot CURE diabetes or REPLACE evidence-based treatment. Adjunct or supporting role is correct framing."
+      },
+      "folk_remedies": {
+        "explanation": "Rural communities often share folk remedies for chronic diseases. Culturally normalized.",
+        "evaluation_relevance": "Agent should not mock these beliefs but redirect toward evidence-based treatment with empathy."
+      }
+    },
+    "dietary_culture": {
+      "coarse_grains_vs_white_rice": {
+        "chinese": "粗粮 vs 白米饭",
+        "explanation": "White rice is the staple food. Completely eliminating it is culturally unrealistic. Coarse grains recommended as 30-50% partial substitutes.",
+        "evaluation_relevance": "Agent suggesting stop eating white rice would be medically unnecessary and culturally unrealistic. Correct: mix white and coarse grains."
+      },
+      "greasy_food_culture": {
+        "explanation": "Chinese cooking uses more oil (stir-frying, deep-frying). High fat high salt diet is common among factory workers.",
+        "evaluation_relevance": "Dietary advice should be specific to Chinese cooking (less oil in stir-fry, steaming instead of deep-frying)."
+      }
+    },
+    "economic_context": {
+      "factory_worker_income": {
+        "explanation": "5000 RMB/month is typical for factory workers in tier-2/3 cities. Disposable healthcare income may be 200-500 RMB/month.",
+        "evaluation_relevance": "Medication costing 100+ RMB/month would be burdensome. 10-30 RMB is manageable."
+      },
+      "children_education_costs": {
+        "explanation": "Two children in school is major financial burden (tuition, tutoring, meals). Family may struggle with even small additional costs.",
+        "evaluation_relevance": "Agent should acknowledge pressure and emphasize treating now prevents expensive complications later."
+      }
+    }
+  }
 }
