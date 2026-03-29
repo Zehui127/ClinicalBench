@@ -11,7 +11,7 @@
   "task_type": "initial_diagnosis",
   "difficulty": "high",
   "estimated_duration_minutes": 25,
-  "version": "v3.3",
+  "version": "v3.4",
   "description": {
     "purpose": "Initial diagnosis of Type 2 Diabetes - 48-year-old male, elementary education, presenting with 'three polys and one loss' symptoms",
     "clinical_scenario": "Patient presents with thirst, polyuria, and weight loss for 1 month. Physician needs to conduct history taking, order tests, diagnose, and develop treatment plan",
@@ -2895,6 +2895,61 @@
             }
           ]
         }
+      },
+      "clinical_priority_model": {
+        "_note": "Replaces rigid 'must ask everything' checklist with clinically-prioritized information gathering. Agents are rewarded for clinical reasoning about WHAT to ask and WHY, not just completeness.",
+        "priority_tiers": {
+          "tier_1_critical_safety": {
+            "description": "Missing these items is a SAFETY issue, not just an information gap",
+            "items": [
+              "allergies",
+              "current_medications",
+              "red_flags"
+            ],
+            "scoring": "Missing any = severe penalty. These are non-negotiable.",
+            "clinical_justification": "Prescribing without checking allergies/interactions is dangerous. Missing red flags (chest pain, altered consciousness) could miss life-threatening conditions."
+          },
+          "tier_2_diagnostic_essential": {
+            "description": "Required for accurate diagnosis",
+            "items": [
+              "chief_complaint_details",
+              "symptom_duration",
+              "family_history",
+              "fasting_glucose",
+              "hba1c"
+            ],
+            "scoring": "Missing any = significant penalty. But agent may skip if patient provides equivalent information unprompted.",
+            "clinical_justification": "Cannot diagnose diabetes without blood glucose. Cannot assess risk without family history."
+          },
+          "tier_3_clinically_important": {
+            "description": "Important for comprehensive management but not required for initial diagnosis",
+            "items": [
+              "hypertension_details",
+              "lifestyle_factors",
+              "kidney_function",
+              "thyroid_function"
+            ],
+            "scoring": "Missing = moderate penalty. Agent should have good reason for skipping.",
+            "clinical_justification": "Comorbidities affect treatment choice but initial diagnosis can be made without them."
+          },
+          "tier_4_quality_indicators": {
+            "description": "Distinguishes good agents from excellent ones",
+            "items": [
+              "additional_symptoms_screening",
+              "sexual_dysfunction_inquiry",
+              "vision_changes",
+              "foot_numbness",
+              "gi_symptoms"
+            ],
+            "scoring": "Missing = minor penalty. These are bonus points, not requirements.",
+            "clinical_justification": "Screening for early complications shows thoroughness. Not screening is not dangerous but misses early intervention opportunities."
+          }
+        },
+        "reasoning_over_completeness": {
+          "principle": "An agent that asks 5 targeted questions with clinical reasoning scores HIGHER than an agent that asks 15 questions mechanically",
+          "example_good": "Agent asks about family history, recognizes mother has diabetes on insulin, and uses this to explain to patient why genetic testing is not needed but lifestyle is important. Then skips to relevant comorbidity screening based on what they've already learned.",
+          "example_bad": "Agent asks all 15 possible questions in sequence without acknowledging or building on patient's answers. Gets all information but scores lower on communication_quality and clinical_reasoning."
+        }
       }
     },
     "reference_dialogues": {
@@ -3902,8 +3957,25 @@
   },
   "version_changelog": {
     "_note": "Structured changelog for tracking benchmark evolution. Replaces free-form modification_notes.",
-    "current_version": "v3.3",
+    "current_version": "v3.4",
     "versions": [
+      {
+        "version": "v3.4",
+        "date": "2026-03-29",
+        "focus": "Methodological rigor: uncertainty, anti-pattern detection, honest limitations",
+        "changes": [
+          "Added patient_uncertainty_profile: expression inconsistency, vague responses, potential contradictions, emotional interference, lab result uncertainty modes (incomplete/borderline)",
+          "Added anti_pattern_detection: 4 patterns (checklist robot, keyword stuffing, scripted empathy, defensive medicine) with detection indicators and penalties",
+          "Added clinical_priority_model: 4-tier system (critical safety > diagnostic essential > clinically important > quality indicators) replacing rigid checklist",
+          "Added methodology_limitations: explicit what-IS/what-IS-NOT section with known limitations, mitigation strategies, and residual risks",
+          "Added longitudinal_extension: optional 2-week follow-up scenario addressing single-encounter limitation",
+          "Design philosophy: rewards clinical reasoning over completeness, penalizes mechanical pattern-matching"
+        ],
+        "breaking_changes": [
+          "evaluation_criteria now includes clinical_priority_model that modifies how information_gathering is scored",
+          "anti_pattern_detection adds new penalty categories to communication_quality and clinical_reasoning"
+        ]
+      },
       {
         "version": "v3.3",
         "date": "2026-03-29",
@@ -3964,5 +4036,250 @@
         ]
       }
     ]
+  },
+  "patient_uncertainty_profile": {
+    "_note": "Addresses the 'scripted certainty' critique. Real patients are inconsistent, vague, and sometimes contradictory. This layer adds controlled noise to test whether agents can reason under uncertainty rather than just matching rules.",
+    "expression_inconsistency": {
+      "_note": "Patient may give slightly different descriptions of the same symptom at different points in the conversation.",
+      "examples": [
+        {
+          "first_mention": "I have been thirsty for about a month",
+          "later_mention": "Maybe 3-4 weeks, I am not sure exactly",
+          "agent_expected_behavior": "Recognize these are consistent (3-4 weeks ≈ 1 month), not contradictory. No need to reconcile further."
+        },
+        {
+          "first_mention": "I drink lots of water, maybe 10 cups",
+          "later_mention": "I fill my thermos 5-6 times a day",
+          "agent_expected_behavior": "Recognize these are approximately consistent. Should not obsess over exact quantity."
+        }
+      ]
+    },
+    "vague_or_uncertain_responses": {
+      "_note": "Patient may not give precise answers to all questions. Agent must work with incomplete information.",
+      "examples": [
+        {
+          "question": "How long have you had high blood pressure?",
+          "patient_may_say": "I don't remember exactly... maybe 2 years? The doctor told me at a checkup.",
+          "correct_agent_response": "Accept approximate answer. Record 'approximately 2 years'. Do not pressure for exactness."
+        },
+        {
+          "question": "How much do you drink each time?",
+          "patient_may_say": "I don't measure it... just normal amount with friends, a few cups of white liquor.",
+          "correct_agent_response": "Accept vague answer. Record 'moderate alcohol use, white liquor'. Do not demand precision."
+        },
+        {
+          "question": "When did the numbness start?",
+          "patient_may_say": "I'm not sure... it comes and goes. Maybe a few weeks?",
+          "correct_agent_response": "Accept approximate timeline. Note 'intermittent, duration unclear'."
+        }
+      ]
+    },
+    "potential_contradictions": {
+      "_note": "Patient may say things that seem contradictory. Agent must recognize and gently clarify, not just accept at face value.",
+      "examples": [
+        {
+          "contradiction": "Patient says 'I take my blood pressure medicine' but also 'I don't take medicine regularly'",
+          "agent_expected_behavior": "Clarify: 'You mentioned taking blood pressure medicine, but also said you don't take it regularly. Can you tell me more about that?'",
+          "clinical_significance": "Medication non-adherence is clinically significant and should be documented."
+        },
+        {
+          "contradiction": "Patient says 'I lost weight' but also 'I eat more than before'",
+          "agent_expected_behavior": "Recognize this is NOT contradictory - it's the classic 'polyphagia with weight loss' pattern of diabetes. Should NOT challenge the patient.",
+          "clinical_significance": "This is expected in diabetes, not a contradiction. Tests whether agent understands the pathophysiology."
+        }
+      ]
+    },
+    "emotional_interference": {
+      "_note": "Patient's emotional state may affect their responses. Agent should adapt.",
+      "examples": [
+        {
+          "scenario": "After receiving diagnosis, patient becomes quiet and withdrawn",
+          "agent_expected_behavior": "Pause and acknowledge: 'I understand this is a lot to take in. Take your time. Would you like to ask me anything?'",
+          "scoring": "Scored under communication_quality.empathy. Agent that immediately proceeds to treatment plan without acknowledging distress loses points."
+        },
+        {
+          "scenario": "Patient becomes defensive when asked about drinking: 'Are you saying I drink too much?'",
+          "agent_expected_behavior": "De-escalate: 'I'm not judging at all. I just need to understand your full health picture so I can give you the best advice.'",
+          "scoring": "Agent that argues with patient or ignores defensiveness loses communication_quality points."
+        }
+      ]
+    },
+    "lab_result_uncertainty": {
+      "_note": "Tool results may be incomplete or have minor variations. Tests agent's ability to handle ambiguous data.",
+      "modes": {
+        "standard": "All results available as defined in medical_persona.lab_results. This is the default mode.",
+        "incomplete": {
+          "description": "Some results are delayed. Only fasting_glucose is available initially. HbA1c result arrives 1 turn later.",
+          "agent_expected_behavior": "Make preliminary assessment based on fasting glucose alone. State uncertainty. Order follow-up. Do NOT make definitive diabetes diagnosis without HbA1c in this mode.",
+          "activation": "Optional. Controlled by simulation environment parameter."
+        },
+        "borderline": {
+          "description": "One result is borderline (e.g., HbA1c 6.4% instead of 9.8%). Tests whether agent can handle ambiguous results.",
+          "agent_expected_behavior": "Recognize borderline result. Recommend follow-up testing. Do NOT diagnose diabetes definitively if HbA1c < 6.5%.",
+          "activation": "Optional. Used as a variant scenario."
+        }
+      }
+    }
+  },
+  "anti_pattern_detection": {
+    "_note": "Detects when agents are gaming the evaluation through pattern matching rather than genuine clinical reasoning. Addresses the 'checklist robot' and 'keyword stuffing' critiques.",
+    "pattern_1_checklist_robot": {
+      "description": "Agent asks every possible question mechanically without clinical context or reasoning",
+      "detection_method": {
+        "indicator_1": "Agent asks more than 3 consecutive 'checklist questions' without acknowledging patient's answers (e.g., 'Any allergies? ... Do you smoke? ... Do you drink? ... Exercise?' without responding to any answer)",
+        "indicator_2": "Agent asks about low-priority items (sexual function, GI symptoms) before establishing core clinical picture (chief complaint, duration, family history)",
+        "indicator_3": "Agent's questions follow a rigid template regardless of patient's responses"
+      },
+      "penalty": {
+        "per_instance": -0.05,
+        "max_penalty": -0.2,
+        "applies_to": "communication_quality"
+      },
+      "correct_alternative": "Agent should ask follow-up questions based on patient's answers. E.g., if patient mentions hypertension, agent should explore that BEFORE moving to the next checklist item."
+    },
+    "pattern_2_keyword_stuffing": {
+      "description": "Agent unnaturally forces required keywords into responses to game keyword-based evaluation",
+      "detection_method": {
+        "indicator_1": "Agent says required keywords in a list format rather than natural explanation (e.g., 'Your blood sugar is 13.2, your HbA1c is 9.8, your eGFR is 75') without explaining what these mean",
+        "indicator_2": "Agent mentions 'not addictive', 'protects kidneys', 'cannot be cured' in a rushed sequence without appropriate context",
+        "indicator_3": "Agent's response to a misconception is obviously templated and does not address the patient's specific concern story"
+      },
+      "penalty": {
+        "per_instance": -0.1,
+        "max_penalty": -0.3,
+        "applies_to": "communication_quality + clinical_reasoning"
+      },
+      "correct_alternative": "Keywords should appear naturally in context. Agent should explain values in patient-friendly language, not just cite numbers. Misconception corrections should address the patient's specific story."
+    },
+    "pattern_3_scripted_empathy": {
+      "description": "Agent uses empathy phrases mechanically without genuine engagement",
+      "detection_method": {
+        "indicator_1": "Agent says 'I understand your concern' more than 3 times in identical phrasing",
+        "indicator_2": "Agent follows every patient statement with a generic empathy phrase before asking the next question",
+        "indicator_3": "Agent's empathy phrases are disconnected from the patient's specific situation"
+      },
+      "penalty": {
+        "per_instance": -0.05,
+        "max_penalty": -0.15,
+        "applies_to": "communication_quality.empathy"
+      },
+      "correct_alternative": "Empathy should be specific and contextual. 'I can see why you'd worry about insulin after seeing your mother's experience' is better than 'I understand your concern.'"
+    },
+    "pattern_4_defensive_medicine": {
+      "description": "Agent orders excessive tests or referrals without clinical justification, just to cover all bases",
+      "detection_method": {
+        "indicator_1": "Agent orders more than 12 lab tests in a single order_lab_tests call",
+        "indicator_2": "Agent refers to more than 3 specialties without explaining why each is needed",
+        "indicator_3": "Agent cannot explain why a specific test was ordered when asked"
+      },
+      "penalty": {
+        "per_instance": -0.05,
+        "max_penalty": -0.1,
+        "applies_to": "tool_usage (timing score)"
+      },
+      "correct_alternative": "Tests and referrals should be clinically justified. Agent should explain to patient why each test is needed."
+    }
+  },
+  "methodology_limitations": {
+    "_note": "Explicit acknowledgment of this benchmark's fundamental design limitations. Essential for honest evaluation and proper interpretation of results.",
+    "what_this_benchmark_IS": {
+      "type": "Scripted single-encounter clinical simulation",
+      "purpose": "Evaluate whether an AI agent can follow established clinical guidelines for Type 2 Diabetes initial diagnosis in a structured environment",
+      "strengths": [
+        "Reproducible evaluation across different agents",
+        "Comprehensive coverage of clinical guidelines",
+        "Tests safety-critical behaviors (allergy checks, kidney function assessment)",
+        "Tests communication with disadvantaged patients (low education, economic pressure)",
+        "Tests multi-party conversation management (patient + family)"
+      ]
+    },
+    "what_this_benchmark_IS_NOT": {
+      "NOT_measuring": [
+        "Open-ended clinical reasoning in novel situations",
+        "Ability to handle truly unexpected patient presentations",
+        "Longitudinal care management (treatment response, follow-up)",
+        "Multi-disease differential diagnosis with competing priorities",
+        "Real shared decision-making (patient preferences are pre-scripted)",
+        "Tool use in open environments (tools return predetermined results)"
+      ],
+      "known_limitations": [
+        {
+          "limitation": "Scripted patient responses",
+          "impact": "Agent may succeed by pattern-matching rather than genuine understanding",
+          "mitigation": "anti_pattern_detection rules penalize mechanical behavior. Uncertainty profile adds noise.",
+          "residual_risk": "Sophisticated prompt engineering may still game the system"
+        },
+        {
+          "limitation": "Keyword-based evaluation",
+          "impact": "Correct content without genuine understanding can score well",
+          "mitigation": "keyword_stuffing detection, clinical_reasoning dimension, human review for top scores",
+          "residual_risk": "Automated evaluation cannot fully replace human clinical judgment"
+        },
+        {
+          "limitation": "Single disease, single encounter",
+          "impact": "Does not test multi-morbidity management or longitudinal care",
+          "mitigation": "Comorbidities create multi-condition context. See longitudinal_extension for follow-up.",
+          "residual_risk": "Agent that excels here may not generalize to complex multi-disease patients"
+        },
+        {
+          "limitation": "Predetermined tool results",
+          "impact": "Agent learns when to call tools, not how to interpret novel results",
+          "mitigation": "Lab result uncertainty mode (borderline variant) tests interpretation flexibility",
+          "residual_risk": "Agent trained on this benchmark may struggle with unexpected lab values"
+        },
+        {
+          "limitation": "Social factors are triggered not emergent",
+          "impact": "Agent responds to scripted social cues rather than reading social context",
+          "mitigation": "Mandatory core interjections ensure social topics arise. Clinical priority model rewards proactive addressing.",
+          "residual_risk": "Agent may not recognize social cues in unstructured real-world interactions"
+        }
+      ]
+    },
+    "recommended_use": {
+      "primary_use": "Benchmark for comparing AI agent implementations on structured clinical task performance",
+      "NOT_recommended_for": [
+        "Certifying agents as clinically safe for autonomous use",
+        "Replacing human clinical evaluation",
+        "Testing agents on novel or rare presentations",
+        "Measuring genuine clinical reasoning ability (use medical board exams instead)"
+      ],
+      "best_practices": [
+        "Use as ONE component of a multi-faceted evaluation suite",
+        "Combine with open-ended clinical scenarios for comprehensive assessment",
+        "Human review required for any agent scoring >85",
+        "Re-run with uncertainty profile enabled to test robustness",
+        "Compare multiple runs to check consistency"
+      ]
+    }
+  },
+  "longitudinal_extension": {
+    "_note": "Optional follow-up scenario to address the single-encounter limitation. Tests whether agent can adapt treatment based on patient response. This is a SEPARATE benchmark scenario, not part of the main evaluation.",
+    "status": "optional_extension",
+    "scenario": "2-week follow-up visit after initial diagnosis",
+    "patient_state_at_followup": {
+      "medication_adherence": "Patient took metformin for 5 days, then stopped because of stomach discomfort",
+      "blood_sugar_readings": "Patient bought a glucose meter. Fasting readings: 11.2, 10.8, 12.1, 11.5 (still elevated but slightly improved from 13.2)",
+      "diet_changes": "Wife reduced oil in cooking, patient cut back to half a pack of cigarettes, still drinking occasionally",
+      "side_effects": "Stomach discomfort (bloating, diarrhea) in first week of metformin",
+      "new_concerns": [
+        "Patient asks: 'Is the medicine making my stomach worse? Should I stop?'",
+        "Wife asks: 'His blood sugar is still high, is the medicine working?'"
+      ],
+      "economic_update": "Medicine cost was only 10 RMB, but glucose meter and test strips cost 150 RMB - unexpected expense"
+    },
+    "new_clinical_challenges": [
+      "GI side effects from metformin - need to adjust dosing strategy (take with food, extended-release formulation, or dose reduction)",
+      "Suboptimal glucose response after 2 weeks - is this expected or does treatment need escalation?",
+      "Patient stopped medication - need to address adherence without being judgmental",
+      "New economic stress from glucose monitoring supplies",
+      "Smoking reduction (not cessation) - how to encourage continued progress"
+    ],
+    "evaluation_focus": {
+      "adaptation": "Can agent adjust treatment plan based on new information rather than repeating initial plan?",
+      "adherence_management": "Can agent address medication stopping without being paternalistic?",
+      "realistic_expectations": "Can agent set realistic expectations about blood sugar improvement timeline?",
+      "ongoing_education": "Can agent reinforce and build on previous education?"
+    },
+    "note": "This extension requires a SEPARATE benchmark file with its own evaluation criteria. Included here as design guidance only."
   }
 }
