@@ -11,7 +11,7 @@
   "task_type": "initial_diagnosis",
   "difficulty": "high",
   "estimated_duration_minutes": 25,
-  "version": "v3.4",
+  "version": "v3.5",
   "description": {
     "purpose": "Initial diagnosis of Type 2 Diabetes - 48-year-old male, elementary education, presenting with 'three polys and one loss' symptoms",
     "clinical_scenario": "Patient presents with thirst, polyuria, and weight loss for 1 month. Physician needs to conduct history taking, order tests, diagnose, and develop treatment plan",
@@ -2894,6 +2894,96 @@
               "severity": "minor"
             }
           ]
+        },
+        "semantic_evaluation_guidance": {
+          "_note": "Addresses keyword-matching limitation. For high-stakes evaluation, keyword scoring should be supplemented with semantic evaluation. This section defines how.",
+          "when_to_use_semantic_evaluation": {
+            "mandatory": [
+              "Any agent scoring >85 on keyword-based evaluation (verify high score is genuine, not keyword-stuffed)",
+              "Safety_compliance violations (human must verify context before applying penalty)",
+              "Communication_quality dimension (empathy and clarity are inherently subjective)"
+            ],
+            "recommended": [
+              "clinical_reasoning dimension (reasoning quality is hard to assess via keywords)",
+              "Any evaluation intended for publication or certification"
+            ]
+          },
+          "llm_as_judge_protocol": {
+            "description": "Use a separate LLM (not the agent being tested) to evaluate consultation quality holistically.",
+            "judge_prompt_template": [
+              "You are an expert physician evaluator. Evaluate this doctor-patient consultation for clinical quality.",
+              "Patient context: [insert patient profile]",
+              "Consultation transcript: [insert full dialogue]",
+              "",
+              "Score each dimension 0-1:",
+              "1. CLINICAL_REASONING: Did the doctor explain WHY they made each decision? (0=just stated facts, 1=explained reasoning chain)",
+              "2. PATIENT_UNDERSTANDING: Would THIS patient (elementary education) understand the diagnosis and treatment? (0=used jargon without explanation, 1=explained in accessible language)",
+              "3. MISCONCEPTION_HANDLING: Did the doctor address wrong beliefs without dismissing or enabling them? (0=ignored or agreed, 0.5=partially addressed, 1=firmly corrected with empathy)",
+              "4. SAFETY: Were all safety checks performed? (0=missed critical checks, 1=all checks done)",
+              "5. HOLISTIC_QUALITY: Would you refer a family member to this doctor? (0=no, 0.5=maybe, 1=yes)",
+              "",
+              "For each dimension, provide: score, justification (2-3 sentences), and any concerns."
+            ],
+            "judge_model_requirements": "GPT-4, Claude Sonnet, or equivalent. NOT the same model being evaluated."
+          },
+          "semantic_equivalence_rules": {
+            "_note": "For keyword-based evaluation, these rules define what counts as semantically equivalent. Prevents punishing natural language variation.",
+            "principle": "If a reasonable human evaluator would consider the agent's response clinically equivalent to the required keyword, it should pass.",
+            "equivalence_examples": [
+              {
+                "required_keyword": "not addictive",
+                "semantically_equivalent": [
+                  "insulin is not something you become dependent on",
+                  "your body needs it, it's not a drug of addiction",
+                  "insulin does not cause addiction",
+                  "you won't get hooked on insulin"
+                ],
+                "NOT_equivalent": [
+                  "don't worry about it",
+                  "just take it",
+                  "it's fine"
+                ]
+              },
+              {
+                "required_keyword": "protects kidneys",
+                "semantically_equivalent": [
+                  "controlling blood sugar is the best way to keep your kidneys healthy",
+                  "treatment prevents kidney damage",
+                  "managing diabetes protects your kidney function",
+                  "without treatment, high blood sugar damages kidneys"
+                ],
+                "NOT_equivalent": [
+                  "don't worry about your kidneys",
+                  "your kidneys are fine"
+                ]
+              },
+              {
+                "required_keyword": "cannot be cured",
+                "semantically_equivalent": [
+                  "diabetes is a lifelong condition",
+                  "there's no cure currently",
+                  "you'll need to manage this long-term",
+                  "it won't go away but it can be controlled"
+                ],
+                "NOT_equivalent": [
+                  "maybe it will go away",
+                  "some people recover"
+                ]
+              },
+              {
+                "required_keyword": "do you understand",
+                "semantically_equivalent": [
+                  "does that make sense?",
+                  "any questions so far?",
+                  "shall I explain anything again?",
+                  "is everything clear?"
+                ],
+                "NOT_equivalent": [
+                  "ok?"
+                ]
+              }
+            ]
+          }
         }
       },
       "clinical_priority_model": {
@@ -3807,6 +3897,68 @@
       "example": "Patient says: 'My neighbor takes drug X and it works great, can you give me that?'",
       "agent_expected_behavior": "Explain why the recommended treatment is more appropriate for their specific condition. Do not simply agree to patient's request without clinical justification.",
       "scoring_impact": "Scored under misconception_management and treatment_appropriateness."
+    },
+    "challenging_clinical_scenarios": {
+      "_note": "Scenarios that test real clinical difficulty: non-cooperation, conflicting information, competing priorities. These go beyond the standard consultation flow.",
+      "patient_non_cooperation": {
+        "scenario": "Patient refuses to answer certain questions or resists recommendations",
+        "variants": [
+          {
+            "variant": "Denial of drinking problem",
+            "patient_behavior": "When asked about drinking: 'I don't drink that much. It's normal for men my age. Are you saying I have a drinking problem?'",
+            "agent_expected": "De-escalate without being paternalistic. 'I'm not making any judgments. I'm just trying to understand your full health picture. Many people enjoy a drink - I just need to know so I can give you the safest advice.'",
+            "scoring": "Agent that argues or moralizes loses communication points. Agent that skips the question entirely loses information_gathering points (but less than if they argue)."
+          },
+          {
+            "variant": "Refuses to discuss sexual function",
+            "patient_behavior": "When asked about sexual health: 'That's none of your business. I came here for diabetes, not for... that.'",
+            "agent_expected": "Respect the boundary. 'I completely understand. This question is optional and we can skip it. I ask because sometimes it's related to blood sugar, but it's not essential for your diagnosis.' Move on without pressure.",
+            "scoring": "No penalty for not collecting this information if patient explicitly refuses. Agent still gets credit for attempting the question."
+          },
+          {
+            "variant": "Insists on stopping medication after reading side effects online",
+            "patient_behavior": "I looked up metformin online and it says it can cause lactic acidosis! I'm not taking that!'",
+            "agent_expected": "Acknowledge the concern, provide accurate risk context ('lactic acidosis is extremely rare, especially with your kidney function level'), explain risk-benefit ratio, but respect patient autonomy. If patient still refuses, offer alternative medication.",
+            "scoring": "Agent that dismisses the concern ('that's very rare, don't worry') without explanation loses points. Agent that provides context AND offers alternative if patient insists gains points."
+          }
+        ]
+      },
+      "competing_clinical_priorities": {
+        "scenario": "Clinical decisions where benefits in one area conflict with another",
+        "variants": [
+          {
+            "variant": "Metformin vs GI symptoms",
+            "conflict": "Metformin is first-line for T2DM but patient has GI issues. Metformin may worsen GI symptoms.",
+            "agent_options": [
+              "Start metformin at low dose with GI precautions (after meals, extended-release) - most guidelines recommend trying this first",
+              "Choose alternative (e.g., sitagliptin) to avoid GI issues - acceptable but more expensive",
+              "Start metformin AND prescribe GI protective measures"
+            ],
+            "scoring": "All three options are clinically acceptable. Agent should explain the trade-off to patient and let them participate in the decision. Agent that presents only one option without acknowledging the trade-off loses clinical_reasoning points."
+          },
+          {
+            "variant": "Treatment cost vs efficacy",
+            "conflict": "Best medication (SGLT-2 inhibitor with kidney/heart protection) costs 200 RMB/month. Metformin costs 10 RMB/month. Patient can barely afford either.",
+            "agent_options": [
+              "Recommend metformin as first-line (guideline-recommended, affordable) - clinically sound",
+              "Recommend SGLT-2 and arrange financial assistance programs - more thorough but may be unrealistic",
+              "Recommend metformin now, discuss upgrading to SGLT-2 when finances improve - balanced approach"
+            ],
+            "scoring": "No single correct answer. Agent that acknowledges the trade-off and discusses options WITH patient scores well on clinical_reasoning and social_context."
+          }
+        ]
+      },
+      "guideline_conflicts": {
+        "scenario": "Different clinical guidelines give different recommendations",
+        "variants": [
+          {
+            "variant": "HbA1c target for this patient",
+            "conflict": "ADA recommends HbA1c <7% for most adults. Chinese Diabetes Society recommends <7% but allows individualization. With eGFR 75 and comorbidities, some guidelines suggest <7.5% to avoid hypoglycemia.",
+            "agent_expected": "Choose a reasonable target (7-7.5%) and explain the reasoning. Any target in this range is acceptable if justified.",
+            "scoring": "No penalty for choosing different targets within the 7-7.5% range. Penalty if agent cannot explain their choice."
+          }
+        ]
+      }
     }
   },
   "design_rationale": {
@@ -3957,8 +4109,22 @@
   },
   "version_changelog": {
     "_note": "Structured changelog for tracking benchmark evolution. Replaces free-form modification_notes.",
-    "current_version": "v3.4",
+    "current_version": "v3.5",
     "versions": [
+      {
+        "version": "v3.5",
+        "date": "2026-03-29",
+        "focus": "Multi-path correctness, semantic evaluation, real-world difficulty",
+        "changes": [
+          "Added acceptable_clinical_paths: 4 valid consultation styles (systematic, patient-centered, efficient, concern-driven) with score ranges and trade-offs. No single correct path.",
+          "Added semantic_evaluation_guidance: LLM-as-judge protocol, semantic equivalence rules for keywords, mandatory semantic review for scores >85.",
+          "Added tool_challenge_modes: latency, failure, incomplete results, contradictory results, cost awareness. Optional modes for robustness testing.",
+          "Expanded edge_case_handling with challenging_clinical_scenarios: non-cooperation (3 variants), competing priorities (2 variants), guideline conflicts (1 variant). Multiple acceptable answers per scenario.",
+          "Updated methodology_limitations with honest framing (OSCE station metaphor), research_context showing how this fits a 6-layer evaluation stack."
+        ],
+        "philosophy_change": "v3.5 explicitly acknowledges this is a structured task simulation (like an OSCE), not a capability assessor. The goal is baseline competency checking within a broader evaluation strategy.",
+        "breaking_changes": []
+      },
       {
         "version": "v3.4",
         "date": "2026-03-29",
@@ -4191,7 +4357,8 @@
         "Tests safety-critical behaviors (allergy checks, kidney function assessment)",
         "Tests communication with disadvantaged patients (low education, economic pressure)",
         "Tests multi-party conversation management (patient + family)"
-      ]
+      ],
+      "framing": "This is a STRUCTURED CLINICAL TASK SIMULATION, not an open-ended capability assessment. It evaluates whether an agent can execute a well-defined clinical workflow correctly, safely, and with reasonable communication quality. Think of it as an OSCE (Objective Structured Clinical Examination) station, not a real clinical encounter."
     },
     "what_this_benchmark_IS_NOT": {
       "NOT_measuring": [
@@ -4233,7 +4400,8 @@
           "mitigation": "Mandatory core interjections ensure social topics arise. Clinical priority model rewards proactive addressing.",
           "residual_risk": "Agent may not recognize social cues in unstructured real-world interactions"
         }
-      ]
+      ],
+      "framing": "This benchmark does NOT measure genuine clinical intelligence. It measures task execution in a controlled environment. A high score means the agent can follow this clinical script, not that it can think like a doctor."
     },
     "recommended_use": {
       "primary_use": "Benchmark for comparing AI agent implementations on structured clinical task performance",
@@ -4249,6 +4417,50 @@
         "Human review required for any agent scoring >85",
         "Re-run with uncertainty profile enabled to test robustness",
         "Compare multiple runs to check consistency"
+      ]
+    },
+    "research_context": {
+      "_note": "How this benchmark fits into a broader research evaluation strategy.",
+      "this_benchmark_role": "One station in a multi-station evaluation (like OSCE)",
+      "complementary_evaluations_needed": [
+        {
+          "type": "Open-ended clinical reasoning",
+          "description": "Present novel cases without predetermined paths. Evaluate reasoning quality.",
+          "why_needed": "Tests genuine clinical thinking, not script following",
+          "how_to_build": "Use real clinical case reports, LLM-generated patient simulators, or standardized patients"
+        },
+        {
+          "type": "Multi-case distribution testing",
+          "description": "Test on 50+ diverse cases (easy, medium, hard, rare, comorbidity)",
+          "why_needed": "Prevents case overfitting. Tests generalizability.",
+          "how_to_build": "Generate from clinical databases, knowledge graphs, or expert case banks"
+        },
+        {
+          "type": "Adversarial patient simulation",
+          "description": "Patient actively contradicts, confuses, or tests the agent",
+          "why_needed": "Tests robustness under adversarial conditions",
+          "how_to_build": "LLM-based patient simulator with adversarial prompting"
+        },
+        {
+          "type": "Longitudinal care evaluation",
+          "description": "Evaluate multi-visit management over weeks/months",
+          "why_needed": "Real clinical care is longitudinal, not single-encounter",
+          "how_to_build": "See longitudinal_extension in this file. Expand to multi-visit scenario."
+        },
+        {
+          "type": "Human clinician comparison",
+          "description": "Compare agent performance against human physicians on same cases",
+          "why_needed": "Establishes meaningful performance baseline",
+          "how_to_build": "Recruit physicians to complete same benchmark, compare scores"
+        }
+      ],
+      "recommended_evaluation_stack": [
+        "1. This benchmark (structured task simulation) - baseline competency check",
+        "2. Multi-case battery (50+ cases) - generalizability assessment",
+        "3. Open-ended scenarios (no predetermined path) - reasoning quality",
+        "4. Adversarial testing (hostile/confusing patients) - robustness",
+        "5. Longitudinal scenarios (multi-visit) - care management",
+        "6. Human comparison study - clinical validity"
       ]
     }
   },
@@ -4281,5 +4493,129 @@
       "ongoing_education": "Can agent reinforce and build on previous education?"
     },
     "note": "This extension requires a SEPARATE benchmark file with its own evaluation criteria. Included here as design guidance only."
+  },
+  "acceptable_clinical_paths": {
+    "_note": "Addresses over-standardization critique. There is NO single correct path through this consultation. Multiple valid approaches exist. Evaluation rewards clinical appropriateness, not adherence to a specific sequence.",
+    "path_diversity_principle": {
+      "statement": "Any consultation path that achieves safe, effective, patient-centered care is acceptable. The gold standard dialogue is ONE example, not THE answer key.",
+      "implication": "Evaluation dimensions are scored independently. An agent may score well on diagnosis but poorly on communication, or vice versa. There is no required order of operations except safety-critical sequencing (lab results before diagnosis, kidney check before metformin)."
+    },
+    "example_valid_paths": {
+      "path_A_systematic": {
+        "style": "Systematic history-first, then tests, then diagnosis",
+        "flow": [
+          "Greet patient → Chief complaint → Symptom details → Family history → Past medical history → Medications → Allergies → Lifestyle → Red flags → Additional symptoms → Physical exam → Order labs → Review results → Diagnosis → Address misconceptions → Treatment plan → Patient education → Follow-up",
+          "This is the gold standard dialogue path. Thorough but requires many turns."
+        ],
+        "typical_score_range": "85-95",
+        "strengths": [
+          "Complete information gathering",
+          "Proactive complication screening"
+        ],
+        "weaknesses": [
+          "May feel like interrogation to patient",
+          "Long consultation time"
+        ]
+      },
+      "path_B_patient_centered": {
+        "style": "Patient-centered, addresses concerns early, interleaves diagnosis with reassurance",
+        "flow": [
+          "Greet patient → Listen to chief complaint → Brief exam → Order labs (explain why) → While waiting, discuss family history and lifestyle → Get results → Diagnosis → Immediately address patient's visible fear → Explain treatment options WITH cost considerations → Ask about other symptoms → Address misconceptions as they arise → Treatment plan → Education → Follow-up",
+          "Interleaves information gathering with patient engagement. Addresses emotional needs early."
+        ],
+        "typical_score_range": "80-92",
+        "strengths": [
+          "Better patient experience",
+          "Builds trust early",
+          "Natural flow"
+        ],
+        "weaknesses": [
+          "May miss some systematic screening",
+          "Slightly less complete documentation"
+        ]
+      },
+      "path_C_efficient": {
+        "style": "Focused, evidence-driven, fewer turns but clinically sound",
+        "flow": [
+          "Greet → Chief complaint + key details (3 polys, duration) → Targeted history (family, hypertension, medications, allergies) → Order focused labs → Results → Diagnosis → Treatment (metformin + justification) → Key education (diet, exercise, smoking) → Address most likely misconception → Follow-up → Referrals",
+          "Shorter consultation. Asks only clinically necessary questions. Skips low-yield screening if time pressured."
+        ],
+        "typical_score_range": "65-80",
+        "strengths": [
+          "Efficient",
+          "Clinically focused",
+          "Respects patient time"
+        ],
+        "weaknesses": [
+          "May miss additional symptom screening (vision, feet, sexual)",
+          "Lower communication quality score"
+        ]
+      },
+      "path_D_concern_driven": {
+        "style": "Follows patient's concerns rather than systematic checklist",
+        "flow": [
+          "Greet → Patient describes symptoms → Agent notices patient's anxiety about mother's diabetes → Explores that concern first → Uses it to build rapport and explain diabetes concept → Orders labs → While waiting, fills in history gaps naturally through conversation → Results → Diagnosis (patient already partially understands) → Treatment plan → Addresses economic concerns proactively → Education tailored to what patient already understands → Follow-up",
+          "Leverages patient's existing knowledge (mother has diabetes) for education. Addresses emotional needs throughout."
+        ],
+        "typical_score_range": "75-88",
+        "strengths": [
+          "Excellent rapport",
+          "Patient feels heard",
+          "Organic education"
+        ],
+        "weaknesses": [
+          "Less systematic",
+          "May forget structured screening",
+          "Harder to evaluate via checklist"
+        ]
+      }
+    },
+    "path_evaluation_fairness": {
+      "note": "All four paths can achieve passing scores. The evaluation dimensions are designed to be path-agnostic: information_gathering checks WHAT was collected, not WHEN. communication_quality checks HOW the agent communicated, not the specific words used. clinical_reasoning checks whether reasoning was shared, not the specific reasoning chain.",
+      "no_path_is_perfect": "Each path has trade-offs. An agent that perfectly follows path_A but lacks empathy scores differently from an agent following path_D with great rapport but incomplete screening. Both are clinically valid."
+    }
+  },
+  "tool_challenge_modes": {
+    "_note": "Addresses pseudo-tool critique. These optional modes make tool use more challenging and realistic. Controlled by simulation environment parameter.",
+    "default_mode": "All tools work perfectly and return predetermined results. This is the standard evaluation mode.",
+    "challenge_modes": {
+      "tool_latency": {
+        "description": "Tool calls take time. Results are not immediately available.",
+        "implementation": "After agent calls get_lab_results, the system responds with 'Results pending. Estimated wait: 30 minutes.' Agent must decide what to do while waiting.",
+        "agent_expected_behavior": "Continue history taking or patient education while waiting for results. Do not sit idle.",
+        "scoring": "Agent that uses waiting time productively gets bonus under efficiency. Agent that does nothing is penalized under efficiency."
+      },
+      "tool_failure": {
+        "description": "A tool call fails or returns an error.",
+        "implementation": "Random tool call fails with 'Error: Unable to retrieve results. Please try again.'",
+        "agent_expected_behavior": "Retry the tool call OR explain to patient that results are unavailable and use clinical judgment for preliminary assessment.",
+        "scoring": "No penalty for the failure itself. Agent judged on how it handles the failure."
+      },
+      "incomplete_results": {
+        "description": "Some test results are missing or marked as 'pending'.",
+        "implementation": "get_lab_results returns only fasting_glucose and kidney_function. HbA1c is 'pending'.",
+        "agent_expected_behavior": "Make preliminary assessment based on available data. Clearly communicate uncertainty to patient. Plan for follow-up when results arrive.",
+        "scoring": "Agent that makes definitive diagnosis without HbA1c is penalized under safety. Agent that states preliminary assessment appropriately is scored normally.",
+        "already_defined": "See patient_uncertainty_profile.lab_result_uncertainty.incomplete mode"
+      },
+      "contradictory_results": {
+        "description": "Two results seem to contradict each other.",
+        "implementation": "Fasting glucose is 13.2 (diabetes range) but HbA1c is 5.8% (normal range).",
+        "agent_expected_behavior": "Recognize the discrepancy. Investigate possible causes (lab error, recent dietary change, hemoglobinopathy). Do NOT ignore either result. Recommend repeat testing.",
+        "scoring": "This is a test of clinical reasoning under uncertainty. Agent that ignores the contradiction and just diagnoses diabetes is penalized. Agent that investigates gets bonus under clinical_reasoning."
+      },
+      "tool_cost_awareness": {
+        "description": "Each tool call has an associated cost. Agent must balance clinical thoroughness with economic constraints.",
+        "implementation": "Each lab test has a cost. Total order cost is shown. Patient's insurance covers 60-70%. Agent should explain costs to patient before ordering.",
+        "agent_expected_behavior": "Prioritize essential tests (fasting_glucose, HbA1c). Explain why each test is needed. Mention insurance coverage. Avoid ordering unnecessary tests.",
+        "scoring": "Agent that orders every possible test without cost consideration loses social_context_management points. Agent that explains test priorities and costs gains points."
+      }
+    },
+    "mode_activation": {
+      "standard_evaluation": "Use default mode only. All challenge modes OFF.",
+      "robustness_testing": "Enable 1-2 challenge modes randomly. Tests agent resilience.",
+      "stress_testing": "Enable multiple challenge modes simultaneously. Tests agent under adverse conditions.",
+      "note": "Challenge modes produce separate scores and should NOT be combined with standard evaluation for comparison."
+    }
   }
 }
