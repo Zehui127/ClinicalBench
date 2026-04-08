@@ -1,0 +1,431 @@
+{
+  "id": "v27_emergency_triage_L3_nephrolithiasis_15f30c",
+  "domain": "internal_medicine",
+  "task_type": "emergency_triage",
+  "difficulty": "L3",
+  "version": "2.7",
+  "description": {
+    "purpose": "emergency_triage — 44-year-old female with I've been having the pain radiate to your groin for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having the pain radiate to your groin for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Rapid assessment and prioritization",
+      "Time-sensitive decision making",
+      "Handle complex multi-condition scenario"
+    ],
+    "focus": "Rapid assessment and stabilization"
+  },
+  "user_scenario": {
+    "persona": "44-year-old female patient, 小学 education, works as a cleaner. a patient who is confused about medical terms and needs simple explanations presenting with I've been having the pain radiate to your groin.",
+    "patient_profile": {
+      "age": 44,
+      "gender": "female",
+      "education_level": "elementary",
+      "communication_style": "uncertain",
+      "cooperation_level": "moderate",
+      "chief_complaint": "i've been having the pain radiate to your groin for a few weeks",
+      "occupation": "cleaner"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "i've been having the pain radiate to your groin"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I've been having the pain radiate to your groin",
+        "current_medications": [
+          "tamsulosin 0.4mg once daily",
+          "ketorolac 10mg as needed for pain"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "nephrolithiasis"
+      },
+      "patient_misconceptions_and_concerns": {
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "i've been having the pain radiate to your groin"
+      ],
+      "share_only_if_asked": [],
+      "hidden_truth": [
+        "i've had kidney stones before (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "noise_symptoms": [
+        "RA"
+      ],
+      "noise_note": "Unrelated symptoms that may distract from the main issue",
+      "misleading_symptoms": [
+        "groin pain"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 3,
+          "symptom": "i've had kidney stones before",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
+      "response_style": {
+        "honest": true,
+        "direct": false,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "anxious",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": false
+      }
+    },
+    "task_instructions": "You are ZhouXX, a 44-year-old female patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of i've been having the pain radiate to your groin. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "family_member_scenario": null,
+  "medical_persona": {
+    "age": 44,
+    "gender": "female",
+    "symptoms": {
+      "Does the pain radiate to your groin": "I've been having the pain radiate to your groin",
+      "Have you had kidney stones before": "I've had kidney stones before"
+    },
+    "duration": "a few weeks",
+    "severity": "severe",
+    "current_medications": [
+      {
+        "name": "tamsulosin",
+        "dose": "0.4mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "ketorolac",
+        "dose": "10mg",
+        "frequency": "as needed for pain"
+      }
+    ],
+    "vital_signs": {
+      "blood_pressure": "121/95 mmHg",
+      "bmi": "27.1"
+    },
+    "lifestyle_factors": {
+      "exercise": "minimal"
+    },
+    "socioeconomic_factors": {
+      "occupation": "cleaner",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage",
+      "family_burden": ""
+    },
+    "diagnosis": {
+      "primary": "nephrolithiasis",
+      "severity": "severe",
+      "differential_diagnoses": [
+        "Pyelonephritis",
+        "Appendicitis",
+        "Ectopic Pregnancy",
+        "Aortic Aneurysm"
+      ]
+    }
+  },
+  "ticket": "i've been having the pain radiate to your groin",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "ZhouXX",
+          "mrn": "MRN874938",
+          "age": 44,
+          "gender": "female"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 44,
+            "gender": "female",
+            "symptoms": [
+              "i've been having the pain radiate to your groin"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "i've been having the pain radiate to your groin"
+            ],
+            "ask_only": []
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 3
+        }
+      },
+      {
+        "action_id": "use_assess_vital_signs",
+        "requestor": "assistant",
+        "name": "assess_vital_signs",
+        "arguments": {
+          "include_bmi": true
+        }
+      },
+      {
+        "action_id": "use_order_lab_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "CBC",
+            "BMP"
+          ],
+          "rationale": "Labs to evaluate nephrolithiasis"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "nephrolithiasis"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY",
+      "TIME"
+    ],
+    "medical_criteria": {
+      "category": "emergency",
+      "min_turns": 3,
+      "max_turns": 6,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of nephrolithiasis identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": true,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": true,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "nephrolithiasis",
+          "allow_alternatives": [
+            "Pyelonephritis",
+            "Appendicitis",
+            "Ectopic Pregnancy"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "Pyelonephritis",
+            "Appendicitis",
+            "Ectopic Pregnancy"
+          ],
+          "weight": 0.2
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": true,
+          "must_ask": [
+            "Do you have severe pain in your flank or lower abdomen that comes in waves?",
+            "Does the pain radiate to your groin?",
+            "Have you noticed any blood in your urine?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from tamsulosin ()",
+          "options": [
+            "Reduce dose of tamsulosin",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose tamsulosin, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": true,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "critical"
+        },
+        "avoid_nephrotoxic_drugs": {
+          "required": true,
+          "description": "Must assess: avoid nephrotoxic drugs",
+          "severity": "high"
+        },
+        "monitor_potassium": {
+          "required": true,
+          "description": "Must assess: monitor potassium",
+          "severity": "high"
+        },
+        "fluid_restriction": {
+          "required": true,
+          "description": "Must assess: fluid restriction",
+          "severity": "high"
+        }
+      },
+      "required_tools": [
+        "assess_vital_signs",
+        "order_lab_tests",
+        "get_lab_results",
+        "record_diagnosis"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Fail to consider Pyelonephritis as alternative diagnosis",
+        "Diagnose nephrolithiasis without ordering any supporting lab tests",
+        "Fail to assess comorbidity impact on treatment plan",
+        "Prescribe multiple new medications simultaneously without interaction check"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "stable creatinine but declining GFR",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "mid_consultation",
+          "event": "Patient reports acute worsening of symptoms during the visit",
+          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
+          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+        }
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_emergency_triage_L3_nephrolithiasis_bcbe26",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.754,
+    "behavior_type": "confused",
+    "seed": 117
+  }
+}

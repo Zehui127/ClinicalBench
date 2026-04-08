@@ -1,0 +1,394 @@
+{
+  "id": "v27_patient_non_compliance_L1_anemia_6c2670",
+  "domain": "hematology",
+  "task_type": "patient_non_compliance",
+  "difficulty": "L1",
+  "version": "2.7",
+  "description": {
+    "purpose": "patient_non_compliance — 42-year-old male with I've been having been craving unusual things like ice or dirt for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having been craving unusual things like ice or dirt for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Communication and trust-building",
+      "Addressing patient concerns and misconceptions"
+    ],
+    "focus": "Addressing patient concerns and building treatment adherence"
+  },
+  "user_scenario": {
+    "persona": "42-year-old male patient, 高中/中专 education, works as a nurse aide. a cooperative patient who answers questions clearly presenting with I've been having been craving unusual things like ice or dirt.",
+    "patient_profile": {
+      "age": 42,
+      "gender": "male",
+      "education_level": "high_school",
+      "communication_style": "clear",
+      "cooperation_level": "good",
+      "chief_complaint": "anaemia for a few weeks",
+      "occupation": "nurse aide"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "anaemia"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I've been having been craving unusual things like ice or dirt",
+        "current_medications": [
+          "ferrous sulfate 325mg three times daily"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "anemia",
+        "hemoglobin": "8.70 g/dL (abnormal)",
+        "mcv": "77.2 fL (abnormal)",
+        "rdw": "16.5 % (abnormal)",
+        "specific_medication_needed": "ferrous sulfate (325mg three times daily)"
+      },
+      "patient_misconceptions_and_concerns": {
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "anaemia"
+      ],
+      "share_only_if_asked": [],
+      "misleading_symptoms": [
+        "unusual cravings for ice or dirt (pica)",
+        "sore tongue and mouth ulcers",
+        "fatigue (also seen in depression and hypothyroidism)",
+        "shortness of breath (also seen in COPD and heart failure)"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "response_style": {
+        "honest": true,
+        "direct": true,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": false
+      }
+    },
+    "task_instructions": "You are HuangXX, a 42-year-old male patient. Your education level is 高中/中专. You work as a nurse aide. You are seeing a doctor because of anaemia. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "family_member_scenario": null,
+  "medical_persona": {
+    "age": 42,
+    "gender": "male",
+    "symptoms": {
+      "anaemia": "anaemia"
+    },
+    "duration": "a few weeks",
+    "severity": "mild",
+    "current_medications": [
+      {
+        "name": "ferrous sulfate",
+        "brand_names": [],
+        "drug_class": "iron supplement",
+        "dose": "325mg",
+        "frequency": "three times daily"
+      }
+    ],
+    "lab_results": {
+      "hemoglobin": "8.87 g/dL (abnormal)",
+      "mcv": "78.7 fL (abnormal)",
+      "rdw": "16.8 % (abnormal)",
+      "ferritin": "18.9 ng/mL (abnormal)",
+      "tibc": "421 ug/dL (abnormal)"
+    },
+    "vital_signs": {
+      "blood_pressure": "140/75 mmHg",
+      "bmi": "26.1"
+    },
+    "lifestyle_factors": {
+      "exercise": "light activity 1-2x/week"
+    },
+    "socioeconomic_factors": {
+      "occupation": "nurse aide",
+      "monthly_income": "about 3000-5000 yuan/month",
+      "insurance": "basic rural/cooperative medical insurance, limited coverage",
+      "family_burden": "single income household"
+    },
+    "medication_considerations": {
+      "ferrous sulfate": {
+        "drug_class": "iron supplement",
+        "standard_dose": "325mg three times daily",
+        "contraindications": []
+      }
+    },
+    "diagnosis": {
+      "primary": "anemia",
+      "severity": "mild",
+      "differential_diagnoses": [
+        "Iron Deficiency Anemia",
+        "Thalassemia",
+        "Anemia of Chronic Disease"
+      ]
+    }
+  },
+  "ticket": "anaemia",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "HuangXX",
+          "mrn": "MRN243982",
+          "age": 42,
+          "gender": "male"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 42,
+            "gender": "male",
+            "symptoms": [
+              "anaemia"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "anaemia"
+            ],
+            "ask_only": []
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 2
+        }
+      },
+      {
+        "action_id": "use_health_education",
+        "requestor": "assistant",
+        "name": "health_education",
+        "arguments": {
+          "topic": "anemia"
+        }
+      },
+      {
+        "action_id": "use_patient_education",
+        "requestor": "assistant",
+        "name": "patient_education",
+        "arguments": {
+          "topic": "anemia"
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "ferrous sulfate",
+          "dose": ""
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE"
+    ],
+    "medical_criteria": {
+      "category": "communication",
+      "min_turns": 3,
+      "max_turns": 20,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of anemia identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": false,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": false,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": false,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.7
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "anemia",
+          "allow_alternatives": [
+            "Iron Deficiency Anemia",
+            "Thalassemia",
+            "Anemia of Chronic Disease"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": false,
+          "must_consider": [
+            "Iron Deficiency Anemia",
+            "Thalassemia",
+            "Anemia of Chronic Disease"
+          ],
+          "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "hemoglobin",
+            "mcv",
+            "rdw"
+          ],
+          "should_order": [],
+          "weight": 0.15
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": false,
+          "must_ask": [
+            "Have you noticed any blood in your stool or very dark stools?",
+            "Do you get dizzy when standing up quickly?",
+            "Have you been craving unusual things like ice or dirt?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "ferrous sulfate",
+          "appropriate_dosage": "325mg three times daily",
+          "weight": 0.3
+        }
+      },
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": false,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "major"
+        },
+        "infection_precautions": {
+          "required": true,
+          "description": "Must assess: infection precautions",
+          "severity": "major"
+        },
+        "bleeding_risk": {
+          "required": true,
+          "description": "Must assess: bleeding risk",
+          "severity": "major"
+        },
+        "transfusion_reactions": {
+          "required": true,
+          "description": "Must assess: transfusion reactions",
+          "severity": "major"
+        }
+      },
+      "required_tools": [
+        "health_education",
+        "patient_education",
+        "prescribe_medication"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Fail to consider Iron Deficiency Anemia as alternative diagnosis",
+        "Diagnose anemia without ordering any supporting lab tests"
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_patient_non_compliance_L1_anemia_982204",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.169,
+    "behavior_type": "cooperative",
+    "seed": 109
+  }
+}

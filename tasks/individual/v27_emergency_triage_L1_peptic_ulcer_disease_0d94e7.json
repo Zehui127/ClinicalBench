@@ -1,0 +1,402 @@
+{
+  "id": "v27_emergency_triage_L1_peptic_ulcer_disease_0d94e7",
+  "domain": "internal_medicine",
+  "task_type": "emergency_triage",
+  "difficulty": "L1",
+  "version": "2.7",
+  "description": {
+    "purpose": "emergency_triage — 53-year-old male with I've been having black, tarry stools for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having black, tarry stools for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Rapid assessment and prioritization",
+      "Time-sensitive decision making"
+    ],
+    "focus": "Rapid assessment and stabilization"
+  },
+  "user_scenario": {
+    "persona": "53-year-old male patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with I've been having black, tarry stools.",
+    "patient_profile": {
+      "age": 53,
+      "gender": "male",
+      "education_level": "high_school",
+      "communication_style": "clear",
+      "cooperation_level": "good",
+      "chief_complaint": "duodenal ulcer and and stomach ulcer for a few weeks",
+      "occupation": "retail manager"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "duodenal ulcer",
+          "stomach ulcer"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I've been having black, tarry stools"
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "peptic ulcer disease",
+        "specific_medication_needed": "omeprazole (40mg once daily)"
+      },
+      "patient_misconceptions_and_concerns": {
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "duodenal ulcer",
+        "stomach ulcer"
+      ],
+      "share_only_if_asked": [
+        "gastric ulcer (needs doctor to specifically ask)",
+        "pud (needs doctor to specifically ask)"
+      ],
+      "response_style": {
+        "honest": true,
+        "direct": true,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": false
+      }
+    },
+    "task_instructions": "You are LiXX, a 53-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of duodenal ulcer. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "family_member_scenario": null,
+  "medical_persona": {
+    "age": 53,
+    "gender": "male",
+    "symptoms": {
+      "PUD": "pud",
+      "stomach ulcer": "stomach ulcer",
+      "gastric ulcer": "gastric ulcer",
+      "duodenal ulcer": "duodenal ulcer"
+    },
+    "duration": "a few weeks",
+    "severity": "mild",
+    "current_medications": [
+      {
+        "name": "omeprazole",
+        "brand_names": [
+          "Prilosec"
+        ],
+        "drug_class": "proton pump inhibitor (PPI)",
+        "dose": "40mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "clarithromycin",
+        "brand_names": [],
+        "drug_class": "macrolide antibiotic",
+        "dose": "500mg",
+        "frequency": "twice daily for 14 days"
+      },
+      {
+        "name": "bismuth subsalicylate",
+        "dose": "525mg",
+        "frequency": "four times daily"
+      }
+    ],
+    "vital_signs": {
+      "blood_pressure": "121/84 mmHg",
+      "bmi": "27.1"
+    },
+    "lifestyle_factors": {
+      "smoking": "yes (1 pack/day for 20+ years)",
+      "alcohol": "rarely",
+      "exercise": "light activity 1-2x/week"
+    },
+    "socioeconomic_factors": {
+      "occupation": "retail manager",
+      "monthly_income": "about 3000-5000 yuan/month",
+      "insurance": "basic rural/cooperative medical insurance, limited coverage",
+      "family_burden": "single income household"
+    },
+    "medication_considerations": {
+      "omeprazole": {
+        "drug_class": "proton pump inhibitor (PPI)",
+        "standard_dose": "",
+        "contraindications": []
+      }
+    },
+    "diagnosis": {
+      "primary": "peptic ulcer disease",
+      "severity": "mild",
+      "differential_diagnoses": [
+        "GERD",
+        "Gastritis",
+        "Gastric Cancer",
+        "Functional Dyspepsia"
+      ]
+    }
+  },
+  "ticket": "duodenal ulcer, stomach ulcer",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "LiXX",
+          "mrn": "MRN273134",
+          "age": 53,
+          "gender": "male"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 53,
+            "gender": "male",
+            "symptoms": [
+              "duodenal ulcer",
+              "stomach ulcer"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "duodenal ulcer",
+              "stomach ulcer"
+            ],
+            "ask_only": [
+              "gastric ulcer",
+              "pud"
+            ]
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 1
+        }
+      },
+      {
+        "action_id": "use_assess_vital_signs",
+        "requestor": "assistant",
+        "name": "assess_vital_signs",
+        "arguments": {
+          "include_bmi": true
+        }
+      },
+      {
+        "action_id": "use_order_lab_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "CBC",
+            "BMP"
+          ],
+          "rationale": "Labs to evaluate peptic ulcer disease"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "peptic ulcer disease"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY",
+      "TIME"
+    ],
+    "medical_criteria": {
+      "category": "emergency",
+      "min_turns": 3,
+      "max_turns": 10,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of peptic ulcer disease identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": false,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": false,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": false,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.7
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "peptic ulcer disease",
+          "allow_alternatives": [
+            "GERD",
+            "Gastritis",
+            "Gastric Cancer"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": false,
+          "must_consider": [
+            "GERD",
+            "Gastritis",
+            "Gastric Cancer"
+          ],
+          "weight": 0.2
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": false,
+          "must_ask": [
+            "Do you have burning or gnawing pain in your upper abdomen?",
+            "Does the pain improve or worsen with eating?",
+            "Have you noticed any black, tarry stools?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": false,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "major"
+        },
+        "bleeding_risk": {
+          "required": true,
+          "description": "Must assess: bleeding risk",
+          "severity": "major"
+        },
+        "hepatic_dose_adjustment": {
+          "required": true,
+          "description": "Must assess: hepatic dose adjustment",
+          "severity": "major"
+        },
+        "alcohol_interaction": {
+          "required": true,
+          "description": "Must assess: alcohol interaction",
+          "severity": "major"
+        }
+      },
+      "required_tools": [
+        "assess_vital_signs",
+        "order_lab_tests",
+        "get_lab_results",
+        "record_diagnosis"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Fail to consider GERD as alternative diagnosis",
+        "Diagnose peptic ulcer disease without ordering any supporting lab tests"
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_emergency_triage_L1_peptic_ulcer_disease_6ea6da",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.159,
+    "behavior_type": "cooperative",
+    "seed": 115
+  }
+}

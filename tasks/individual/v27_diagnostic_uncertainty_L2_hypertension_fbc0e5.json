@@ -1,0 +1,537 @@
+{
+  "id": "v27_diagnostic_uncertainty_L2_hypertension_fbc0e5",
+  "domain": "cardiology",
+  "task_type": "diagnostic_uncertainty",
+  "difficulty": "L2",
+  "version": "2.7",
+  "description": {
+    "purpose": "diagnostic_uncertainty — 47-year-old female with I've been having visual changes or spots in your vision for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having visual changes or spots in your vision for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Ability to probe for hidden symptoms",
+      "Quality of differential diagnosis"
+    ],
+    "focus": "Systematic information gathering and differential diagnosis"
+  },
+  "user_scenario": {
+    "persona": "47-year-old female patient, 小学 education, works as a factory worker. a patient who may forget to mention some symptoms presenting with I've been having visual changes or spots in your vision. Accompanied by daughter (age 27).",
+    "patient_profile": {
+      "age": 47,
+      "gender": "female",
+      "education_level": "elementary",
+      "communication_style": "vague",
+      "cooperation_level": "good",
+      "chief_complaint": "kidney disease for a few weeks",
+      "occupation": "factory worker"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "kidney disease"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I've been having visual changes or spots in your vision",
+        "family_history": "family member has kidney disease",
+        "past_history": [
+          "kidney disease"
+        ],
+        "current_medications": [
+          "lisinopril 10mg once daily"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "hypertension",
+        "specific_medication_needed": "lisinopril (10mg once daily)",
+        "medication_contraindications": [
+          "pregnancy"
+        ]
+      },
+      "patient_misconceptions_and_concerns": {
+        "medication_concerns": [
+          "I feel fine, do I really need to take blood pressure medicine?",
+          "Will I become dependent on blood pressure medication?",
+          "I heard blood pressure medicine causes impotence"
+        ],
+        "lifestyle_beliefs": [
+          "My blood pressure is only high because I'm stressed at work",
+          "If I cut out salt completely, I won't need medication"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      },
+      "undiagnosed_comorbidities": [
+        {
+          "condition": "chronic kidney disease",
+          "patient_aware_of_symptoms": [
+            "chronic kidney disease",
+            "long-term renal failure"
+          ],
+          "patient_unaware_of_diagnosis": true
+        }
+      ]
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "kidney disease"
+      ],
+      "share_only_if_asked": [
+        "high blood pressure (needs doctor to specifically ask)",
+        "high blood pressure (needs doctor to specifically ask)"
+      ],
+      "hidden_truth": [
+        "long-term renal failure (won't mention unless specifically probed)",
+        "high blood pressure (won't mention unless specifically probed)",
+        "high blood pressure (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "misleading_symptoms": [
+        "anxiety",
+        "gad",
+        "nosebleeds without obvious cause",
+        "visual changes or spots in vision",
+        "morning headache (also seen in sleep apnea and migraine)",
+        "dizziness (also seen in anemia and inner ear disorders)"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 4,
+          "symptom": "long-term renal failure",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
+          "after_turn": 6,
+          "symptom": "high blood pressure",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about lisinopril side effects — pregnancy"
+      ],
+      "family_member_will_interject": [
+        "daughter: How can we help at home?",
+        "daughter: What should we cook for them?"
+      ],
+      "response_style": {
+        "honest": true,
+        "direct": false,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": true
+      }
+    },
+    "task_instructions": "You are HuangXX, a 47-year-old female patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of kidney disease. This has been going on for about a few weeks. Answer honestly but you may forget to mention some symptoms. If the doctor doesn't specifically ask about something, you might not remember it. Your memory for details is not great — approximate answers are fine. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your daughter is with you and may speak up during the consultation to ask questions or express concerns."
+  },
+  "family_member_scenario": {
+    "scenario": "daughter accompanies patient, participates in the entire visit",
+    "role": "concerned and supportive, may express economic worries",
+    "interaction_timing": [
+      "When medication is discussed, the family member asks about costs",
+      "After diagnosis is explained, the family member asks about heritability",
+      "When a prescription is written, the family member asks about side effects",
+      "When lifestyle changes are mentioned, the family member asks for specifics"
+    ]
+  },
+  "medical_persona": {
+    "age": 47,
+    "gender": "female",
+    "symptoms": {
+      "HTN": "high blood pressure",
+      "high blood pressure": "high blood pressure",
+      "essential hypertension": "high blood pressure",
+      "primary hypertension": "high blood pressure",
+      "CKD": "chronic kidney disease",
+      "chronic renal failure": "long-term renal failure"
+    },
+    "duration": "a few weeks",
+    "severity": "moderate",
+    "past_medical_history": [
+      "kidney disease",
+      "anxiety"
+    ],
+    "current_medications": [
+      {
+        "name": "amlodipine",
+        "brand_names": [
+          "Norvasc"
+        ],
+        "drug_class": "calcium channel blocker",
+        "dose": "5mg",
+        "frequency": "once daily"
+      }
+    ],
+    "lab_results": {
+      "sodium": "140 mmol/L",
+      "potassium": "3.80 mmol/L",
+      "creatinine": "93.3 umol/L",
+      "egfr": "72.5 ml/min/1.73m2"
+    },
+    "vital_signs": {
+      "blood_pressure": "151/88 mmHg",
+      "bmi": "23.4"
+    },
+    "lifestyle_factors": {
+      "smoking": "no",
+      "alcohol": "moderate (3-4 drinks/week)",
+      "exercise": "minimal"
+    },
+    "comorbidities": {
+      "chronic kidney disease": "kidney disease, severity: 0.5"
+    },
+    "socioeconomic_factors": {
+      "occupation": "factory worker",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage",
+      "family_burden": ""
+    },
+    "medication_considerations": {
+      "lisinopril": {
+        "drug_class": "ACE inhibitor",
+        "standard_dose": "10mg once daily",
+        "contraindications": [
+          "pregnancy"
+        ]
+      }
+    },
+    "diagnosis": {
+      "primary": "hypertension",
+      "severity": "moderate",
+      "differential_diagnoses": [
+        "Secondary Hypertension",
+        "Pheochromocytoma",
+        "Renal Artery Stenosis"
+      ]
+    },
+    "confounder_conditions": [
+      "anxiety disorder"
+    ],
+    "complication_symptoms": {
+      "chronic kidney disease": {
+        "symptoms": [
+          "chronic kidney disease",
+          "long-term renal failure",
+          "crf"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may cause overlapping chest symptoms"
+      }
+    }
+  },
+  "ticket": "kidney disease",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "HuangXX",
+          "mrn": "MRN524206",
+          "age": 47,
+          "gender": "female"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 47,
+            "gender": "female",
+            "symptoms": [
+              "kidney disease"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "kidney disease"
+            ],
+            "ask_only": [
+              "high blood pressure",
+              "high blood pressure"
+            ]
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 4
+        }
+      },
+      {
+        "action_id": "use_order_lab_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "sodium",
+            "potassium",
+            "creatinine",
+            "egfr"
+          ],
+          "rationale": "Labs to evaluate hypertension"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_differential_diagnosis",
+        "requestor": "assistant",
+        "name": "differential_diagnosis",
+        "arguments": {
+          "symptoms": [
+            "high blood pressure"
+          ],
+          "must_consider": [
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
+          ]
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "hypertension"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL"
+    ],
+    "medical_criteria": {
+      "category": "diagnosis",
+      "min_turns": 4,
+      "max_turns": 25,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of hypertension identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": false,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": false,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "hypertension",
+          "allow_alternatives": [
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
+          ],
+          "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [],
+          "should_order": [
+            "sodium",
+            "potassium"
+          ],
+          "weight": 0.15
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": true,
+          "must_ask": [
+            "Do you get headaches, especially in the morning?",
+            "Have you noticed any visual changes or spots in your vision?",
+            "Do you experience palpitations or racing heartbeat?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from lisinopril (ACE inhibitor)",
+          "options": [
+            "Reduce dose of lisinopril",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose lisinopril, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": true,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "major"
+        },
+        "bleeding_risk_with_anticoagulants": {
+          "required": true,
+          "description": "Must assess: bleeding risk with anticoagulants",
+          "severity": "major"
+        },
+        "blood_pressure_control": {
+          "required": true,
+          "description": "Must assess and address blood pressure",
+          "severity": "high"
+        },
+        "potassium_monitoring": {
+          "required": true,
+          "description": "Must assess: potassium monitoring",
+          "severity": "major"
+        }
+      },
+      "required_tools": [
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Prescribe NSAIDs without assessing cardiovascular risk",
+        "Discharge without assessing exercise tolerance",
+        "Fail to consider Secondary Hypertension as alternative diagnosis",
+        "Prescribe lisinopril in patient with pregnancy without special precautions",
+        "Diagnose hypertension without ordering any supporting lab tests"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal troponin with angina symptoms",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'chronic kidney disease' when discussing treatment options",
+          "example": "'Oh, I also sometimes get chronic kidney disease — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed kidney disease, update differential, order appropriate workup"
+        }
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_diagnostic_uncertainty_L2_hypertension_ced4fe",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.673,
+    "behavior_type": "forgetful",
+    "seed": 101
+  }
+}

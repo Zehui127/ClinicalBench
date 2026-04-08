@@ -1,0 +1,506 @@
+{
+  "id": "v27_diagnostic_uncertainty_L3_copd_e94b07",
+  "domain": "pulmonology",
+  "task_type": "diagnostic_uncertainty",
+  "difficulty": "L3",
+  "version": "2.7",
+  "description": {
+    "purpose": "diagnostic_uncertainty — 68-year-old male with COPD for a few weeks",
+    "clinical_scenario": "Patient presents with COPD for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Ability to probe for hidden symptoms",
+      "Quality of differential diagnosis",
+      "Handle complex multi-condition scenario"
+    ],
+    "focus": "Systematic information gathering and differential diagnosis"
+  },
+  "user_scenario": {
+    "persona": "68-year-old male patient, 大学 education, works as a software developer. a patient who is impatient and wants quick resolution presenting with COPD.",
+    "patient_profile": {
+      "age": 68,
+      "gender": "male",
+      "education_level": "college",
+      "communication_style": "demanding",
+      "cooperation_level": "moderate",
+      "chief_complaint": "COPD for a few weeks",
+      "occupation": "software developer"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "COPD"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "COPD",
+        "family_history": "family member has heart failure",
+        "past_history": [
+          "heart failure",
+          "osteoporosis"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "copd",
+        "pao2": "67.1 mmHg (abnormal)",
+        "paco2": "47.4 mmHg (abnormal)",
+        "fev1_predicted": "56.2 % (abnormal)",
+        "specific_medication_needed": "tiotropium (18mcg once daily inhaled)"
+      },
+      "patient_misconceptions_and_concerns": {
+        "smoking_denial": [
+          "My grandfather smoked until he was 90 and was fine",
+          "I've already quit, why isn't my breathing better?"
+        ],
+        "inhaler_concerns": [
+          "Are inhalers addictive?",
+          "I don't want to use steroids"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "COPD"
+      ],
+      "share_only_if_asked": [
+        "COPD (needs doctor to specifically ask)",
+        "COPD (needs doctor to specifically ask)"
+      ],
+      "hidden_truth": [
+        "bone loss (won't mention unless specifically probed)",
+        "COPD (won't mention unless specifically probed)",
+        "my weight has changed (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "noise_symptoms": [
+        "occasional ringing in ears"
+      ],
+      "noise_note": "Unrelated symptoms that may distract from the main issue",
+      "misleading_symptoms": [
+        "constant tiredness",
+        "pain",
+        "morning headache from CO2 retention",
+        "swollen ankles from right heart strain",
+        "chronic cough (also seen in GERD and heart failure)",
+        "fatigue (also seen in depression and anemia)"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 6,
+          "symptom": "my weight has changed",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
+          "after_turn": 7,
+          "symptom": "bone loss",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
+          "after_turn": 15,
+          "symptom": "COPD",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
+      "response_style": {
+        "honest": false,
+        "direct": true,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [],
+        "emotional_state": "impatient",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": false
+      }
+    },
+    "task_instructions": "You are LiXX, a 68-year-old male patient. Your education level is 大学. You work as a software developer. You are seeing a doctor because of COPD. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "family_member_scenario": null,
+  "medical_persona": {
+    "age": 68,
+    "gender": "male",
+    "symptoms": {
+      "COPD": "COPD",
+      "chronic obstructive pulmonary disease": "COPD",
+      "chronic obstructive airway disease": "COPD",
+      "COAD": "COPD",
+      "Has your weight changed unexpectedly": "my weight has changed",
+      "bone loss": "bone loss"
+    },
+    "duration": "a few weeks",
+    "severity": "severe",
+    "past_medical_history": [
+      "heart failure",
+      "osteoporosis",
+      "lung cancer"
+    ],
+    "current_medications": [
+      {
+        "name": "albuterol",
+        "brand_names": [],
+        "drug_class": "short-acting beta-agonist (SABA)",
+        "dose": "90mcg",
+        "frequency": "as needed inhaled"
+      },
+      {
+        "name": "budesonide/formoterol",
+        "brand_names": [],
+        "drug_class": "ICS/LABA combination",
+        "dose": "160/4.5mcg",
+        "frequency": "twice daily inhaled"
+      }
+    ],
+    "lab_results": {
+      "pao2": "69.3 mmHg (abnormal)",
+      "paco2": "47.6 mmHg (abnormal)",
+      "fev1_predicted": "52.7 % (abnormal)",
+      "wbc": "11.5 x10^9/L (abnormal)",
+      "hemoglobin": "15.5 g/dL"
+    },
+    "vital_signs": {
+      "blood_pressure": "125/84 mmHg",
+      "bmi": "21.5"
+    },
+    "lifestyle_factors": {
+      "smoking": "no",
+      "exercise": "moderate 3x/week"
+    },
+    "comorbidities": {
+      "heart failure": "heart failure, severity: 0.5",
+      "osteoporosis": "osteoporosis, severity: 0.5"
+    },
+    "socioeconomic_factors": {
+      "occupation": "software developer",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage",
+      "family_burden": "single income household"
+    },
+    "medication_considerations": {
+      "tiotropium": {
+        "drug_class": "long-acting muscarinic antagonist (LAMA)",
+        "standard_dose": "18mcg once daily inhaled",
+        "contraindications": []
+      }
+    },
+    "diagnosis": {
+      "primary": "copd",
+      "severity": "severe"
+    },
+    "confounder_conditions": [
+      "lung cancer"
+    ],
+    "complication_symptoms": {
+      "heart failure": {
+        "symptoms": [
+          "my weight has changed"
+        ],
+        "status": "undiagnosed",
+        "interaction_with_primary": "may worsen breathlessness"
+      },
+      "osteoporosis": {
+        "symptoms": [
+          "bone loss",
+          "low bone density",
+          "brittle bone"
+        ],
+        "status": "known_to_patient",
+        "interaction_with_primary": "may worsen breathlessness"
+      }
+    }
+  },
+  "ticket": "COPD",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "LiXX",
+          "mrn": "MRN280419",
+          "age": 68,
+          "gender": "male"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 68,
+            "gender": "male",
+            "symptoms": [
+              "COPD"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "COPD"
+            ],
+            "ask_only": [
+              "COPD",
+              "COPD"
+            ]
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 6
+        }
+      },
+      {
+        "action_id": "use_order_lab_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "pao2",
+            "paco2",
+            "fev1_predicted",
+            "wbc",
+            "hemoglobin"
+          ],
+          "rationale": "Labs to evaluate copd"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_differential_diagnosis",
+        "requestor": "assistant",
+        "name": "differential_diagnosis",
+        "arguments": {
+          "symptoms": [
+            "COPD"
+          ],
+          "must_consider": []
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "copd"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL"
+    ],
+    "medical_criteria": {
+      "category": "diagnosis",
+      "min_turns": 6,
+      "max_turns": 20,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of copd identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": true,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": true,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "copd",
+          "allow_alternatives": [],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [],
+          "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "pao2",
+            "paco2",
+            "fev1_predicted"
+          ],
+          "should_order": [
+            "hemoglobin"
+          ],
+          "weight": 0.15
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from tiotropium (long-acting muscarinic antagonist (LAMA))",
+          "options": [
+            "Reduce dose of tiotropium",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose tiotropium, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": true,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "critical"
+        },
+        "oxygen_saturation_monitoring": {
+          "required": true,
+          "description": "Must assess: oxygen saturation monitoring",
+          "severity": "high"
+        },
+        "respiratory_distress_signs": {
+          "required": true,
+          "description": "Must assess: respiratory distress signs",
+          "severity": "high"
+        }
+      },
+      "required_tools": [
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Prescribe beta-blockers without considering pulmonary contraindication",
+        "Discharge without checking oxygen saturation",
+        "Diagnose copd without ordering any supporting lab tests",
+        "Fail to assess comorbidity impact on treatment plan",
+        "Prescribe multiple new medications simultaneously without interaction check"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal chest X-ray with significant dyspnea",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'my weight has changed' when discussing treatment options",
+          "example": "'Oh, I also sometimes get my weight has changed — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed heart failure, update differential, order appropriate workup"
+        },
+        {
+          "trigger": "mid_consultation",
+          "event": "Patient reports acute worsening of symptoms during the visit",
+          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
+          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+        }
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_diagnostic_uncertainty_L3_copd_a53123",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.903,
+    "behavior_type": "pressuring",
+    "seed": 102
+  }
+}

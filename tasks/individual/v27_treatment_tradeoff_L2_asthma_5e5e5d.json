@@ -1,0 +1,461 @@
+{
+  "id": "v27_treatment_tradeoff_L2_asthma_5e5e5d",
+  "domain": "pulmonology",
+  "task_type": "treatment_tradeoff",
+  "difficulty": "L2",
+  "version": "2.7",
+  "description": {
+    "purpose": "treatment_tradeoff — 30-year-old female with my the wheezing gets worse sometimes for a few weeks",
+    "clinical_scenario": "Patient presents with my the wheezing gets worse sometimes for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Consideration of comorbidities in treatment",
+      "Shared decision-making ability"
+    ],
+    "focus": "Weighing treatment options with comorbidity considerations"
+  },
+  "user_scenario": {
+    "persona": "30-year-old female patient, 小学 education, works as a cleaner. a patient who may forget to mention some symptoms presenting with my the wheezing gets worse sometimes. Accompanied by son (age 18).",
+    "patient_profile": {
+      "age": 30,
+      "gender": "female",
+      "education_level": "elementary",
+      "communication_style": "vague",
+      "cooperation_level": "good",
+      "chief_complaint": "asthma for a few weeks",
+      "occupation": "cleaner"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "asthma"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "my the wheezing gets worse sometimes",
+        "family_history": "family member has acid reflux",
+        "past_history": [
+          "acid reflux",
+          "anxiety"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "asthma",
+        "eosinophil_count": "7.26 % (abnormal)",
+        "ige_total": "260 IU/mL (abnormal)"
+      },
+      "patient_misconceptions_and_concerns": {
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "asthma"
+      ],
+      "share_only_if_asked": [
+        "acid reflux (needs doctor to specifically ask)"
+      ],
+      "hidden_truth": [
+        "anxiety (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "misleading_symptoms": [
+        "acid reflux",
+        "acid reflux"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 3,
+          "symptom": "anxiety",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
+      "family_member_will_interject": [
+        "son: How can we help at home?",
+        "son: What should we cook for them?"
+      ],
+      "response_style": {
+        "honest": true,
+        "direct": false,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true,
+        "family_involvement": true
+      }
+    },
+    "task_instructions": "You are HuangXX, a 30-year-old female patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of asthma. This has been going on for about a few weeks. Answer honestly but you may forget to mention some symptoms. If the doctor doesn't specifically ask about something, you might not remember it. Your memory for details is not great — approximate answers are fine. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your son is with you and may speak up during the consultation to ask questions or express concerns."
+  },
+  "family_member_scenario": {
+    "scenario": "son accompanies patient, participates in the entire visit",
+    "role": "concerned and supportive, may express economic worries",
+    "interaction_timing": [
+      "When medication is discussed, the family member asks about costs",
+      "After diagnosis is explained, the family member asks about heritability",
+      "When a prescription is written, the family member asks about side effects",
+      "When lifestyle changes are mentioned, the family member asks for specifics"
+    ]
+  },
+  "medical_persona": {
+    "age": 30,
+    "gender": "female",
+    "symptoms": {
+      "bronchial asthma": "asthma",
+      "gastroesophageal reflux disease": "acid reflux",
+      "generalized anxiety disorder": "anxiety"
+    },
+    "duration": "a few weeks",
+    "severity": "moderate",
+    "past_medical_history": [
+      "acid reflux",
+      "anxiety",
+      "acid reflux"
+    ],
+    "lab_results": {
+      "eosinophil_count": "7.50 % (abnormal)",
+      "ige_total": "255 IU/mL (abnormal)",
+      "wbc": "9.92 x10^9/L",
+      "hemoglobin": "14.1 g/dL"
+    },
+    "vital_signs": {
+      "blood_pressure": "124/82 mmHg",
+      "bmi": "23.6"
+    },
+    "lifestyle_factors": {
+      "exercise": "sedentary"
+    },
+    "comorbidities": {
+      "gerd": "acid reflux, severity: 0.5",
+      "anxiety disorder": "anxiety, severity: 0.5"
+    },
+    "socioeconomic_factors": {
+      "occupation": "cleaner",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage",
+      "family_burden": "single income household"
+    },
+    "diagnosis": {
+      "primary": "asthma",
+      "severity": "moderate",
+      "differential_diagnoses": [
+        "COPD",
+        "Bronchiectasis",
+        "Vocal Cord Dysfunction"
+      ]
+    },
+    "confounder_conditions": [
+      "gerd"
+    ],
+    "complication_symptoms": {
+      "gerd": {
+        "symptoms": [
+          "acid reflux",
+          "acid reflux",
+          "heartburn"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may worsen breathlessness"
+      },
+      "anxiety disorder": {
+        "symptoms": [
+          "anxiety",
+          "gad",
+          "anxiety"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may worsen breathlessness"
+      }
+    }
+  },
+  "ticket": "asthma",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "HuangXX",
+          "mrn": "MRN616943",
+          "age": 30,
+          "gender": "female"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 30,
+            "gender": "female",
+            "symptoms": [
+              "asthma"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "asthma"
+            ],
+            "ask_only": [
+              "acid reflux"
+            ]
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 3
+        }
+      },
+      {
+        "action_id": "use_check_allergy",
+        "requestor": "assistant",
+        "name": "check_allergy",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_check_drug_interactions",
+        "requestor": "assistant",
+        "name": "check_drug_interactions",
+        "arguments": {
+          "drug_list": []
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "",
+          "dose": ""
+        }
+      },
+      {
+        "action_id": "use_schedule_followup",
+        "requestor": "assistant",
+        "name": "schedule_followup",
+        "arguments": {
+          "timeframe": "2-4 weeks"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY"
+    ],
+    "medical_criteria": {
+      "category": "treatment",
+      "min_turns": 3,
+      "max_turns": 25,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of asthma identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": false,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": false,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "asthma",
+          "allow_alternatives": [
+            "COPD",
+            "Bronchiectasis",
+            "Vocal Cord Dysfunction"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "COPD",
+            "Bronchiectasis",
+            "Vocal Cord Dysfunction"
+          ],
+          "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "eosinophil_count",
+            "ige_total"
+          ],
+          "should_order": [
+            "wbc",
+            "hemoglobin"
+          ],
+          "weight": 0.15
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": true,
+          "must_ask": [
+            "Have you been exposed to any new allergens or irritants?",
+            "Does the wheezing get worse at night or early morning?",
+            "How often are you using your rescue inhaler?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": true,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "major"
+        },
+        "oxygen_saturation_monitoring": {
+          "required": true,
+          "description": "Must assess: oxygen saturation monitoring",
+          "severity": "major"
+        },
+        "respiratory_distress_signs": {
+          "required": true,
+          "description": "Must assess: respiratory distress signs",
+          "severity": "major"
+        }
+      },
+      "required_tools": [
+        "check_allergy",
+        "check_drug_interactions",
+        "prescribe_medication",
+        "schedule_followup"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Prescribe beta-blockers without considering pulmonary contraindication",
+        "Discharge without checking oxygen saturation",
+        "Fail to consider COPD as alternative diagnosis",
+        "Diagnose asthma without ordering any supporting lab tests"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal chest X-ray with significant dyspnea",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'acid reflux' when discussing treatment options",
+          "example": "'Oh, I also sometimes get acid reflux — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed acid reflux, update differential, order appropriate workup"
+        }
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_treatment_tradeoff_L2_asthma_24aff4",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.586,
+    "behavior_type": "forgetful",
+    "seed": 107
+  }
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "file": "v27_diagnostic_uncertainty_L1_type_2_diabetes_236152.json",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L1",
+    "disease": "type 2 diabetes",
+    "domain": "endocrinology"
+  },
+  {
+    "file": "v27_diagnostic_uncertainty_L2_hypertension_fbc0e5.json",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L2",
+    "disease": "hypertension",
+    "domain": "cardiology"
+  },
+  {
+    "file": "v27_diagnostic_uncertainty_L3_copd_e94b07.json",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L3",
+    "disease": "copd",
+    "domain": "pulmonology"
+  },
+  {
+    "file": "v27_conflicting_evidence_L1_heart_failure_850efe.json",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L1",
+    "disease": "heart failure",
+    "domain": "cardiology"
+  },
+  {
+    "file": "v27_conflicting_evidence_L2_chronic_kidney_disease_d34fd9.json",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2",
+    "disease": "chronic kidney disease",
+    "domain": "nephrology"
+  },
+  {
+    "file": "v27_conflicting_evidence_L3_gout_d9bab7.json",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L3",
+    "disease": "gout",
+    "domain": "rheumatology"
+  },
+  {
+    "file": "v27_treatment_tradeoff_L1_coronary_artery_disease_12d203.json",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L1",
+    "disease": "coronary artery disease",
+    "domain": "cardiology"
+  },
+  {
+    "file": "v27_treatment_tradeoff_L2_asthma_5e5e5d.json",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L2",
+    "disease": "asthma",
+    "domain": "pulmonology"
+  },
+  {
+    "file": "v27_treatment_tradeoff_L3_stroke_05adce.json",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3",
+    "disease": "stroke",
+    "domain": "neurology"
+  },
+  {
+    "file": "v27_patient_non_compliance_L1_anemia_6c2670.json",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L1",
+    "disease": "anemia",
+    "domain": "hematology"
+  },
+  {
+    "file": "v27_patient_non_compliance_L2_sickle_cell_anemia_bb161e.json",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L2",
+    "disease": "sickle cell anemia",
+    "domain": "hematology"
+  },
+  {
+    "file": "v27_patient_non_compliance_L3_cirrhosis_31f871.json",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L3",
+    "disease": "cirrhosis",
+    "domain": "gastroenterology"
+  },
+  {
+    "file": "v27_drug_safety_risk_L1_rheumatoid_arthritis_3a8d2b.json",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L1",
+    "disease": "rheumatoid arthritis",
+    "domain": "rheumatology"
+  },
+  {
+    "file": "v27_drug_safety_risk_L2_hyperthyroidism_4f0758.json",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L2",
+    "disease": "hyperthyroidism",
+    "domain": "endocrinology"
+  },
+  {
+    "file": "v27_drug_safety_risk_L3_depression_2e2e78.json",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L3",
+    "disease": "depression",
+    "domain": "psychiatry"
+  },
+  {
+    "file": "v27_emergency_triage_L1_peptic_ulcer_disease_0d94e7.json",
+    "task_type": "emergency_triage",
+    "difficulty": "L1",
+    "disease": "peptic ulcer disease",
+    "domain": "internal_medicine"
+  },
+  {
+    "file": "v27_emergency_triage_L2_atrial_fibrillation_242356.json",
+    "task_type": "emergency_triage",
+    "difficulty": "L2",
+    "disease": "atrial fibrillation",
+    "domain": "cardiology"
+  },
+  {
+    "file": "v27_emergency_triage_L3_nephrolithiasis_15f30c.json",
+    "task_type": "emergency_triage",
+    "difficulty": "L3",
+    "disease": "nephrolithiasis",
+    "domain": "internal_medicine"
+  }
+]
