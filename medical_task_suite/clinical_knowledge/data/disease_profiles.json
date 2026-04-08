@@ -1,0 +1,3054 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-04-03",
+    "description": "Consolidated disease profiles extracted from persona_generator.py and dialogue_builder.py",
+    "sources": [
+      "medical_task_suite/generation/core/persona_generator.py",
+      "medical_task_suite/generation/core/dialogue_builder.py"
+    ]
+  },
+  "diseases": {
+    "type 2 diabetes": {
+      "aliases": [
+        "T2DM",
+        "type II diabetes",
+        "adult-onset diabetes",
+        "non-insulin-dependent diabetes mellitus",
+        "NIDDM"
+      ],
+      "typical_age_range": [
+        40,
+        72
+      ],
+      "comorbidities": {
+        "hypertension": 0.7,
+        "hyperlipidemia": 0.6,
+        "obesity": 0.55,
+        "coronary artery disease": 0.3,
+        "chronic kidney disease": 0.25,
+        "non-alcoholic fatty liver disease": 0.5,
+        "depression": 0.2,
+        "sleep apnea": 0.25
+      },
+      "medications": [
+        {
+          "name": "metformin",
+          "dose": "500mg",
+          "frequency": "twice daily",
+          "probability": 0.7
+        },
+        {
+          "name": "glipizide",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        },
+        {
+          "name": "insulin glargine",
+          "dose": "20 units",
+          "frequency": "once daily at bedtime",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Metabolic Syndrome",
+        "Cushing's Syndrome",
+        "Type 1 Diabetes"
+      ],
+      "differential_questions": [
+        "Have you noticed increased thirst or urination recently?",
+        "Have you had any episodes of blurred vision?",
+        "Has your appetite changed unexpectedly?",
+        "Have you experienced any tingling or numbness in your hands or feet?"
+      ],
+      "patient_education": "Monitor your blood sugar regularly, watch your carbohydrate intake, and check your feet daily for any sores or changes",
+      "vital_sign_modifiers": {
+        "blood_pressure": {
+          "systolic_range": [
+            130,
+            165
+          ],
+          "diastolic_range": [
+            80,
+            100
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "type 1 diabetes": {
+      "aliases": [
+        "T1DM",
+        "type I diabetes",
+        "insulin-dependent diabetes mellitus",
+        "IDDM",
+        "juvenile diabetes"
+      ],
+      "typical_age_range": [
+        12,
+        35
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "",
+      "vital_sign_modifiers": {
+        "blood_pressure": {
+          "systolic_range": [
+            130,
+            165
+          ],
+          "diastolic_range": [
+            80,
+            100
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "hypertension": {
+      "aliases": [
+        "HTN",
+        "high blood pressure",
+        "essential hypertension",
+        "primary hypertension"
+      ],
+      "typical_age_range": [
+        35,
+        70
+      ],
+      "comorbidities": {
+        "type 2 diabetes": 0.3,
+        "hyperlipidemia": 0.5,
+        "coronary artery disease": 0.25,
+        "chronic kidney disease": 0.2,
+        "obesity": 0.4,
+        "gout": 0.15
+      },
+      "medications": [
+        {
+          "name": "lisinopril",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.4
+        },
+        {
+          "name": "amlodipine",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "losartan",
+          "dose": "50mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        },
+        {
+          "name": "hydrochlorothiazide",
+          "dose": "25mg",
+          "frequency": "once daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Secondary Hypertension",
+        "Pheochromocytoma",
+        "Renal Artery Stenosis"
+      ],
+      "differential_questions": [
+        "Do you get headaches, especially in the morning?",
+        "Have you noticed any visual changes or spots in your vision?",
+        "Do you experience palpitations or racing heartbeat?",
+        "Has anyone in your family had kidney problems?"
+      ],
+      "patient_education": "Reduce salt intake, exercise regularly, and take your blood pressure medication even when you feel fine — high blood pressure often has no symptoms",
+      "vital_sign_modifiers": {
+        "blood_pressure": {
+          "systolic_range": [
+            130,
+            165
+          ],
+          "diastolic_range": [
+            80,
+            100
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "hyperlipidemia": {
+      "aliases": [
+        "HLD",
+        "high cholesterol",
+        "dyslipidemia"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {},
+      "medications": [
+        {
+          "name": "atorvastatin",
+          "dose": "20mg",
+          "frequency": "once daily at bedtime",
+          "probability": 0.6
+        },
+        {
+          "name": "rosuvastatin",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "simvastatin",
+          "dose": "40mg",
+          "frequency": "once daily at bedtime",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "sickle cell anemia": {
+      "aliases": [
+        "SCA",
+        "sickle cell disease",
+        "SCD",
+        "HbSS disease",
+        "hemoglobin SS disease"
+      ],
+      "typical_age_range": [
+        18,
+        55
+      ],
+      "comorbidities": {
+        "chronic kidney disease": 0.3,
+        "pulmonary hypertension": 0.25,
+        "gallstones": 0.4,
+        "osteonecrosis": 0.2,
+        "leg ulcers": 0.15,
+        "priapism": 0.1,
+        "stroke": 0.15,
+        "acute chest syndrome": 0.3
+      },
+      "medications": [
+        {
+          "name": "hydroxyurea",
+          "dose": "500mg",
+          "frequency": "once daily",
+          "probability": 0.6
+        },
+        {
+          "name": "folic acid",
+          "dose": "1mg",
+          "frequency": "once daily",
+          "probability": 0.8
+        },
+        {
+          "name": "penicillin vk",
+          "dose": "250mg",
+          "frequency": "twice daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Acute Chest Syndrome",
+        "Pulmonary Embolism",
+        "Pneumonia"
+      ],
+      "differential_questions": [
+        "Have you had a fever or felt like you were getting sick recently?",
+        "Has your breathing gotten worse over the past day or two?",
+        "Have you had any recent pain crises or hospitalizations?",
+        "Are you coughing up anything, or is the cough dry?",
+        "Have you been taking your hydroxyurea regularly?"
+      ],
+      "patient_education": "Stay well-hydrated, avoid extreme temperatures, and seek medical attention immediately if you develop fever, chest pain, or difficulty breathing — these could signal a sickle cell crisis",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            85,
+            115
+          ]
+        },
+        "oxygen_saturation": {
+          "range": [
+            93,
+            97
+          ]
+        },
+        "blood_pressure": {
+          "systolic_range": [
+            105,
+            130
+          ],
+          "diastolic_range": [
+            65,
+            85
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "copd": {
+      "aliases": [
+        "COPD",
+        "chronic obstructive pulmonary disease",
+        "chronic obstructive airway disease",
+        "COAD"
+      ],
+      "typical_age_range": [
+        45,
+        78
+      ],
+      "comorbidities": {
+        "hypertension": 0.4,
+        "coronary artery disease": 0.25,
+        "osteoporosis": 0.3,
+        "depression": 0.25,
+        "lung cancer": 0.1,
+        "heart failure": 0.2
+      },
+      "medications": [
+        {
+          "name": "tiotropium",
+          "dose": "18mcg",
+          "frequency": "once daily inhaled",
+          "probability": 0.5
+        },
+        {
+          "name": "albuterol",
+          "dose": "90mcg",
+          "frequency": "as needed inhaled",
+          "probability": 0.7
+        },
+        {
+          "name": "budesonide/formoterol",
+          "dose": "160/4.5mcg",
+          "frequency": "twice daily inhaled",
+          "probability": 0.4
+        }
+      ],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "Quit smoking if you haven't already, use your inhalers as directed, and get your annual flu and pneumonia vaccines",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "chronic kidney disease": {
+      "aliases": [
+        "CKD",
+        "chronic renal failure",
+        "CRF",
+        "chronic renal insufficiency"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {
+        "hypertension": 0.7,
+        "type 2 diabetes": 0.4,
+        "anemia": 0.5,
+        "hyperlipidemia": 0.35,
+        "coronary artery disease": 0.3,
+        "gout": 0.2
+      },
+      "medications": [
+        {
+          "name": "lisinopril",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "sevelamer",
+          "dose": "800mg",
+          "frequency": "three times daily with meals",
+          "probability": 0.3
+        },
+        {
+          "name": "epoetin alfa",
+          "dose": "5000 units",
+          "frequency": "once weekly subcutaneous",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "Stay hydrated but follow your fluid restriction if given, avoid NSAIDs like ibuprofen, and monitor your blood pressure closely",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "anemia": {
+      "aliases": [
+        "anaemia"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {
+        "chronic kidney disease": 0.25,
+        "heart failure": 0.15,
+        "hypothyroidism": 0.1
+      },
+      "medications": [
+        {
+          "name": "ferrous sulfate",
+          "dose": "325mg",
+          "frequency": "three times daily",
+          "probability": 0.6
+        },
+        {
+          "name": "vitamin b12",
+          "dose": "1000mcg",
+          "frequency": "once monthly injection",
+          "probability": 0.2
+        },
+        {
+          "name": "folic acid",
+          "dose": "1mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Iron Deficiency Anemia",
+        "Thalassemia",
+        "Anemia of Chronic Disease"
+      ],
+      "differential_questions": [
+        "Have you noticed any blood in your stool or very dark stools?",
+        "Do you get dizzy when standing up quickly?",
+        "Have you been craving unusual things like ice or dirt?",
+        "Has your diet changed recently, or have you been eating less meat?"
+      ],
+      "patient_education": "Take iron supplements with vitamin C to help absorption, avoid taking them with dairy or antacids, and let us know if you feel dizzy or unusually weak",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "heart failure": {
+      "aliases": [
+        "HF",
+        "congestive heart failure",
+        "CHF",
+        "cardiac failure"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {
+        "hypertension": 0.6,
+        "coronary artery disease": 0.5,
+        "type 2 diabetes": 0.3,
+        "chronic kidney disease": 0.3,
+        "atrial fibrillation": 0.25
+      },
+      "medications": [
+        {
+          "name": "lisinopril",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.4
+        },
+        {
+          "name": "carvedilol",
+          "dose": "12.5mg",
+          "frequency": "twice daily",
+          "probability": 0.4
+        },
+        {
+          "name": "furosemide",
+          "dose": "40mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "spironolactone",
+          "dose": "25mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "COPD",
+        "Pulmonary Embolism",
+        "Nephrotic Syndrome"
+      ],
+      "differential_questions": [
+        "Do you wake up at night feeling short of breath?",
+        "Have you noticed swelling in your ankles or legs?",
+        "Do you find you need more pillows to sleep comfortably?",
+        "Has your weight changed unexpectedly?"
+      ],
+      "patient_education": "Weigh yourself daily — sudden weight gain can mean fluid retention. Limit salt and fluids, and call us if you notice increased swelling or shortness of breath",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            75,
+            110
+          ]
+        },
+        "blood_pressure": {
+          "systolic_range": [
+            110,
+            150
+          ],
+          "diastolic_range": [
+            65,
+            95
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "coronary artery disease": {
+      "aliases": [
+        "CAD",
+        "coronary heart disease",
+        "CHD",
+        "ischemic heart disease",
+        "IHD",
+        "atherosclerotic heart disease"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {
+        "hypertension": 0.65,
+        "type 2 diabetes": 0.35,
+        "hyperlipidemia": 0.6,
+        "heart failure": 0.2
+      },
+      "medications": [
+        {
+          "name": "aspirin",
+          "dose": "81mg",
+          "frequency": "once daily",
+          "probability": 0.8
+        },
+        {
+          "name": "atorvastatin",
+          "dose": "40mg",
+          "frequency": "once daily at bedtime",
+          "probability": 0.6
+        },
+        {
+          "name": "metoprolol",
+          "dose": "50mg",
+          "frequency": "twice daily",
+          "probability": 0.4
+        },
+        {
+          "name": "clopidogrel",
+          "dose": "75mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            75,
+            110
+          ]
+        },
+        "blood_pressure": {
+          "systolic_range": [
+            110,
+            150
+          ],
+          "diastolic_range": [
+            65,
+            95
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "asthma": {
+      "aliases": [
+        "bronchial asthma"
+      ],
+      "typical_age_range": [
+        15,
+        55
+      ],
+      "comorbidities": {
+        "allergic rhinitis": 0.5,
+        "eczema": 0.3,
+        "depression": 0.15,
+        "gastroesophageal reflux": 0.3
+      },
+      "medications": [],
+      "differential_diagnoses": [
+        "COPD",
+        "Bronchiectasis",
+        "Vocal Cord Dysfunction"
+      ],
+      "differential_questions": [
+        "Have you been exposed to any new allergens or irritants?",
+        "Does the wheezing get worse at night or early morning?",
+        "How often are you using your rescue inhaler?",
+        "Have you had any recent respiratory infections?"
+      ],
+      "patient_education": "Use your inhaler as prescribed, avoid known triggers, and seek help immediately if your rescue inhaler isn't helping",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "pneumonia": {
+      "aliases": [],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [
+        "Tuberculosis",
+        "Lung Abscess",
+        "Pulmonary Embolism"
+      ],
+      "differential_questions": [
+        "Have you had a fever or chills?",
+        "Are you coughing up any phlegm? What color is it?",
+        "Have you been around anyone who was sick recently?",
+        "Do you feel pain when you take a deep breath?"
+      ],
+      "patient_education": "Complete the full course of antibiotics even if you feel better, stay hydrated, and seek care if your fever returns or breathing worsens",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "depression": {
+      "aliases": [
+        "major depressive disorder",
+        "MDD",
+        "clinical depression"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [
+        "Bipolar Disorder",
+        "Anxiety Disorder",
+        "Hypothyroidism"
+      ],
+      "differential_questions": [
+        "How has your mood been over the past few weeks?",
+        "Have you lost interest in activities you used to enjoy?",
+        "How has your sleep been — trouble falling or staying asleep?",
+        "Have you had any thoughts of hurting yourself?"
+      ],
+      "patient_education": "The medication may take 2-4 weeks to take full effect. Don't stop taking it suddenly, and reach out immediately if you have any thoughts of self-harm",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "cirrhosis": {
+      "aliases": [
+        "liver cirrhosis",
+        "hepatic cirrhosis"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [
+        "Budd-Chiari Syndrome",
+        "Metastatic Liver Disease",
+        "Viral Hepatitis"
+      ],
+      "differential_questions": [
+        "Have you noticed any yellowing of your skin or eyes?",
+        "Has your abdomen been feeling swollen or bloated?",
+        "Have you noticed any confusion or difficulty concentrating?",
+        "Have you had any unusual bleeding — nosebleeds, easy bruising?"
+      ],
+      "patient_education": "Avoid alcohol entirely, limit salt intake, and watch for confusion, yellowing of skin/eyes, or abdominal swelling — these need urgent attention",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "hypothyroidism": {
+      "aliases": [
+        "underactive thyroid",
+        "myxedema"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [
+        "Depression",
+        "Chronic Fatigue Syndrome",
+        "Anemia"
+      ],
+      "differential_questions": [
+        "Have you been feeling unusually cold even when others are comfortable?",
+        "Has your skin become dry or your hair thinner?",
+        "Have you been constipated more than usual?",
+        "Have you noticed any swelling in your neck?"
+      ],
+      "patient_education": "Take your thyroid medication on an empty stomach at the same time each day, and don't stop even if you feel better — this is typically a lifelong condition",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "alzheimer": {
+      "aliases": [
+        "Alzheimer's disease",
+        "AD",
+        "dementia"
+      ],
+      "typical_age_range": [
+        60,
+        85
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "cystic fibrosis": {
+      "aliases": [
+        "CF",
+        "mucoviscidosis"
+      ],
+      "typical_age_range": [
+        15,
+        40
+      ],
+      "comorbidities": {},
+      "medications": [],
+      "differential_diagnoses": [],
+      "differential_questions": [],
+      "patient_education": "",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "L1": {
+          "mild": 0.4,
+          "moderate": 0.5,
+          "severe": 0.1
+        },
+        "L2": {
+          "mild": 0.2,
+          "moderate": 0.6,
+          "severe": 0.2
+        },
+        "L3": {
+          "mild": 0.1,
+          "moderate": 0.4,
+          "severe": 0.5
+        }
+      }
+    },
+    "stroke": {
+      "aliases": [
+        "cerebrovascular accident",
+        "CVA",
+        "brain attack",
+        "ischemic stroke"
+      ],
+      "typical_age_range": [
+        55,
+        85
+      ],
+      "comorbidities": {
+        "hypertension": 0.7,
+        "atrial fibrillation": 0.25,
+        "diabetes": 0.35,
+        "hyperlipidemia": 0.5,
+        "coronary artery disease": 0.3
+      },
+      "medications": [
+        {
+          "name": "aspirin",
+          "dose": "81mg",
+          "frequency": "once daily",
+          "probability": 0.6
+        },
+        {
+          "name": "clopidogrel",
+          "dose": "75mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "atorvastatin",
+          "dose": "40mg",
+          "frequency": "once daily",
+          "probability": 0.7
+        }
+      ],
+      "differential_diagnoses": [
+        "Transient Ischemic Attack",
+        "Hemorrhagic Stroke",
+        "Brain Tumor",
+        "Subdural Hematoma"
+      ],
+      "differential_questions": [
+        "Did the symptoms come on suddenly or gradually?",
+        "Have you had any weakness on one side of your body?",
+        "Have you had any difficulty speaking or understanding speech?",
+        "Have you had any vision changes?"
+      ],
+      "patient_education": "Seek emergency care immediately if you develop sudden weakness, speech difficulty, or vision loss. Take antiplatelet medication as prescribed and control blood pressure.",
+      "vital_sign_modifiers": {
+        "blood_pressure": {
+          "systolic_range": [
+            150,
+            200
+          ],
+          "diastolic_range": [
+            90,
+            120
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.4,
+        "severe": 0.4
+      }
+    },
+    "atrial fibrillation": {
+      "aliases": [
+        "AFib",
+        "AF",
+        "atrial fib"
+      ],
+      "typical_age_range": [
+        55,
+        85
+      ],
+      "comorbidities": {
+        "hypertension": 0.7,
+        "heart failure": 0.3,
+        "coronary artery disease": 0.25,
+        "diabetes": 0.2,
+        "hyperthyroidism": 0.1
+      },
+      "medications": [
+        {
+          "name": "apixaban",
+          "dose": "5mg",
+          "frequency": "twice daily",
+          "probability": 0.5
+        },
+        {
+          "name": "warfarin",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        },
+        {
+          "name": "metoprolol",
+          "dose": "50mg",
+          "frequency": "twice daily",
+          "probability": 0.5
+        },
+        {
+          "name": "amiodarone",
+          "dose": "200mg",
+          "frequency": "once daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Atrial Flutter",
+        "Multifocal Atrial Tachycardia",
+        "Sinus Tachycardia",
+        "SVT"
+      ],
+      "differential_questions": [
+        "Have you noticed your heart racing or beating irregularly?",
+        "Have you had any episodes of dizziness or fainting?",
+        "Do you get short of breath with the palpitations?",
+        "Have you had any chest pain with these episodes?"
+      ],
+      "patient_education": "Take blood thinners as prescribed to reduce stroke risk. Avoid excessive alcohol and caffeine. Seek care if palpitations are accompanied by chest pain or difficulty breathing.",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            80,
+            150
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "gout": {
+      "aliases": [
+        "gouty arthritis",
+        "podagra",
+        "monosodium urate crystal disease"
+      ],
+      "typical_age_range": [
+        35,
+        70
+      ],
+      "comorbidities": {
+        "hyperlipidemia": 0.4,
+        "hypertension": 0.5,
+        "chronic kidney disease": 0.3,
+        "diabetes": 0.25,
+        "obesity": 0.45
+      },
+      "medications": [
+        {
+          "name": "colchicine",
+          "dose": "0.6mg",
+          "frequency": "once or twice daily",
+          "probability": 0.5
+        },
+        {
+          "name": "allopurinol",
+          "dose": "300mg",
+          "frequency": "once daily",
+          "probability": 0.6
+        },
+        {
+          "name": "indomethacin",
+          "dose": "50mg",
+          "frequency": "three times daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis",
+        "Cellulitis"
+      ],
+      "differential_questions": [
+        "Which joints have been affected? Is it the big toe?",
+        "Does the pain come on suddenly, especially at night?",
+        "Have you had these attacks before?",
+        "Do you consume alcohol or foods high in purines regularly?"
+      ],
+      "patient_education": "Reduce alcohol and purine-rich foods (red meat, shellfish). Stay well hydrated. Take allopurinol regularly to prevent attacks, not just during flares.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "osteoporosis": {
+      "aliases": [
+        "bone loss",
+        "low bone density",
+        "brittle bone disease"
+      ],
+      "typical_age_range": [
+        50,
+        85
+      ],
+      "comorbidities": {
+        "vitamin D deficiency": 0.4,
+        "hyperthyroidism": 0.1,
+        "rheumatoid arthritis": 0.15
+      },
+      "medications": [
+        {
+          "name": "alendronate",
+          "dose": "70mg",
+          "frequency": "once weekly",
+          "probability": 0.5
+        },
+        {
+          "name": "calcium carbonate",
+          "dose": "600mg",
+          "frequency": "twice daily",
+          "probability": 0.7
+        },
+        {
+          "name": "vitamin D",
+          "dose": "1000 IU",
+          "frequency": "once daily",
+          "probability": 0.7
+        },
+        {
+          "name": "denosumab",
+          "dose": "60mg injection",
+          "frequency": "every 6 months",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Osteomalacia",
+        "Multiple Myeloma",
+        "Hyperparathyroidism",
+        "Metastatic bone disease"
+      ],
+      "differential_questions": [
+        "Have you had any fractures from minimal trauma?",
+        "Have you noticed any loss of height or developing a stooped posture?",
+        "Have you been taking corticosteroids long-term?",
+        "Is there a family history of osteoporosis or hip fractures?"
+      ],
+      "patient_education": "Ensure adequate calcium and vitamin D intake. Weight-bearing exercise helps maintain bone density. Take bisphosphonates on an empty stomach and remain upright for 30 minutes.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "GERD": {
+      "aliases": [
+        "gastroesophageal reflux disease",
+        "acid reflux",
+        "heartburn"
+      ],
+      "typical_age_range": [
+        30,
+        70
+      ],
+      "comorbidities": {
+        "obesity": 0.4,
+        "hiatal hernia": 0.3,
+        "asthma": 0.15
+      },
+      "medications": [
+        {
+          "name": "omeprazole",
+          "dose": "20mg",
+          "frequency": "once daily before breakfast",
+          "probability": 0.7
+        },
+        {
+          "name": "pantoprazole",
+          "dose": "40mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        },
+        {
+          "name": "famotidine",
+          "dose": "20mg",
+          "frequency": "twice daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Peptic Ulcer Disease",
+        "Esophageal Spasm",
+        "Achalasia",
+        "Coronary Artery Disease"
+      ],
+      "differential_questions": [
+        "Do you get a burning sensation in your chest, especially after meals?",
+        "Does it worsen when you lie down or bend over?",
+        "Have you noticed any difficulty or pain when swallowing?",
+        "Do you experience regurgitation of food or sour liquid?"
+      ],
+      "patient_education": "Avoid trigger foods (spicy, fatty, acidic), eat smaller meals, and don't lie down within 3 hours of eating. Elevate the head of your bed if symptoms are worse at night.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "peptic ulcer disease": {
+      "aliases": [
+        "PUD",
+        "stomach ulcer",
+        "gastric ulcer",
+        "duodenal ulcer"
+      ],
+      "typical_age_range": [
+        35,
+        70
+      ],
+      "comorbidities": {
+        "H. pylori infection": 0.6,
+        "NSAID use": 0.4
+      },
+      "medications": [
+        {
+          "name": "omeprazole",
+          "dose": "40mg",
+          "frequency": "once daily",
+          "probability": 0.7
+        },
+        {
+          "name": "clarithromycin",
+          "dose": "500mg",
+          "frequency": "twice daily for 14 days",
+          "probability": 0.5
+        },
+        {
+          "name": "amoxicillin",
+          "dose": "1g",
+          "frequency": "twice daily for 14 days",
+          "probability": 0.5
+        },
+        {
+          "name": "bismuth subsalicylate",
+          "dose": "525mg",
+          "frequency": "four times daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "GERD",
+        "Gastritis",
+        "Gastric Cancer",
+        "Functional Dyspepsia"
+      ],
+      "differential_questions": [
+        "Do you have burning or gnawing pain in your upper abdomen?",
+        "Does the pain improve or worsen with eating?",
+        "Have you noticed any black, tarry stools?",
+        "Do you take NSAIDs like ibuprofen or aspirin regularly?"
+      ],
+      "patient_education": "Complete the full antibiotic course if H. pylori positive. Avoid NSAIDs and alcohol. Take PPIs as prescribed. Seek immediate care if you vomit blood or pass black stools.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "migraine": {
+      "aliases": [
+        "migraine headache",
+        "vascular headache"
+      ],
+      "typical_age_range": [
+        18,
+        55
+      ],
+      "comorbidities": {
+        "anxiety disorder": 0.3,
+        "depression": 0.3,
+        "insomnia": 0.25
+      },
+      "medications": [
+        {
+          "name": "sumatriptan",
+          "dose": "50-100mg",
+          "frequency": "as needed at onset",
+          "probability": 0.5
+        },
+        {
+          "name": "topiramate",
+          "dose": "50mg",
+          "frequency": "once daily for prevention",
+          "probability": 0.2
+        },
+        {
+          "name": "ibuprofen",
+          "dose": "400mg",
+          "frequency": "as needed",
+          "probability": 0.6
+        }
+      ],
+      "differential_diagnoses": [
+        "Tension Headache",
+        "Cluster Headache",
+        "Subarachnoid Hemorrhage",
+        "Sinusitis"
+      ],
+      "differential_questions": [
+        "Is the headache one-sided or pulsating?",
+        "Do you have nausea or sensitivity to light and sound with the headaches?",
+        "Do you see visual disturbances like flashing lights before the headache starts?",
+        "How often do you get these headaches?"
+      ],
+      "patient_education": "Identify and avoid triggers (stress, certain foods, sleep changes). Use triptans early in an attack. If headaches are frequent, preventive medication may help.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.5,
+        "severe": 0.3
+      }
+    },
+    "epilepsy": {
+      "aliases": [
+        "seizure disorder"
+      ],
+      "typical_age_range": [
+        10,
+        60
+      ],
+      "comorbidities": {
+        "depression": 0.25,
+        "anxiety disorder": 0.2,
+        "migraine": 0.15
+      },
+      "medications": [
+        {
+          "name": "levetiracetam",
+          "dose": "500mg",
+          "frequency": "twice daily",
+          "probability": 0.5
+        },
+        {
+          "name": "valproic acid",
+          "dose": "500mg",
+          "frequency": "twice daily",
+          "probability": 0.2
+        },
+        {
+          "name": "lamotrigine",
+          "dose": "100mg",
+          "frequency": "twice daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Syncope",
+        "Psychogenic Nonepileptic Seizure",
+        "TIA",
+        "Sleep Disorder"
+      ],
+      "differential_questions": [
+        "Can you describe what happens during one of these episodes?",
+        "Do you have any warning before the episode starts?",
+        "Have you ever lost consciousness or had muscle jerking?",
+        "How long do the episodes typically last?"
+      ],
+      "patient_education": "Take seizure medication consistently — never stop abruptly. Avoid sleep deprivation and alcohol excess. Do not drive until cleared by your doctor.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "Parkinson disease": {
+      "aliases": [
+        "PD",
+        "paralysis agitans"
+      ],
+      "typical_age_range": [
+        55,
+        85
+      ],
+      "comorbidities": {
+        "depression": 0.35,
+        "dementia": 0.25,
+        "constipation": 0.3
+      },
+      "medications": [
+        {
+          "name": "levodopa/carbidopa",
+          "dose": "100/25mg",
+          "frequency": "three times daily",
+          "probability": 0.7
+        },
+        {
+          "name": "pramipexole",
+          "dose": "0.5mg",
+          "frequency": "three times daily",
+          "probability": 0.2
+        },
+        {
+          "name": "rasagiline",
+          "dose": "1mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Essential Tremor",
+        "Multiple System Atrophy",
+        "Drug-Induced Parkinsonism",
+        "Lewy Body Dementia"
+      ],
+      "differential_questions": [
+        "Have you noticed a tremor, especially in your hand at rest?",
+        "Have your movements become slower or stiffer?",
+        "Have you had any changes in your handwriting — is it smaller?",
+        "Have you noticed any changes in your sense of smell?"
+      ],
+      "patient_education": "Take levodopa on time every day. Exercise regularly to maintain mobility. Watch for medication side effects like involuntary movements.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.4,
+        "severe": 0.3
+      }
+    },
+    "rheumatoid arthritis": {
+      "aliases": [
+        "RA"
+      ],
+      "typical_age_range": [
+        30,
+        65
+      ],
+      "comorbidities": {
+        "cardiovascular disease": 0.3,
+        "osteoporosis": 0.25,
+        "depression": 0.2,
+        "anemia": 0.3
+      },
+      "medications": [
+        {
+          "name": "methotrexate",
+          "dose": "15mg",
+          "frequency": "once weekly",
+          "probability": 0.6
+        },
+        {
+          "name": "folic acid",
+          "dose": "1mg",
+          "frequency": "daily except methotrexate day",
+          "probability": 0.6
+        },
+        {
+          "name": "prednisone",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "hydroxychloroquine",
+          "dose": "200mg",
+          "frequency": "twice daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus",
+        "Gout"
+      ],
+      "differential_questions": [
+        "Which joints are affected? Are the symptoms symmetric on both sides?",
+        "Is there prolonged morning stiffness lasting more than an hour?",
+        "Are the joints swollen, warm, or tender?",
+        "Have you noticed any joint deformities?"
+      ],
+      "patient_education": "Take DMARDs like methotrexate regularly — they slow disease progression. Gentle exercise helps maintain joint function. Report any signs of infection promptly.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "anxiety disorder": {
+      "aliases": [
+        "generalized anxiety disorder",
+        "GAD",
+        "anxiety"
+      ],
+      "typical_age_range": [
+        20,
+        55
+      ],
+      "comorbidities": {
+        "depression": 0.5,
+        "insomnia": 0.4,
+        "substance use disorder": 0.15,
+        "panic disorder": 0.25
+      },
+      "medications": [
+        {
+          "name": "sertraline",
+          "dose": "50mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "escitalopram",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "buspirone",
+          "dose": "10mg",
+          "frequency": "twice daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Hyperthyroidism",
+        "Panic Disorder",
+        "Social Anxiety Disorder",
+        "PTSD"
+      ],
+      "differential_questions": [
+        "How long have you been feeling excessively worried or anxious?",
+        "Do you have trouble controlling your worry?",
+        "Have you experienced physical symptoms like racing heart, sweating, or shortness of breath?",
+        "Has the anxiety affected your daily activities, work, or relationships?"
+      ],
+      "patient_education": "SSRIs may take 2-4 weeks to take full effect. Don't stop suddenly. Consider therapy (CBT) alongside medication. Regular exercise and good sleep help reduce anxiety.",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            75,
+            110
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "hyperthyroidism": {
+      "aliases": [
+        "overactive thyroid",
+        "thyrotoxicosis",
+        "Graves disease"
+      ],
+      "typical_age_range": [
+        25,
+        60
+      ],
+      "comorbidities": {
+        "atrial fibrillation": 0.15,
+        "osteoporosis": 0.2,
+        "anxiety disorder": 0.25
+      },
+      "medications": [
+        {
+          "name": "methimazole",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.7
+        },
+        {
+          "name": "propylthiouracil",
+          "dose": "100mg",
+          "frequency": "three times daily",
+          "probability": 0.1
+        },
+        {
+          "name": "propranolol",
+          "dose": "20mg",
+          "frequency": "three times daily",
+          "probability": 0.4
+        }
+      ],
+      "differential_diagnoses": [
+        "Anxiety Disorder",
+        "Thyroiditis",
+        "Factitious Hyperthyroidism",
+        "Pheochromocytoma"
+      ],
+      "differential_questions": [
+        "Have you been feeling unusually hot or sweating more than usual?",
+        "Have you lost weight without trying?",
+        "Has your heart been racing or beating irregularly?",
+        "Have you noticed tremor in your hands or trouble sleeping?"
+      ],
+      "patient_education": "Take antithyroid medication regularly. Avoid iodine-rich foods. Report sore throat or fever immediately (could indicate low white blood cells).",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            90,
+            130
+          ]
+        },
+        "weight": {
+          "direction": "loss"
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "nephrolithiasis": {
+      "aliases": [
+        "kidney stones",
+        "renal calculi",
+        "ureteral stones"
+      ],
+      "typical_age_range": [
+        25,
+        60
+      ],
+      "comorbidities": {
+        "gout": 0.15,
+        "hyperparathyroidism": 0.05,
+        "chronic kidney disease": 0.1
+      },
+      "medications": [
+        {
+          "name": "tamsulosin",
+          "dose": "0.4mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "ketorolac",
+          "dose": "10mg",
+          "frequency": "as needed for pain",
+          "probability": 0.6
+        },
+        {
+          "name": "potassium citrate",
+          "dose": "10mEq",
+          "frequency": "three times daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Pyelonephritis",
+        "Appendicitis",
+        "Ectopic Pregnancy",
+        "Aortic Aneurysm"
+      ],
+      "differential_questions": [
+        "Do you have severe pain in your flank or lower abdomen that comes in waves?",
+        "Does the pain radiate to your groin?",
+        "Have you noticed any blood in your urine?",
+        "Have you had kidney stones before?"
+      ],
+      "patient_education": "Drink at least 2-3 liters of water daily. Reduce sodium and animal protein. Strain your urine to catch any passed stones for analysis.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.4,
+        "severe": 0.4
+      }
+    },
+    "pulmonary embolism": {
+      "aliases": [
+        "PE",
+        "lung blood clot"
+      ],
+      "typical_age_range": [
+        30,
+        75
+      ],
+      "comorbidities": {
+        "deep vein thrombosis": 0.5,
+        "cancer": 0.15,
+        "immobility": 0.2
+      },
+      "medications": [
+        {
+          "name": "enoxaparin",
+          "dose": "1mg/kg",
+          "frequency": "twice daily injection",
+          "probability": 0.5
+        },
+        {
+          "name": "rivaroxaban",
+          "dose": "15mg",
+          "frequency": "twice daily for 21 days then 20mg daily",
+          "probability": 0.4
+        },
+        {
+          "name": "warfarin",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Pneumonia",
+        "Chest Pain (Cardiac)",
+        "Asthma Exacerbation",
+        "Pneumothorax"
+      ],
+      "differential_questions": [
+        "Did the shortness of breath come on suddenly?",
+        "Have you had any recent leg swelling or pain?",
+        "Have you been immobile for a long period (surgery, long flight)?",
+        "Have you coughed up any blood?"
+      ],
+      "patient_education": "Take anticoagulants exactly as prescribed. Avoid activities with high bleeding risk. Seek emergency care for sudden worsening of breathing.",
+      "vital_sign_modifiers": {
+        "oxygen_saturation": {
+          "range": [
+            88,
+            96
+          ]
+        },
+        "heart_rate": {
+          "range": [
+            90,
+            130
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.4,
+        "severe": 0.4
+      }
+    },
+    "bronchitis": {
+      "aliases": [
+        "acute bronchitis",
+        "chest cold"
+      ],
+      "typical_age_range": [
+        15,
+        70
+      ],
+      "comorbidities": {
+        "asthma": 0.15,
+        "COPD": 0.2,
+        "smoking": 0.3
+      },
+      "medications": [
+        {
+          "name": "guaifenesin",
+          "dose": "400mg",
+          "frequency": "every 4 hours",
+          "probability": 0.4
+        },
+        {
+          "name": "dextromethorphan",
+          "dose": "15mg",
+          "frequency": "every 4-6 hours",
+          "probability": 0.3
+        },
+        {
+          "name": "albuterol inhaler",
+          "dose": "2 puffs",
+          "frequency": "every 4-6 hours as needed",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Pneumonia",
+        "Asthma",
+        "Sinusitis",
+        "GERD"
+      ],
+      "differential_questions": [
+        "How long have you had this cough?",
+        "Are you coughing up any phlegm? What color?",
+        "Have you had a fever?",
+        "Have you been around anyone who was sick?"
+      ],
+      "patient_education": "Most acute bronchitis is viral and doesn't need antibiotics. Rest, stay hydrated, and use a humidifier. See a doctor if cough lasts more than 3 weeks or you develop high fever.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.5,
+        "moderate": 0.4,
+        "severe": 0.1
+      }
+    },
+    "sleep apnea": {
+      "aliases": [
+        "obstructive sleep apnea",
+        "OSA"
+      ],
+      "typical_age_range": [
+        35,
+        70
+      ],
+      "comorbidities": {
+        "obesity": 0.6,
+        "hypertension": 0.5,
+        "diabetes": 0.25,
+        "depression": 0.15
+      },
+      "medications": [
+        {
+          "name": "CPAP therapy",
+          "dose": "N/A",
+          "frequency": "nightly",
+          "probability": 0.7
+        }
+      ],
+      "differential_diagnoses": [
+        "Insomnia",
+        "Narcolepsy",
+        "Restless Legs Syndrome",
+        "Central Sleep Apnea"
+      ],
+      "differential_questions": [
+        "Do you snore loudly or has anyone observed you stop breathing during sleep?",
+        "Do you feel excessively tired during the day despite adequate sleep time?",
+        "Do you wake up with morning headaches?",
+        "Do you have difficulty concentrating or feel foggy?"
+      ],
+      "patient_education": "Use CPAP consistently every night. Weight loss can significantly improve symptoms. Avoid alcohol and sedatives before bed.",
+      "vital_sign_modifiers": {
+        "blood_pressure": {
+          "systolic_range": [
+            130,
+            160
+          ],
+          "diastolic_range": [
+            80,
+            100
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "cellulitis": {
+      "aliases": [
+        "skin infection",
+        "bacterial skin infection"
+      ],
+      "typical_age_range": [
+        25,
+        75
+      ],
+      "comorbidities": {
+        "diabetes": 0.3,
+        "lymphedema": 0.1,
+        "venous insufficiency": 0.15
+      },
+      "medications": [
+        {
+          "name": "cephalexin",
+          "dose": "500mg",
+          "frequency": "four times daily",
+          "probability": 0.5
+        },
+        {
+          "name": "trimethoprim-sulfamethoxazole",
+          "dose": "800/160mg",
+          "frequency": "twice daily",
+          "probability": 0.3
+        },
+        {
+          "name": "amoxicillin-clavulanate",
+          "dose": "875/125mg",
+          "frequency": "twice daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Deep Vein Thrombosis",
+        "Contact Dermatitis",
+        "Gout",
+        "Necrotizing Fasciitis"
+      ],
+      "differential_questions": [
+        "Is the affected area red, warm, swollen, and tender?",
+        "Do you have a fever?",
+        "Is the redness spreading?",
+        "Do you have any breaks in the skin — cuts, insect bites, or ulcers?"
+      ],
+      "patient_education": "Complete the full course of antibiotics. Elevate the affected limb. Mark the border of redness with a pen to track spread. Seek emergency care if redness spreads rapidly or you develop high fever.",
+      "vital_sign_modifiers": {
+        "temperature": {
+          "range": [
+            37.5,
+            39.5
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "COVID-19": {
+      "aliases": [
+        "coronavirus disease 2019",
+        "SARS-CoV-2"
+      ],
+      "typical_age_range": [
+        18,
+        85
+      ],
+      "comorbidities": {
+        "diabetes": 0.2,
+        "hypertension": 0.25,
+        "obesity": 0.3,
+        "COPD": 0.1,
+        "heart failure": 0.1
+      },
+      "medications": [
+        {
+          "name": "paxlovid",
+          "dose": "300/100mg",
+          "frequency": "twice daily for 5 days",
+          "probability": 0.3
+        },
+        {
+          "name": "dexamethasone",
+          "dose": "6mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Influenza",
+        "Pneumonia",
+        "Bronchitis",
+        "RSV"
+      ],
+      "differential_questions": [
+        "Have you been exposed to anyone with COVID-19?",
+        "Do you have fever, cough, or loss of taste or smell?",
+        "Are you experiencing any shortness of breath?",
+        "Have you been vaccinated against COVID-19?"
+      ],
+      "patient_education": "Isolate to prevent spread. Monitor oxygen levels if you have a pulse oximeter. Seek emergency care for difficulty breathing, persistent chest pain, or confusion.",
+      "vital_sign_modifiers": {
+        "temperature": {
+          "range": [
+            37.5,
+            40.0
+          ]
+        },
+        "oxygen_saturation": {
+          "range": [
+            90,
+            98
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "meningitis": {
+      "aliases": [
+        "bacterial meningitis",
+        "viral meningitis",
+        "meningeal infection"
+      ],
+      "typical_age_range": [
+        10,
+        45
+      ],
+      "comorbidities": {
+        "immunosuppression": 0.2
+      },
+      "medications": [
+        {
+          "name": "ceftriaxone",
+          "dose": "2g",
+          "frequency": "IV every 12 hours",
+          "probability": 0.6
+        },
+        {
+          "name": "vancomycin",
+          "dose": "1g",
+          "frequency": "IV every 12 hours",
+          "probability": 0.4
+        },
+        {
+          "name": "dexamethasone",
+          "dose": "10mg",
+          "frequency": "IV every 6 hours",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Encephalitis",
+        "Subarachnoid Hemorrhage",
+        "Migraine",
+        "Brain Abscess"
+      ],
+      "differential_questions": [
+        "Do you have a severe headache, neck stiffness, and fever?",
+        "Are you sensitive to light?",
+        "Have you noticed any rash?",
+        "Have you had nausea, vomiting, or confusion?"
+      ],
+      "patient_education": "Meningitis is a medical emergency. Seek immediate care if you develop severe headache with fever and neck stiffness.",
+      "vital_sign_modifiers": {
+        "temperature": {
+          "range": [
+            38.5,
+            41.0
+          ]
+        },
+        "heart_rate": {
+          "range": [
+            90,
+            140
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.1,
+        "moderate": 0.3,
+        "severe": 0.6
+      }
+    },
+    "hepatitis B": {
+      "aliases": [
+        "HBV",
+        "hep B"
+      ],
+      "typical_age_range": [
+        20,
+        60
+      ],
+      "comorbidities": {
+        "cirrhosis": 0.2,
+        "hepatocellular carcinoma": 0.1,
+        "HIV": 0.1
+      },
+      "medications": [
+        {
+          "name": "entecavir",
+          "dose": "0.5mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "tenofovir",
+          "dose": "300mg",
+          "frequency": "once daily",
+          "probability": 0.4
+        }
+      ],
+      "differential_diagnoses": [
+        "Hepatitis C",
+        "Alcoholic Hepatitis",
+        "Autoimmune Hepatitis",
+        "Drug-Induced Liver Injury"
+      ],
+      "differential_questions": [
+        "Have you noticed yellowing of your skin or eyes?",
+        "Have you had dark urine or pale stools?",
+        "Do you have pain in the upper right side of your abdomen?",
+        "Have you had any known exposure — blood products, needles, or unprotected sex?"
+      ],
+      "patient_education": "Avoid alcohol entirely. Take antiviral medication as prescribed. Get regular liver function tests and screening for liver cancer.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "benign prostatic hyperplasia": {
+      "aliases": [
+        "BPH",
+        "enlarged prostate",
+        "prostate enlargement"
+      ],
+      "typical_age_range": [
+        50,
+        80
+      ],
+      "comorbidities": {
+        "hypertension": 0.35,
+        "diabetes": 0.2
+      },
+      "medications": [
+        {
+          "name": "tamsulosin",
+          "dose": "0.4mg",
+          "frequency": "once daily",
+          "probability": 0.6
+        },
+        {
+          "name": "finasteride",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "tadalafil",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Prostate Cancer",
+        "Urinary Tract Infection",
+        "Urethral Stricture",
+        "Bladder Stone"
+      ],
+      "differential_questions": [
+        "Do you have difficulty starting urination or a weak stream?",
+        "Do you wake up multiple times at night to urinate?",
+        "Do you feel like your bladder doesn't empty completely?",
+        "Have you had any urinary urgency or leakage?"
+      ],
+      "patient_education": "Take alpha-blockers as prescribed. Reduce fluid intake before bedtime. Report any blood in urine or inability to urinate immediately.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "irritable bowel syndrome": {
+      "aliases": [
+        "IBS",
+        "spastic colon"
+      ],
+      "typical_age_range": [
+        20,
+        55
+      ],
+      "comorbidities": {
+        "anxiety disorder": 0.4,
+        "depression": 0.3,
+        "fibromyalgia": 0.15
+      },
+      "medications": [
+        {
+          "name": "dicyclomine",
+          "dose": "20mg",
+          "frequency": "four times daily as needed",
+          "probability": 0.3
+        },
+        {
+          "name": "psyllium",
+          "dose": "1 tablespoon",
+          "frequency": "once daily",
+          "probability": 0.4
+        },
+        {
+          "name": "loperamide",
+          "dose": "2mg",
+          "frequency": "as needed for diarrhea",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Inflammatory Bowel Disease",
+        "Celiac Disease",
+        "Lactose Intolerance",
+        "Colorectal Cancer"
+      ],
+      "differential_questions": [
+        "Do you have abdominal pain that improves after a bowel movement?",
+        "Have you noticed changes in your stool frequency or form?",
+        "Do your symptoms worsen with stress?",
+        "Have you had any unintentional weight loss or blood in your stool?"
+      ],
+      "patient_education": "IBS is a chronic but manageable condition. Identify trigger foods. Stress management and regular exercise can help. Fiber supplements may help constipation-predominant IBS.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "pancreatitis": {
+      "aliases": [
+        "acute pancreatitis",
+        "chronic pancreatitis"
+      ],
+      "typical_age_range": [
+        30,
+        65
+      ],
+      "comorbidities": {
+        "alcohol use disorder": 0.4,
+        "gallstones": 0.35,
+        "hypertriglyceridemia": 0.15
+      },
+      "medications": [
+        {
+          "name": "IV fluids",
+          "dose": "N/A",
+          "frequency": "continuous",
+          "probability": 0.8
+        },
+        {
+          "name": "hydromorphone",
+          "dose": "1-2mg",
+          "frequency": "IV every 4 hours as needed",
+          "probability": 0.5
+        },
+        {
+          "name": "pancrelipase",
+          "dose": "25000 units",
+          "frequency": "with meals",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Cholecystitis",
+        "Peptic Ulcer Disease",
+        "Mesenteric Ischemia",
+        "Aortic Dissection"
+      ],
+      "differential_questions": [
+        "Do you have severe upper abdominal pain that radiates to your back?",
+        "Does the pain worsen after eating, especially fatty foods?",
+        "Have you had nausea and vomiting?",
+        "Do you consume alcohol regularly?"
+      ],
+      "patient_education": "Avoid alcohol completely. Follow a low-fat diet. Stay hydrated. Seek emergency care if pain becomes severe or you develop fever.",
+      "vital_sign_modifiers": {
+        "heart_rate": {
+          "range": [
+            90,
+            130
+          ]
+        }
+      },
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.5,
+        "severe": 0.3
+      }
+    },
+    "multiple sclerosis": {
+      "aliases": [
+        "MS"
+      ],
+      "typical_age_range": [
+        20,
+        50
+      ],
+      "comorbidities": {
+        "depression": 0.35,
+        "fatigue": 0.6,
+        "urinary dysfunction": 0.3
+      },
+      "medications": [
+        {
+          "name": "interferon beta-1a",
+          "dose": "30mcg injection",
+          "frequency": "once weekly",
+          "probability": 0.3
+        },
+        {
+          "name": "glatiramer acetate",
+          "dose": "20mg injection",
+          "frequency": "daily",
+          "probability": 0.2
+        },
+        {
+          "name": "dimethyl fumarate",
+          "dose": "240mg",
+          "frequency": "twice daily",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Neuromyelitis Optica",
+        "Lyme Disease",
+        "Vitamin B12 Deficiency",
+        "Systemic Lupus Erythematosus"
+      ],
+      "differential_questions": [
+        "Have you had episodes of vision loss, numbness, or weakness that come and go?",
+        "Do your symptoms worsen with heat or exercise?",
+        "Have you had any bladder or bowel control problems?",
+        "Have you experienced unusual fatigue?"
+      ],
+      "patient_education": "Disease-modifying therapy can slow progression. Avoid excessive heat. Stay active with gentle exercise. Report new neurological symptoms promptly.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "systemic lupus erythematosus": {
+      "aliases": [
+        "SLE",
+        "lupus"
+      ],
+      "typical_age_range": [
+        20,
+        50
+      ],
+      "comorbidities": {
+        "kidney disease": 0.3,
+        "antiphospholipid syndrome": 0.15,
+        "anemia": 0.3
+      },
+      "medications": [
+        {
+          "name": "hydroxychloroquine",
+          "dose": "200mg",
+          "frequency": "twice daily",
+          "probability": 0.7
+        },
+        {
+          "name": "prednisone",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "probability": 0.3
+        },
+        {
+          "name": "mycophenolate mofetil",
+          "dose": "1g",
+          "frequency": "twice daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Rheumatoid Arthritis",
+        "Drug-Induced Lupus",
+        "Mixed Connective Tissue Disease",
+        "Vasculitis"
+      ],
+      "differential_questions": [
+        "Have you had a butterfly-shaped rash on your face?",
+        "Do your joints ache and swell?",
+        "Have you been unusually sensitive to sunlight?",
+        "Have you had any kidney problems or unexplained swelling?"
+      ],
+      "patient_education": "Take hydroxychloroquine regularly. Avoid sun exposure — use sunscreen and protective clothing. Get regular kidney and blood monitoring.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "psoriasis": {
+      "aliases": [
+        "plaque psoriasis"
+      ],
+      "typical_age_range": [
+        20,
+        60
+      ],
+      "comorbidities": {
+        "psoriatic arthritis": 0.3,
+        "depression": 0.2,
+        "cardiovascular disease": 0.15
+      },
+      "medications": [
+        {
+          "name": "topical betamethasone",
+          "dose": "apply thin layer",
+          "frequency": "twice daily to affected areas",
+          "probability": 0.6
+        },
+        {
+          "name": "methotrexate",
+          "dose": "15mg",
+          "frequency": "once weekly",
+          "probability": 0.2
+        },
+        {
+          "name": "adalimumab",
+          "dose": "40mg injection",
+          "frequency": "every 2 weeks",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Eczema",
+        "Seborrheic Dermatitis",
+        "Tinea",
+        "Pityriasis Rosea"
+      ],
+      "differential_questions": [
+        "Do you have thick, red patches with silvery scales on your skin?",
+        "Are the patches on your elbows, knees, or scalp?",
+        "Do any joints ache or swell?",
+        "Does anything trigger flare-ups — stress, infections, medications?"
+      ],
+      "patient_education": "Keep skin moisturized. Follow your treatment plan consistently. Avoid triggers like stress and skin injuries. Get regular skin checks.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    },
+    "glaucoma": {
+      "aliases": [
+        "open-angle glaucoma",
+        "ocular hypertension"
+      ],
+      "typical_age_range": [
+        45,
+        80
+      ],
+      "comorbidities": {
+        "hypertension": 0.35,
+        "diabetes": 0.2
+      },
+      "medications": [
+        {
+          "name": "latanoprost eye drops",
+          "dose": "1 drop",
+          "frequency": "once daily at bedtime",
+          "probability": 0.6
+        },
+        {
+          "name": "timolol eye drops",
+          "dose": "1 drop",
+          "frequency": "twice daily",
+          "probability": 0.3
+        },
+        {
+          "name": "brimonidine eye drops",
+          "dose": "1 drop",
+          "frequency": "three times daily",
+          "probability": 0.1
+        }
+      ],
+      "differential_diagnoses": [
+        "Ocular Hypertension",
+        "Normal Tension Glaucoma",
+        "Optic Neuritis",
+        "Retinal Detachment"
+      ],
+      "differential_questions": [
+        "Have you noticed any loss of peripheral vision?",
+        "Do you have a family history of glaucoma?",
+        "Have you had eye pain, headaches, or seeing halos around lights?",
+        "When was your last eye exam?"
+      ],
+      "patient_education": "Use eye drops consistently — missed doses can increase eye pressure. Get regular eye exams. Glaucoma is treatable but not curable, so ongoing monitoring is essential.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.5,
+        "moderate": 0.4,
+        "severe": 0.1
+      }
+    },
+    "fibromyalgia": {
+      "aliases": [
+        "fibro",
+        "fibromyalgia syndrome"
+      ],
+      "typical_age_range": [
+        25,
+        60
+      ],
+      "comorbidities": {
+        "depression": 0.4,
+        "anxiety disorder": 0.35,
+        "irritable bowel syndrome": 0.3,
+        "migraine": 0.25
+      },
+      "medications": [
+        {
+          "name": "duloxetine",
+          "dose": "30-60mg",
+          "frequency": "once daily",
+          "probability": 0.4
+        },
+        {
+          "name": "pregabalin",
+          "dose": "75mg",
+          "frequency": "twice daily",
+          "probability": 0.3
+        },
+        {
+          "name": "amitriptyline",
+          "dose": "25mg",
+          "frequency": "at bedtime",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Hypothyroidism",
+        "Rheumatoid Arthritis",
+        "Chronic Fatigue Syndrome",
+        "Polymyalgia Rheumatica"
+      ],
+      "differential_questions": [
+        "Do you have widespread body pain lasting more than 3 months?",
+        "Do you feel exhausted even after sleeping?",
+        "Do you have difficulty concentrating or memory problems ('fibro fog')?",
+        "Are there specific tender points on your body that are painful to press?"
+      ],
+      "patient_education": "Regular gentle exercise (walking, swimming) is one of the best treatments. Stress management and good sleep habits are essential. Medication can help but won't cure the condition.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "hepatitis C": {
+      "aliases": [
+        "HCV",
+        "hep C"
+      ],
+      "typical_age_range": [
+        30,
+        65
+      ],
+      "comorbidities": {
+        "cirrhosis": 0.2,
+        "hepatocellular carcinoma": 0.05,
+        "depression": 0.25
+      },
+      "medications": [
+        {
+          "name": "sofosbuvir/velpatasvir",
+          "dose": "400/100mg",
+          "frequency": "once daily for 12 weeks",
+          "probability": 0.6
+        },
+        {
+          "name": "ledipasvir/sofosbuvir",
+          "dose": "90/400mg",
+          "frequency": "once daily for 12 weeks",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Hepatitis B",
+        "Alcoholic Hepatitis",
+        "Autoimmune Hepatitis",
+        "NAFLD"
+      ],
+      "differential_questions": [
+        "Have you ever used injectable drugs?",
+        "Did you receive a blood transfusion before 1992?",
+        "Have you noticed yellowing of your skin or eyes?",
+        "Have you had any abnormal liver tests?"
+      ],
+      "patient_education": "New antiviral treatments can cure hepatitis C in most cases. Avoid alcohol. Get vaccinated against hepatitis A and B. Regular liver monitoring is important.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "bipolar disorder": {
+      "aliases": [
+        "manic-depressive disorder",
+        "bipolar"
+      ],
+      "typical_age_range": [
+        18,
+        50
+      ],
+      "comorbidities": {
+        "substance use disorder": 0.3,
+        "anxiety disorder": 0.4,
+        "ADHD": 0.15
+      },
+      "medications": [
+        {
+          "name": "lithium",
+          "dose": "300mg",
+          "frequency": "twice daily",
+          "probability": 0.4
+        },
+        {
+          "name": "valproic acid",
+          "dose": "500mg",
+          "frequency": "twice daily",
+          "probability": 0.3
+        },
+        {
+          "name": "quetiapine",
+          "dose": "200mg",
+          "frequency": "once daily at bedtime",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Major Depressive Disorder",
+        "Schizophrenia",
+        "Borderline Personality Disorder",
+        "ADHD"
+      ],
+      "differential_questions": [
+        "Have you had periods of feeling extremely energetic or euphoric?",
+        "During these high periods, did you need less sleep or take unusual risks?",
+        "Have you had periods of deep depression following the high periods?",
+        "Is there a family history of bipolar disorder or mood problems?"
+      ],
+      "patient_education": "Take mood stabilizers consistently — don't stop during stable periods. Maintain a regular sleep schedule. Avoid alcohol and recreational drugs. Therapy alongside medication gives best results.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.3,
+        "moderate": 0.5,
+        "severe": 0.2
+      }
+    },
+    "PTSD": {
+      "aliases": [
+        "post-traumatic stress disorder"
+      ],
+      "typical_age_range": [
+        20,
+        55
+      ],
+      "comorbidities": {
+        "depression": 0.45,
+        "anxiety disorder": 0.4,
+        "substance use disorder": 0.25
+      },
+      "medications": [
+        {
+          "name": "sertraline",
+          "dose": "50-100mg",
+          "frequency": "once daily",
+          "probability": 0.5
+        },
+        {
+          "name": "paroxetine",
+          "dose": "20mg",
+          "frequency": "once daily",
+          "probability": 0.2
+        },
+        {
+          "name": "prazosin",
+          "dose": "2mg",
+          "frequency": "at bedtime for nightmares",
+          "probability": 0.2
+        }
+      ],
+      "differential_diagnoses": [
+        "Generalized Anxiety Disorder",
+        "Major Depression",
+        "Acute Stress Disorder",
+        "Adjustment Disorder"
+      ],
+      "differential_questions": [
+        "Have you experienced or witnessed a traumatic event?",
+        "Do you have recurrent nightmares or flashbacks about the event?",
+        "Do you avoid situations that remind you of the trauma?",
+        "Are you easily startled or constantly on guard?"
+      ],
+      "patient_education": "Trauma-focused therapy (like CPT or PE) is highly effective. Medications can help manage symptoms. Recovery takes time — be patient with yourself.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": true,
+        "alcohol": true
+      },
+      "severity_distribution": {
+        "mild": 0.2,
+        "moderate": 0.5,
+        "severe": 0.3
+      }
+    },
+    "ostearthritis": {
+      "aliases": [
+        "OA",
+        "degenerative joint disease"
+      ],
+      "typical_age_range": [
+        45,
+        80
+      ],
+      "comorbidities": {
+        "obesity": 0.45,
+        "depression": 0.15,
+        "cardiovascular disease": 0.2
+      },
+      "medications": [
+        {
+          "name": "acetaminophen",
+          "dose": "500mg",
+          "frequency": "three times daily as needed",
+          "probability": 0.5
+        },
+        {
+          "name": "ibuprofen",
+          "dose": "400mg",
+          "frequency": "three times daily as needed",
+          "probability": 0.4
+        },
+        {
+          "name": "topical diclofenac",
+          "dose": "apply to joint",
+          "frequency": "four times daily",
+          "probability": 0.3
+        }
+      ],
+      "differential_diagnoses": [
+        "Rheumatoid Arthritis",
+        "Gout",
+        "Pseudogout",
+        "Psoriatic Arthritis"
+      ],
+      "differential_questions": [
+        "Which joints are affected? Is it the knees, hips, or hands?",
+        "Does the pain worsen with activity and improve with rest?",
+        "Do you have morning stiffness that resolves within 30 minutes?",
+        "Have you noticed any bony enlargements in your finger joints?"
+      ],
+      "patient_education": "Stay active with low-impact exercise (swimming, cycling). Weight loss reduces joint stress. Use heat/cold for pain relief. Don't overuse NSAIDs — they can affect stomach and kidneys.",
+      "vital_sign_modifiers": {},
+      "social_history_relevance": {
+        "smoking": false,
+        "alcohol": false
+      },
+      "severity_distribution": {
+        "mild": 0.4,
+        "moderate": 0.4,
+        "severe": 0.2
+      }
+    }
+  }
+}

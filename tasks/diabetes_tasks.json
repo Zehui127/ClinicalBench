@@ -1,0 +1,962 @@
+[
+  {
+    "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_25d40d",
+    "domain": "endocrinology",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L1",
+    "version": "2.7",
+    "description": {
+      "purpose": "diagnostic_uncertainty - 47-year-old male patient with Have you noticed increased thirst or urination recently?",
+      "clinical_scenario": "患者因Have you noticed increased thirst or urination recently?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to probe for hidden symptoms",
+        "Quality of differential diagnosis"
+      ],
+      "focus": "Systematic information gathering and differential diagnosis"
+    },
+    "user_scenario": {
+      "persona": "47-year-old male patient. a cooperative patient who answers questions clearly presenting with Have you noticed increased thirst or urination recently?.",
+      "patient_profile": {
+        "age": 47,
+        "gender": "male",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "my appetite has changed"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "my appetite has changed"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you noticed increased thirst or urination recently?"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "type 2 diabetes",
+          "specific_medication_needed": "metformin"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [],
+          "medication_concerns": [
+            "Worried about long-term medication use",
+            "Concerns about insulin if needed"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "my appetite has changed"
+        ],
+        "share_only_if_asked": [],
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 47-year-old male patient. You are seeing a doctor because of my appetite has changed. Answer the doctor's questions honestly and completely. Share what you know."
+    },
+    "medical_persona": {
+      "age": 47,
+      "gender": "male",
+      "symptoms": [
+        "Has your appetite changed unexpectedly"
+      ],
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "current_medications": [
+        "metformin",
+        "glipizide",
+        "insulin glargine"
+      ],
+      "lab_results": {
+        "fasting_glucose": "normal",
+        "hba1c": "normal",
+        "egfr": "normal",
+        "alt": "normal",
+        "total_cholesterol": "normal"
+      },
+      "diagnosis": {
+        "primary": "type 2 diabetes",
+        "severity": "moderate",
+        "differential_diagnoses": [
+          "Metabolic Syndrome",
+          "Cushing's Syndrome",
+          "Type 1 Diabetes"
+        ]
+      }
+    },
+    "ticket": "my appetite has changed",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ChenXX",
+            "mrn": "MRN356787",
+            "age": 47,
+            "gender": "male"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 47,
+              "gender": "male",
+              "symptoms": [
+                "my appetite has changed"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "my appetite has changed"
+              ],
+              "ask_only": []
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 2
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ]
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "type 2 diabetes"
+            ]
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "type 2 diabetes"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": false,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.7
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "type 2 diabetes",
+            "allow_alternatives": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": false,
+            "must_consider": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": false,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_05df40",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.108,
+      "behavior_type": "cooperative",
+      "seed": 42
+    }
+  },
+  {
+    "id": "v27_conflicting_evidence_L2_type_2_diabetes_92b4b8",
+    "domain": "endocrinology",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2",
+    "version": "2.7",
+    "description": {
+      "purpose": "conflicting_evidence - 42-year-old female patient with Have you noticed increased thirst or urination recently?",
+      "clinical_scenario": "患者因Have you noticed increased thirst or urination recently?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to resolve conflicting data",
+        "Critical appraisal of evidence"
+      ],
+      "focus": "Resolving conflicting clinical evidence"
+    },
+    "user_scenario": {
+      "persona": "42-year-old female patient. a patient who is confused about their medical condition presenting with Have you noticed increased thirst or urination recently?.",
+      "patient_profile": {
+        "age": 42,
+        "gender": "female",
+        "communication_style": "uncertain",
+        "cooperation_level": "moderate",
+        "chief_complaint": "ckd"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "ckd"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you noticed increased thirst or urination recently?"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "type 2 diabetes",
+          "specific_medication_needed": "metformin",
+          "undiagnosed_comorbidities": [
+            "chronic kidney disease",
+            "hyperlipidemia"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [
+            "Doesn't understand medical terminology",
+            "May provide inconsistent information",
+            "Needs simple explanations"
+          ],
+          "medication_concerns": [
+            "Worried about long-term medication use",
+            "Concerns about insulin if needed"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "ckd"
+        ],
+        "share_only_if_asked": [
+          "hld"
+        ],
+        "hidden_truth": [
+          "my appetite has changed"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "misleading_symptoms": [
+          "I've been having lost weight without trying"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "emotional_state": "anxious"
+        }
+      },
+      "task_instructions": "You are a 42-year-old female patient. You are seeing a doctor because of ckd. You don't understand medical terms. Express your symptoms in your own words. Ask for clarification if confused. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 42,
+      "gender": "female",
+      "symptoms": [
+        "Has your appetite changed unexpectedly",
+        "CKD",
+        "HLD"
+      ],
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "past_medical_history": [
+        "chronic kidney disease",
+        "hyperlipidemia"
+      ],
+      "current_medications": [
+        "metformin",
+        "glipizide",
+        "insulin glargine"
+      ],
+      "lab_results": {
+        "fasting_glucose": "normal",
+        "hba1c": "normal",
+        "egfr": "normal",
+        "alt": "normal",
+        "total_cholesterol": "normal"
+      },
+      "diagnosis": {
+        "primary": "type 2 diabetes",
+        "severity": "moderate",
+        "differential_diagnoses": [
+          "Metabolic Syndrome",
+          "Cushing's Syndrome",
+          "Type 1 Diabetes"
+        ]
+      },
+      "confounder_conditions": [
+        "hyperthyroidism"
+      ]
+    },
+    "ticket": "ckd",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ZhangXX",
+            "mrn": "MRN585000",
+            "age": 42,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 42,
+              "gender": "female",
+              "symptoms": [
+                "ckd"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "ckd"
+              ],
+              "ask_only": [
+                "hld"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ]
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "type 2 diabetes"
+            ]
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "type 2 diabetes"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 25,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "type 2 diabetes",
+            "allow_alternatives": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_conflicting_evidence_L2_type_2_diabetes_b6893d",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.486,
+      "behavior_type": "confused",
+      "seed": 43
+    }
+  },
+  {
+    "id": "v27_treatment_tradeoff_L3_type_2_diabetes_afb60a",
+    "domain": "endocrinology",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3",
+    "version": "2.7",
+    "description": {
+      "purpose": "treatment_tradeoff - 63-year-old female patient with Have you experienced any tingling or numbness in your hands or feet?",
+      "clinical_scenario": "患者因Have you experienced any tingling or numbness in your hands or feet?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Consideration of comorbidities in treatment",
+        "Shared decision-making ability",
+        "Handle complex multi-condition scenario"
+      ],
+      "focus": "Weighing treatment options with comorbidity considerations"
+    },
+    "user_scenario": {
+      "persona": "63-year-old female patient. a patient who is confused about their medical condition presenting with Have you experienced any tingling or numbness in your hands or feet?.",
+      "patient_profile": {
+        "age": 63,
+        "gender": "female",
+        "communication_style": "uncertain",
+        "cooperation_level": "moderate",
+        "chief_complaint": "ckd"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "ckd"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you experienced any tingling or numbness in your hands or feet?",
+          "additional_complaints": [
+            "mild weakness in arms"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "type 2 diabetes",
+          "specific_medication_needed": "metformin",
+          "undiagnosed_comorbidities": [
+            "hypertension",
+            "chronic kidney disease"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [
+            "Doesn't understand medical terminology",
+            "May provide inconsistent information",
+            "Needs simple explanations"
+          ],
+          "medication_concerns": [
+            "Worried about long-term medication use",
+            "Concerns about insulin if needed"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "ckd"
+        ],
+        "share_only_if_asked": [
+          "my appetite has changed"
+        ],
+        "hidden_truth": [
+          "high blood pressure",
+          "htn"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "noise_symptoms": [
+          "mild weakness in arms"
+        ],
+        "noise_note": "Unrelated symptoms that may distract from the main issue",
+        "misleading_symptoms": [
+          "my appetite has changed"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "emotional_state": "anxious"
+        }
+      },
+      "task_instructions": "You are a 63-year-old female patient. You are seeing a doctor because of ckd. You don't understand medical terms. Express your symptoms in your own words. Ask for clarification if confused. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 63,
+      "gender": "female",
+      "symptoms": [
+        "Has your appetite changed unexpectedly",
+        "HTN",
+        "high blood pressure",
+        "CKD"
+      ],
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "past_medical_history": [
+        "hypertension",
+        "chronic kidney disease"
+      ],
+      "current_medications": [
+        "metformin",
+        "glipizide",
+        "insulin glargine"
+      ],
+      "allergies": [
+        "contrast dye"
+      ],
+      "lab_results": {
+        "fasting_glucose": "normal",
+        "hba1c": "normal",
+        "egfr": "normal",
+        "alt": "normal",
+        "total_cholesterol": "normal"
+      },
+      "diagnosis": {
+        "primary": "type 2 diabetes",
+        "severity": "moderate",
+        "differential_diagnoses": [
+          "Metabolic Syndrome",
+          "Cushing's Syndrome",
+          "Type 1 Diabetes"
+        ]
+      },
+      "confounder_conditions": [
+        "diabetes insipidus"
+      ]
+    },
+    "ticket": "ckd",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "HuangXX",
+            "mrn": "MRN940918",
+            "age": 63,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 63,
+              "gender": "female",
+              "symptoms": [
+                "ckd"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "ckd"
+              ],
+              "ask_only": [
+                "my appetite has changed"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 4
+          }
+        },
+        {
+          "action_id": "use_check_allergy",
+          "requestor": "assistant",
+          "name": "check_allergy",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_check_drug_interactions",
+          "requestor": "assistant",
+          "name": "check_drug_interactions",
+          "arguments": {
+            "drug_list": []
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "",
+            "dose": ""
+          }
+        },
+        {
+          "action_id": "use_schedule_followup",
+          "requestor": "assistant",
+          "name": "schedule_followup",
+          "arguments": {
+            "timeframe": "2 weeks"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY"
+      ],
+      "medical_criteria": {
+        "category": "treatment",
+        "min_turns": 4,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": true,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "type 2 diabetes",
+            "allow_alternatives": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Metabolic Syndrome",
+              "Cushing's Syndrome",
+              "Type 1 Diabetes"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "critical"
+          }
+        },
+        "required_tools": [
+          "check_allergy",
+          "check_drug_interactions",
+          "prescribe_medication",
+          "schedule_followup"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_treatment_tradeoff_L3_type_2_diabetes_72bca8",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.856,
+      "behavior_type": "confused",
+      "seed": 44
+    }
+  }
+]

@@ -62,6 +62,7 @@ class ConfidenceScore:
         red_line_violations: List of red line violations
         recommendations: Recommendations for improvement
         metadata: Additional metadata
+        calibration_metrics: Statistical calibration (ECE, Brier, over/underconfidence)
     """
     total_score: float
     max_score: float
@@ -72,6 +73,7 @@ class ConfidenceScore:
     red_line_violations: List[str]
     recommendations: List[str]
     metadata: Dict[str, Any] = field(default_factory=dict)
+    calibration_metrics: Optional[Dict[str, Any]] = None
 
 
 class ConfidenceScorer:
@@ -243,6 +245,24 @@ class ConfidenceScorer:
             component_scores, red_line_violations
         )
 
+        # Compute calibration metrics if trajectory is available
+        calibration_output = None
+        trajectory = (conversation_metadata or {}).get("trajectory")
+        latent_truth = task_context.get("latent_truth")
+        if trajectory and latent_truth:
+            try:
+                from .calibration_metrics import ConfidenceExtractor, ConfidenceCalibrator
+                extractor = ConfidenceExtractor()
+                decisions = extractor.extract_decisions_from_trajectory(
+                    trajectory, latent_truth
+                )
+                if decisions:
+                    calibrator = ConfidenceCalibrator()
+                    report = calibrator.generate_report(decisions)
+                    calibration_output = report
+            except Exception:
+                pass  # Calibration is optional, don't break scoring
+
         return ConfidenceScore(
             total_score=round(total_score, 2),
             max_score=10.0,
@@ -261,7 +281,8 @@ class ConfidenceScorer:
                     'red_line': self.weights.red_line_compliance,
                     'quality': self.weights.quality_bonus
                 }
-            }
+            },
+            calibration_metrics=calibration_output
         )
 
     def _score_checklist_completion(

@@ -1,0 +1,695 @@
+{
+  "_meta": {
+    "version": "1.0.0"
+  },
+  "tool_definitions": {
+    "health_education": {
+      "category": "suggestion",
+      "description": "Provide health education to patient",
+      "required_args": [
+        "topic"
+      ],
+      "optional_args": [
+        "detail_level"
+      ]
+    },
+    "lifestyle_guidance": {
+      "category": "suggestion",
+      "description": "Give lifestyle modification advice",
+      "required_args": [
+        "area"
+      ],
+      "optional_args": [
+        "specific_recommendation"
+      ]
+    },
+    "patient_education": {
+      "category": "suggestion",
+      "description": "Explain condition or treatment to patient",
+      "required_args": [
+        "topic"
+      ],
+      "optional_args": [
+        "language_level"
+      ]
+    },
+    "get_patient_info": {
+      "category": "suggestion",
+      "description": "Look up patient demographics and history",
+      "human_name": "Look up patient demographics and history",
+      "required_args": [
+        "patient_identifier"
+      ],
+      "optional_args": []
+    },
+    "set_user_info": {
+      "category": "suggestion",
+      "description": "Set patient information in system",
+      "required_args": [
+        "name",
+        "age",
+        "gender"
+      ],
+      "optional_args": [
+        "mrn"
+      ]
+    },
+    "order_lab_tests": {
+      "category": "diagnosis",
+      "description": "Order laboratory tests",
+      "required_args": [
+        "tests"
+      ],
+      "optional_args": [
+        "priority",
+        "fasting_required"
+      ]
+    },
+    "get_lab_results": {
+      "category": "diagnosis",
+      "description": "Retrieve lab test results",
+      "required_args": [
+        "patient_id"
+      ],
+      "optional_args": [
+        "test_names"
+      ]
+    },
+    "assess_blood_pressure": {
+      "category": "diagnosis",
+      "description": "Assess blood pressure reading",
+      "human_name": "blood pressure measurement",
+      "required_args": [
+        "systolic",
+        "diastolic"
+      ],
+      "optional_args": [
+        "position",
+        "arm"
+      ]
+    },
+    "assess_blood_glucose": {
+      "category": "diagnosis",
+      "description": "Assess blood glucose level",
+      "human_name": "blood glucose test",
+      "required_args": [
+        "glucose_value",
+        "unit"
+      ],
+      "optional_args": [
+        "fasting_status"
+      ]
+    },
+    "interpret_hba1c": {
+      "category": "diagnosis",
+      "description": "Interpret HbA1c result",
+      "required_args": [
+        "hba1c_value"
+      ],
+      "optional_args": []
+    },
+    "assess_kidney_function": {
+      "category": "diagnosis",
+      "description": "Assess kidney function via eGFR",
+      "human_name": "kidney function assessment",
+      "required_args": [
+        "creatinine",
+        "age",
+        "gender"
+      ],
+      "optional_args": [
+        "race"
+      ]
+    },
+    "check_liver_function": {
+      "category": "diagnosis",
+      "description": "Check liver function panel",
+      "human_name": "liver function tests",
+      "required_args": [
+        "alt",
+        "ast"
+      ],
+      "optional_args": [
+        "bilirubin",
+        "alp"
+      ]
+    },
+    "check_electrolytes": {
+      "category": "diagnosis",
+      "description": "Check electrolyte panel",
+      "human_name": "electrolyte panel",
+      "required_args": [
+        "sodium",
+        "potassium"
+      ],
+      "optional_args": [
+        "chloride",
+        "bicarbonate"
+      ]
+    },
+    "complete_blood_count": {
+      "category": "diagnosis",
+      "description": "Review complete blood count",
+      "human_name": "complete blood count (CBC)",
+      "required_args": [
+        "wbc",
+        "hgb",
+        "platelets"
+      ],
+      "optional_args": [
+        "diff"
+      ]
+    },
+    "assess_vital_signs": {
+      "category": "diagnosis",
+      "description": "Assess vital signs comprehensively",
+      "human_name": "vital signs assessment",
+      "required_args": [],
+      "optional_args": [
+        "include_bmi"
+      ]
+    },
+    "differential_diagnosis": {
+      "category": "diagnosis",
+      "description": "Consider differential diagnoses",
+      "required_args": [
+        "symptoms"
+      ],
+      "optional_args": [
+        "exclude"
+      ]
+    },
+    "record_diagnosis": {
+      "category": "diagnosis",
+      "description": "Record diagnosis with ICD code",
+      "required_args": [
+        "diagnosis"
+      ],
+      "optional_args": [
+        "icd_code",
+        "certainty"
+      ]
+    },
+    "ecg_interpretation": {
+      "category": "diagnosis",
+      "description": "Electrocardiogram (ECG)",
+      "human_name": "electrocardiogram (ECG)"
+    },
+    "assess_oxygen_saturation": {
+      "category": "diagnosis",
+      "description": "Oxygen saturation check",
+      "human_name": "oxygen saturation check"
+    },
+    "chest_xray_review": {
+      "category": "diagnosis",
+      "description": "Chest X-ray",
+      "human_name": "chest X-ray"
+    },
+    "neurological_assessment": {
+      "category": "diagnosis",
+      "description": "Neurological examination",
+      "human_name": "neurological examination"
+    },
+    "check_inflammation_markers": {
+      "category": "diagnosis",
+      "description": "Inflammation markers (CRP/ESR)",
+      "human_name": "inflammation markers (CRP/ESR)"
+    },
+    "check_thyroid": {
+      "category": "diagnosis",
+      "description": "Thyroid function assessment"
+    },
+    "phq9_assessment": {
+      "category": "diagnosis",
+      "description": "PHQ-9 depression screening",
+      "human_name": "PHQ-9 depression screening"
+    },
+    "check_bilirubin": {
+      "category": "diagnosis",
+      "description": "Check bilirubin levels"
+    },
+    "d_dimer": {
+      "category": "diagnosis",
+      "description": "D-dimer test for thrombosis evaluation"
+    },
+    "abdominal_examination": {
+      "category": "diagnosis",
+      "description": "Abdominal examination"
+    },
+    "prescribe_medication": {
+      "category": "treatment",
+      "description": "Prescribe medication to patient",
+      "required_args": [
+        "medication",
+        "dose"
+      ],
+      "optional_args": [
+        "frequency",
+        "duration",
+        "route"
+      ]
+    },
+    "check_drug_interactions": {
+      "category": "treatment",
+      "description": "Check for drug-drug interactions",
+      "required_args": [
+        "drug_list"
+      ],
+      "optional_args": []
+    },
+    "check_allergy": {
+      "category": "treatment",
+      "description": "Check patient allergies before prescribing",
+      "required_args": [
+        "patient_id"
+      ],
+      "optional_args": [
+        "drug_name"
+      ]
+    },
+    "get_medication_dosage": {
+      "category": "treatment",
+      "description": "Get recommended dosage for medication",
+      "required_args": [
+        "medication",
+        "indication"
+      ],
+      "optional_args": [
+        "patient_weight",
+        "kidney_function"
+      ]
+    },
+    "check_contraindications": {
+      "category": "treatment",
+      "description": "Check contraindications for a drug",
+      "required_args": [
+        "medication",
+        "conditions"
+      ],
+      "optional_args": []
+    },
+    "find_alternative_medication": {
+      "category": "treatment",
+      "description": "Find alternative medication",
+      "required_args": [
+        "original_medication",
+        "reason"
+      ],
+      "optional_args": [
+        "preferred_class"
+      ]
+    },
+    "transfer_to_specialist": {
+      "category": "treatment",
+      "description": "Transfer patient to specialist",
+      "required_args": [
+        "specialty",
+        "reason"
+      ],
+      "optional_args": [
+        "urgency"
+      ]
+    },
+    "schedule_followup": {
+      "category": "treatment",
+      "description": "Schedule follow-up appointment",
+      "required_args": [
+        "timeframe"
+      ],
+      "optional_args": [
+        "tests_to_repeat"
+      ]
+    }
+  },
+  "symptom_tool_map": {
+    "chest pain": [
+      "assess_blood_pressure",
+      "ecg_interpretation"
+    ],
+    "headache": [
+      "neurological_assessment"
+    ],
+    "fever": [
+      "complete_blood_count"
+    ],
+    "cough": [
+      "chest_xray_review",
+      "assess_oxygen_saturation"
+    ],
+    "nausea": [
+      "check_electrolytes",
+      "check_liver_function"
+    ],
+    "dizziness": [
+      "assess_blood_pressure",
+      "neurological_assessment"
+    ],
+    "fatigue": [
+      "complete_blood_count"
+    ],
+    "shortness of breath": [
+      "assess_oxygen_saturation",
+      "ecg_interpretation"
+    ],
+    "abdominal pain": [
+      "check_liver_function"
+    ],
+    "back pain": [
+      "neurological_assessment"
+    ]
+  },
+  "disease_tool_map": {
+    "hypertension": [
+      "assess_blood_pressure",
+      "assess_kidney_function"
+    ],
+    "diabetes": [
+      "assess_blood_glucose",
+      "assess_kidney_function"
+    ],
+    "heart": [
+      "assess_blood_pressure",
+      "ecg_interpretation"
+    ],
+    "kidney": [
+      "assess_kidney_function",
+      "check_electrolytes"
+    ],
+    "liver": [
+      "check_liver_function"
+    ],
+    "lung": [
+      "assess_oxygen_saturation",
+      "chest_xray_review"
+    ],
+    "depression": [
+      "phq9_assessment"
+    ],
+    "anemia": [
+      "complete_blood_count"
+    ]
+  },
+  "baseline_tools": [
+    "get_patient_info",
+    "order_lab_tests",
+    "get_lab_results",
+    "check_allergy",
+    "check_drug_interactions",
+    "prescribe_medication",
+    "schedule_followup"
+  ],
+  "ordering_constraints": [
+    {
+      "before": "check_allergy",
+      "after": "prescribe_medication",
+      "severity": "critical"
+    },
+    {
+      "before": "check_drug_interactions",
+      "after": "prescribe_medication",
+      "severity": "critical"
+    },
+    {
+      "before": "get_lab_results",
+      "after": "record_diagnosis",
+      "severity": "major"
+    },
+    {
+      "before": "order_lab_tests",
+      "after": "get_lab_results",
+      "severity": "major"
+    },
+    {
+      "before": "get_patient_info",
+      "after": "prescribe_medication",
+      "severity": "major"
+    },
+    {
+      "after": "schedule_followup",
+      "before": null,
+      "severity": "info"
+    }
+  ],
+  "baseline_forbidden": [
+    {
+      "rule": "prescribe_medication before allergy_check",
+      "severity": "critical"
+    },
+    {
+      "rule": "prescribe_medication before check_drug_interactions",
+      "severity": "critical"
+    },
+    {
+      "rule": "prescribe_medication before get_lab_results",
+      "severity": "major"
+    }
+  ],
+  "acceptable_strategies": {
+    "standard": [
+      {
+        "name": "evidence_first",
+        "description": "Order labs → review results → differential → diagnosis → treat",
+        "key_steps": [
+          "gather_history",
+          "order_tests",
+          "review_results",
+          "differential_consideration",
+          "diagnosis",
+          "safety_check",
+          "prescribe",
+          "follow_up"
+        ]
+      },
+      {
+        "name": "empiric_treatment",
+        "description": "Clinical diagnosis based on history → treat → confirm with labs",
+        "key_steps": [
+          "gather_history",
+          "provisional_diagnosis",
+          "safety_check",
+          "prescribe",
+          "order_tests",
+          "review_results",
+          "confirm_or_adjust",
+          "follow_up"
+        ]
+      },
+      {
+        "name": "stepwise_exclusion",
+        "description": "Rule out emergencies first → then investigate systematically",
+        "key_steps": [
+          "emergency_assessment",
+          "gather_history",
+          "rule_out_critical",
+          "order_tests",
+          "differential_reasoning",
+          "diagnosis",
+          "prescribe",
+          "follow_up"
+        ]
+      }
+    ],
+    "emergency": [
+      {
+        "name": "stabilize_then_diagnose",
+        "description": "Stabilize patient first → then investigate",
+        "key_steps": [
+          "emergency_triage",
+          "stabilize",
+          "urgent_tests",
+          "diagnosis",
+          "treatment",
+          "monitoring_plan",
+          "follow_up"
+        ]
+      }
+    ]
+  },
+  "reasoning_dimensions": {
+    "differential_quality": {
+      "description": "Quality and breadth of differential diagnosis consideration",
+      "scoring": {
+        "full": "Considers ≥ 3 differentials with explicit reasoning for each",
+        "partial": "Mentions 1-2 differentials without explicit reasoning",
+        "none": "Jumps to single diagnosis without considering alternatives"
+      },
+      "weight": 0.25
+    },
+    "evidence_citation": {
+      "description": "Agent references specific findings (lab/vital/history) to support decisions",
+      "scoring": {
+        "full": "Each major decision cites ≥ 1 specific finding from gathered data",
+        "partial": "Some decisions reference data but not consistently",
+        "none": "Decisions made without referencing any specific findings"
+      },
+      "weight": 0.25
+    },
+    "safety_awareness": {
+      "description": "Proactive safety checking (allergies, interactions, contraindications)",
+      "scoring": {
+        "full": "Checks allergies AND interactions BEFORE any prescription",
+        "partial": "Checks safety but timing or completeness has gaps",
+        "none": "Prescribes without safety checks"
+      },
+      "weight": 0.25
+    },
+    "clinical_decision_making": {
+      "description": "Appropriateness of tool selection and clinical reasoning chain",
+      "scoring": {
+        "full": "Tool choices match clinical need; reasoning chain is coherent",
+        "partial": "Most tools appropriate but some unnecessary or missing",
+        "none": "Tool use is random, excessive, or critically incomplete"
+      },
+      "weight": 0.25
+    }
+  },
+  "tool_name_aliases": {
+    "check_kidney_function": "assess_kidney_function",
+    "check_liver_function": "check_liver_function",
+    "check_bilirubin": "check_liver_function",
+    "check_thyroid": "assess_thyroid",
+    "check_electrolytes": "check_electrolytes",
+    "check_inflammation_markers": "check_inflammation_markers",
+    "chest_xray_review": "chest_xray_review",
+    "abdominal_examination": "abdominal_examination",
+    "neurological_assessment": "neurological_assessment",
+    "phq9_assessment": "phq9_assessment",
+    "vital_signs_assessment": "assess_vital_signs"
+  },
+  "tool_human_names": {
+    "assess_blood_pressure": "blood pressure measurement",
+    "check_kidney_function": "kidney function panel",
+    "assess_blood_glucose": "blood glucose test",
+    "ecg_interpretation": "electrocardiogram (ECG)",
+    "check_liver_function": "liver function tests",
+    "complete_blood_count": "complete blood count (CBC)",
+    "assess_oxygen_saturation": "oxygen saturation check",
+    "chest_xray_review": "chest X-ray",
+    "neurological_assessment": "neurological examination",
+    "check_electrolytes": "electrolyte panel",
+    "check_inflammation_markers": "inflammation markers (CRP/ESR)",
+    "assess_vital_signs": "vital signs assessment",
+    "assess_kidney_function": "kidney function assessment",
+    "phq9_assessment": "PHQ-9 depression screening"
+  },
+  "category_tools": {
+    "suggestion": {
+      "tools": [
+        "health_education",
+        "lifestyle_guidance",
+        "patient_education",
+        "get_patient_info",
+        "set_user_info"
+      ],
+      "evaluation_metrics": [
+        "relevance",
+        "actionability",
+        "clarity",
+        "safety"
+      ],
+      "evaluation_weights": {
+        "relevance": 0.3,
+        "actionability": 0.3,
+        "clarity": 0.2,
+        "safety": 0.2
+      }
+    },
+    "diagnosis": {
+      "tools": [
+        "order_lab_tests",
+        "get_lab_results",
+        "assess_blood_pressure",
+        "assess_blood_glucose",
+        "interpret_hba1c",
+        "assess_kidney_function",
+        "check_liver_function",
+        "check_electrolytes",
+        "complete_blood_count",
+        "assess_vital_signs",
+        "differential_diagnosis",
+        "record_diagnosis"
+      ],
+      "evaluation_metrics": [
+        "accuracy",
+        "completeness",
+        "reasoning_logic",
+        "evidence_support"
+      ],
+      "evaluation_weights": {
+        "accuracy": 0.4,
+        "completeness": 0.2,
+        "reasoning_logic": 0.2,
+        "evidence_support": 0.2
+      }
+    },
+    "treatment": {
+      "tools": [
+        "prescribe_medication",
+        "check_drug_interactions",
+        "check_allergy",
+        "get_medication_dosage",
+        "check_contraindications",
+        "find_alternative_medication",
+        "transfer_to_specialist",
+        "schedule_followup"
+      ],
+      "evaluation_metrics": [
+        "rationality",
+        "evidence_based",
+        "personalization",
+        "safety_checking"
+      ],
+      "evaluation_weights": {
+        "rationality": 0.3,
+        "evidence_based": 0.25,
+        "personalization": 0.25,
+        "safety_checking": 0.2
+      }
+    }
+  },
+  "generic_tool_template": {
+    "diagnosis_tools": [
+      {
+        "tool": "get_patient_info"
+      },
+      {
+        "tool": "order_lab_tests"
+      },
+      {
+        "tool": "get_lab_results"
+      }
+    ],
+    "treatment_tools": [
+      {
+        "tool": "check_allergy"
+      },
+      {
+        "tool": "check_drug_interactions"
+      },
+      {
+        "tool": "prescribe_medication"
+      }
+    ],
+    "required_sequence": [
+      "order_lab_tests",
+      "get_lab_results",
+      "prescribe_medication"
+    ],
+    "forbidden_sequences": [
+      {
+        "rule": "prescribe_medication before check_allergy",
+        "severity": "critical"
+      },
+      {
+        "rule": "prescribe_medication before check_drug_interactions",
+        "severity": "critical"
+      },
+      {
+        "rule": "prescribe_medication before get_lab_results",
+        "severity": "major"
+      }
+    ],
+    "diagnosis_accept": [],
+    "diagnosis_reject": []
+  }
+}

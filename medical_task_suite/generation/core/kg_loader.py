@@ -65,6 +65,9 @@ class PrimeKGLoader:
             "cellular_component",   # 细胞成分 (186K occurrences)
         }
 
+        # Extended node types for complex walk generation (includes molecular-level)
+        self.extended_node_types = self.medical_node_types
+
         # 医疗相关的边类型（基于 PrimeKG 实际边类型）
         self.medical_edge_types = {
             # PrimeKG 实际边类型
@@ -81,6 +84,8 @@ class PrimeKGLoader:
             "carrier",                 # 载体
             "associates_with",         # 相关
             "interacts_with",          # 相互作用
+            "ddi",                     # 药物-药物相互作用
+            "off-label use",          # 标签外使用
             # 通用医疗边类型
             "treats",                  # 治疗
             "causes",                  # 导致
@@ -363,7 +368,8 @@ class PrimeKGLoader:
         self,
         nodes: Dict,
         edges: List[Dict],
-        min_weight: float = 0.1
+        min_weight: float = 0.1,
+        add_reverse_edges: bool = True
     ) -> nx.DiGraph:
         """
         构建NetworkX图
@@ -372,6 +378,7 @@ class PrimeKGLoader:
             nodes: 节点字典
             edges: 边列表
             min_weight: 最小权重阈值
+            add_reverse_edges: 是否添加反向边（用于双向遍历）
 
         Returns:
             NetworkX图对象
@@ -394,8 +401,28 @@ class PrimeKGLoader:
                     edge["source"],
                     edge["target"],
                     edge_type=edge["edge_type"],
-                    weight=edge["weight"]
+                    weight=edge["weight"],
+                    direction="forward"
                 )
+
+        # 添加反向边（用于双向遍历：如 disease -> symptom 反向查询）
+        if add_reverse_edges:
+            reverse_count = 0
+            for edge in edges:
+                if edge["weight"] >= min_weight:
+                    rev_edge_type = f"rev_{edge['edge_type']}"
+                    # 避免重复边（如果正向和反向边类型相同）
+                    if not graph.has_edge(edge["target"], edge["source"]):
+                        graph.add_edge(
+                            edge["target"],
+                            edge["source"],
+                            edge_type=rev_edge_type,
+                            weight=edge["weight"],
+                            direction="reverse",
+                            original_edge_type=edge["edge_type"]
+                        )
+                        reverse_count += 1
+            print(f"  添加反向边: {reverse_count}")
 
         print(f"  图节点数: {graph.number_of_nodes()}")
         print(f"  图边数: {graph.number_of_edges()}")
@@ -535,7 +562,7 @@ class PrimeKGLoader:
         version: str = "v2",
         focus_types: Optional[List[str]] = None,
         min_weight: float = 0.1,
-        keep_top_k: int = 10,
+        keep_top_k: int = 50,
         force_download: bool = False,
         use_cache: bool = True
     ) -> Tuple[Dict, List[Dict], nx.DiGraph]:
@@ -546,7 +573,7 @@ class PrimeKGLoader:
             version: PrimeKG 版本（保留参数，实际使用统一数据）
             focus_types: 重点关注节点类型
             min_weight: 最小权重阈值
-            keep_top_k: 每个节点保留的前K个邻居
+            keep_top_k: 每个节点保留的前K个邻居（默认50，保留更多路径）
             force_download: 强制重新下载
             use_cache: 使用缓存
 
@@ -576,8 +603,12 @@ class PrimeKGLoader:
             nodes, edges, focus_types=focus_types
         )
 
-        # 构建图
-        graph = self.build_graph(filtered_nodes, filtered_edges, min_weight=min_weight)
+        # 构建图（添加反向边）
+        graph = self.build_graph(
+            filtered_nodes, filtered_edges,
+            min_weight=min_weight,
+            add_reverse_edges=True
+        )
 
         # 优化
         graph_optimized = self.optimize_for_random_walk(graph, keep_top_k=keep_top_k)
@@ -614,7 +645,7 @@ class RealMedicalKnowledgeGraph:
         version: str = "v2",
         focus_types: Optional[List[str]] = None,
         min_weight: float = 0.1,
-        keep_top_k: int = 10,
+        keep_top_k: int = 50,
         use_cache: bool = True
     ):
         """

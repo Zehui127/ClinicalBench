@@ -1,0 +1,2415 @@
+[
+  {
+    "id": "v27_diagnostic_uncertainty_L1_pancreatitis_970225",
+    "domain": "gastroenterology",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L1",
+    "version": "2.7",
+    "description": {
+      "purpose": "diagnostic_uncertainty — 40-year-old female with feeling sick to my stomach for a few weeks",
+      "clinical_scenario": "Patient presents with feeling sick to my stomach for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to probe for hidden symptoms",
+        "Quality of differential diagnosis"
+      ],
+      "focus": "Systematic information gathering and differential diagnosis"
+    },
+    "user_scenario": {
+      "persona": "40-year-old female patient, 高中/中专 education, works as a office clerk. a cooperative patient who answers questions clearly presenting with feeling sick to my stomach.",
+      "patient_profile": {
+        "age": 40,
+        "gender": "female",
+        "education_level": "high_school",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "i've been having consume alcohol regularly for a few weeks",
+        "occupation": "office clerk"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "i've been having consume alcohol regularly"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "feeling sick to my stomach",
+          "current_medications": [
+            "IV fluids N/A continuous"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "pancreatitis"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general_concerns": [
+            "Is this serious?",
+            "Will I need surgery?",
+            "How long will treatment take?"
+          ],
+          "economic_concerns": [
+            "How much will this medication cost per month?",
+            "Is there a cheaper alternative?",
+            "Will my insurance cover this?",
+            "Can we only prescribe what's absolutely necessary?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "i've been having consume alcohol regularly"
+        ],
+        "share_only_if_asked": [
+          "feeling sick to my stomach (needs doctor to specifically ask)"
+        ],
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [],
+          "emotional_state": "neutral",
+          "may_resist_certain_treatments": [],
+          "financial_constraints": true,
+          "family_involvement": false
+        }
+      },
+      "task_instructions": "You are ChenXX, a 40-year-old female patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of i've been having consume alcohol regularly. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    },
+    "family_member_scenario": null,
+    "medical_persona": {
+      "age": 40,
+      "gender": "female",
+      "symptoms": {
+        "Have you had nausea and vomiting": "feeling sick to my stomach",
+        "Do you consume alcohol regularly": "I've been having consume alcohol regularly"
+      },
+      "duration": "a few weeks",
+      "severity": "mild",
+      "current_medications": [
+        {
+          "name": "IV fluids",
+          "dose": "N/A",
+          "frequency": "continuous"
+        },
+        {
+          "name": "hydromorphone",
+          "dose": "1-2mg",
+          "frequency": "IV every 4 hours as needed"
+        },
+        {
+          "name": "pancrelipase",
+          "dose": "25000 units",
+          "frequency": "with meals"
+        }
+      ],
+      "vital_signs": {
+        "heart_rate": "98 bpm",
+        "bmi": "25.5"
+      },
+      "lifestyle_factors": {
+        "alcohol": "rarely",
+        "exercise": "moderate 3x/week"
+      },
+      "socioeconomic_factors": {
+        "occupation": "office clerk",
+        "monthly_income": "about 3000-5000 yuan/month",
+        "insurance": "basic rural/cooperative medical insurance, limited coverage",
+        "family_burden": ""
+      },
+      "diagnosis": {
+        "primary": "pancreatitis",
+        "severity": "mild",
+        "differential_diagnoses": [
+          "Cholecystitis",
+          "Peptic Ulcer Disease",
+          "Mesenteric Ischemia",
+          "Aortic Dissection"
+        ]
+      }
+    },
+    "ticket": "i've been having consume alcohol regularly",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ChenXX",
+            "mrn": "MRN873153",
+            "age": 40,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 40,
+              "gender": "female",
+              "symptoms": [
+                "i've been having consume alcohol regularly"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "i've been having consume alcohol regularly"
+              ],
+              "ask_only": [
+                "feeling sick to my stomach"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 2
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ],
+            "rationale": "Labs to evaluate pancreatitis"
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "inflammation of my pancreas"
+            ],
+            "must_consider": [
+              "Cholecystitis",
+              "Peptic Ulcer Disease",
+              "Mesenteric Ischemia"
+            ]
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "pancreatitis"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of pancreatitis identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": false,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": false,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.7
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "pancreatitis",
+            "allow_alternatives": [
+              "Cholecystitis",
+              "Peptic Ulcer Disease",
+              "Mesenteric Ischemia"
+            ],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": false,
+            "must_consider": [
+              "Cholecystitis",
+              "Peptic Ulcer Disease",
+              "Mesenteric Ischemia"
+            ],
+            "weight": 0.2
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          },
+          "key_questions": {
+            "required": false,
+            "must_ask": [
+              "Do you have severe upper abdominal pain that radiates to your back?",
+              "Does the pain worsen after eating, especially fatty foods?",
+              "Have you had nausea and vomiting?"
+            ],
+            "weight": 0.1
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": false,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_diagnostic_uncertainty_L1_pancreatitis_ebb19a",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.193,
+      "behavior_type": "cooperative",
+      "seed": 152745
+    }
+  },
+  {
+    "id": "v27_conflicting_evidence_L2_coronary_artery_disease_790dc4",
+    "domain": "cardiology",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2",
+    "version": "2.7",
+    "description": {
+      "purpose": "conflicting_evidence — 46-year-old female with coronary artery disease for a few weeks",
+      "clinical_scenario": "Patient presents with coronary artery disease for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to resolve conflicting data",
+        "Critical appraisal of evidence"
+      ],
+      "focus": "Resolving conflicting clinical evidence"
+    },
+    "user_scenario": {
+      "persona": "46-year-old female patient, 小学 education, works as a delivery driver. a patient who may forget to mention some symptoms presenting with coronary artery disease. Accompanied by husband (age 51).",
+      "patient_profile": {
+        "age": 46,
+        "gender": "female",
+        "education_level": "elementary",
+        "communication_style": "vague",
+        "cooperation_level": "good",
+        "chief_complaint": "atherosclerotic heart, my weight has changed, and ischemic heart for a few weeks",
+        "occupation": "delivery driver"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "atherosclerotic heart",
+            "my weight has changed",
+            "ischemic heart"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "coronary artery disease",
+          "family_history": "family member has heart failure",
+          "past_history": [
+            "heart failure"
+          ],
+          "current_medications": [
+            "metoprolol 50mg twice daily"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "coronary artery disease",
+          "total_cholesterol": "6.40 mmol/L (abnormal)",
+          "ldl_cholesterol": "4.13 mmol/L (abnormal)",
+          "hdl_cholesterol": "0.89 mmol/L (abnormal)",
+          "specific_medication_needed": "aspirin (81mg once daily)",
+          "medication_contraindications": [
+            "peptic ulcer",
+            "asthma"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "general_concerns": [
+            "Is this serious?",
+            "Will I need surgery?",
+            "How long will treatment take?"
+          ],
+          "economic_concerns": [
+            "How much will this medication cost per month?",
+            "Is there a cheaper alternative?",
+            "Will my insurance cover this?",
+            "Can we only prescribe what's absolutely necessary?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "atherosclerotic heart",
+          "my weight has changed",
+          "ischemic heart"
+        ],
+        "share_only_if_asked": [
+          "coronary heart (needs doctor to specifically ask)",
+          "chd (needs doctor to specifically ask)"
+        ],
+        "hidden_truth": [
+          "heart disease (won't mention unless specifically probed)",
+          "ihd (won't mention unless specifically probed)"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+        "misleading_symptoms": [
+          "anxiety",
+          "gad"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "share_in_response_to_medication_discussion": [
+          "Concerns about aspirin side effects",
+          "Concerns about atorvastatin side effects"
+        ],
+        "family_member_will_interject": [
+          "husband: How can we help at home?",
+          "husband: What should we cook for them?"
+        ],
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [
+            "medical terminology",
+            "complex concepts"
+          ],
+          "emotional_state": "neutral",
+          "may_resist_certain_treatments": [],
+          "financial_constraints": true,
+          "family_involvement": true
+        }
+      },
+      "task_instructions": "You are LiXX, a 46-year-old female patient. Your education level is 小学. You work as a delivery driver. You are seeing a doctor because of atherosclerotic heart. This has been going on for about a few weeks. Answer honestly but you may forget to mention some symptoms. If the doctor doesn't specifically ask about something, you might not remember it. Your memory for details is not great — approximate answers are fine. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your husband is with you and may speak up during the consultation to ask questions or express concerns."
+    },
+    "family_member_scenario": {
+      "scenario": "husband accompanies patient, participates in the entire visit",
+      "role": "concerned and supportive, may express economic worries",
+      "interaction_timing": [
+        "When medication is discussed, the family member asks about costs",
+        "After diagnosis is explained, the family member asks about heritability",
+        "When a prescription is written, the family member asks about side effects",
+        "When lifestyle changes are mentioned, the family member asks for specifics"
+      ]
+    },
+    "medical_persona": {
+      "age": 46,
+      "gender": "female",
+      "symptoms": {
+        "CAD": "coronary artery disease",
+        "coronary heart disease": "coronary heart",
+        "CHD": "chd",
+        "ischemic heart disease": "ischemic heart",
+        "IHD": "ihd",
+        "atherosclerotic heart disease": "atherosclerotic heart",
+        "Has your weight changed unexpectedly": "my weight has changed"
+      },
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "past_medical_history": [
+        "heart failure",
+        "anxiety"
+      ],
+      "current_medications": [
+        {
+          "name": "aspirin",
+          "brand_names": [],
+          "drug_class": "antiplatelet / NSAID",
+          "dose": "81mg",
+          "frequency": "once daily"
+        },
+        {
+          "name": "atorvastatin",
+          "brand_names": [
+            "Lipitor"
+          ],
+          "drug_class": "HMG-CoA reductase inhibitor (statin)",
+          "dose": "20mg",
+          "frequency": "once daily at bedtime"
+        },
+        {
+          "name": "clopidogrel",
+          "brand_names": [],
+          "drug_class": "antiplatelet (P2Y12 inhibitor)",
+          "dose": "75mg",
+          "frequency": "once daily"
+        }
+      ],
+      "lab_results": {
+        "total_cholesterol": "6.50 mmol/L (abnormal)",
+        "ldl_cholesterol": "4.08 mmol/L (abnormal)",
+        "hdl_cholesterol": "0.94 mmol/L (abnormal)",
+        "troponin": "0.05 ng/mL",
+        "nt_probnp": "303 pg/mL (abnormal)",
+        "creatinine": "1.05 mg/dL"
+      },
+      "vital_signs": {
+        "blood_pressure": "136/87 mmHg",
+        "heart_rate": "95 bpm",
+        "bmi": "24.8"
+      },
+      "lifestyle_factors": {
+        "smoking": "yes (1 pack/day for 20+ years)",
+        "exercise": "sedentary"
+      },
+      "comorbidities": {
+        "heart failure": "heart failure, severity: 0.5"
+      },
+      "socioeconomic_factors": {
+        "occupation": "delivery driver",
+        "monthly_income": "about 3000-5000 yuan/month",
+        "insurance": "basic rural/cooperative medical insurance, limited coverage",
+        "family_burden": ""
+      },
+      "medication_considerations": {
+        "aspirin": {
+          "drug_class": "antiplatelet / NSAID",
+          "standard_dose": "81mg once daily",
+          "contraindications": [
+            "peptic ulcer",
+            "asthma"
+          ]
+        }
+      },
+      "diagnosis": {
+        "primary": "coronary artery disease",
+        "severity": "moderate"
+      },
+      "confounder_conditions": [
+        "anxiety disorder"
+      ]
+    },
+    "ticket": "atherosclerotic heart, my weight has changed, ischemic heart",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "LiXX",
+            "mrn": "MRN766668",
+            "age": 46,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 46,
+              "gender": "female",
+              "symptoms": [
+                "atherosclerotic heart",
+                "my weight has changed",
+                "ischemic heart"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "atherosclerotic heart",
+                "my weight has changed",
+                "ischemic heart"
+              ],
+              "ask_only": [
+                "coronary heart",
+                "chd"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "total_cholesterol",
+              "ldl_cholesterol",
+              "hdl_cholesterol",
+              "troponin",
+              "nt_probnp"
+            ],
+            "rationale": "Labs to evaluate coronary artery disease"
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "heart disease"
+            ],
+            "must_consider": []
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "coronary artery disease"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns, misconceptions, and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 25,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of coronary artery disease identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": false,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "coronary artery disease",
+            "allow_alternatives": [],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [],
+            "weight": 0.2
+          },
+          "appropriate_tests": {
+            "must_order": [
+              "total_cholesterol",
+              "ldl_cholesterol",
+              "hdl_cholesterol"
+            ],
+            "should_order": [
+              "troponin",
+              "creatinine"
+            ],
+            "weight": 0.15
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_conflicting_evidence_L2_coronary_artery_disease_eca8e0",
+      "risk_level": "high",
+      "uncertainty_level": 0.672,
+      "behavior_type": "forgetful",
+      "seed": 481850
+    }
+  },
+  {
+    "id": "v27_treatment_tradeoff_L3_gout_c058de",
+    "domain": "rheumatology",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3",
+    "version": "2.7",
+    "description": {
+      "purpose": "treatment_tradeoff — 60-year-old female with I've been having consume alcohol or foods high in purines regularly for a few weeks",
+      "clinical_scenario": "Patient presents with I've been having consume alcohol or foods high in purines regularly for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Consideration of comorbidities in treatment",
+        "Shared decision-making ability",
+        "Handle complex multi-condition scenario",
+        "Manage difficult patient behavior"
+      ],
+      "focus": "Weighing treatment options with comorbidity considerations"
+    },
+    "user_scenario": {
+      "persona": "60-year-old female patient, 初中 education, works as a truck driver. a patient who may resist tests or treatment presenting with I've been having consume alcohol or foods high in purines regularly. Accompanied by daughter (age 38).",
+      "patient_profile": {
+        "age": 60,
+        "gender": "female",
+        "education_level": "middle_school",
+        "communication_style": "resistant",
+        "cooperation_level": "poor",
+        "chief_complaint": "i've had these attacks before for a few weeks",
+        "occupation": "truck driver"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "i've had these attacks before"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "I've been having consume alcohol or foods high in purines regularly",
+          "current_medications": [
+            "colchicine 0.6mg once or twice daily",
+            "allopurinol 300mg once daily",
+            "indomethacin 50mg three times daily"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "gout",
+          "uric_acid": "513 umol/L (abnormal)",
+          "crp": "23.9 mg/L (abnormal)",
+          "wbc": "11.2 x10^9/L (abnormal)"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general_concerns": [
+            "Is this serious?",
+            "Will I need surgery?",
+            "How long will treatment take?"
+          ],
+          "economic_concerns": [
+            "How much will this medication cost per month?",
+            "Is there a cheaper alternative?",
+            "Will my insurance cover this?",
+            "Can we only prescribe what's absolutely necessary?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "i've had these attacks before"
+        ],
+        "share_only_if_asked": [],
+        "noise_symptoms": [
+          "mild fatigue"
+        ],
+        "noise_note": "Unrelated symptoms that may distract from the main issue",
+        "misleading_symptoms": [
+          "red hot joint"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "family_member_will_interject": [
+          "daughter: How can we help at home?",
+          "daughter: What should we cook for them?"
+        ],
+        "response_style": {
+          "honest": false,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [
+            "medical terminology",
+            "complex concepts"
+          ],
+          "emotional_state": "hostile",
+          "may_resist_certain_treatments": [
+            "expensive_medications",
+            "multiple_medications"
+          ],
+          "financial_constraints": true,
+          "family_involvement": true
+        }
+      },
+      "task_instructions": "You are WuXX, a 60-year-old female patient. Your education level is 初中. You work as a truck driver. You are seeing a doctor because of i've had these attacks before. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your daughter is with you and may speak up during the consultation to ask questions or express concerns."
+    },
+    "family_member_scenario": {
+      "scenario": "daughter accompanies patient, participates in the entire visit",
+      "role": "concerned and supportive, may express economic worries",
+      "interaction_timing": [
+        "When medication is discussed, the family member asks about costs",
+        "After diagnosis is explained, the family member asks about heritability",
+        "When a prescription is written, the family member asks about side effects",
+        "When lifestyle changes are mentioned, the family member asks for specifics"
+      ]
+    },
+    "medical_persona": {
+      "age": 60,
+      "gender": "female",
+      "symptoms": {
+        "Have you had these attacks before": "I've had these attacks before"
+      },
+      "duration": "a few weeks",
+      "severity": "severe",
+      "allergies": [
+        "sulfa drugs"
+      ],
+      "lab_results": {
+        "uric_acid": "524 umol/L (abnormal)",
+        "crp": "23.5 mg/L (abnormal)",
+        "wbc": "10.5 x10^9/L (abnormal)",
+        "creatinine": "1.07 mg/dL",
+        "alt": "32.3 U/L"
+      },
+      "vital_signs": {
+        "blood_pressure": "129/80 mmHg",
+        "bmi": "22.8"
+      },
+      "lifestyle_factors": {
+        "alcohol": "rarely",
+        "exercise": "moderate 3x/week"
+      },
+      "socioeconomic_factors": {
+        "occupation": "truck driver",
+        "monthly_income": "about 3000-5000 yuan/month",
+        "insurance": "basic rural/cooperative medical insurance, limited coverage",
+        "family_burden": ""
+      },
+      "diagnosis": {
+        "primary": "gout",
+        "severity": "severe",
+        "differential_diagnoses": [
+          "Pseudogout",
+          "Septic Arthritis",
+          "Rheumatoid Arthritis",
+          "Cellulitis"
+        ]
+      }
+    },
+    "ticket": "i've had these attacks before",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "WuXX",
+            "mrn": "MRN243375",
+            "age": 60,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 60,
+              "gender": "female",
+              "symptoms": [
+                "i've had these attacks before"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "i've had these attacks before"
+              ],
+              "ask_only": []
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 4
+          }
+        },
+        {
+          "action_id": "use_check_allergy",
+          "requestor": "assistant",
+          "name": "check_allergy",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_check_drug_interactions",
+          "requestor": "assistant",
+          "name": "check_drug_interactions",
+          "arguments": {
+            "drug_list": [
+              "colchicine",
+              "allopurinol",
+              "indomethacin"
+            ]
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "colchicine",
+            "dose": ""
+          }
+        },
+        {
+          "action_id": "use_schedule_followup",
+          "requestor": "assistant",
+          "name": "schedule_followup",
+          "arguments": {
+            "timeframe": "2-4 weeks"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        },
+        {
+          "check_id": "trust_building",
+          "criteria": "Demonstrates empathy and builds patient trust",
+          "weight": 1.5
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns, misconceptions, and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY"
+      ],
+      "medical_criteria": {
+        "category": "treatment",
+        "min_turns": 4,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of gout identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": true,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": true,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "gout",
+            "allow_alternatives": [
+              "Pseudogout",
+              "Septic Arthritis",
+              "Rheumatoid Arthritis"
+            ],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Pseudogout",
+              "Septic Arthritis",
+              "Rheumatoid Arthritis"
+            ],
+            "weight": 0.2
+          },
+          "appropriate_tests": {
+            "must_order": [
+              "uric_acid",
+              "crp",
+              "wbc"
+            ],
+            "should_order": [
+              "creatinine",
+              "alt"
+            ],
+            "weight": 0.15
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          },
+          "key_questions": {
+            "required": true,
+            "must_ask": [
+              "Which joints have been affected? Is it the big toe?",
+              "Does the pain come on suddenly, especially at night?",
+              "Have you had these attacks before?"
+            ],
+            "weight": 0.1
+          }
+        },
+        "treatment_requirements": {
+          "medication_appropriateness": {
+            "required": true,
+            "should_prescribe": "colchicine",
+            "appropriate_dosage": "0.6mg once or twice daily",
+            "weight": 0.3
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "critical"
+          }
+        },
+        "required_tools": [
+          "check_allergy",
+          "check_drug_interactions",
+          "prescribe_medication",
+          "schedule_followup"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_treatment_tradeoff_L3_gout_49e09d",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.815,
+      "behavior_type": "refusing",
+      "seed": 477025
+    }
+  },
+  {
+    "id": "v27_patient_non_compliance_L1_glaucoma_046e82",
+    "domain": "internal_medicine",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L1",
+    "version": "2.7",
+    "description": {
+      "purpose": "patient_non_compliance — 77-year-old female with I've been having when was your last eye exam for a few weeks",
+      "clinical_scenario": "Patient presents with I've been having when was your last eye exam for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Communication and trust-building",
+        "Addressing patient concerns and misconceptions"
+      ],
+      "focus": "Addressing patient concerns and building treatment adherence"
+    },
+    "user_scenario": {
+      "persona": "77-year-old female patient, 高中/中专 education, works as a office clerk. a cooperative patient who answers questions clearly presenting with I've been having when was your last eye exam.",
+      "patient_profile": {
+        "age": 77,
+        "gender": "female",
+        "education_level": "high_school",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "when was your last eye exam for a few weeks",
+        "occupation": "office clerk"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "when was your last eye exam"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "I've been having when was your last eye exam"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "glaucoma"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general_concerns": [
+            "Is this serious?",
+            "Will I need surgery?",
+            "How long will treatment take?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "when was your last eye exam"
+        ],
+        "share_only_if_asked": [],
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [],
+          "emotional_state": "neutral",
+          "may_resist_certain_treatments": [],
+          "financial_constraints": false,
+          "family_involvement": false
+        }
+      },
+      "task_instructions": "You are ChenXX, a 77-year-old female patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of when was your last eye exam. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words."
+    },
+    "family_member_scenario": null,
+    "medical_persona": {
+      "age": 77,
+      "gender": "female",
+      "symptoms": {
+        "When was your last eye exam": "when was your last eye exam"
+      },
+      "duration": "a few weeks",
+      "severity": "mild",
+      "vital_signs": {
+        "blood_pressure": "145/80 mmHg",
+        "bmi": "26.8"
+      },
+      "lifestyle_factors": {
+        "exercise": "light activity 1-2x/week"
+      },
+      "socioeconomic_factors": {
+        "occupation": "office clerk",
+        "monthly_income": "about 10000+ yuan/month",
+        "insurance": "comprehensive medical insurance, good coverage",
+        "family_burden": ""
+      },
+      "diagnosis": {
+        "primary": "glaucoma",
+        "severity": "mild",
+        "differential_diagnoses": [
+          "Ocular Hypertension",
+          "Normal Tension Glaucoma",
+          "Optic Neuritis",
+          "Retinal Detachment"
+        ]
+      }
+    },
+    "ticket": "when was your last eye exam",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ChenXX",
+            "mrn": "MRN728554",
+            "age": 77,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 77,
+              "gender": "female",
+              "symptoms": [
+                "when was your last eye exam"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "when was your last eye exam"
+              ],
+              "ask_only": []
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 2
+          }
+        },
+        {
+          "action_id": "use_health_education",
+          "requestor": "assistant",
+          "name": "health_education",
+          "arguments": {
+            "topic": "glaucoma"
+          }
+        },
+        {
+          "action_id": "use_patient_education",
+          "requestor": "assistant",
+          "name": "patient_education",
+          "arguments": {
+            "topic": "glaucoma"
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "latanoprost eye drops",
+            "dose": ""
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ],
+      "medical_criteria": {
+        "category": "communication",
+        "min_turns": 3,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of glaucoma identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": false,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": false,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.7
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "glaucoma",
+            "allow_alternatives": [
+              "Ocular Hypertension",
+              "Normal Tension Glaucoma",
+              "Optic Neuritis"
+            ],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": false,
+            "must_consider": [
+              "Ocular Hypertension",
+              "Normal Tension Glaucoma",
+              "Optic Neuritis"
+            ],
+            "weight": 0.2
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          },
+          "key_questions": {
+            "required": false,
+            "must_ask": [
+              "Have you noticed any loss of peripheral vision?",
+              "Do you have a family history of glaucoma?",
+              "Have you had eye pain, headaches, or seeing halos around lights?"
+            ],
+            "weight": 0.1
+          }
+        },
+        "treatment_requirements": {
+          "medication_appropriateness": {
+            "required": true,
+            "should_prescribe": "latanoprost eye drops",
+            "appropriate_dosage": "1 drop once daily at bedtime",
+            "weight": 0.3
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": false,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "health_education",
+          "patient_education",
+          "prescribe_medication"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_patient_non_compliance_L1_glaucoma_2e1aa7",
+      "risk_level": "low",
+      "uncertainty_level": 0.329,
+      "behavior_type": "cooperative",
+      "seed": 997948
+    }
+  },
+  {
+    "id": "v27_drug_safety_risk_L2_chronic_kidney_disease_e4f5f3",
+    "domain": "nephrology",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L2",
+    "version": "2.7",
+    "description": {
+      "purpose": "drug_safety_risk — 45-year-old female with crf for a few weeks",
+      "clinical_scenario": "Patient presents with crf for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Safety checking before prescribing",
+        "Drug interaction awareness"
+      ],
+      "focus": "Safe prescribing with allergy and interaction checks"
+    },
+    "user_scenario": {
+      "persona": "45-year-old female patient, 小学 education, works as a cleaner. a patient who is confused about medical terms and needs simple explanations presenting with crf. Accompanied by husband (age 49).",
+      "patient_profile": {
+        "age": 45,
+        "gender": "female",
+        "education_level": "elementary",
+        "communication_style": "uncertain",
+        "cooperation_level": "moderate",
+        "chief_complaint": "my appetite has changed, high blood pressure, and long-term renal insufficiency for a few weeks",
+        "occupation": "cleaner"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "my appetite has changed",
+            "high blood pressure",
+            "long-term renal insufficiency"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "crf",
+          "family_history": "family member has type 2 diabetes",
+          "past_history": [
+            "type 2 diabetes",
+            "high blood pressure"
+          ],
+          "current_medications": [
+            "sevelamer 800mg three times daily with meals"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "chronic kidney disease",
+          "creatinine": "2.13 mg/dL (abnormal)",
+          "egfr": "36.9 ml/min/1.73m2 (abnormal)",
+          "bun": "29.4 mg/dL (abnormal)",
+          "specific_medication_needed": "lisinopril (10mg once daily)",
+          "medication_contraindications": [
+            "pregnancy"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "dialysis_fears": [
+            "Will I need dialysis?",
+            "How long until my kidneys fail completely?"
+          ],
+          "dietary_restrictions": [
+            "What can I even eat anymore?",
+            "Do I have to drink less water?"
+          ],
+          "economic_concerns": [
+            "How much will this medication cost per month?",
+            "Is there a cheaper alternative?",
+            "Will my insurance cover this?",
+            "Can we only prescribe what's absolutely necessary?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "my appetite has changed",
+          "high blood pressure",
+          "long-term renal insufficiency"
+        ],
+        "share_only_if_asked": [
+          "high blood pressure (needs doctor to specifically ask)",
+          "long-term renal failure (needs doctor to specifically ask)"
+        ],
+        "hidden_truth": [
+          "crf (won't mention unless specifically probed)",
+          "kidney disease (won't mention unless specifically probed)"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+        "misleading_symptoms": [
+          "itching all over"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "share_in_response_to_medication_discussion": [
+          "Concerns about lisinopril side effects"
+        ],
+        "family_member_will_interject": [
+          "husband: How can we help at home?",
+          "husband: What should we cook for them?"
+        ],
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [
+            "medical terminology",
+            "complex concepts"
+          ],
+          "emotional_state": "anxious",
+          "may_resist_certain_treatments": [],
+          "financial_constraints": true,
+          "family_involvement": true
+        }
+      },
+      "task_instructions": "You are YangXX, a 45-year-old female patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of my appetite has changed. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your husband is with you and may speak up during the consultation to ask questions or express concerns."
+    },
+    "family_member_scenario": {
+      "scenario": "husband accompanies patient, participates in the entire visit",
+      "role": "concerned and supportive, may express economic worries",
+      "interaction_timing": [
+        "When medication is discussed, the family member asks about costs",
+        "After diagnosis is explained, the family member asks about heritability",
+        "When a prescription is written, the family member asks about side effects",
+        "When lifestyle changes are mentioned, the family member asks for specifics"
+      ]
+    },
+    "medical_persona": {
+      "age": 45,
+      "gender": "female",
+      "symptoms": {
+        "CKD": "chronic kidney disease",
+        "chronic renal failure": "long-term renal failure",
+        "CRF": "crf",
+        "chronic renal insufficiency": "long-term renal insufficiency",
+        "Has your appetite changed unexpectedly": "my appetite has changed",
+        "HTN": "high blood pressure",
+        "high blood pressure": "high blood pressure"
+      },
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "past_medical_history": [
+        "type 2 diabetes",
+        "high blood pressure"
+      ],
+      "current_medications": [
+        {
+          "name": "lisinopril",
+          "brand_names": [
+            "Zestril",
+            "Prinivil"
+          ],
+          "drug_class": "ACE inhibitor",
+          "dose": "10mg",
+          "frequency": "once daily"
+        },
+        {
+          "name": "sevelamer",
+          "brand_names": [],
+          "drug_class": "phosphate binder",
+          "dose": "800mg",
+          "frequency": "three times daily with meals"
+        }
+      ],
+      "allergies": [
+        "sulfa drugs"
+      ],
+      "lab_results": {
+        "creatinine": "2.08 mg/dL (abnormal)",
+        "egfr": "35.0 ml/min/1.73m2 (abnormal)",
+        "bun": "30.5 mg/dL (abnormal)",
+        "potassium": "5.07 mmol/L (abnormal)",
+        "phosphorus": "5.12 mg/dL (abnormal)",
+        "hemoglobin": "10.7 g/dL (abnormal)"
+      },
+      "vital_signs": {
+        "blood_pressure": "120/86 mmHg",
+        "bmi": "23.1"
+      },
+      "lifestyle_factors": {
+        "exercise": "minimal"
+      },
+      "comorbidities": {
+        "type 2 diabetes": "type 2 diabetes, severity: 0.5",
+        "hypertension": "high blood pressure, severity: 0.5"
+      },
+      "socioeconomic_factors": {
+        "occupation": "cleaner",
+        "monthly_income": "about 5000-8000 yuan/month",
+        "insurance": "employee medical insurance, ~60-70% coverage",
+        "family_burden": "single income household"
+      },
+      "medication_considerations": {
+        "lisinopril": {
+          "drug_class": "ACE inhibitor",
+          "standard_dose": "10mg once daily",
+          "contraindications": [
+            "pregnancy"
+          ]
+        }
+      },
+      "diagnosis": {
+        "primary": "chronic kidney disease",
+        "severity": "moderate"
+      }
+    },
+    "ticket": "my appetite has changed, high blood pressure, long-term renal insufficiency",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "YangXX",
+            "mrn": "MRN792157",
+            "age": 45,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 45,
+              "gender": "female",
+              "symptoms": [
+                "my appetite has changed",
+                "high blood pressure",
+                "long-term renal insufficiency"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "my appetite has changed",
+                "high blood pressure",
+                "long-term renal insufficiency"
+              ],
+              "ask_only": [
+                "high blood pressure",
+                "long-term renal failure"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_check_allergy",
+          "requestor": "assistant",
+          "name": "check_allergy",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_check_drug_interactions",
+          "requestor": "assistant",
+          "name": "check_drug_interactions",
+          "arguments": {
+            "drug_list": [
+              "lisinopril",
+              "sevelamer",
+              "epoetin alfa"
+            ]
+          }
+        },
+        {
+          "action_id": "use_check_contraindications",
+          "requestor": "assistant",
+          "name": "check_contraindications",
+          "arguments": {
+            "medication": "lisinopril",
+            "conditions": [
+              "type 2 diabetes",
+              "hypertension"
+            ]
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "lisinopril",
+            "dose": ""
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns, misconceptions, and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY"
+      ],
+      "medical_criteria": {
+        "category": "safety",
+        "min_turns": 3,
+        "max_turns": 25,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of chronic kidney disease identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": false,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "chronic kidney disease",
+            "allow_alternatives": [],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [],
+            "weight": 0.2
+          },
+          "appropriate_tests": {
+            "must_order": [
+              "creatinine",
+              "egfr",
+              "bun"
+            ],
+            "should_order": [],
+            "weight": 0.15
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          }
+        },
+        "treatment_requirements": {
+          "medication_appropriateness": {
+            "required": true,
+            "should_prescribe": "lisinopril",
+            "appropriate_dosage": "5mg once daily",
+            "weight": 0.3
+          },
+          "contraindication_awareness": {
+            "required": true,
+            "must_check": [
+              "pregnancy"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "major"
+          },
+          "kidney_function_before_metformin": {
+            "required": true,
+            "description": "Must assess kidney function before prescribing metformin",
+            "severity": "high"
+          }
+        },
+        "required_tools": [
+          "check_allergy",
+          "check_drug_interactions",
+          "check_contraindications",
+          "prescribe_medication"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_drug_safety_risk_L2_chronic_kidney_disease_3b2c2e",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.594,
+      "behavior_type": "confused",
+      "seed": 808225
+    }
+  },
+  {
+    "id": "v27_emergency_triage_L3_peptic_ulcer_disease_aa002f",
+    "domain": "internal_medicine",
+    "task_type": "emergency_triage",
+    "difficulty": "L3",
+    "version": "2.7",
+    "description": {
+      "purpose": "emergency_triage — 42-year-old female with I've been having take nsaids like ibuprofen or aspirin regularly for a few weeks",
+      "clinical_scenario": "Patient presents with I've been having take nsaids like ibuprofen or aspirin regularly for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Rapid assessment and prioritization",
+        "Time-sensitive decision making",
+        "Handle complex multi-condition scenario"
+      ],
+      "focus": "Rapid assessment and stabilization"
+    },
+    "user_scenario": {
+      "persona": "42-year-old female patient, 小学 education, works as a factory worker. a patient who is confused about medical terms and needs simple explanations presenting with I've been having take nsaids like ibuprofen or aspirin regularly. Accompanied by son (age 25).",
+      "patient_profile": {
+        "age": 42,
+        "gender": "female",
+        "education_level": "elementary",
+        "communication_style": "uncertain",
+        "cooperation_level": "moderate",
+        "chief_complaint": "duodenal ulcer for a few weeks",
+        "occupation": "factory worker"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "duodenal ulcer"
+          ],
+          "duration_approximate": "about a few weeks",
+          "general_concern": "I've been having take nsaids like ibuprofen or aspirin regularly",
+          "current_medications": [
+            "omeprazole 40mg once daily",
+            "clarithromycin 500mg twice daily for 14 days"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "peptic ulcer disease",
+          "specific_medication_needed": "omeprazole (40mg once daily)"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general_concerns": [
+            "Is this serious?",
+            "Will I need surgery?",
+            "How long will treatment take?"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "duodenal ulcer"
+        ],
+        "share_only_if_asked": [
+          "gastric ulcer (needs doctor to specifically ask)"
+        ],
+        "hidden_truth": [
+          "stomach ulcer (won't mention unless specifically probed)",
+          "pud (won't mention unless specifically probed)"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+        "noise_symptoms": [
+          "mild itching without rash"
+        ],
+        "noise_note": "Unrelated symptoms that may distract from the main issue",
+        "misleading_symptoms": [
+          "RA"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "family_member_will_interject": [
+          "son: How can we help at home?",
+          "son: What should we cook for them?"
+        ],
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "may_need_clarification": [
+            "medical terminology",
+            "complex concepts"
+          ],
+          "emotional_state": "anxious",
+          "may_resist_certain_treatments": [],
+          "financial_constraints": false,
+          "family_involvement": true
+        }
+      },
+      "task_instructions": "You are YangXX, a 42-year-old female patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of duodenal ulcer. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. Your son is with you and may speak up during the consultation to ask questions or express concerns."
+    },
+    "family_member_scenario": {
+      "scenario": "son accompanies patient, participates in the entire visit",
+      "role": "concerned and supportive, may express economic worries",
+      "interaction_timing": [
+        "When medication is discussed, the family member asks about costs",
+        "After diagnosis is explained, the family member asks about heritability",
+        "When a prescription is written, the family member asks about side effects",
+        "When lifestyle changes are mentioned, the family member asks for specifics"
+      ]
+    },
+    "medical_persona": {
+      "age": 42,
+      "gender": "female",
+      "symptoms": {
+        "PUD": "pud",
+        "stomach ulcer": "stomach ulcer",
+        "gastric ulcer": "gastric ulcer",
+        "duodenal ulcer": "duodenal ulcer"
+      },
+      "duration": "a few weeks",
+      "severity": "severe",
+      "current_medications": [
+        {
+          "name": "omeprazole",
+          "brand_names": [
+            "Prilosec"
+          ],
+          "drug_class": "proton pump inhibitor (PPI)",
+          "dose": "40mg",
+          "frequency": "once daily"
+        },
+        {
+          "name": "clarithromycin",
+          "brand_names": [],
+          "drug_class": "macrolide antibiotic",
+          "dose": "500mg",
+          "frequency": "twice daily for 14 days"
+        },
+        {
+          "name": "bismuth subsalicylate",
+          "dose": "525mg",
+          "frequency": "four times daily"
+        }
+      ],
+      "vital_signs": {
+        "blood_pressure": "145/81 mmHg",
+        "bmi": "25.3"
+      },
+      "lifestyle_factors": {
+        "smoking": "no",
+        "alcohol": "social drinking only",
+        "exercise": "light activity 1-2x/week"
+      },
+      "socioeconomic_factors": {
+        "occupation": "factory worker",
+        "monthly_income": "about 10000+ yuan/month",
+        "insurance": "comprehensive medical insurance, good coverage",
+        "family_burden": ""
+      },
+      "medication_considerations": {
+        "omeprazole": {
+          "drug_class": "proton pump inhibitor (PPI)",
+          "standard_dose": "",
+          "contraindications": []
+        }
+      },
+      "diagnosis": {
+        "primary": "peptic ulcer disease",
+        "severity": "severe",
+        "differential_diagnoses": [
+          "GERD",
+          "Gastritis",
+          "Gastric Cancer",
+          "Functional Dyspepsia"
+        ]
+      }
+    },
+    "ticket": "duodenal ulcer",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "YangXX",
+            "mrn": "MRN805209",
+            "age": 42,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 42,
+              "gender": "female",
+              "symptoms": [
+                "duodenal ulcer"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "duodenal ulcer"
+              ],
+              "ask_only": [
+                "gastric ulcer"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_assess_vital_signs",
+          "requestor": "assistant",
+          "name": "assess_vital_signs",
+          "arguments": {
+            "include_bmi": true
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ],
+            "rationale": "Labs to evaluate peptic ulcer disease"
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "peptic ulcer disease"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language appropriate to education level",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns, misconceptions, and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY",
+        "TIME"
+      ],
+      "medical_criteria": {
+        "category": "emergency",
+        "min_turns": 3,
+        "max_turns": 6,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+              "weight": 0.18
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms of peptic ulcer disease identified through systematic questioning",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history including comorbidities",
+              "weight": 0.12
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list with doses and adherence",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.08
+            },
+            "lifestyle_factors": {
+              "required": true,
+              "description": "Smoking, alcohol, diet, exercise habits",
+              "weight": 0.05
+            },
+            "social_determinants": {
+              "required": true,
+              "description": "Socioeconomic factors affecting treatment adherence",
+              "weight": 0.04
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "peptic ulcer disease",
+            "allow_alternatives": [
+              "GERD",
+              "Gastritis",
+              "Gastric Cancer"
+            ],
+            "weight": 0.35
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "GERD",
+              "Gastritis",
+              "Gastric Cancer"
+            ],
+            "weight": 0.2
+          },
+          "evidence_based": {
+            "required": true,
+            "diagnosis_must_be_based_on": [
+              "symptoms",
+              "lab_results"
+            ],
+            "weight": 0.1
+          },
+          "key_questions": {
+            "required": true,
+            "must_ask": [
+              "Do you have burning or gnawing pain in your upper abdomen?",
+              "Does the pain improve or worsen with eating?",
+              "Have you noticed any black, tarry stools?"
+            ],
+            "weight": 0.1
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions before prescribing",
+            "severity": "critical"
+          }
+        },
+        "required_tools": [
+          "assess_vital_signs",
+          "order_lab_tests",
+          "get_lab_results",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history",
+          "Agree with patient misconceptions without correction",
+          "Ignore abnormal lab values without explanation"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_emergency_triage_L3_peptic_ulcer_disease_ffc9c4",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.888,
+      "behavior_type": "confused",
+      "seed": 183236
+    }
+  }
+]

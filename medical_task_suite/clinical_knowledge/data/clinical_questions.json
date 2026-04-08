@@ -1,0 +1,288 @@
+{
+  "_meta": {
+    "version": "1.0.0"
+  },
+  "symptom_probes": {
+    "pain": "Have you been having any pain or discomfort anywhere else in your body?",
+    "headache": "Have you been getting headaches or head pressure?",
+    "chest": "Have you had any chest discomfort, tightness, or pain?",
+    "fatigue": "How has your energy been? Have you been feeling more tired than usual?",
+    "tired": "How has your energy been? Have you been feeling more tired than usual?",
+    "dyspnea": "Have you had any trouble breathing or felt short of breath?",
+    "breath": "Have you had any trouble breathing or felt short of breath?",
+    "cough": "Have you had a cough — dry or productive?",
+    "fever": "Have you had any fever, chills, or night sweats?",
+    "nausea": "Have you felt nauseous or had any vomiting?",
+    "vomiting": "Have you felt nauseous or had any vomiting?",
+    "diarrhea": "Have you had any changes in your bowel movements — loose stools or diarrhea?",
+    "constipat": "Have you had any changes in your bowel movements — constipation?",
+    "dizziness": "Have you felt dizzy or lightheaded at all?",
+    "vertigo": "Have you experienced any dizziness or a spinning sensation?",
+    "swelling": "Have you noticed any swelling, particularly in your legs or ankles?",
+    "edema": "Have you noticed any swelling or fluid retention?",
+    "rash": "Have you developed any skin rashes or unusual spots?",
+    "itch": "Have you had any itching that seems unusual?",
+    "urinary": "Have you noticed any changes in your urination — frequency, color, or discomfort?",
+    "numbness": "Have you experienced any numbness, tingling, or pins-and-needles sensations?",
+    "tingling": "Have you experienced any numbness, tingling, or pins-and-needles sensations?",
+    "vision": "Have you noticed any changes in your vision — blurriness, spots, or double vision?",
+    "sleep": "How has your sleep been? Any trouble falling or staying asleep?",
+    "insomnia": "How has your sleep been? Any trouble falling or staying asleep?",
+    "appetite": "Has your appetite changed recently — eating more or less than usual?",
+    "weight": "Have you noticed any unexpected weight changes — gain or loss?",
+    "anxiety": "Have you been feeling anxious, worried, or on edge?",
+    "depress": "How has your mood been? Have you been feeling down or lost interest in things?",
+    "joint": "Have you had any joint pain, stiffness, or swelling?",
+    "muscle": "Have you had any muscle aches, weakness, or soreness?",
+    "infection": "Have you been getting sick more often than usual — more colds, infections, or fevers?",
+    "bleed": "Have you noticed any unusual bleeding or bruising?",
+    "palpit": "Have you noticed your heart racing, pounding, or skipping beats?",
+    "syncope": "Have you had any episodes of fainting or feeling like you might pass out?",
+    "sweat": "Have you been experiencing unusual sweating, especially at night?",
+    "thirst": "Have you been more thirsty than usual?",
+    "urinat": "Have you been urinating more frequently than usual?",
+    "memory": "Have you had any trouble with your memory or concentration?",
+    "confusion": "Have you felt confused or had difficulty concentrating?",
+    "weakness": "Have you noticed any weakness in your arms or legs?"
+  },
+  "behavior_templates": {
+    "cooperative": {
+      "opening": [
+        "Doctor, I’ve been having {symptom} for about {duration}. I thought I should get it checked out.",
+        "Hi doctor, I’m here because of {symptom}. It started about {duration} ago and I’m a bit concerned.",
+        "Good morning doctor. I’ve been experiencing {symptom} for the past {duration}. I wanted to come in sooner but it didn’t seem that bad at first.",
+        "Hello doctor, thanks for seeing me. My main issue is {symptom}, which has been bothering me for about {duration} now.",
+        "Doctor, I noticed {symptom} about {duration} ago. It’s been getting progressively worse so I made an appointment."
+      ],
+      "history_response": [
+        "Yes, I was diagnosed with {condition} about {time_ago}. I’m currently taking {medication}.",
+        "I have a history of {condition}. My doctor prescribed {medication} for it.",
+        "Right, I was told I have {condition} back in {time_ago}. I take {medication} for it and it’s been well controlled.",
+        "Yes, {condition}. I was diagnosed {time_ago}. I’m on {medication} and I try to manage it with lifestyle changes too."
+      ],
+      "symptom_response": [
+        "Yes, the {symptom_detail} is {severity}. It gets worse when {trigger}.",
+        "The {symptom_detail} is pretty consistent. I’d say it’s about {severity_level} out of 10.",
+        "It varies throughout the day. In the morning it’s manageable, but by evening the {symptom_detail} is definitely worse.",
+        "The {symptom_detail} comes and goes. I notice it most after {trigger}. I’d rate it around {severity_level} out of 10."
+      ],
+      "agreement": [
+        "Yes, I understand. I’ll follow your advice.",
+        "That makes sense. What should I do next?",
+        "OK, thank you doctor. I appreciate your help.",
+        "Got it. I’ll make sure to do that. When should I come back?",
+        "That sounds reasonable. Are there any side effects I should watch for?",
+        "Understood. Thank you for explaining everything clearly."
+      ],
+      "no_history": [
+        "No, I don’t have any significant medical history.",
+        "I’ve been generally healthy before this.",
+        "Not that I know of. I haven’t been hospitalized before."
+      ],
+      "no_allergies": [
+        "No allergies that I know of.",
+        "Not that I’m aware of.",
+        "No known drug allergies. I’ve taken antibiotics before without issues."
+      ]
+    },
+    "forgetful": {
+      "opening": [
+        "Doctor, I have this... um... {symptom}, I think. It’s been going on for... a while? Maybe {duration}?",
+        "I’m not feeling well. Something about {symptom}. My wife told me to come. It’s been... some time.",
+        "My daughter made me come in. I think it’s {symptom}? How long has it been... I’m not sure. A few weeks maybe?",
+        "I keep forgetting to call the doctor. It’s the {symptom} thing... Started around... hmm, {duration} I want to say.",
+        "Oh yes, I’m here because of... let me think... {symptom}. My neighbor noticed it first. It’s been going on for some time now."
+      ],
+      "history_response": [
+        "I think I had something before... let me think... Oh yes, the doctor said something about {condition}. I take pills but I forget the name... maybe {medication}?",
+        "There might be something in my records. I don’t remember exactly, but I think {condition}.",
+        "My wife handles all my medications. She’d know about the {condition}. I just take what’s in my pill organizer.",
+        "I have a list somewhere... the doctor said {condition}, I believe. I take {medication} for it, I think."
+      ],
+      "symptom_response": [
+        "Hmm, I’m not sure about the details. My wife says I’ve been having {symptom_detail}. I can’t really remember when it started exactly.",
+        "It’s hard to describe... The {symptom_detail} is there sometimes. I don’t know if it’s {severity} or not.",
+        "I notice it most in the morning, I think? Or is it at night? The {symptom_detail} comes and goes.",
+        "My son says I should pay more attention to these things. The {symptom_detail} has been bothering me for... I’m not sure how long."
+      ],
+      "agreement": [
+        "What was that again? I’m sorry, I didn’t catch that.",
+        "OK... I think I understand. Can you write that down for me?",
+        "I’ll try to remember that. What was the medicine called again?",
+        "Right, right. I’ll do my best to remember. Can you repeat the last part?",
+        "Mhm, I think I got it. So what do I need to do exactly?",
+        "I see. Let me just make sure... what was the main thing I need to do?",
+        "Oh yes, that sounds familiar. I think my wife mentioned something about that.",
+        "Got it. I’ll write it down when I get home so I don’t forget.",
+        "Can you say that one more time? I want to tell my daughter the details.",
+        "I’ll put a reminder in my phone. What time should I take the medication?"
+      ],
+      "no_history": [
+        "I don’t think so... but I’m not sure.",
+        "Maybe? I can’t remember.",
+        "My doctor might have said something once, but I can’t recall."
+      ],
+      "no_allergies": [
+        "I don’t think so... my daughter would know.",
+        "Not that I remember, but I’m not sure.",
+        "Nobody’s ever told me I’m allergic to anything."
+      ]
+    },
+    "confused": {
+      "opening": [
+        "Doctor, I have this {symptom} thing, and I looked it up online and it said it could be something serious? Is it cancer?",
+        "I have {symptom} and my neighbor said it means {wrong_diagnosis}. Is that true? Should I be worried?",
+        "I was reading on WebMD that {symptom} can be really dangerous. Should I be scared? What if it’s something terrible?",
+        "My friend had the same {symptom} and she ended up in the hospital. Am I going to be okay? What tests do I need?",
+        "I’ve been Googling my {symptom} and it says it could be {wrong_diagnosis}. I’m really worried. Can you check for that specifically?"
+      ],
+      "history_response": [
+        "I’m not sure what it’s called. The doctor said something... I think it starts with a {letter}? I take some pills for it.",
+        "I have some condition but I don’t really understand it. Something about my {organ} not working right.",
+        "The specialist mentioned something but I didn’t really follow. I think it’s related to {condition}? The medication has a long name.",
+        "I have a folder of test results at home but I don’t know what they mean. Something about {condition}, I believe."
+      ],
+      "symptom_response": [
+        "I think it’s {symptom_detail}? Or maybe it’s something else? I’m not sure how to describe it. Is that normal?",
+        "I Googled my symptoms and it said it could be {wrong_condition}. Do I have that?",
+        "I’m not sure if what I’m feeling is the same as what you’re asking. It’s like {symptom_detail} but also kind of different?",
+        "The internet said I should be worried if it’s {symptom_detail}. Is that what I have? Should I be worried?"
+      ],
+      "agreement": [
+        "I’m not sure I understand. Can you explain that again in simpler terms?",
+        "Wait, does that mean I have {dramatic_diagnosis}?",
+        "So it’s NOT {wrong_diagnosis}? Are you sure?",
+        "I read online that the treatment for this is different. Shouldn’t I be taking something else?",
+        "My friend’s doctor told her something different. Why are you recommending this?",
+        "Can you write that down for me? I want to look it up when I get home."
+      ],
+      "no_history": [
+        "I don’t know. What counts as medical history?",
+        "No... wait, does that one time count?",
+        "I’m not sure what you mean. Like surgeries? Or just conditions?"
+      ],
+      "no_allergies": [
+        "I don’t know what allergies means exactly.",
+        "What’s the difference between allergy and side effect?",
+        "I took some medicine once and felt weird. Is that an allergy?"
+      ]
+    },
+    "concealing": {
+      "opening": [
+        "I just have some mild {symptom}. It’s nothing serious really. My family made me come.",
+        "It’s just a little {symptom}. I’ve had worse. I’m fine otherwise.",
+        "I’m in good health overall. Just a touch of {symptom}. Honestly, I think it’ll pass on its own.",
+        "Don’t make a big deal out of it, but I’ve noticed some {symptom}. It’s probably nothing — I just need reassurance.",
+        "My wife’s been worried about nothing. I have slight {symptom}, but I’ve been handling it fine for {duration}."
+      ],
+      "history_response": [
+        "Nothing important. Just the usual stuff.",
+        "I had some issues before but they’re all resolved now. I don’t take anything regularly.",
+        "I had a minor procedure years ago. Nothing relevant to this.",
+        "I’d rather not go into all that. It’s not related to why I’m here.",
+        "Just some things that come with age. Nothing serious."
+      ],
+      "symptom_response": [
+        "It’s not that bad, really. Just a bit uncomfortable.",
+        "I can handle it. It comes and goes. I don’t want to make a big deal out of it.",
+        "I barely notice it most of the time. I wouldn’t even be here if my daughter hadn’t insisted.",
+        "It’s manageable. I’ve been taking care of it myself. I don’t think it warrants all these questions."
+      ],
+      "agreement": [
+        "Do I really need all those tests? It seems like a lot for something minor.",
+        "I’d rather not do that. Can we just do something simple?",
+        "Is all of this really necessary? I feel fine overall.",
+        "I prefer to keep things simple. What’s the least I need to do?",
+        "Can we try the most basic approach first? I don’t want to overdo it."
+      ],
+      "no_history": [
+        "Nothing to mention.",
+        "Clean bill of health, basically.",
+        "I’ve always been healthy. No complaints."
+      ],
+      "no_allergies": [
+        "No.",
+        "None.",
+        "Never had a problem with any medication."
+      ]
+    },
+    "pressuring": {
+      "opening": [
+        "Doctor, I’ve had {symptom} for {duration} and I need answers NOW. I’ve already seen two doctors and nobody can tell me what’s wrong!",
+        "I need you to figure out what’s causing my {symptom}. I don’t have time for this. Just give me a diagnosis.",
+        "I’ve been dealing with {symptom} for {duration} and I’m at my wit’s end. The last doctor was useless. You’re my last hope.",
+        "Look, I’m a busy person. I have {symptom} for {duration}. I need a diagnosis and a treatment plan TODAY.",
+        "I paid good money for this appointment. My {symptom} has been going on for {duration} and nobody takes me seriously."
+      ],
+      "history_response": [
+        "I’ve already told the other doctors all this. It’s in my file. Can’t you just look it up?",
+        "Yes, {condition}. I know about it. What does that have to do with my {symptom}?",
+        "I wrote it all down on the intake form. {condition}. Can we move on to actually solving my problem?",
+        "I’ve been managing {condition} for years. That’s not why I’m here. Focus on the {symptom}."
+      ],
+      "symptom_response": [
+        "I already told you about the {symptom_detail}. Can we just get to the diagnosis?",
+        "It’s severe! I wouldn’t be here if it wasn’t! What do you think it is?",
+        "How many times do I have to describe this? It’s {symptom_detail}. I need ACTION, not more questions.",
+        "I’ve explained this to three doctors already. The {symptom_detail} is constant and severe. What are you going to DO about it?"
+      ],
+      "agreement": [
+        "How long is this going to take? I need a solution today.",
+        "Just give me something that works. I’ve already tried {treatment_attempted} and it didn’t help.",
+        "I don’t want to hear about more tests. I want RESULTS.",
+        "Can you just prescribe something? I’ll take responsibility if it doesn’t work.",
+        "This is taking too long. My symptoms are getting worse every day."
+      ],
+      "no_history": [
+        "No. Can we focus on the problem at hand?",
+        "Irrelevant. What’s causing my {symptom}?",
+        "Nothing that matters for THIS issue. Let’s stay focused."
+      ],
+      "no_allergies": [
+        "No. Why are you asking so many questions?",
+        "No allergies. Let’s move on.",
+        "No. Can we get to the actual treatment?"
+      ]
+    },
+    "refusing": {
+      "opening": [
+        "My family doctor said I should see a specialist about {symptom}. I don’t think it’s necessary but here I am.",
+        "I was told to come here for {symptom}. I’d rather not be here but my doctor insisted.",
+        "I’ll be honest — I don’t believe in going to doctors for every little thing. But my family is worried about this {symptom}.",
+        "I put off coming in for weeks. It’s just {symptom}, I’m sure it’ll pass. But my wife made the appointment.",
+        "I’m only here because my daughter threatened to call an ambulance. It’s just {symptom} — I don’t see the big deal."
+      ],
+      "history_response": [
+        "I don’t see how that’s relevant to why I’m here.",
+        "I’d rather not discuss my medical history. Can we just focus on this one issue?",
+        "That’s between me and my regular doctor. I came here for the {symptom}, nothing else.",
+        "I don’t see why that matters. Just tell me how to fix the {symptom}."
+      ],
+      "symptom_response": [
+        "I told you already. {symptom_detail}. I don’t want to talk about it more than necessary.",
+        "I don’t see why you need to know that. Just tell me what to take for it.",
+        "Look, I’ve described it. {symptom_detail}. Can we move on to the solution?",
+        "I’m not a doctor. I just know I have {symptom_detail}. What else do you need from me?"
+      ],
+      "agreement": [
+        "I’m not doing that test. Isn’t there another way?",
+        "Do I really need to come back? Can’t you just call me?",
+        "I’d prefer not to take medication. Is there a natural alternative?",
+        "I’m not comfortable with that. What are my other options?",
+        "I’ll think about it. I’m not promising anything.",
+        "That sounds excessive. My body can heal itself if given the chance.",
+        "I’ll try it for a week. If I don’t like it, I’m stopping."
+      ],
+      "no_history": [
+        "I’d rather not say.",
+        "That’s personal.",
+        "Nothing that concerns this visit."
+      ],
+      "no_allergies": [
+        "No.",
+        "I don’t want to discuss that.",
+        "No allergies. Can we just get this over with?"
+      ]
+    }
+  }
+}

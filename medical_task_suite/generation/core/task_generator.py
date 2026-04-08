@@ -21,6 +21,14 @@ except ImportError:
     PrimeKGRandomWalkPipeline = primekg_random_walk.PrimeKGRandomWalkPipeline
     ConsultationTask = primekg_random_walk.ConsultationTask
 
+# 导入复杂任务组件
+try:
+    from .dialogue_builder import ComplexConsultationTask, BehaviorAwareDialogueBuilder
+    COMPLEX_AVAILABLE = True
+except ImportError:
+    COMPLEX_AVAILABLE = False
+    ComplexConsultationTask = None
+
 
 class KGTaskGenerator:
     """
@@ -117,6 +125,80 @@ class KGTaskGenerator:
             try:
                 task = self.generate(keyword, walk_type)
                 tasks.append(task)
+            except Exception as e:
+                print(f"Skip {keyword}: {str(e)[:50]}")
+                continue
+
+        return tasks
+
+    def generate_complex(
+        self,
+        symptom_keyword: str,
+        walk_type: str = "complex",
+        difficulty: str = "L2",
+        behavior_type: Optional[str] = None,
+        max_attempts: int = 5
+    ):
+        """
+        生成复杂任务（多路径、多轮对话、工具调用、患者行为）
+
+        Args:
+            symptom_keyword: 症状关键词
+            walk_type: 路径类型 (short/medium/long/complex/comorbid)
+            difficulty: 难度级别 (L1/L2/L3)
+            behavior_type: 患者行为类型
+            max_attempts: 最大尝试次数
+
+        Returns:
+            ComplexConsultationTask 对象
+        """
+        if not COMPLEX_AVAILABLE:
+            raise ImportError(
+                "Complex task generation requires dialogue_builder module"
+            )
+
+        for attempt in range(max_attempts):
+            try:
+                task = self.pipeline.generate_complex_task(
+                    symptom_keyword=symptom_keyword,
+                    walk_type=walk_type,
+                    difficulty=difficulty,
+                    behavior_type=behavior_type
+                )
+                return task
+            except Exception as e:
+                if attempt == max_attempts - 1:
+                    raise
+                continue
+
+        return None
+
+    def batch_generate_complex(
+        self,
+        symptom_keywords: List[str],
+        walk_type: str = "complex",
+        difficulty: str = "L2"
+    ) -> list:
+        """
+        批量生成复杂任务
+
+        Args:
+            symptom_keywords: 症状关键词列表
+            walk_type: 路径类型
+            difficulty: 难度级别
+
+        Returns:
+            复杂任务列表
+        """
+        tasks = []
+
+        for keyword in symptom_keywords:
+            try:
+                task = self.generate_complex(
+                    keyword, walk_type=walk_type, difficulty=difficulty
+                )
+                if task:
+                    tasks.append(task)
             except Exception as e:
                 print(f"Skip {keyword}: {str(e)[:50]}")
                 continue

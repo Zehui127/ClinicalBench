@@ -1,0 +1,431 @@
+{
+  "_meta": {
+    "version": "1.0.0"
+  },
+  "follow_up_defaults": {
+    "emergency": "1-3 days",
+    "urgent": "1 week",
+    "semi_urgent": "1-2 weeks",
+    "routine": "2-4 weeks"
+  },
+  "rules": [
+    {
+      "name": "acute_chest_syndrome",
+      "symptom_triggers": [
+        "chest pain"
+      ],
+      "condition_triggers": [
+        "sickle cell"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_oxygen_saturation",
+        "ecg_interpretation",
+        "complete_blood_count"
+      ],
+      "warnings": [
+        "Chest pain in sickle cell disease may indicate Acute Chest Syndrome — a medical emergency",
+        "Seek emergency care immediately if breathing worsens or fever develops"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "acute_coronary_syndrome",
+      "symptom_triggers": [
+        "chest pain"
+      ],
+      "condition_triggers": [
+        "coronary",
+        "heart failure",
+        "diabetes",
+        "hypertension"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "ecg_interpretation",
+        "assess_blood_pressure"
+      ],
+      "warnings": [
+        "Chest pain with cardiac risk factors requires immediate ECG and troponin",
+        "Call emergency services if pain worsens or radiates to arm/jaw"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "stroke_alert",
+      "symptom_triggers": [
+        "headache",
+        "dizziness"
+      ],
+      "condition_triggers": [
+        "hypertension",
+        "stroke",
+        "atrial fibrillation"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_blood_pressure",
+        "neurological_assessment"
+      ],
+      "warnings": [
+        "Severe headache with hypertension may indicate hypertensive emergency"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "hyperglycemic_crisis",
+      "symptom_triggers": [
+        "nausea",
+        "fatigue",
+        "shortness of breath"
+      ],
+      "condition_triggers": [
+        "diabetes"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "assess_blood_glucose"
+      ],
+      "warnings": [
+        "Monitor blood glucose closely; seek care if symptomatic hyperglycemia"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "copd_exacerbation",
+      "symptom_triggers": [
+        "shortness of breath",
+        "cough"
+      ],
+      "condition_triggers": [
+        "copd"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "assess_oxygen_saturation"
+      ],
+      "warnings": [
+        "Worsening dyspnea in COPD may indicate exacerbation requiring steroids"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "anemia_severe",
+      "symptom_triggers": [
+        "fatigue",
+        "shortness of breath"
+      ],
+      "condition_triggers": [
+        "anemia",
+        "chronic kidney"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "complete_blood_count"
+      ],
+      "warnings": [
+        "Severe anemia may require transfusion if hemoglobin < 7 g/dL"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "chest_pain_nonspecific",
+      "symptom_triggers": [
+        "chest pain"
+      ],
+      "condition_triggers": [],
+      "triage": "semi_urgent",
+      "mandatory_tools": [
+        "ecg_interpretation",
+        "assess_blood_pressure"
+      ],
+      "warnings": [
+        "New chest pain always warrants cardiac evaluation"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "fever_workup",
+      "symptom_triggers": [
+        "fever"
+      ],
+      "condition_triggers": [],
+      "triage": "semi_urgent",
+      "mandatory_tools": [
+        "complete_blood_count"
+      ],
+      "warnings": [],
+      "emergency_workup": false
+    },
+    {
+      "name": "anaphylaxis",
+      "symptom_triggers": [
+        "swelling",
+        "rash",
+        "shortness of breath"
+      ],
+      "condition_triggers": [
+        "allergy"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_vital_signs",
+        "assess_oxygen_saturation"
+      ],
+      "warnings": [
+        "Anaphylaxis requires immediate epinephrine administration"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "pulmonary_embolism",
+      "symptom_triggers": [
+        "shortness of breath",
+        "chest pain"
+      ],
+      "condition_triggers": [
+        "cancer",
+        "thrombosis",
+        "dvt"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_oxygen_saturation",
+        "ecg_interpretation",
+        "d_dimer"
+      ],
+      "warnings": [
+        "Sudden dyspnea with cancer history requires PE workup"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "hypertensive_emergency",
+      "symptom_triggers": [
+        "headache",
+        "chest pain",
+        "shortness of breath"
+      ],
+      "condition_triggers": [
+        "hypertension"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_blood_pressure"
+      ],
+      "warnings": [
+        "BP > 180/120 with end-organ damage signs is hypertensive emergency"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "diabetic_ketoacidosis",
+      "symptom_triggers": [
+        "nausea",
+        "vomiting",
+        "shortness of breath",
+        "confusion"
+      ],
+      "condition_triggers": [
+        "type 1 diabetes",
+        "type 2 diabetes"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "assess_blood_glucose",
+        "check_electrolytes",
+        "complete_blood_count"
+      ],
+      "warnings": [
+        "DKA: check ketones, ABG, and start IV fluids immediately"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "acute_liver_failure",
+      "symptom_triggers": [
+        "jaundice",
+        "confusion",
+        "nausea"
+      ],
+      "condition_triggers": [
+        "liver",
+        "hepatitis",
+        "cirrhosis"
+      ],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "check_liver_function",
+        "check_bilirubin",
+        "check_electrolytes"
+      ],
+      "warnings": [
+        "Acute hepatic decompensation — check INR, ammonia, lactate"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "meningitis",
+      "symptom_triggers": [
+        "headache",
+        "fever",
+        "confusion"
+      ],
+      "condition_triggers": [],
+      "triage": "emergency",
+      "mandatory_tools": [
+        "complete_blood_count",
+        "neurological_assessment"
+      ],
+      "warnings": [
+        "Fever + neck stiffness + altered mental status = meningitis until proven otherwise"
+      ],
+      "emergency_workup": true
+    },
+    {
+      "name": "acute_kidney_injury",
+      "symptom_triggers": [
+        "fatigue",
+        "nausea",
+        "shortness of breath"
+      ],
+      "condition_triggers": [
+        "kidney",
+        "diabetes",
+        "heart failure"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "assess_kidney_function",
+        "check_electrolytes"
+      ],
+      "warnings": [
+        "Rising creatinine with oliguria suggests AKI — avoid nephrotoxic drugs"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "gi_bleed",
+      "symptom_triggers": [
+        "dizziness",
+        "fatigue",
+        "nausea"
+      ],
+      "condition_triggers": [
+        "ulcer",
+        "cirrhosis",
+        "liver"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "complete_blood_count",
+        "check_electrolytes"
+      ],
+      "warnings": [
+        "Check for hematemesis or melena; hemoglobin trending down needs urgent GI consult"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "severe_asthma_exacerbation",
+      "symptom_triggers": [
+        "shortness of breath",
+        "cough",
+        "wheezing"
+      ],
+      "condition_triggers": [
+        "asthma"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "assess_oxygen_saturation",
+        "assess_vital_signs"
+      ],
+      "warnings": [
+        "Peak flow < 50% predicted or silent chest = severe exacerbation"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "deep_vein_thrombosis",
+      "symptom_triggers": [
+        "leg pain",
+        "swelling"
+      ],
+      "condition_triggers": [
+        "cancer",
+        "post-surgical",
+        "immobilization"
+      ],
+      "triage": "urgent",
+      "mandatory_tools": [
+        "assess_vital_signs"
+      ],
+      "warnings": [
+        "Unilateral leg swelling requires DVT ultrasound and anticoagulation consideration"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "thyroid_dysfunction",
+      "symptom_triggers": [
+        "fatigue",
+        "weight changes",
+        "palpitations"
+      ],
+      "condition_triggers": [
+        "thyroid",
+        "graves",
+        "hashimoto"
+      ],
+      "triage": "semi_urgent",
+      "mandatory_tools": [
+        "check_thyroid"
+      ],
+      "warnings": [
+        "TSH abnormalities require correlation with free T4"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "infection_workup",
+      "symptom_triggers": [
+        "fever",
+        "fatigue",
+        "body aches"
+      ],
+      "condition_triggers": [
+        "diabetes",
+        "chronic kidney",
+        "immunosuppressed"
+      ],
+      "triage": "semi_urgent",
+      "mandatory_tools": [
+        "complete_blood_count",
+        "check_inflammation_markers"
+      ],
+      "warnings": [
+        "Immunocompromised patients may not mount fever — low threshold for workup"
+      ],
+      "emergency_workup": false
+    },
+    {
+      "name": "depression_screening",
+      "symptom_triggers": [
+        "fatigue",
+        "insomnia",
+        "weight changes"
+      ],
+      "condition_triggers": [
+        "depression",
+        "anxiety"
+      ],
+      "triage": "semi_urgent",
+      "mandatory_tools": [
+        "phq9_assessment"
+      ],
+      "warnings": [],
+      "emergency_workup": false
+    }
+  ]
+}

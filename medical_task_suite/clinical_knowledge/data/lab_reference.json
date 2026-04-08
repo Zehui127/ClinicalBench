@@ -1,0 +1,286 @@
+{
+  "_meta": {"version": "1.0.0"},
+  "absolute_ranges": {
+    "vital_signs": {
+      "heart_rate": {"low": 25, "high": 220, "unit": "bpm"},
+      "respiratory_rate": {"low": 6, "high": 60, "unit": "breaths/min"},
+      "temperature": {"low": 30.0, "high": 43.0, "unit": "\u00b0C"},
+      "oxygen_saturation": {"low": 50, "high": 100, "unit": "%"},
+      "weight_kg": {"low": 2, "high": 300, "unit": "kg"},
+      "height_cm": {"low": 40, "high": 230, "unit": "cm"}
+    },
+    "lab_tests": {
+      "hemoglobin": {"low": 2.0, "high": 22.0, "unit": "g/dL"},
+      "reticulocyte_count": {"low": 0.1, "high": 30.0, "unit": "%"},
+      "ldh": {"low": 50, "high": 5000, "unit": "U/L"},
+      "total_bilirubin": {"low": 0.1, "high": 30.0, "unit": "mg/dL"},
+      "indirect_bilirubin": {"low": 0.1, "high": 25.0, "unit": "mg/dL"},
+      "wbc": {"low": 0.5, "high": 50.0, "unit": "x10^9/L"},
+      "platelet_count": {"low": 10, "high": 1000, "unit": "x10^9/L"},
+      "creatinine": {"low": 0.2, "high": 15.0, "unit": "mg/dL"},
+      "egfr": {"low": 5, "high": 150, "unit": "ml/min/1.73m2"},
+      "fasting_glucose": {"low": 1.5, "high": 33.0, "unit": "mmol/L"},
+      "hba1c": {"low": 3.0, "high": 18.0, "unit": "%"},
+      "alt": {"low": 3, "high": 3000, "unit": "U/L"},
+      "ast": {"low": 3, "high": 3000, "unit": "U/L"},
+      "sodium": {"low": 110, "high": 160, "unit": "mmol/L"},
+      "potassium": {"low": 2.0, "high": 7.5, "unit": "mmol/L"},
+      "total_cholesterol": {"low": 1.5, "high": 15.0, "unit": "mmol/L"},
+      "ldl_cholesterol": {"low": 0.5, "high": 12.0, "unit": "mmol/L"},
+      "hdl_cholesterol": {"low": 0.2, "high": 4.0, "unit": "mmol/L"},
+      "triglycerides": {"low": 0.3, "high": 20.0, "unit": "mmol/L"},
+      "ferritin": {"low": 1, "high": 5000, "unit": "ng/mL"},
+      "tibc": {"low": 100, "high": 800, "unit": "ug/dL"},
+      "mcv": {"low": 50, "high": 130, "unit": "fL"},
+      "rdw": {"low": 10, "high": 25, "unit": "%"},
+      "bun": {"low": 2, "high": 100, "unit": "mg/dL"},
+      "phosphorus": {"low": 1.0, "high": 10.0, "unit": "mg/dL"},
+      "uric_acid": {"low": 50, "high": 1200, "unit": "umol/L"},
+      "troponin": {"low": 0.0, "high": 50.0, "unit": "ng/mL"},
+      "nt_probnp": {"low": 5, "high": 35000, "unit": "pg/mL"},
+      "bnp": {"low": 5, "high": 10000, "unit": "pg/mL"},
+      "pao2": {"low": 20, "high": 150, "unit": "mmHg"},
+      "paco2": {"low": 15, "high": 100, "unit": "mmHg"},
+      "fev1_predicted": {"low": 10, "high": 120, "unit": "%"},
+      "eosinophil_count": {"low": 0.0, "high": 25.0, "unit": "%"},
+      "ige_total": {"low": 0, "high": 5000, "unit": "IU/mL"},
+      "crp": {"low": 0.0, "high": 500.0, "unit": "mg/L"},
+      "procalcitonin": {"low": 0.0, "high": 100.0, "unit": "ng/mL"},
+      "lactate": {"low": 0.5, "high": 30.0, "unit": "mmol/L"},
+      "albumin": {"low": 10, "high": 60, "unit": "g/L"},
+      "inr": {"low": 0.5, "high": 10.0, "unit": ""},
+      "tsh": {"low": 0.01, "high": 100.0, "unit": "mIU/L"},
+      "free_t4": {"low": 1.0, "high": 100.0, "unit": "pmol/L"},
+      "free_t3": {"low": 1.0, "high": 50.0, "unit": "pmol/L"},
+      "vitamin_d": {"low": 2, "high": 200, "unit": "ng/mL"},
+      "alkaline_phosphatase": {"low": 20, "high": 1500, "unit": "U/L"},
+      "calcium": {"low": 1.5, "high": 3.5, "unit": "mmol/L"},
+      "d_dimer": {"low": 0.0, "high": 20.0, "unit": "mg/L FEU"},
+      "glucose_random": {"low": 1.0, "high": 33.0, "unit": "mmol/L"},
+      "nitrites": {"low": 0, "high": 1, "unit": "positive/negative"}
+    }
+  },
+  "disease_panels": {
+    "type 2 diabetes": [
+      {"test_name": "fasting_glucose", "base_value": 13.2, "range_low": 12.5, "range_high": 14.0, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "hba1c", "base_value": 9.8, "range_low": 9.3, "range_high": 10.3, "unit": "%", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "egfr", "base_value": 75, "range_low": 70, "range_high": 80, "unit": "ml/min/1.73m2", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "alt", "base_value": 55, "range_low": 40, "range_high": 70, "unit": "U/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "total_cholesterol", "base_value": 6.2, "range_low": 5.8, "range_high": 6.8, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "triglycerides", "base_value": 2.8, "range_low": 2.2, "range_high": 3.5, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "uric_acid", "base_value": 480, "range_low": 420, "range_high": 550, "unit": "umol/L", "is_abnormal": true, "clinical_significance": "low"}
+    ],
+    "hypertension": [
+      {"test_name": "sodium", "base_value": 140, "range_low": 138, "range_high": 142, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "potassium", "base_value": 3.8, "range_low": 3.5, "range_high": 4.2, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 95, "range_low": 80, "range_high": 110, "unit": "umol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "egfr", "base_value": 72, "range_low": 65, "range_high": 80, "unit": "ml/min/1.73m2", "is_abnormal": false, "clinical_significance": "moderate"}
+    ],
+    "sickle cell anemia": [
+      {"test_name": "hemoglobin", "base_value": 7.5, "range_low": 6.0, "range_high": 9.0, "unit": "g/dL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "reticulocyte_count", "base_value": 10.0, "range_low": 5.0, "range_high": 15.0, "unit": "%", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "ldh", "base_value": 450, "range_low": 300, "range_high": 600, "unit": "U/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "total_bilirubin", "base_value": 3.2, "range_low": 2.0, "range_high": 5.0, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "indirect_bilirubin", "base_value": 2.8, "range_low": 1.5, "range_high": 4.5, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "wbc", "base_value": 14.0, "range_low": 11.0, "range_high": 18.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "platelet_count", "base_value": 350, "range_low": 200, "range_high": 500, "unit": "x10^9/L", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "creatinine", "base_value": 1.2, "range_low": 0.8, "range_high": 1.5, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "copd": [
+      {"test_name": "pao2", "base_value": 68, "range_low": 55, "range_high": 75, "unit": "mmHg", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "paco2", "base_value": 48, "range_low": 40, "range_high": 55, "unit": "mmHg", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "fev1_predicted", "base_value": 55, "range_low": 40, "range_high": 65, "unit": "%", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "wbc", "base_value": 12.0, "range_low": 8.0, "range_high": 15.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "hemoglobin", "base_value": 15.5, "range_low": 14.0, "range_high": 17.0, "unit": "g/dL", "is_abnormal": false, "clinical_significance": "moderate"}
+    ],
+    "coronary artery disease": [
+      {"test_name": "total_cholesterol", "base_value": 6.5, "range_low": 5.8, "range_high": 7.2, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "ldl_cholesterol", "base_value": 4.2, "range_low": 3.5, "range_high": 5.0, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "hdl_cholesterol", "base_value": 0.9, "range_low": 0.7, "range_high": 1.1, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "troponin", "base_value": 0.05, "range_low": 0.01, "range_high": 0.1, "unit": "ng/mL", "is_abnormal": false, "clinical_significance": "high"},
+      {"test_name": "nt_probnp", "base_value": 300, "range_low": 100, "range_high": 500, "unit": "pg/mL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"}
+    ],
+    "chronic kidney disease": [
+      {"test_name": "creatinine", "base_value": 2.0, "range_low": 1.5, "range_high": 3.0, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "egfr", "base_value": 35, "range_low": 25, "range_high": 45, "unit": "ml/min/1.73m2", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "bun", "base_value": 30, "range_low": 20, "range_high": 45, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "potassium", "base_value": 5.2, "range_low": 4.5, "range_high": 5.8, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "phosphorus", "base_value": 5.0, "range_low": 4.0, "range_high": 6.0, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "hemoglobin", "base_value": 10.5, "range_low": 9.0, "range_high": 11.5, "unit": "g/dL", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "anemia": [
+      {"test_name": "hemoglobin", "base_value": 9.0, "range_low": 7.0, "range_high": 10.5, "unit": "g/dL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "mcv", "base_value": 78, "range_low": 70, "range_high": 85, "unit": "fL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "rdw", "base_value": 16.5, "range_low": 14.0, "range_high": 18.0, "unit": "%", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "ferritin", "base_value": 20, "range_low": 10, "range_high": 40, "unit": "ng/mL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "tibc", "base_value": 420, "range_low": 350, "range_high": 500, "unit": "ug/dL", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "heart failure": [
+      {"test_name": "nt_probnp", "base_value": 800, "range_low": 400, "range_high": 2000, "unit": "pg/mL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "creatinine", "base_value": 1.3, "range_low": 1.0, "range_high": 1.8, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "sodium", "base_value": 135, "range_low": 130, "range_high": 138, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "bnp", "base_value": 350, "range_low": 150, "range_high": 600, "unit": "pg/mL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "hemoglobin", "base_value": 12.0, "range_low": 10.5, "range_high": 13.5, "unit": "g/dL", "is_abnormal": false, "clinical_significance": "moderate"}
+    ],
+    "asthma": [
+      {"test_name": "eosinophil_count", "base_value": 8.0, "range_low": 4.0, "range_high": 12.0, "unit": "%", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "ige_total", "base_value": 250, "range_low": 100, "range_high": 400, "unit": "IU/mL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "wbc", "base_value": 9.5, "range_low": 7.0, "range_high": 12.0, "unit": "x10^9/L", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "hemoglobin", "base_value": 14.0, "range_low": 12.5, "range_high": 15.5, "unit": "g/dL", "is_abnormal": false, "clinical_significance": "low"}
+    ],
+    "atrial fibrillation": [
+      {"test_name": "troponin", "base_value": 0.02, "range_low": 0.01, "range_high": 0.05, "unit": "ng/mL", "is_abnormal": false, "clinical_significance": "high"},
+      {"test_name": "bnp", "base_value": 200, "range_low": 100, "range_high": 400, "unit": "pg/mL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "tsh", "base_value": 3.5, "range_low": 0.5, "range_high": 6.0, "unit": "mIU/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "potassium", "base_value": 4.2, "range_low": 3.8, "range_high": 4.8, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "inr", "base_value": 1.0, "range_low": 0.9, "range_high": 1.2, "unit": "", "is_abnormal": false, "clinical_significance": "high"}
+    ],
+    "stroke": [
+      {"test_name": "glucose_random", "base_value": 8.5, "range_low": 6.0, "range_high": 12.0, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "sodium", "base_value": 140, "range_low": 137, "range_high": 143, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "platelet_count", "base_value": 250, "range_low": 180, "range_high": 350, "unit": "x10^9/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "inr", "base_value": 1.1, "range_low": 0.9, "range_high": 1.3, "unit": "", "is_abnormal": false, "clinical_significance": "high"},
+      {"test_name": "troponin", "base_value": 0.02, "range_low": 0.01, "range_high": 0.05, "unit": "ng/mL", "is_abnormal": false, "clinical_significance": "high"}
+    ],
+    "pneumonia": [
+      {"test_name": "wbc", "base_value": 15.0, "range_low": 10.0, "range_high": 22.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "crp", "base_value": 80, "range_low": 30, "range_high": 150, "unit": "mg/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "pao2", "base_value": 70, "range_low": 55, "range_high": 80, "unit": "mmHg", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "hemoglobin", "base_value": 12.5, "range_low": 10.5, "range_high": 14.0, "unit": "g/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.1, "range_low": 0.8, "range_high": 1.5, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "sodium", "base_value": 136, "range_low": 132, "range_high": 140, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "low"}
+    ],
+    "urinary tract infection": [
+      {"test_name": "wbc", "base_value": 12.0, "range_low": 8.0, "range_high": 18.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "crp", "base_value": 40, "range_low": 10, "range_high": 80, "unit": "mg/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "nitrites", "base_value": 1.0, "range_low": 0.0, "range_high": 1.0, "unit": "positive/negative", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "osteoporosis": [
+      {"test_name": "calcium", "base_value": 2.3, "range_low": 2.1, "range_high": 2.5, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "phosphorus", "base_value": 3.5, "range_low": 2.5, "range_high": 4.5, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "vitamin_d", "base_value": 22, "range_low": 15, "range_high": 30, "unit": "ng/mL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "alkaline_phosphatase", "base_value": 85, "range_low": 60, "range_high": 120, "unit": "U/L", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "creatinine", "base_value": 0.9, "range_low": 0.7, "range_high": 1.2, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "low"}
+    ],
+    "gout": [
+      {"test_name": "uric_acid", "base_value": 520, "range_low": 450, "range_high": 650, "unit": "umol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "crp", "base_value": 25, "range_low": 10, "range_high": 50, "unit": "mg/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "wbc", "base_value": 11.0, "range_low": 8.0, "range_high": 14.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "low"},
+      {"test_name": "creatinine", "base_value": 1.1, "range_low": 0.9, "range_high": 1.4, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"},
+      {"test_name": "alt", "base_value": 35, "range_low": 20, "range_high": 50, "unit": "U/L", "is_abnormal": false, "clinical_significance": "low"}
+    ],
+    "hypothyroidism": [
+      {"test_name": "tsh", "base_value": 12.0, "range_low": 6.0, "range_high": 25.0, "unit": "mIU/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "free_t4", "base_value": 8.0, "range_low": 4.0, "range_high": 10.5, "unit": "pmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "total_cholesterol", "base_value": 6.5, "range_low": 5.5, "range_high": 7.5, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 0.9, "range_low": 0.7, "range_high": 1.2, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "low"}
+    ],
+    "hyperthyroidism": [
+      {"test_name": "tsh", "base_value": 0.1, "range_low": 0.01, "range_high": 0.3, "unit": "mIU/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "free_t4", "base_value": 35, "range_low": 22, "range_high": 50, "unit": "pmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "free_t3", "base_value": 12, "range_low": 8, "range_high": 18, "unit": "pmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "total_cholesterol", "base_value": 3.8, "range_low": 3.0, "range_high": 4.5, "unit": "mmol/L", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "alt", "base_value": 45, "range_low": 25, "range_high": 70, "unit": "U/L", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "liver disease": [
+      {"test_name": "alt", "base_value": 120, "range_low": 60, "range_high": 200, "unit": "U/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "ast", "base_value": 100, "range_low": 50, "range_high": 180, "unit": "U/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "total_bilirubin", "base_value": 2.5, "range_low": 1.5, "range_high": 5.0, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "albumin", "base_value": 32, "range_low": 25, "range_high": 38, "unit": "g/L", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "inr", "base_value": 1.4, "range_low": 1.1, "range_high": 1.8, "unit": "", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"}
+    ],
+    "sepsis": [
+      {"test_name": "wbc", "base_value": 18.0, "range_low": 12.0, "range_high": 28.0, "unit": "x10^9/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "crp", "base_value": 150, "range_low": 80, "range_high": 300, "unit": "mg/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "procalcitonin", "base_value": 2.5, "range_low": 0.5, "range_high": 10.0, "unit": "ng/mL", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "lactate", "base_value": 3.0, "range_low": 2.0, "range_high": 5.0, "unit": "mmol/L", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "creatinine", "base_value": 1.5, "range_low": 1.0, "range_high": 2.5, "unit": "mg/dL", "is_abnormal": true, "clinical_significance": "moderate"},
+      {"test_name": "hemoglobin", "base_value": 10.5, "range_low": 8.0, "range_high": 12.0, "unit": "g/dL", "is_abnormal": true, "clinical_significance": "moderate"}
+    ],
+    "deep vein thrombosis": [
+      {"test_name": "d_dimer", "base_value": 1.5, "range_low": 0.5, "range_high": 3.0, "unit": "mg/L FEU", "is_abnormal": true, "clinical_significance": "high"},
+      {"test_name": "wbc", "base_value": 10.5, "range_low": 8.0, "range_high": 14.0, "unit": "x10^9/L", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "hemoglobin", "base_value": 13.0, "range_low": 11.0, "range_high": 14.5, "unit": "g/dL", "is_abnormal": false, "clinical_significance": "low"},
+      {"test_name": "creatinine", "base_value": 1.0, "range_low": 0.8, "range_high": 1.3, "unit": "mg/dL", "is_abnormal": false, "clinical_significance": "moderate"}
+    ]
+  },
+  "cross_constraints": [
+    {
+      "name": "indirect_bilirubin_lt_total",
+      "description": "Indirect bilirubin must be <= total bilirubin",
+      "parent_test": "total_bilirubin",
+      "child_test": "indirect_bilirubin",
+      "derivation": "fraction",
+      "fraction_range": [0.5, 0.85]
+    },
+    {
+      "name": "direct_bilirubin_lt_total",
+      "description": "Direct bilirubin must be <= total bilirubin",
+      "parent_test": "total_bilirubin",
+      "child_test": "direct_bilirubin",
+      "derivation": "fraction",
+      "fraction_range": [0.05, 0.35]
+    },
+    {
+      "name": "ldl_lt_total_chol",
+      "description": "LDL must be less than total cholesterol",
+      "parent_test": "total_cholesterol",
+      "child_test": "ldl_cholesterol",
+      "derivation": "fraction",
+      "fraction_range": [0.5, 0.75]
+    },
+    {
+      "name": "hdl_lt_total_chol",
+      "description": "HDL must be less than total cholesterol",
+      "parent_test": "total_cholesterol",
+      "child_test": "hdl_cholesterol",
+      "derivation": "fraction",
+      "fraction_range": [0.1, 0.25]
+    },
+    {
+      "name": "bun_creatinine_ratio",
+      "description": "BUN/creatinine ratio should be 10:1 to 20:1",
+      "parent_test": "creatinine",
+      "child_test": "bun",
+      "derivation": "ratio",
+      "fraction_range": [10.0, 20.0]
+    }
+  ],
+  "interpretation_thresholds": {
+    "hemoglobin": [
+      {"range": [0, 7], "label": "very_low", "description": "critically low"},
+      {"range": [0, 10], "label": "low", "description": "quite low"}
+    ],
+    "wbc": [
+      {"range": [11, 50], "label": "high", "description": "elevated, suggesting infection or inflammation"}
+    ],
+    "creatinine": [
+      {"range": [2.5, 20], "label": "very_high", "description": "significantly elevated -- this is concerning for kidney function"},
+      {"range": [1.3, 20], "label": "high", "description": "elevated, which indicates kidney involvement"}
+    ],
+    "total_bilirubin": [
+      {"range": [1.2, 50], "label": "high", "description": "elevated, suggesting hemolysis or liver involvement"}
+    ],
+    "ldh": [
+      {"range": [250, 5000], "label": "high", "description": "markedly elevated, which is a marker of tissue damage"}
+    ],
+    "troponin": [
+      {"range": [0.04, 100], "label": "high", "description": "elevated, which raises concern for cardiac injury"}
+    ],
+    "hba1c": [
+      {"range": [6.5, 20], "label": "high", "description": "elevated, indicating poor long-term glucose control"}
+    ],
+    "tsh": [
+      {"range": [5.5, 200], "label": "high", "description": "elevated, suggesting hypothyroidism"},
+      {"range": [0, 0.3], "label": "low", "description": "suppressed, suggesting hyperthyroidism"}
+    ],
+    "ferritin": [
+      {"range": [0, 30], "label": "low", "description": "low, confirming iron deficiency"}
+    ]
+  }
+}

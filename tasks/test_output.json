@@ -1,0 +1,1843 @@
+[
+  {
+    "id": "v27_diagnostic_uncertainty_L1_sleep_apnea_0069e6",
+    "domain": "internal_medicine",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L1",
+    "version": "2.7",
+    "description": {
+      "purpose": "diagnostic_uncertainty - 47-year-old male patient with Do you snore loudly or has anyone observed you stop breathing during sleep?",
+      "clinical_scenario": "患者因Do you snore loudly or has anyone observed you stop breathing during sleep?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to probe for hidden symptoms",
+        "Quality of differential diagnosis"
+      ],
+      "focus": "Systematic information gathering and differential diagnosis"
+    },
+    "user_scenario": {
+      "persona": "47-year-old male patient. a cooperative patient who answers questions clearly presenting with Do you snore loudly or has anyone observed you stop breathing during sleep?.",
+      "patient_profile": {
+        "age": 47,
+        "gender": "male",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "I've been having wake up with morning headaches"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "I've been having wake up with morning headaches"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Do you snore loudly or has anyone observed you stop breathing during sleep?"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "sleep apnea",
+          "specific_medication_needed": "CPAP therapy"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": []
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "I've been having wake up with morning headaches"
+        ],
+        "share_only_if_asked": [],
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 47-year-old male patient. You are seeing a doctor because of I've been having wake up with morning headaches. Answer the doctor's questions honestly and completely. Share what you know."
+    },
+    "medical_persona": {
+      "age": 47,
+      "gender": "male",
+      "symptoms": [
+        "Do you wake up with morning headaches"
+      ],
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "current_medications": [
+        "CPAP therapy"
+      ],
+      "diagnosis": {
+        "primary": "sleep apnea",
+        "severity": "moderate",
+        "differential_diagnoses": [
+          "Insomnia",
+          "Narcolepsy",
+          "Restless Legs Syndrome",
+          "Central Sleep Apnea"
+        ]
+      }
+    },
+    "ticket": "I've been having wake up with morning headaches",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ZhangXX",
+            "mrn": "MRN723936",
+            "age": 47,
+            "gender": "male"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 47,
+              "gender": "male",
+              "symptoms": [
+                "I've been having wake up with morning headaches"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "I've been having wake up with morning headaches"
+              ],
+              "ask_only": []
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 2
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ]
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "sleep apnea"
+            ]
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "sleep apnea"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": false,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.7
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "sleep apnea",
+            "allow_alternatives": [
+              "Insomnia",
+              "Narcolepsy",
+              "Restless Legs Syndrome"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": false,
+            "must_consider": [
+              "Insomnia",
+              "Narcolepsy",
+              "Restless Legs Syndrome"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": false,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_diagnostic_uncertainty_L1_sleep_apnea_ae8432",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.139,
+      "behavior_type": "cooperative",
+      "seed": 670487
+    }
+  },
+  {
+    "id": "v27_conflicting_evidence_L2_osteoporosis_ff2e92",
+    "domain": "internal_medicine",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2",
+    "version": "2.7",
+    "description": {
+      "purpose": "conflicting_evidence - 59-year-old female patient with Have you noticed any loss of height or developing a stooped posture?",
+      "clinical_scenario": "患者因Have you noticed any loss of height or developing a stooped posture?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Ability to resolve conflicting data",
+        "Critical appraisal of evidence"
+      ],
+      "focus": "Resolving conflicting clinical evidence"
+    },
+    "user_scenario": {
+      "persona": "59-year-old female patient. a cooperative patient who answers questions clearly presenting with Have you noticed any loss of height or developing a stooped posture?.",
+      "patient_profile": {
+        "age": 59,
+        "gender": "female",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "low bone density"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "low bone density"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you noticed any loss of height or developing a stooped posture?"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "osteoporosis",
+          "specific_medication_needed": "alendronate"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": []
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "low bone density"
+        ],
+        "share_only_if_asked": [
+          "brittle bone"
+        ],
+        "hidden_truth": [
+          "bone loss"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "misleading_symptoms": [
+          "stooped posture"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 59-year-old female patient. You are seeing a doctor because of low bone density. Answer the doctor's questions honestly and completely. Share what you know. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 59,
+      "gender": "female",
+      "symptoms": [
+        "bone loss",
+        "low bone density",
+        "brittle bone disease"
+      ],
+      "duration": "a few weeks",
+      "severity": "low",
+      "current_medications": [
+        "alendronate",
+        "calcium carbonate",
+        "vitamin D",
+        "denosumab"
+      ],
+      "lab_results": {
+        "calcium": "normal",
+        "phosphorus": "normal",
+        "vitamin_d": "normal",
+        "alkaline_phosphatase": "normal",
+        "creatinine": "normal"
+      },
+      "diagnosis": {
+        "primary": "osteoporosis",
+        "severity": "low",
+        "differential_diagnoses": [
+          "Osteomalacia",
+          "Multiple Myeloma",
+          "Hyperparathyroidism",
+          "Metastatic bone disease"
+        ]
+      }
+    },
+    "ticket": "low bone density",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "WangXX",
+            "mrn": "MRN591091",
+            "age": 59,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 59,
+              "gender": "female",
+              "symptoms": [
+                "low bone density"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "low bone density"
+              ],
+              "ask_only": [
+                "brittle bone"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ]
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_differential_diagnosis",
+          "requestor": "assistant",
+          "name": "differential_diagnosis",
+          "arguments": {
+            "symptoms": [
+              "osteoporosis"
+            ]
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "osteoporosis"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL"
+      ],
+      "medical_criteria": {
+        "category": "diagnosis",
+        "min_turns": 3,
+        "max_turns": 25,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "osteoporosis",
+            "allow_alternatives": [
+              "Osteomalacia",
+              "Multiple Myeloma",
+              "Hyperparathyroidism"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Osteomalacia",
+              "Multiple Myeloma",
+              "Hyperparathyroidism"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "order_lab_tests",
+          "get_lab_results",
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_conflicting_evidence_L2_osteoporosis_b43366",
+      "risk_level": "low",
+      "uncertainty_level": 0.445,
+      "behavior_type": "cooperative",
+      "seed": 116739
+    }
+  },
+  {
+    "id": "v27_treatment_tradeoff_L3_anxiety_disorder_c45578",
+    "domain": "psychiatry",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3",
+    "version": "2.7",
+    "description": {
+      "purpose": "treatment_tradeoff - 36-year-old female patient with Have you experienced physical symptoms like racing heart, sweating, or shortness of breath?",
+      "clinical_scenario": "患者因Have you experienced physical symptoms like racing heart, sweating, or shortness of breath?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Consideration of comorbidities in treatment",
+        "Shared decision-making ability",
+        "Handle complex multi-condition scenario"
+      ],
+      "focus": "Weighing treatment options with comorbidity considerations"
+    },
+    "user_scenario": {
+      "persona": "36-year-old female patient. a patient who may forget to mention some symptoms presenting with Have you experienced physical symptoms like racing heart, sweating, or shortness of breath?.",
+      "patient_profile": {
+        "age": 36,
+        "gender": "female",
+        "communication_style": "vague",
+        "cooperation_level": "good",
+        "chief_complaint": "anxiety"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "anxiety"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you experienced physical symptoms like racing heart, sweating, or shortness of breath?",
+          "additional_complaints": [
+            "mild neck tension"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "anxiety disorder",
+          "specific_medication_needed": "sertraline"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [
+            "May not remember all symptoms",
+            "May forget medication names",
+            "Timeline of symptoms may be vague"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "anxiety"
+        ],
+        "share_only_if_asked": [
+          "gad"
+        ],
+        "hidden_truth": [
+          "anxiety"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "noise_symptoms": [
+          "mild neck tension"
+        ],
+        "noise_note": "Unrelated symptoms that may distract from the main issue",
+        "misleading_symptoms": [
+          "shortness of breath"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 36-year-old female patient. You are seeing a doctor because of anxiety. Answer honestly but you may forget to mention some symptoms. If not specifically asked, you might not remember. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 36,
+      "gender": "female",
+      "symptoms": [
+        "generalized anxiety disorder",
+        "GAD",
+        "anxiety"
+      ],
+      "duration": "a few weeks",
+      "severity": "moderate",
+      "current_medications": [
+        "sertraline",
+        "escitalopram",
+        "buspirone"
+      ],
+      "allergies": [
+        "sulfa drugs"
+      ],
+      "diagnosis": {
+        "primary": "anxiety disorder",
+        "severity": "moderate",
+        "differential_diagnoses": [
+          "Hyperthyroidism",
+          "Panic Disorder",
+          "Social Anxiety Disorder",
+          "PTSD"
+        ]
+      }
+    },
+    "ticket": "anxiety",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "HuangXX",
+            "mrn": "MRN382683",
+            "age": 36,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 36,
+              "gender": "female",
+              "symptoms": [
+                "anxiety"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "anxiety"
+              ],
+              "ask_only": [
+                "gad"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 4
+          }
+        },
+        {
+          "action_id": "use_check_allergy",
+          "requestor": "assistant",
+          "name": "check_allergy",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_check_drug_interactions",
+          "requestor": "assistant",
+          "name": "check_drug_interactions",
+          "arguments": {
+            "drug_list": []
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "",
+            "dose": ""
+          }
+        },
+        {
+          "action_id": "use_schedule_followup",
+          "requestor": "assistant",
+          "name": "schedule_followup",
+          "arguments": {
+            "timeframe": "2 weeks"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY"
+      ],
+      "medical_criteria": {
+        "category": "treatment",
+        "min_turns": 4,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": true,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "anxiety disorder",
+            "allow_alternatives": [
+              "Hyperthyroidism",
+              "Panic Disorder",
+              "Social Anxiety Disorder"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Hyperthyroidism",
+              "Panic Disorder",
+              "Social Anxiety Disorder"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "critical"
+          }
+        },
+        "required_tools": [
+          "check_allergy",
+          "check_drug_interactions",
+          "prescribe_medication",
+          "schedule_followup"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_treatment_tradeoff_L3_anxiety_disorder_7a160e",
+      "risk_level": "moderate",
+      "uncertainty_level": 0.802,
+      "behavior_type": "forgetful",
+      "seed": 26225
+    }
+  },
+  {
+    "id": "v27_patient_non_compliance_L1_psoriasis_3de972",
+    "domain": "internal_medicine",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L1",
+    "version": "2.7",
+    "description": {
+      "purpose": "patient_non_compliance - 56-year-old female patient with Does anything trigger flare-ups — stress, infections, medications?",
+      "clinical_scenario": "患者因Does anything trigger flare-ups — stress, infections, medications?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Communication and trust-building",
+        "Addressing patient concerns"
+      ],
+      "focus": "Addressing patient concerns and building treatment adherence"
+    },
+    "user_scenario": {
+      "persona": "56-year-old female patient. a cooperative patient who answers questions clearly presenting with Does anything trigger flare-ups — stress, infections, medications?.",
+      "patient_profile": {
+        "age": 56,
+        "gender": "female",
+        "communication_style": "clear",
+        "cooperation_level": "good",
+        "chief_complaint": "do any joints ache or swell"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "do any joints ache or swell"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Does anything trigger flare-ups — stress, infections, medications?"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "psoriasis",
+          "specific_medication_needed": "topical betamethasone"
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": []
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "do any joints ache or swell"
+        ],
+        "share_only_if_asked": [],
+        "response_style": {
+          "honest": true,
+          "direct": true,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 56-year-old female patient. You are seeing a doctor because of do any joints ache or swell. Answer the doctor's questions honestly and completely. Share what you know."
+    },
+    "medical_persona": {
+      "age": 56,
+      "gender": "female",
+      "symptoms": [
+        "Do any joints ache or swell"
+      ],
+      "duration": "a few weeks",
+      "severity": "low",
+      "current_medications": [
+        "topical betamethasone",
+        "methotrexate",
+        "adalimumab"
+      ],
+      "diagnosis": {
+        "primary": "psoriasis",
+        "severity": "low",
+        "differential_diagnoses": [
+          "Eczema",
+          "Seborrheic Dermatitis",
+          "Tinea",
+          "Pityriasis Rosea"
+        ]
+      }
+    },
+    "ticket": "do any joints ache or swell",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "ZhaoXX",
+            "mrn": "MRN904665",
+            "age": 56,
+            "gender": "female"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 56,
+              "gender": "female",
+              "symptoms": [
+                "do any joints ache or swell"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "do any joints ache or swell"
+              ],
+              "ask_only": []
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 2
+          }
+        },
+        {
+          "action_id": "use_health_education",
+          "requestor": "assistant",
+          "name": "health_education",
+          "arguments": {
+            "topic": "psoriasis"
+          }
+        },
+        {
+          "action_id": "use_patient_education",
+          "requestor": "assistant",
+          "name": "patient_education",
+          "arguments": {
+            "topic": "psoriasis"
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "",
+            "dose": ""
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ],
+      "medical_criteria": {
+        "category": "communication",
+        "min_turns": 3,
+        "max_turns": 20,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": false,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.7
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "psoriasis",
+            "allow_alternatives": [
+              "Eczema",
+              "Seborrheic Dermatitis",
+              "Tinea"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": false,
+            "must_consider": [
+              "Eczema",
+              "Seborrheic Dermatitis",
+              "Tinea"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": false,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "health_education",
+          "patient_education",
+          "prescribe_medication"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_patient_non_compliance_L1_psoriasis_a01f69",
+      "risk_level": "low",
+      "uncertainty_level": 0.223,
+      "behavior_type": "cooperative",
+      "seed": 777572
+    }
+  },
+  {
+    "id": "v27_drug_safety_risk_L2_coronary_artery_disease_19954d",
+    "domain": "cardiology",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L2",
+    "version": "2.7",
+    "description": {
+      "purpose": "drug_safety_risk - 39-year-old male patient with coronary heart disease",
+      "clinical_scenario": "患者因coronary heart disease就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Safety checking before prescribing",
+        "Drug interaction awareness"
+      ],
+      "focus": "Safe prescribing with allergy and interaction checks"
+    },
+    "user_scenario": {
+      "persona": "39-year-old male patient. a patient who is confused about their medical condition presenting with coronary heart disease.",
+      "patient_profile": {
+        "age": 39,
+        "gender": "male",
+        "communication_style": "uncertain",
+        "cooperation_level": "moderate",
+        "chief_complaint": "atherosclerotic heart"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "atherosclerotic heart",
+            "ischemic heart",
+            "cad"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "coronary heart disease"
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "coronary artery disease",
+          "specific_medication_needed": "aspirin",
+          "undiagnosed_comorbidities": [
+            "heart failure"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [
+            "Doesn't understand medical terminology",
+            "May provide inconsistent information",
+            "Needs simple explanations"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "atherosclerotic heart",
+          "ischemic heart",
+          "cad"
+        ],
+        "share_only_if_asked": [
+          "chd",
+          "my weight has changed"
+        ],
+        "hidden_truth": [
+          "ihd",
+          "coronary heart"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "misleading_symptoms": [
+          "constant tiredness",
+          "pain"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "emotional_state": "anxious"
+        }
+      },
+      "task_instructions": "You are a 39-year-old male patient. You are seeing a doctor because of atherosclerotic heart. You don't understand medical terms. Express your symptoms in your own words. Ask for clarification if confused. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 39,
+      "gender": "male",
+      "symptoms": [
+        "CAD",
+        "coronary heart disease",
+        "CHD",
+        "ischemic heart disease",
+        "IHD",
+        "atherosclerotic heart disease",
+        "Has your weight changed unexpectedly"
+      ],
+      "duration": "a few weeks",
+      "severity": "high",
+      "past_medical_history": [
+        "heart failure"
+      ],
+      "current_medications": [
+        "aspirin",
+        "atorvastatin",
+        "metoprolol",
+        "clopidogrel"
+      ],
+      "allergies": [
+        "ibuprofen"
+      ],
+      "lab_results": {
+        "total_cholesterol": "normal",
+        "ldl_cholesterol": "normal",
+        "hdl_cholesterol": "normal",
+        "troponin": "normal",
+        "nt_probnp": "normal"
+      },
+      "diagnosis": {
+        "primary": "coronary artery disease",
+        "severity": "high"
+      },
+      "confounder_conditions": [
+        "musculoskeletal chest pain"
+      ]
+    },
+    "ticket": "atherosclerotic heart, ischemic heart, cad",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "WangXX",
+            "mrn": "MRN170076",
+            "age": 39,
+            "gender": "male"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 39,
+              "gender": "male",
+              "symptoms": [
+                "atherosclerotic heart",
+                "ischemic heart",
+                "cad"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "atherosclerotic heart",
+                "ischemic heart",
+                "cad"
+              ],
+              "ask_only": [
+                "chd",
+                "my weight has changed"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_check_allergy",
+          "requestor": "assistant",
+          "name": "check_allergy",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_check_drug_interactions",
+          "requestor": "assistant",
+          "name": "check_drug_interactions",
+          "arguments": {
+            "drug_list": []
+          }
+        },
+        {
+          "action_id": "use_check_contraindications",
+          "requestor": "assistant",
+          "name": "check_contraindications",
+          "arguments": {
+            "medication": "",
+            "conditions": []
+          }
+        },
+        {
+          "action_id": "use_prescribe_medication",
+          "requestor": "assistant",
+          "name": "prescribe_medication",
+          "arguments": {
+            "medication": "",
+            "dose": ""
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY"
+      ],
+      "medical_criteria": {
+        "category": "safety",
+        "min_turns": 3,
+        "max_turns": 25,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": false,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "coronary artery disease",
+            "allow_alternatives": [],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "major"
+          }
+        },
+        "required_tools": [
+          "check_allergy",
+          "check_drug_interactions",
+          "check_contraindications",
+          "prescribe_medication"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_drug_safety_risk_L2_coronary_artery_disease_b7d517",
+      "risk_level": "high",
+      "uncertainty_level": 0.406,
+      "behavior_type": "confused",
+      "seed": 288389
+    }
+  },
+  {
+    "id": "v27_emergency_triage_L3_stroke_04ab41",
+    "domain": "neurology",
+    "task_type": "emergency_triage",
+    "difficulty": "L3",
+    "version": "2.7",
+    "description": {
+      "purpose": "emergency_triage - 59-year-old male patient with Have you had any difficulty speaking or understanding speech?",
+      "clinical_scenario": "患者因Have you had any difficulty speaking or understanding speech?就诊，需要医生进行问诊、检查、诊断并制定治疗方案",
+      "educational_objectives": [
+        "Assess information gathering ability",
+        "Evaluate clinical reasoning",
+        "Rapid assessment and prioritization",
+        "Time-sensitive decision making",
+        "Handle complex multi-condition scenario"
+      ],
+      "focus": "Rapid assessment and stabilization"
+    },
+    "user_scenario": {
+      "persona": "59-year-old male patient. a patient who may forget to mention some symptoms presenting with Have you had any difficulty speaking or understanding speech?.",
+      "patient_profile": {
+        "age": 59,
+        "gender": "male",
+        "communication_style": "vague",
+        "cooperation_level": "good",
+        "chief_complaint": "hld"
+      },
+      "information_state": {
+        "patient_knows": {
+          "symptoms": [
+            "hld"
+          ],
+          "duration_approximate": "a few weeks",
+          "general_concern": "Have you had any difficulty speaking or understanding speech?",
+          "additional_complaints": [
+            "mild eye dryness"
+          ]
+        },
+        "patient_doesnt_know": {
+          "diagnosis": "stroke",
+          "specific_medication_needed": "aspirin",
+          "undiagnosed_comorbidities": [
+            "hypertension",
+            "hyperlipidemia"
+          ]
+        },
+        "patient_misconceptions_and_concerns": {
+          "general": [
+            "May not remember all symptoms",
+            "May forget medication names",
+            "Timeline of symptoms may be vague"
+          ]
+        }
+      },
+      "information_sharing_strategy": {
+        "volunteer_without_asking": [
+          "hld"
+        ],
+        "share_only_if_asked": [
+          "I've had vision changes"
+        ],
+        "hidden_truth": [
+          "htn",
+          "high blood pressure"
+        ],
+        "hidden_note": "Only revealed through careful, specific questioning",
+        "noise_symptoms": [
+          "mild eye dryness"
+        ],
+        "noise_note": "Unrelated symptoms that may distract from the main issue",
+        "misleading_symptoms": [
+          "is the headache one-sided or pulsating",
+          "how often do you get these headaches"
+        ],
+        "misleading_note": "Symptoms that may point toward an incorrect diagnosis",
+        "response_style": {
+          "honest": true,
+          "direct": false,
+          "limited_medical_knowledge": true,
+          "emotional_state": "neutral"
+        }
+      },
+      "task_instructions": "You are a 59-year-old male patient. You are seeing a doctor because of hld. Answer honestly but you may forget to mention some symptoms. If not specifically asked, you might not remember. You have some symptoms you haven't mentioned to anyone."
+    },
+    "medical_persona": {
+      "age": 59,
+      "gender": "male",
+      "symptoms": [
+        "Have you had any vision changes",
+        "HTN",
+        "high blood pressure",
+        "HLD"
+      ],
+      "duration": "a few weeks",
+      "severity": "high",
+      "past_medical_history": [
+        "hypertension",
+        "hyperlipidemia"
+      ],
+      "current_medications": [
+        "aspirin",
+        "clopidogrel",
+        "atorvastatin"
+      ],
+      "lab_results": {
+        "glucose_random": "normal",
+        "creatinine": "normal",
+        "sodium": "normal",
+        "platelet_count": "normal",
+        "inr": "normal"
+      },
+      "diagnosis": {
+        "primary": "stroke",
+        "severity": "high",
+        "differential_diagnoses": [
+          "Transient Ischemic Attack",
+          "Hemorrhagic Stroke",
+          "Brain Tumor",
+          "Subdural Hematoma"
+        ]
+      },
+      "confounder_conditions": [
+        "migraine"
+      ]
+    },
+    "ticket": "hld",
+    "initial_state": {
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "YangXX",
+            "mrn": "MRN622684",
+            "age": 59,
+            "gender": "male"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_medical_persona",
+          "arguments": {
+            "patient_profile": {
+              "age": 59,
+              "gender": "male",
+              "symptoms": [
+                "hld"
+              ],
+              "duration": "a few weeks",
+              "severity": "moderate"
+            },
+            "information_sharing_strategy": {
+              "volunteer": [
+                "hld"
+              ],
+              "ask_only": [
+                "I've had vision changes"
+              ]
+            },
+            "response_style": {
+              "honest": true,
+              "limited_medical_knowledge": true
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "gather_patient_history",
+          "requestor": "assistant",
+          "name": "ask_patient",
+          "arguments": {
+            "min_questions": 3
+          }
+        },
+        {
+          "action_id": "use_assess_vital_signs",
+          "requestor": "assistant",
+          "name": "assess_vital_signs",
+          "arguments": {
+            "include_bmi": true
+          }
+        },
+        {
+          "action_id": "use_order_lab_tests",
+          "requestor": "assistant",
+          "name": "order_lab_tests",
+          "arguments": {
+            "tests": [
+              "CBC",
+              "BMP"
+            ]
+          }
+        },
+        {
+          "action_id": "use_get_lab_results",
+          "requestor": "assistant",
+          "name": "get_lab_results",
+          "arguments": {
+            "patient_id": "current"
+          }
+        },
+        {
+          "action_id": "use_record_diagnosis",
+          "requestor": "assistant",
+          "name": "record_diagnosis",
+          "arguments": {
+            "diagnosis": "stroke"
+          }
+        }
+      ],
+      "communication_checks": [
+        {
+          "check_id": "patient_understands",
+          "criteria": "Patient should understand the diagnosis and treatment plan",
+          "weight": 1.0
+        },
+        {
+          "check_id": "appropriate_language",
+          "criteria": "Uses clear, patient-friendly language",
+          "weight": 1.0
+        },
+        {
+          "check_id": "addresses_concerns",
+          "criteria": "Addresses patient concerns and questions",
+          "weight": 1.0
+        }
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE",
+        "CLINICAL",
+        "SAFETY",
+        "TIME"
+      ],
+      "medical_criteria": {
+        "category": "emergency",
+        "min_turns": 3,
+        "max_turns": 6,
+        "information_gathering_requirements": {
+          "must_collect": {
+            "chief_complaint_detail": {
+              "required": true,
+              "description": "Complete chief complaint with onset, duration, severity",
+              "weight": 0.2
+            },
+            "symptoms_completeness": {
+              "required": true,
+              "description": "All major symptoms identified",
+              "weight": 0.2
+            },
+            "past_medical_history": {
+              "required": true,
+              "description": "Relevant past medical history",
+              "weight": 0.15
+            },
+            "current_medications": {
+              "required": true,
+              "description": "Current medication list",
+              "weight": 0.15
+            },
+            "allergies": {
+              "required": true,
+              "description": "Drug allergy history",
+              "weight": 0.15
+            },
+            "family_history": {
+              "required": true,
+              "description": "Relevant family history",
+              "weight": 0.1
+            },
+            "lifestyle_factors": {
+              "required": true,
+              "description": "Smoking, alcohol, diet, exercise",
+              "weight": 0.05
+            }
+          },
+          "scoring_method": "count",
+          "pass_threshold": 0.8
+        },
+        "diagnostic_requirements": {
+          "diagnosis_accuracy": {
+            "required": true,
+            "correct_diagnosis": "stroke",
+            "allow_alternatives": [
+              "Transient Ischemic Attack",
+              "Hemorrhagic Stroke",
+              "Brain Tumor"
+            ],
+            "weight": 0.4
+          },
+          "differential_diagnosis": {
+            "required": true,
+            "must_consider": [
+              "Transient Ischemic Attack",
+              "Hemorrhagic Stroke",
+              "Brain Tumor"
+            ],
+            "weight": 0.2
+          }
+        },
+        "safety_requirements": {
+          "allergy_check_before_prescribe": {
+            "required": true,
+            "description": "Must check allergies before prescribing",
+            "severity": "critical"
+          },
+          "drug_interaction_check": {
+            "required": true,
+            "description": "Must check drug interactions",
+            "severity": "critical"
+          }
+        },
+        "required_tools": [
+          "assess_vital_signs",
+          "order_lab_tests",
+          "get_lab_results",
+          "record_diagnosis"
+        ],
+        "forbidden_actions": [
+          "Prescribe medication before checking allergies",
+          "Make diagnosis without gathering sufficient history"
+        ]
+      }
+    },
+    "generation_metadata": {
+      "source": "v2.7_medical_suite",
+      "scenario_id": "v2_emergency_triage_L3_stroke_f36e5b",
+      "risk_level": "high",
+      "uncertainty_level": 0.897,
+      "behavior_type": "forgetful",
+      "seed": 256787
+    }
+  }
+]

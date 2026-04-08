@@ -1,0 +1,841 @@
+{
+  "_meta": {"version": "1.0.0"},
+  "name_normalization": {
+    "hydroxycarbamide": "hydroxyurea",
+    "hydrea": "hydroxyurea",
+    "glucophage": "metformin",
+    "zestril": "lisinopril",
+    "prinivil": "lisinopril",
+    "norvasc": "amlodipine",
+    "lipitor": "atorvastatin",
+    "folate": "folic acid",
+    "acetylsalicylic acid": "aspirin",
+    "coumadin": "warfarin",
+    "vasotec": "enalapril",
+    "cozaar": "losartan",
+    "prilosec": "omeprazole",
+    "lasix": "furosemide",
+    "aldactone": "spironolactone",
+    "synthroid": "levothyroxine",
+    "prednisolone": "prednisone",
+    "salbutamol": "albuterol",
+    "advil": "ibuprofen",
+    "paracetamol": "acetaminophen",
+    "tylenol": "acetaminophen"
+  },
+  "drugs": {
+    "metformin": {
+      "brand_names": ["Glucophage"],
+      "drug_class": "biguanide",
+      "standard_doses": [{"dose": "500mg", "frequency": "twice daily"}],
+      "contraindications": ["severe kidney disease"],
+      "alternatives": []
+    },
+    "glipizide": {
+      "brand_names": [],
+      "drug_class": "sulfonylurea",
+      "standard_doses": [{"dose": "5mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "insulin glargine": {
+      "brand_names": [],
+      "drug_class": "long-acting insulin",
+      "standard_doses": [{"dose": "20 units", "frequency": "once daily at bedtime"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "lisinopril": {
+      "brand_names": ["Zestril", "Prinivil"],
+      "drug_class": "ACE inhibitor",
+      "standard_doses": [
+        {"dose": "10mg", "frequency": "once daily"},
+        {"dose": "5mg", "frequency": "once daily"}
+      ],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "amlodipine": {
+      "brand_names": ["Norvasc"],
+      "drug_class": "calcium channel blocker",
+      "standard_doses": [{"dose": "5mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "losartan": {
+      "brand_names": ["Cozaar"],
+      "drug_class": "angiotensin II receptor blocker (ARB)",
+      "standard_doses": [{"dose": "50mg", "frequency": "once daily"}],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "hydrochlorothiazide": {
+      "brand_names": [],
+      "drug_class": "thiazide diuretic",
+      "standard_doses": [{"dose": "25mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "atorvastatin": {
+      "brand_names": ["Lipitor"],
+      "drug_class": "HMG-CoA reductase inhibitor (statin)",
+      "standard_doses": [
+        {"dose": "20mg", "frequency": "once daily at bedtime"},
+        {"dose": "40mg", "frequency": "once daily at bedtime"}
+      ],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "rosuvastatin": {
+      "brand_names": [],
+      "drug_class": "HMG-CoA reductase inhibitor (statin)",
+      "standard_doses": [{"dose": "10mg", "frequency": "once daily"}],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "simvastatin": {
+      "brand_names": [],
+      "drug_class": "HMG-CoA reductase inhibitor (statin)",
+      "standard_doses": [{"dose": "40mg", "frequency": "once daily at bedtime"}],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "hydroxyurea": {
+      "brand_names": ["Hydrea"],
+      "drug_class": "antimetabolite",
+      "standard_doses": [{"dose": "500mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": [
+        {"drug": "Voxelotor", "reason": "add-on therapy for hemolysis", "action": "add_combination"},
+        {"drug": "L-glutamine", "reason": "reduces vaso-occlusive crises", "action": "add_combination"},
+        {"drug": "Crizanlizumab", "reason": "P-selectin inhibitor for pain crises", "action": "add_combination"},
+        {"drug": "Hydroxyurea dose adjustment", "reason": "optimize if subtherapeutic", "action": "adjust_dose"}
+      ]
+    },
+    "folic acid": {
+      "brand_names": [],
+      "drug_class": "vitamin B9 supplement",
+      "standard_doses": [{"dose": "1mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "penicillin vk": {
+      "brand_names": [],
+      "drug_class": "penicillin antibiotic",
+      "standard_doses": [{"dose": "250mg", "frequency": "twice daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "tiotropium": {
+      "brand_names": [],
+      "drug_class": "long-acting muscarinic antagonist (LAMA)",
+      "standard_doses": [{"dose": "18mcg", "frequency": "once daily inhaled"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "albuterol": {
+      "brand_names": [],
+      "drug_class": "short-acting beta-agonist (SABA)",
+      "standard_doses": [{"dose": "90mcg", "frequency": "as needed inhaled"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "budesonide/formoterol": {
+      "brand_names": [],
+      "drug_class": "ICS/LABA combination",
+      "standard_doses": [{"dose": "160/4.5mcg", "frequency": "twice daily inhaled"}],
+      "contraindications": [],
+      "alternatives": [
+        {"drug": "Montelukast", "reason": "leukotriene modifier", "action": "add_combination"},
+        {"drug": "Budesonide/Formoterol", "reason": "combination ICS/LABA", "action": "adjust_dose"}
+      ]
+    },
+    "sevelamer": {
+      "brand_names": [],
+      "drug_class": "phosphate binder",
+      "standard_doses": [{"dose": "800mg", "frequency": "three times daily with meals"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "epoetin alfa": {
+      "brand_names": [],
+      "drug_class": "erythropoiesis-stimulating agent (ESA)",
+      "standard_doses": [{"dose": "5000 units", "frequency": "once weekly subcutaneous"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "carvedilol": {
+      "brand_names": [],
+      "drug_class": "non-selective beta-blocker with alpha-1 blockade",
+      "standard_doses": [{"dose": "12.5mg", "frequency": "twice daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "furosemide": {
+      "brand_names": ["Lasix"],
+      "drug_class": "loop diuretic",
+      "standard_doses": [{"dose": "40mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "spironolactone": {
+      "brand_names": ["Aldactone"],
+      "drug_class": "potassium-sparing diuretic / aldosterone antagonist",
+      "standard_doses": [{"dose": "25mg", "frequency": "once daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "ferrous sulfate": {
+      "brand_names": [],
+      "drug_class": "iron supplement",
+      "standard_doses": [{"dose": "325mg", "frequency": "three times daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "vitamin b12": {
+      "brand_names": [],
+      "drug_class": "vitamin B12 supplement",
+      "standard_doses": [{"dose": "1000mcg", "frequency": "once monthly injection"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "aspirin": {
+      "brand_names": [],
+      "drug_class": "antiplatelet / NSAID",
+      "standard_doses": [{"dose": "81mg", "frequency": "once daily"}],
+      "contraindications": ["peptic ulcer", "asthma"],
+      "alternatives": []
+    },
+    "metoprolol": {
+      "brand_names": [],
+      "drug_class": "selective beta-1 blocker",
+      "standard_doses": [{"dose": "50mg", "frequency": "twice daily"}],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "clopidogrel": {
+      "brand_names": [],
+      "drug_class": "antiplatelet (P2Y12 inhibitor)",
+      "standard_doses": [{"dose": "75mg", "frequency": "once daily"}],
+      "contraindications": ["active_bleeding"],
+      "alternatives": []
+    },
+    "warfarin": {
+      "brand_names": ["Coumadin"],
+      "drug_class": "vitamin K antagonist anticoagulant",
+      "standard_doses": [],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "enalapril": {
+      "brand_names": ["Vasotec"],
+      "drug_class": "ACE inhibitor",
+      "standard_doses": [],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "omeprazole": {
+      "brand_names": ["Prilosec"],
+      "drug_class": "proton pump inhibitor (PPI)",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "levothyroxine": {
+      "brand_names": ["Synthroid"],
+      "drug_class": "thyroid hormone replacement",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "prednisone": {
+      "brand_names": [],
+      "drug_class": "corticosteroid",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "ibuprofen": {
+      "brand_names": ["Advil"],
+      "drug_class": "NSAID",
+      "standard_doses": [],
+      "contraindications": ["chronic kidney disease", "heart failure", "peptic ulcer"],
+      "alternatives": []
+    },
+    "morphine": {
+      "brand_names": [],
+      "drug_class": "opioid analgesic",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "acetaminophen": {
+      "brand_names": ["Tylenol"],
+      "drug_class": "analgesic / antipyretic",
+      "standard_doses": [],
+      "contraindications": ["severe liver disease"],
+      "alternatives": []
+    },
+    "methotrexate": {
+      "brand_names": [],
+      "drug_class": "antimetabolite / DMARD",
+      "standard_doses": [],
+      "contraindications": ["pregnancy", "liver disease"],
+      "alternatives": []
+    },
+    "gentamicin": {
+      "brand_names": [],
+      "drug_class": "aminoglycoside antibiotic",
+      "standard_doses": [],
+      "contraindications": ["chronic kidney disease"],
+      "alternatives": []
+    },
+    "propranolol": {
+      "brand_names": [],
+      "drug_class": "non-selective beta-blocker",
+      "standard_doses": [],
+      "contraindications": ["asthma"],
+      "alternatives": []
+    },
+    "verapamil": {
+      "brand_names": [],
+      "drug_class": "calcium channel blocker",
+      "standard_doses": [],
+      "contraindications": ["heart failure"],
+      "alternatives": []
+    },
+    "pioglitazone": {
+      "brand_names": [],
+      "drug_class": "thiazolidinedione",
+      "standard_doses": [],
+      "contraindications": ["heart failure"],
+      "alternatives": []
+    },
+    "primaquine": {
+      "brand_names": [],
+      "drug_class": "antimalarial",
+      "standard_doses": [],
+      "contraindications": ["g6pd_deficiency"],
+      "alternatives": []
+    },
+    "dapsone": {
+      "brand_names": [],
+      "drug_class": "antibiotic / anti-inflammatory",
+      "standard_doses": [],
+      "contraindications": ["g6pd_deficiency"],
+      "alternatives": []
+    },
+    "metronidazole": {
+      "brand_names": [],
+      "drug_class": "antibiotic / antiprotozoal",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "clarithromycin": {
+      "brand_names": [],
+      "drug_class": "macrolide antibiotic",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "gemfibrozil": {
+      "brand_names": [],
+      "drug_class": "fibric acid derivative",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "sertraline": {
+      "brand_names": [],
+      "drug_class": "SSRI antidepressant",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "fluoxetine": {
+      "brand_names": [],
+      "drug_class": "SSRI antidepressant",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "tramadol": {
+      "brand_names": [],
+      "drug_class": "opioid analgesic",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "sumatriptan": {
+      "brand_names": [],
+      "drug_class": "triptan (5-HT1 agonist)",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "insulin": {
+      "brand_names": [],
+      "drug_class": "insulin",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "ciprofloxacin": {
+      "brand_names": [],
+      "drug_class": "fluoroquinolone antibiotic",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "theophylline": {
+      "brand_names": [],
+      "drug_class": "methylxanthine bronchodilator",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "digoxin": {
+      "brand_names": [],
+      "drug_class": "cardiac glycoside",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "methyldopa": {
+      "brand_names": [],
+      "drug_class": "centrally acting antihypertensive",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "labetalol": {
+      "brand_names": [],
+      "drug_class": "combined alpha/beta-blocker",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "pantoprazole": {
+      "brand_names": [],
+      "drug_class": "proton pump inhibitor (PPI)",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "fenofibrate": {
+      "brand_names": [],
+      "drug_class": "fibric acid derivative",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "azithromycin": {
+      "brand_names": [],
+      "drug_class": "macrolide antibiotic",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "statins": {
+      "brand_names": [],
+      "drug_class": "HMG-CoA reductase inhibitor (statin class)",
+      "standard_doses": [],
+      "contraindications": ["pregnancy"],
+      "alternatives": []
+    },
+    "Empagliflozin": {
+      "brand_names": [],
+      "drug_class": "SGLT2 inhibitor",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": [
+        {"drug": "Empagliflozin", "reason": "SGLT2 inhibitor, cardioprotective", "action": "add_combination"},
+        {"drug": "Sitagliptin", "reason": "DPP-4 inhibitor", "action": "add_combination"},
+        {"drug": "Insulin Glargine", "reason": "basal insulin for inadequate oral control", "action": "add_combination"}
+      ]
+    },
+    "Sitagliptin": {
+      "brand_names": [],
+      "drug_class": "DPP-4 inhibitor",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "Voxelotor": {
+      "brand_names": [],
+      "drug_class": "HbS polymerization inhibitor",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "L-glutamine": {
+      "brand_names": [],
+      "drug_class": "amino acid supplement",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "Crizanlizumab": {
+      "brand_names": [],
+      "drug_class": "P-selectin inhibitor",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "Montelukast": {
+      "brand_names": [],
+      "drug_class": "leukotriene receptor antagonist",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "potassium_supplements": {
+      "brand_names": [],
+      "drug_class": "electrolyte supplement",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "contrast_dye": {
+      "brand_names": [],
+      "drug_class": "radiographic contrast agent",
+      "standard_doses": [],
+      "contraindications": [],
+      "alternatives": []
+    },
+    "nsaids": {
+      "brand_names": [],
+      "drug_class": "nonsteroidal anti-inflammatory drug (NSAID class)",
+      "standard_doses": [],
+      "contraindications": ["chronic kidney disease", "heart failure", "peptic ulcer"],
+      "alternatives": []
+    }
+  },
+  "interactions": [
+    {
+      "drug1": "warfarin",
+      "drug2": "aspirin",
+      "severity": "critical",
+      "mechanism": "Synergistic anticoagulant effect + antiplatelet",
+      "clinical_effect": "Major bleeding risk",
+      "management": "Avoid combination; if needed, monitor INR closely"
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "nsaids",
+      "severity": "critical",
+      "mechanism": "NSAIDs displace warfarin from protein binding + GI bleeding risk",
+      "clinical_effect": "Increased INR and bleeding",
+      "management": "Avoid NSAIDs; use acetaminophen for pain"
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "metronidazole",
+      "severity": "major",
+      "mechanism": "CYP2C9 inhibition increases warfarin effect",
+      "clinical_effect": "Elevated INR, bleeding risk",
+      "management": "Monitor INR closely; reduce warfarin dose by 25-50%"
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "spironolactone",
+      "severity": "major",
+      "mechanism": "Both retain potassium",
+      "clinical_effect": "Hyperkalemia risk",
+      "management": "Monitor potassium closely; avoid in CKD"
+    },
+    {
+      "drug1": "losartan",
+      "drug2": "spironolactone",
+      "severity": "major",
+      "mechanism": "Both retain potassium",
+      "clinical_effect": "Hyperkalemia risk",
+      "management": "Monitor potassium closely"
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "potassium_supplements",
+      "severity": "major",
+      "mechanism": "Additive potassium retention",
+      "clinical_effect": "Severe hyperkalemia",
+      "management": "Avoid potassium supplements with ACEi/ARB"
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "contrast_dye",
+      "severity": "critical",
+      "mechanism": "Contrast-induced nephropathy + metformin accumulation",
+      "clinical_effect": "Lactic acidosis risk",
+      "management": "Stop metformin 48h before and after contrast; check creatinine"
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "clarithromycin",
+      "severity": "major",
+      "mechanism": "CYP3A4 inhibition increases statin levels",
+      "clinical_effect": "Rhabdomyolysis risk",
+      "management": "Use azithromycin instead or pause statin"
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "amlodipine",
+      "severity": "moderate",
+      "mechanism": "CYP3A4 inhibition increases simvastatin levels",
+      "clinical_effect": "Increased myopathy risk",
+      "management": "Limit simvastatin to 20mg/day with amlodipine"
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "gemfibrozil",
+      "severity": "major",
+      "mechanism": "Both affect muscle metabolism",
+      "clinical_effect": "Rhabdomyolysis risk",
+      "management": "Avoid combination; use fenofibrate instead"
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "tramadol",
+      "severity": "major",
+      "mechanism": "Both increase serotonin",
+      "clinical_effect": "Serotonin syndrome risk",
+      "management": "Avoid combination; use alternative analgesic"
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "sumatriptan",
+      "severity": "major",
+      "mechanism": "Serotonin syndrome risk",
+      "clinical_effect": "Agitation, hyperthermia, seizures",
+      "management": "Avoid concurrent SSRI + triptan"
+    },
+    {
+      "drug1": "metoprolol",
+      "drug2": "albuterol",
+      "severity": "moderate",
+      "mechanism": "Beta-blockers antagonize beta-agonists",
+      "clinical_effect": "Reduced bronchodilator effect",
+      "management": "Use cardioselective beta-blocker; monitor asthma"
+    },
+    {
+      "drug1": "insulin",
+      "drug2": "alcohol",
+      "severity": "major",
+      "mechanism": "Alcohol inhibits gluconeogenesis",
+      "clinical_effect": "Hypoglycemia risk",
+      "management": "Warn patient about alcohol with insulin"
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "theophylline",
+      "severity": "major",
+      "mechanism": "CYP1A2 inhibition increases theophylline levels",
+      "clinical_effect": "Theophylline toxicity",
+      "management": "Reduce theophylline dose by 50%; monitor levels"
+    },
+    {
+      "drug1": "furosemide",
+      "drug2": "digoxin",
+      "severity": "major",
+      "mechanism": "Hypokalemia from furosemide potentiates digoxin toxicity",
+      "clinical_effect": "Digoxin toxicity (arrhythmias)",
+      "management": "Maintain potassium > 4.0; monitor digoxin levels"
+    },
+    {
+      "drug1": "clopidogrel",
+      "drug2": "omeprazole",
+      "severity": "major",
+      "mechanism": "CYP2C19 inhibition reduces clopidogrel activation",
+      "clinical_effect": "Reduced antiplatelet effect",
+      "management": "Use pantoprazole instead of omeprazole"
+    }
+  ],
+  "contraindications": [
+    {
+      "drug": "lisinopril",
+      "condition": "pregnancy",
+      "severity": "critical",
+      "reason": "ACE inhibitors cause fetal renal agenesis and death",
+      "alternative": "methyldopa or labetalol"
+    },
+    {
+      "drug": "losartan",
+      "condition": "pregnancy",
+      "severity": "critical",
+      "reason": "ARBs cause fetal toxicity",
+      "alternative": "methyldopa or labetalol"
+    },
+    {
+      "drug": "warfarin",
+      "condition": "pregnancy",
+      "severity": "critical",
+      "reason": "Teratogenic \u2014 causes warfarin embryopathy",
+      "alternative": "heparin/enoxaparin"
+    },
+    {
+      "drug": "statins",
+      "condition": "pregnancy",
+      "severity": "critical",
+      "reason": "Teratogenic \u2014 affects cholesterol synthesis in fetus",
+      "alternative": "bile acid sequestrants if needed"
+    },
+    {
+      "drug": "methotrexate",
+      "condition": "pregnancy",
+      "severity": "critical",
+      "reason": "Highly teratogenic and abortifacient",
+      "alternative": "Avoid all methotrexate in pregnancy"
+    },
+    {
+      "drug": "nsaids",
+      "condition": "chronic kidney disease",
+      "severity": "major",
+      "reason": "NSAIDs reduce renal blood flow, worsen CKD",
+      "alternative": "acetaminophen for pain"
+    },
+    {
+      "drug": "metformin",
+      "condition": "severe kidney disease",
+      "severity": "critical",
+      "reason": "Metformin accumulates in renal failure \u2192 lactic acidosis",
+      "alternative": "insulin or sulfonylurea; metformin OK if eGFR > 30"
+    },
+    {
+      "drug": "gentamicin",
+      "condition": "chronic kidney disease",
+      "severity": "major",
+      "reason": "Nephrotoxic antibiotic, worsens existing CKD",
+      "alternative": "dose-adjusted alternative antibiotic"
+    },
+    {
+      "drug": "acetaminophen",
+      "condition": "severe liver disease",
+      "severity": "major",
+      "reason": "Hepatotoxic in high doses; reduced metabolism in liver disease",
+      "alternative": "NSAIDs at low dose if liver disease is mild; limit acetaminophen to 2g/day"
+    },
+    {
+      "drug": "methotrexate",
+      "condition": "liver disease",
+      "severity": "critical",
+      "reason": "Hepatotoxic; worsens existing liver damage",
+      "alternative": "Alternative DMARD for rheumatoid arthritis"
+    },
+    {
+      "drug": "propranolol",
+      "condition": "asthma",
+      "severity": "critical",
+      "reason": "Non-selective beta-blocker causes bronchospasm",
+      "alternative": "cardioselective beta-blocker (metoprolol) with caution"
+    },
+    {
+      "drug": "aspirin",
+      "condition": "asthma",
+      "severity": "moderate",
+      "reason": "Samter triad \u2014 aspirin-exacerbated respiratory disease",
+      "alternative": "Use acetaminophen; avoid NSAIDs in known AERD"
+    },
+    {
+      "drug": "verapamil",
+      "condition": "heart failure",
+      "severity": "major",
+      "reason": "Negative inotrope worsens heart failure",
+      "alternative": "beta-blocker (carvedilol) if indicated"
+    },
+    {
+      "drug": "nsaids",
+      "condition": "heart failure",
+      "severity": "major",
+      "reason": "Fluid retention worsens heart failure",
+      "alternative": "acetaminophen"
+    },
+    {
+      "drug": "pioglitazone",
+      "condition": "heart failure",
+      "severity": "major",
+      "reason": "Thiazolidinediones cause fluid retention",
+      "alternative": "metformin or other diabetes medication"
+    },
+    {
+      "drug": "nsaids",
+      "condition": "peptic ulcer",
+      "severity": "critical",
+      "reason": "GI bleeding risk with history of ulcers",
+      "alternative": "acetaminophen + PPI if NSAID essential"
+    },
+    {
+      "drug": "clopidogrel",
+      "condition": "active_bleeding",
+      "severity": "critical",
+      "reason": "Antiplatelet worsens active bleeding",
+      "alternative": "Stop until bleeding controlled"
+    },
+    {
+      "drug": "primaquine",
+      "condition": "g6pd_deficiency",
+      "severity": "critical",
+      "reason": "Causes hemolytic anemia in G6PD deficiency",
+      "alternative": "Alternative antimalarial"
+    },
+    {
+      "drug": "dapsone",
+      "condition": "g6pd_deficiency",
+      "severity": "critical",
+      "reason": "Hemolytic anemia risk",
+      "alternative": "Alternative antibiotic"
+    },
+    {
+      "drug": "dehydration_agents",
+      "condition": "sickle cell anemia",
+      "severity": "major",
+      "reason": "Dehydration triggers vaso-occlusive crisis",
+      "alternative": "Ensure adequate hydration"
+    }
+  ],
+  "allergy_cross_reactivity": [
+    {
+      "allergen": "penicillin",
+      "cross_reactive_drugs": ["amoxicillin", "ampicillin", "augmentin", "penicillin v", "piperacillin"],
+      "probability": 0.95,
+      "mechanism": "Same beta-lactam ring structure"
+    },
+    {
+      "allergen": "penicillin",
+      "cross_reactive_drugs": ["cefazolin", "cefdinir", "cefpodoxime", "celexime", "ceftriaxone"],
+      "probability": 0.02,
+      "mechanism": "First/second gen cephalosporins share beta-lactam; cross-reactivity ~2%"
+    },
+    {
+      "allergen": "sulfa_drugs",
+      "cross_reactive_drugs": ["sulfamethoxazole", "sulfonamide", "furosemide", "hydrochlorothiazide"],
+      "probability": 0.10,
+      "mechanism": "Sulfonamide cross-reactivity"
+    },
+    {
+      "allergen": "aspirin",
+      "cross_reactive_drugs": ["ibuprofen", "naproxen", "ketorolac", "diclofenac", "indomethacin"],
+      "probability": 0.70,
+      "mechanism": "NSAID cross-reactivity in aspirin-exacerbated respiratory disease"
+    },
+    {
+      "allergen": "latex",
+      "cross_reactive_drugs": ["avocado", "banana", "kiwi", "chestnut"],
+      "probability": 0.30,
+      "mechanism": "Latex-fruit syndrome \u2014 homologous allergens"
+    },
+    {
+      "allergen": "iodine_contrast",
+      "cross_reactive_drugs": ["iodine", "povidone_iodine"],
+      "probability": 0.05,
+      "mechanism": "Not true allergy \u2014 osmolar reaction; premedicate if needed"
+    }
+  ],
+  "allergy_prevalence": {
+    "penicillin": 0.10,
+    "sulfa drugs": 0.03,
+    "aspirin": 0.05,
+    "nsaid": 0.02,
+    "iodine contrast": 0.04,
+    "latex": 0.01
+  }
+}
