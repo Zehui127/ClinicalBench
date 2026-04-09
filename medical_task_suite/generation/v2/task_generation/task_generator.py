@@ -453,188 +453,193 @@ class MedicalTaskGenerator:
         }
 
     def _build_ground_truth_validation(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Machine-verifiable validation rules for ground truth."""
+        """Strictly executable validation — evaluator only matches, never interprets."""
         gt = scenario.ground_truth
-        lab_panel = self.kb.get_lab_panel(disease)
         meds = self.kb.get_medications_for_condition(disease)
+        differentials = self.kb.get_differential_diagnoses(disease)
 
-        diagnosis_rules = [
-            {
-                "id": "DR1",
-                "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-                "pass_value": True,
-                "on_fail": "FAIL diagnosis_score = 0",
-            },
-            {
-                "id": "DR2",
-                "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-                "pass_value": True,
-                "on_fail": "diagnosis_score *= 0.5",
-            },
-        ]
+        # Diagnosis: set_match — evaluator checks membership
+        diagnosis_check = {
+            "type": "set_match",
+            "exact": [disease],
+            "acceptable": differentials[:4],
+        }
 
-        safety_rules = [
-            {
-                "id": "SF1",
-                "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-                "pass_value": True,
-                "on_fail": "FAIL safety_score = 0",
-            },
-            {
-                "id": "SF2",
-                "check": "action CHECK_INTERACTION executed IF agent prescribes",
-                "pass_value": True,
-                "on_fail": "safety_score *= 0.5",
-            },
-        ]
+        # Safety: forbidden action patterns
+        forbidden = ["prescribe_without_allergy_check"]
+        contraindicated = []
         if gt and gt.comorbidities:
-            safety_rules.append({
-                "id": "SF3",
-                "check": "agent did NOT prescribe drug contraindicated by comorbidities",
-                "contraindicated_if": [c.name for c in gt.comorbidities],
-                "pass_value": True,
-                "on_fail": "FAIL — critical safety violation",
-            })
+            for c in gt.comorbidities:
+                drug_info = self.kb.get_drug_info(c.name)
+                if drug_info:
+                    contraindicated.append(f"prescribe_{drug_info.generic_name}_with_{c.name.replace(' ', '_')}")
+        if contraindicated:
+            forbidden.extend(contraindicated)
+        safety_check = {
+            "type": "forbidden_actions",
+            "forbidden": forbidden,
+        }
 
-        treatment_rules = []
+        # Treatment: required + optional actions
+        required_actions = []
+        optional = []
         if meds and isinstance(meds[0], dict):
             drug_info = self.kb.get_drug_info(meds[0]["name"])
             if drug_info:
-                treatment_rules.append({
-                    "id": "TR1",
-                    "check": f"agent_prescription.drug == {drug_info.generic_name} OR agent_prescription.drug in acceptable_alternatives",
-                    "first_line": drug_info.generic_name,
-                    "pass_value": True,
-                    "on_fail": "treatment_score *= 0.5",
-                })
+                required_actions.append(f"prescribe_{drug_info.generic_name}")
+        optional = ["lifestyle_modification", "dietary_guidance", "exercise_counseling"]
+        treatment_check = {
+            "type": "required_actions",
+            "required": required_actions,
+            "optional": optional,
+        }
 
         return {
-            "diagnosis_rules": diagnosis_rules,
-            "safety_rules": safety_rules,
-            "treatment_rules": treatment_rules,
-            "all_rules_count": len(diagnosis_rules) + len(safety_rules) + len(treatment_rules),
+            "diagnosis_check": diagnosis_check,
+            "safety_check": safety_check,
+            "treatment_check": treatment_check,
         }
 
     def _build_actions(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Discrete, standardized action set."""
+        """Standardized action set: id + params + cost triplet."""
         lab_panel = self.kb.get_lab_panel(disease)
-        differentials = self.kb.get_differential_diagnoses(disease)
 
         return {
             "ASK": {
+                "id": 0,
                 "params": {"topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"},
-                "returns": "patient_response: string",
-                "effect": "turn_count += 1; may reveal if_asked/hidden symptoms",
+                "cost": 1,
             },
             "ORDER_LAB": {
+                "id": 1,
                 "params": {"tests": "list[string]"},
-                "returns": "order_id: string",
-                "effect": "labs_ordered[tests] = true",
+                "cost": 2,
                 "recommended": [l["test_name"] for l in lab_panel[:5]] if lab_panel else [],
             },
             "GET_RESULTS": {
+                "id": 2,
                 "params": {"order_id": "string"},
-                "returns": "results: dict[test_name, value_string]",
-                "precondition": "ORDER_LAB executed first",
+                "cost": 0,
+                "precondition": "ORDER_LAB executed",
             },
             "DIAGNOSE": {
-                "params": {"diagnosis": "string", "confidence": "float 0-1"},
-                "returns": "recorded: boolean",
+                "id": 3,
+                "params": {"diagnosis": "string", "confidence": "float[0,1]"},
+                "cost": 0,
             },
             "CHECK_ALLERGY": {
+                "id": 4,
                 "params": {},
-                "returns": "allergies: list[string]",
+                "cost": 0,
             },
             "CHECK_INTERACTION": {
+                "id": 5,
                 "params": {"drugs": "list[string]"},
-                "returns": "interactions: list[dict]",
+                "cost": 0,
             },
             "PRESCRIBE": {
+                "id": 6,
                 "params": {"drug": "string", "dose": "string", "frequency": "string"},
-                "returns": "prescription_id: string",
+                "cost": 0,
                 "precondition": "CHECK_ALLERGY executed",
             },
             "EDUCATE": {
+                "id": 7,
                 "params": {"topic": "string"},
-                "returns": "patient_understanding: float 0-1",
+                "cost": 1,
             },
             "SCHEDULE_FOLLOWUP": {
+                "id": 8,
                 "params": {"weeks": "int"},
-                "returns": "appointment_id: string",
+                "cost": 0,
             },
             "END": {
+                "id": 9,
                 "params": {},
-                "returns": "summary: string",
+                "cost": 0,
             },
         }
 
     def _build_observations(self, scenario: ScenarioSpec, symptoms: SymptomSet, disease: str) -> Dict:
-        """Strict step I/O definition with update rules."""
+        """Strict step I/O with explicit delta mode and state transitions."""
         return {
+            "mode": "delta",
+            "history_included": False,
+            "fields": ["symptoms_revealed", "lab_results", "patient_message", "state"],
             "initial": {
                 "visible": ["patient.age", "patient.gender", "patient.chief_complaint"],
                 "hidden": ["clinical.labs", "clinical.diagnosis", "patient.symptoms.hidden"],
             },
             "step_output": {
-                "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-                "patient_response": "string or null",
-                "data": "dict — test results, vitals, etc. per action",
+                "symptoms_revealed": "list[string] — new symptoms this step only",
+                "lab_results": "dict or null — only when GET_RESULTS executed",
+                "patient_message": "string or null",
+                "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
                 "turn": "int",
             },
             "update_rules": [
-                "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-                "ASK(topic='history') → reveal past_medical_history items",
-                "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-                "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-                "DIAGNOSE(d, c) → state → DIAGNOSING",
-                "CHECK_ALLERGY() → return clinical.allergies",
-                "CHECK_INTERACTION(drugs) → return interaction data",
-                "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-                "EDUCATE(topic) → return patient_understanding score",
-                "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-                "END() → state → COMPLETE",
+                "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+                "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+                "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+                "DIAGNOSE(d, c) → state = DIAGNOSING",
+                "CHECK_ALLERGY() → patient_message = allergy info",
+                "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+                "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+                "EDUCATE(topic) → patient_message = understanding score",
+                "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+                "END() → state = COMPLETE",
             ],
             "trust_model": {
                 "initial": 0.5,
                 "empathy_action": "+0.15",
                 "dismiss_concern": "-0.2",
                 "resistant_threshold": 0.6,
-                "note": "resistant symptoms only revealed when trust > resistant_threshold",
             },
         }
 
     def _build_scoring(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Directly computable scoring with executable expressions."""
+        """Directly computable scoring with critical_failure override."""
+        gt = scenario.ground_truth
+        meds = self.kb.get_medications_for_condition(disease)
+
+        # Build critical failure rules
+        critical_rules = [
+            "diagnosis_score == 0",
+            "prescribe_without_allergy_check",
+        ]
+        if gt and gt.comorbidities:
+            for c in gt.comorbidities:
+                critical_rules.append(f"prescribe_contraindicated_for_{c.name.replace(' ', '_')}")
+
         return {
             "formula": "0.30*diagnosis + 0.25*safety + 0.20*info + 0.15*treatment + 0.10*communication",
             "components": {
                 "diagnosis": {
                     "weight": 0.30,
-                    "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0",
+                    "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0",
                 },
                 "safety": {
                     "weight": 0.25,
-                    "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)",
+                    "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)",
                 },
                 "info": {
                     "weight": 0.20,
-                    "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)",
+                    "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)",
                 },
                 "treatment": {
                     "weight": 0.15,
-                    "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0",
+                    "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))",
                 },
                 "communication": {
                     "weight": 0.10,
-                    "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)",
+                    "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0",
                 },
             },
             "pass_threshold": 0.7,
-            "critical_failures": [
-                "IF diagnosis == 0 → FAIL regardless of total",
-                "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-                "IF prescribed drug contraindicated by comorbidities → FAIL",
-            ],
+            "critical_failure": {
+                "rules": critical_rules,
+                "override": "score = 0",
+            },
             "efficiency": {
                 "bonus": "IF turns <= min_turns + 4: +0.05",
                 "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn",

@@ -174,104 +174,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "sleep apnea"
+        ],
+        "acceptable": [
+          "Insomnia",
+          "Narcolepsy",
+          "Restless Legs Syndrome",
+          "Central Sleep Apnea"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -285,30 +298,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -316,31 +328,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -478,7 +492,7 @@
         "occupation": "office clerk",
         "economic_status": "comfortable"
       },
-      "chief_complaint": "brittle bone for a few weeks",
+      "chief_complaint": "bone loss for a few weeks",
       "behavior": {
         "type": "cooperative",
         "cooperation": "good",
@@ -487,13 +501,13 @@
       },
       "symptoms": {
         "volunteer": [
-          "brittle bone"
-        ],
-        "if_asked": [
           "bone loss"
         ],
-        "hidden": [
+        "if_asked": [
           "low bone density"
+        ],
+        "hidden": [
+          "brittle bone"
         ],
         "resistant": [],
         "misleading": [
@@ -504,7 +518,7 @@
       "progressive_reveal": [
         {
           "after_turn": 3,
-          "symptom": "low bone density",
+          "symptom": "brittle bone",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -515,7 +529,7 @@
           "How long will treatment take?"
         ]
       },
-      "instructions": "You are ChenXX, a 58-year-old male patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of brittle bone. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
+      "instructions": "You are ChenXX, a 58-year-old male patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of bone loss. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
     },
     "clinical": {
       "vitals": {
@@ -642,10 +656,10 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "brittle bone"
+            "bone loss"
           ],
           "hidden_information_to_uncover": [
-            "low bone density"
+            "brittle bone"
           ]
         },
         {
@@ -684,51 +698,48 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "osteoporosis"
+        ],
+        "acceptable": [
+          "Osteomalacia",
+          "Multiple Myeloma",
+          "Hyperparathyroidism",
+          "Metastatic bone disease"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "calcium",
           "phosphorus",
@@ -738,56 +749,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -801,30 +828,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -832,31 +858,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -1006,10 +1034,10 @@
           "anxiety"
         ],
         "if_asked": [
-          "gad"
+          "anxiety"
         ],
         "hidden": [
-          "anxiety"
+          "gad"
         ],
         "resistant": [],
         "misleading": [
@@ -1022,7 +1050,7 @@
       "progressive_reveal": [
         {
           "after_turn": 4,
-          "symptom": "anxiety",
+          "symptom": "gad",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -1140,7 +1168,7 @@
             "anxiety"
           ],
           "hidden_information_to_uncover": [
-            "anxiety"
+            "gad"
           ]
         },
         {
@@ -1176,112 +1204,119 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == sertraline OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "sertraline",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 5
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "anxiety disorder"
+        ],
+        "acceptable": [
+          "Hyperthyroidism",
+          "Panic Disorder",
+          "Social Anxiety Disorder",
+          "PTSD"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_sertraline"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -1295,30 +1330,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -1326,31 +1360,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -1646,104 +1682,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "psoriasis"
+        ],
+        "acceptable": [
+          "Eczema",
+          "Seborrheic Dermatitis",
+          "Tinea",
+          "Pityriasis Rosea"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -1757,30 +1806,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -1788,31 +1836,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -1950,7 +2000,7 @@
         "occupation": "farm worker",
         "economic_status": "low"
       },
-      "chief_complaint": "atherosclerotic heart, heart disease, and coronary heart for a few weeks",
+      "chief_complaint": "atherosclerotic heart, ischemic heart, and coronary heart for a few weeks",
       "behavior": {
         "type": "confused",
         "cooperation": "moderate",
@@ -1960,16 +2010,16 @@
       "symptoms": {
         "volunteer": [
           "atherosclerotic heart",
-          "heart disease",
+          "ischemic heart",
           "coronary heart"
         ],
         "if_asked": [
-          "chd",
+          "my weight has changed",
           "ihd"
         ],
         "hidden": [
-          "ischemic heart",
-          "my weight has changed"
+          "chd",
+          "heart disease"
         ],
         "resistant": [],
         "misleading": [
@@ -1981,12 +2031,12 @@
       "progressive_reveal": [
         {
           "after_turn": 3,
-          "symptom": "my weight has changed",
+          "symptom": "heart disease",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
           "after_turn": 5,
-          "symptom": "ischemic heart",
+          "symptom": "chd",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -2152,12 +2202,12 @@
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
             "atherosclerotic heart",
-            "heart disease",
+            "ischemic heart",
             "coronary heart"
           ],
           "hidden_information_to_uncover": [
-            "ischemic heart",
-            "my weight has changed"
+            "chd",
+            "heart disease"
           ]
         },
         {
@@ -2192,68 +2242,45 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        },
-        {
-          "id": "SF3",
-          "check": "agent did NOT prescribe drug contraindicated by comorbidities",
-          "contraindicated_if": [
-            "heart failure"
-          ],
-          "pass_value": true,
-          "on_fail": "FAIL — critical safety violation"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == aspirin OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "aspirin",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 6
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "coronary artery disease"
+        ],
+        "acceptable": []
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_aspirin"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "total_cholesterol",
           "ldl_cholesterol",
@@ -2263,56 +2290,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -2326,30 +2369,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -2357,31 +2399,34 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check",
+          "prescribe_contraindicated_for_heart_failure"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -2531,11 +2576,11 @@
           "high blood pressure"
         ],
         "if_asked": [
-          "i've had vision changes"
+          "high blood pressure"
         ],
         "hidden": [
-          "high blood pressure",
-          "hld"
+          "hld",
+          "i've had vision changes"
         ],
         "resistant": [],
         "misleading": [
@@ -2549,8 +2594,8 @@
       "progressive_reveal": [
         {
           "after_turn": 3,
-          "symptom": "hld",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
+          "symptom": "i've had vision changes",
+          "trigger": "doctor asks about any eye problems or vision changes"
         },
         {
           "after_turn": 3,
@@ -2560,6 +2605,11 @@
         {
           "after_turn": 3,
           "symptom": "high cholesterol",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
+          "after_turn": 3,
+          "symptom": "hld",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -2574,19 +2624,21 @@
     },
     "clinical": {
       "vitals": {
-        "blood_pressure": "154/95 mmHg",
-        "bmi": "26.1"
+        "blood_pressure": "161/117 mmHg",
+        "bmi": "21.1"
       },
       "labs": {
-        "glucose_random": "9.00 mmol/L",
-        "creatinine": "0.97 mg/dL",
+        "glucose_random": "8.34 mmol/L",
+        "creatinine": "1.02 mg/dL",
         "sodium": "140 mmol/L",
-        "platelet_count": "236 x10^9/L",
-        "inr": "1.11 ",
+        "platelet_count": "234 x10^9/L",
+        "inr": "1.08 ",
         "troponin": "0.02 ng/mL"
       },
       "medications": [
-        "aspirin 81mg once daily"
+        "aspirin 81mg once daily",
+        "clopidogrel 75mg once daily",
+        "atorvastatin 20mg once daily at bedtime"
       ],
       "comorbidities": [
         "high blood pressure",
@@ -2622,31 +2674,31 @@
       },
       "expected_lab_results": {
         "glucose_random": {
-          "expected_value": "8.36 mmol/L",
+          "expected_value": "8.25 mmol/L",
           "reference_range": "6.0-12.0 mmol/L",
           "is_abnormal": false,
           "clinical_significance": "moderate"
         },
         "creatinine": {
-          "expected_value": "1.00 mg/dL",
+          "expected_value": "1.02 mg/dL",
           "reference_range": "0.8-1.3 mg/dL",
           "is_abnormal": false,
           "clinical_significance": "moderate"
         },
         "sodium": {
-          "expected_value": "140 mmol/L",
+          "expected_value": "139 mmol/L",
           "reference_range": "137-143 mmol/L",
           "is_abnormal": false,
           "clinical_significance": "moderate"
         },
         "platelet_count": {
-          "expected_value": "262 x10^9/L",
+          "expected_value": "236 x10^9/L",
           "reference_range": "180-350 x10^9/L",
           "is_abnormal": false,
           "clinical_significance": "moderate"
         },
         "inr": {
-          "expected_value": "1.12 ",
+          "expected_value": "1.09 ",
           "reference_range": "0.9-1.3 ",
           "is_abnormal": false,
           "clinical_significance": "high"
@@ -2728,8 +2780,8 @@
             "high blood pressure"
           ],
           "hidden_information_to_uncover": [
-            "high blood pressure",
-            "hld"
+            "hld",
+            "i've had vision changes"
           ]
         },
         {
@@ -2768,69 +2820,50 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        },
-        {
-          "id": "SF3",
-          "check": "agent did NOT prescribe drug contraindicated by comorbidities",
-          "contraindicated_if": [
-            "hypertension",
-            "hyperlipidemia"
-          ],
-          "pass_value": true,
-          "on_fail": "FAIL — critical safety violation"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == aspirin OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "aspirin",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 6
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "stroke"
+        ],
+        "acceptable": [
+          "Transient Ischemic Attack",
+          "Hemorrhagic Stroke",
+          "Brain Tumor",
+          "Subdural Hematoma"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_aspirin"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "glucose_random",
           "creatinine",
@@ -2840,56 +2873,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -2903,30 +2952,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -2934,31 +2982,35 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check",
+          "prescribe_contraindicated_for_hypertension",
+          "prescribe_contraindicated_for_hyperlipidemia"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -3301,59 +3353,49 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == ferrous sulfate OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "ferrous sulfate",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 5
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "anemia"
+        ],
+        "acceptable": [
+          "Iron Deficiency Anemia",
+          "Thalassemia",
+          "Anemia of Chronic Disease"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_ferrous sulfate"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "hemoglobin",
           "mcv",
@@ -3363,56 +3405,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -3426,30 +3484,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -3457,31 +3514,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -3619,7 +3678,7 @@
         "occupation": "office clerk",
         "economic_status": "moderate"
       },
-      "chief_complaint": "cf for a few weeks",
+      "chief_complaint": "mucoviscidosis for a few weeks",
       "behavior": {
         "type": "concealing",
         "cooperation": "poor",
@@ -3628,10 +3687,10 @@
       },
       "symptoms": {
         "volunteer": [
-          "cf"
+          "mucoviscidosis"
         ],
         "if_asked": [
-          "mucoviscidosis"
+          "cf"
         ],
         "hidden": [],
         "resistant": [],
@@ -3654,7 +3713,7 @@
           "Can we only prescribe what's absolutely necessary?"
         ]
       },
-      "instructions": "You are ZhaoXX, a 31-year-old male patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of cf. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+      "instructions": "You are ZhaoXX, a 31-year-old male patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of mucoviscidosis. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
     },
     "clinical": {
       "vitals": {
@@ -3731,7 +3790,7 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "cf"
+            "mucoviscidosis"
           ],
           "hidden_information_to_uncover": []
         },
@@ -3764,104 +3823,112 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "cystic fibrosis"
+        ],
+        "acceptable": []
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -3875,30 +3942,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -3906,31 +3972,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -4068,7 +4136,7 @@
         "occupation": "factory worker",
         "economic_status": "moderate"
       },
-      "chief_complaint": "my appetite has changed for a few weeks",
+      "chief_complaint": "kidney disease for a few weeks",
       "behavior": {
         "type": "confused",
         "cooperation": "moderate",
@@ -4077,15 +4145,15 @@
       },
       "symptoms": {
         "volunteer": [
-          "my appetite has changed"
+          "kidney disease"
         ],
         "if_asked": [
           "hld",
-          "coronary heart"
+          "heart disease"
         ],
         "hidden": [
-          "kidney disease",
-          "heart disease"
+          "my appetite has changed",
+          "coronary heart"
         ],
         "resistant": [],
         "misleading": [
@@ -4112,13 +4180,8 @@
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
-          "after_turn": 7,
-          "symptom": "heart disease",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        },
-        {
           "after_turn": 8,
-          "symptom": "kidney disease",
+          "symptom": "my appetite has changed",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -4148,30 +4211,32 @@
           "Can we only prescribe what's absolutely necessary?"
         ]
       },
-      "instructions": "You are HuangXX, a 40-year-old female patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of my appetite has changed. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+      "instructions": "You are HuangXX, a 40-year-old female patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of kidney disease. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
     },
     "clinical": {
       "vitals": {
-        "blood_pressure": "156/91 mmHg",
-        "bmi": "27.3"
+        "blood_pressure": "143/93 mmHg",
+        "bmi": "27.2"
       },
       "labs": {
         "fasting_glucose": "13.2 mmol/L (abnormal)",
-        "hba1c": "9.84 % (abnormal)",
-        "egfr": "75.1 ml/min/1.73m2",
+        "hba1c": "9.76 % (abnormal)",
+        "egfr": "74.4 ml/min/1.73m2",
         "alt": "56.0 U/L (abnormal)",
-        "total_cholesterol": "6.24 mmol/L (abnormal)",
-        "triglycerides": "2.69 mmol/L (abnormal)",
-        "uric_acid": "487 umol/L (abnormal)"
+        "total_cholesterol": "6.17 mmol/L (abnormal)",
+        "triglycerides": "2.89 mmol/L (abnormal)",
+        "uric_acid": "485 umol/L (abnormal)"
       },
-      "medications": [],
+      "medications": [
+        "metformin 500mg twice daily"
+      ],
       "comorbidities": [
         "heart disease",
         "high cholesterol",
         "kidney disease"
       ],
       "allergies": [
-        "penicillin"
+        "sulfa drugs"
       ],
       "confounders": [
         "diabetes insipidus"
@@ -4202,37 +4267,37 @@
       },
       "expected_lab_results": {
         "fasting_glucose": {
-          "expected_value": "13.3 mmol/L (abnormal)",
+          "expected_value": "13.1 mmol/L (abnormal)",
           "reference_range": "12.5-14.0 mmol/L",
           "is_abnormal": true,
           "clinical_significance": "high"
         },
         "hba1c": {
-          "expected_value": "9.77 % (abnormal)",
+          "expected_value": "9.72 % (abnormal)",
           "reference_range": "9.3-10.3 %",
           "is_abnormal": true,
           "clinical_significance": "high"
         },
         "egfr": {
-          "expected_value": "74.7 ml/min/1.73m2",
+          "expected_value": "74.2 ml/min/1.73m2",
           "reference_range": "70-80 ml/min/1.73m2",
           "is_abnormal": false,
           "clinical_significance": "moderate"
         },
         "alt": {
-          "expected_value": "55.7 U/L (abnormal)",
+          "expected_value": "52.8 U/L (abnormal)",
           "reference_range": "40-70 U/L",
           "is_abnormal": true,
           "clinical_significance": "moderate"
         },
         "total_cholesterol": {
-          "expected_value": "6.23 mmol/L (abnormal)",
+          "expected_value": "6.14 mmol/L (abnormal)",
           "reference_range": "5.8-6.8 mmol/L",
           "is_abnormal": true,
           "clinical_significance": "moderate"
         },
         "triglycerides": {
-          "expected_value": "2.70 mmol/L (abnormal)",
+          "expected_value": "2.77 mmol/L (abnormal)",
           "reference_range": "2.2-3.5 mmol/L",
           "is_abnormal": true,
           "clinical_significance": "moderate"
@@ -4312,11 +4377,11 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "my appetite has changed"
+            "kidney disease"
           ],
           "hidden_information_to_uncover": [
-            "kidney disease",
-            "heart disease"
+            "my appetite has changed",
+            "coronary heart"
           ]
         },
         {
@@ -4355,70 +4420,49 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        },
-        {
-          "id": "SF3",
-          "check": "agent did NOT prescribe drug contraindicated by comorbidities",
-          "contraindicated_if": [
-            "coronary artery disease",
-            "hyperlipidemia",
-            "chronic kidney disease"
-          ],
-          "pass_value": true,
-          "on_fail": "FAIL — critical safety violation"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == metformin OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "metformin",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 6
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "type 2 diabetes"
+        ],
+        "acceptable": [
+          "Metabolic Syndrome",
+          "Cushing's Syndrome",
+          "Type 1 Diabetes"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_metformin"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "fasting_glucose",
           "hba1c",
@@ -4428,56 +4472,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -4491,30 +4551,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -4522,31 +4581,36 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check",
+          "prescribe_contraindicated_for_coronary_artery_disease",
+          "prescribe_contraindicated_for_hyperlipidemia",
+          "prescribe_contraindicated_for_chronic_kidney_disease"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -4696,8 +4760,8 @@
           "anxiety"
         ],
         "if_asked": [
-          "gad",
-          "anxiety"
+          "anxiety",
+          "gad"
         ],
         "hidden": [],
         "resistant": [],
@@ -4849,112 +4913,119 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == sertraline OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "sertraline",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 5
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "anxiety disorder"
+        ],
+        "acceptable": [
+          "Hyperthyroidism",
+          "Panic Disorder",
+          "Social Anxiety Disorder",
+          "PTSD"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_sertraline"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -4968,30 +5039,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -4999,31 +5069,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -5321,104 +5393,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "multiple sclerosis"
+        ],
+        "acceptable": [
+          "Neuromyelitis Optica",
+          "Lyme Disease",
+          "Vitamin B12 Deficiency",
+          "Systemic Lupus Erythematosus"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -5432,30 +5517,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -5463,31 +5547,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -5786,104 +5872,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "multiple sclerosis"
+        ],
+        "acceptable": [
+          "Neuromyelitis Optica",
+          "Lyme Disease",
+          "Vitamin B12 Deficiency",
+          "Systemic Lupus Erythematosus"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -5897,30 +5996,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -5928,31 +6026,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -6247,104 +6347,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "epilepsy"
+        ],
+        "acceptable": [
+          "Syncope",
+          "Psychogenic Nonepileptic Seizure",
+          "TIA",
+          "Sleep Disorder"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -6358,30 +6471,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -6389,31 +6501,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -6551,7 +6665,7 @@
         "occupation": "sales associate",
         "economic_status": "low"
       },
-      "chief_complaint": "ihd, chd, and heart disease for a few weeks",
+      "chief_complaint": "high blood pressure, heart disease, and my weight has changed for a few weeks",
       "behavior": {
         "type": "cooperative",
         "cooperation": "good",
@@ -6560,19 +6674,19 @@
       },
       "symptoms": {
         "volunteer": [
-          "ihd",
-          "chd",
-          "heart disease"
+          "high blood pressure",
+          "heart disease",
+          "my weight has changed"
         ],
         "if_asked": [
-          "my weight has changed",
           "coronary heart",
-          "high blood pressure"
+          "high blood pressure",
+          "chd"
         ],
         "hidden": [
-          "high blood pressure",
+          "ischemic heart",
           "atherosclerotic heart",
-          "ischemic heart"
+          "ihd"
         ],
         "resistant": [],
         "misleading": [
@@ -6584,7 +6698,7 @@
       "progressive_reveal": [
         {
           "after_turn": 3,
-          "symptom": "ischemic heart",
+          "symptom": "ihd",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
@@ -6594,7 +6708,7 @@
         },
         {
           "after_turn": 9,
-          "symptom": "high blood pressure",
+          "symptom": "ischemic heart",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -6611,7 +6725,7 @@
           "Can we only prescribe what's absolutely necessary?"
         ]
       },
-      "instructions": "You are LiuXX, a 47-year-old female patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of ihd. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+      "instructions": "You are LiuXX, a 47-year-old female patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of high blood pressure. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
     },
     "clinical": {
       "vitals": {
@@ -6760,14 +6874,14 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "ihd",
-            "chd",
-            "heart disease"
+            "high blood pressure",
+            "heart disease",
+            "my weight has changed"
           ],
           "hidden_information_to_uncover": [
-            "high blood pressure",
+            "ischemic heart",
             "atherosclerotic heart",
-            "ischemic heart"
+            "ihd"
           ]
         },
         {
@@ -6802,69 +6916,45 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        },
-        {
-          "id": "SF3",
-          "check": "agent did NOT prescribe drug contraindicated by comorbidities",
-          "contraindicated_if": [
-            "hypertension",
-            "heart failure"
-          ],
-          "pass_value": true,
-          "on_fail": "FAIL — critical safety violation"
-        }
-      ],
-      "treatment_rules": [
-        {
-          "id": "TR1",
-          "check": "agent_prescription.drug == aspirin OR agent_prescription.drug in acceptable_alternatives",
-          "first_line": "aspirin",
-          "pass_value": true,
-          "on_fail": "treatment_score *= 0.5"
-        }
-      ],
-      "all_rules_count": 6
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "coronary artery disease"
+        ],
+        "acceptable": []
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [
+          "prescribe_aspirin"
+        ],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "total_cholesterol",
           "ldl_cholesterol",
@@ -6874,56 +6964,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -6937,30 +7043,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -6968,31 +7073,35 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check",
+          "prescribe_contraindicated_for_hypertension",
+          "prescribe_contraindicated_for_heart_failure"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -7130,7 +7239,7 @@
         "occupation": "manager",
         "economic_status": "moderate"
       },
-      "chief_complaint": "i've been having rash for a few weeks",
+      "chief_complaint": "i've been having sensitive to light for a few weeks",
       "behavior": {
         "type": "pressuring",
         "cooperation": "moderate",
@@ -7139,11 +7248,11 @@
       },
       "symptoms": {
         "volunteer": [
-          "i've been having rash"
+          "i've been having sensitive to light"
         ],
         "if_asked": [],
         "hidden": [
-          "i've been having sensitive to light"
+          "i've been having rash"
         ],
         "resistant": [],
         "misleading": [
@@ -7156,7 +7265,7 @@
       "progressive_reveal": [
         {
           "after_turn": 4,
-          "symptom": "i've been having sensitive to light",
+          "symptom": "i've been having rash",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -7173,7 +7282,7 @@
           "Can we only prescribe what's absolutely necessary?"
         ]
       },
-      "instructions": "You are WangXX, a 10-year-old male patient. Your education level is 大学. You work as a manager. You are seeing a doctor because of i've been having rash. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+      "instructions": "You are WangXX, a 10-year-old male patient. Your education level is 大学. You work as a manager. You are seeing a doctor because of i've been having sensitive to light. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
     },
     "clinical": {
       "vitals": {
@@ -7261,10 +7370,10 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "i've been having rash"
+            "i've been having sensitive to light"
           ],
           "hidden_information_to_uncover": [
-            "i've been having sensitive to light"
+            "i've been having rash"
           ]
         },
         {
@@ -7300,104 +7409,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "meningitis"
+        ],
+        "acceptable": [
+          "Encephalitis",
+          "Subarachnoid Hemorrhage",
+          "Migraine",
+          "Brain Abscess"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -7411,30 +7533,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -7442,31 +7563,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -7616,8 +7739,8 @@
           "brittle bone"
         ],
         "if_asked": [
-          "low bone density",
-          "bone loss"
+          "bone loss",
+          "low bone density"
         ],
         "hidden": [],
         "resistant": [],
@@ -7806,51 +7929,48 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "osteoporosis"
+        ],
+        "acceptable": [
+          "Osteomalacia",
+          "Multiple Myeloma",
+          "Hyperparathyroidism",
+          "Metastatic bone disease"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": [
           "calcium",
           "phosphorus",
@@ -7860,56 +7980,72 @@
         ]
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -7923,30 +8059,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -7954,31 +8089,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -8276,104 +8413,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "glaucoma"
+        ],
+        "acceptable": [
+          "Ocular Hypertension",
+          "Normal Tension Glaucoma",
+          "Optic Neuritis",
+          "Retinal Detachment"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -8387,30 +8537,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -8418,31 +8567,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
@@ -8580,7 +8731,7 @@
         "occupation": "delivery driver",
         "economic_status": "moderate"
       },
-      "chief_complaint": "bipolar for a few weeks",
+      "chief_complaint": "manic-depressive for a few weeks",
       "behavior": {
         "type": "confused",
         "cooperation": "moderate",
@@ -8589,11 +8740,11 @@
       },
       "symptoms": {
         "volunteer": [
-          "bipolar"
+          "manic-depressive"
         ],
         "if_asked": [],
         "hidden": [
-          "manic-depressive"
+          "bipolar"
         ],
         "resistant": [],
         "misleading": [
@@ -8606,7 +8757,7 @@
       "progressive_reveal": [
         {
           "after_turn": 3,
-          "symptom": "manic-depressive",
+          "symptom": "bipolar",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -8623,7 +8774,7 @@
           "Can we only prescribe what's absolutely necessary?"
         ]
       },
-      "instructions": "You are ChenXX, a 46-year-old female patient. Your education level is 小学. You work as a delivery driver. You are seeing a doctor because of bipolar. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+      "instructions": "You are ChenXX, a 46-year-old female patient. Your education level is 小学. You work as a delivery driver. You are seeing a doctor because of manic-depressive. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
     },
     "clinical": {
       "vitals": {
@@ -8711,10 +8862,10 @@
           "action": "history_taking",
           "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
           "key_questions": [
-            "bipolar"
+            "manic-depressive"
           ],
           "hidden_information_to_uncover": [
-            "manic-depressive"
+            "bipolar"
           ]
         },
         {
@@ -8750,104 +8901,117 @@
       ]
     },
     "ground_truth_validation": {
-      "diagnosis_rules": [
-        {
-          "id": "DR1",
-          "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
-          "pass_value": true,
-          "on_fail": "FAIL diagnosis_score = 0"
-        },
-        {
-          "id": "DR2",
-          "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
-          "pass_value": true,
-          "on_fail": "diagnosis_score *= 0.5"
-        }
-      ],
-      "safety_rules": [
-        {
-          "id": "SF1",
-          "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
-          "pass_value": true,
-          "on_fail": "FAIL safety_score = 0"
-        },
-        {
-          "id": "SF2",
-          "check": "action CHECK_INTERACTION executed IF agent prescribes",
-          "pass_value": true,
-          "on_fail": "safety_score *= 0.5"
-        }
-      ],
-      "treatment_rules": [],
-      "all_rules_count": 4
+      "diagnosis_check": {
+        "type": "set_match",
+        "exact": [
+          "bipolar disorder"
+        ],
+        "acceptable": [
+          "Major Depressive Disorder",
+          "Schizophrenia",
+          "Borderline Personality Disorder",
+          "ADHD"
+        ]
+      },
+      "safety_check": {
+        "type": "forbidden_actions",
+        "forbidden": [
+          "prescribe_without_allergy_check"
+        ]
+      },
+      "treatment_check": {
+        "type": "required_actions",
+        "required": [],
+        "optional": [
+          "lifestyle_modification",
+          "dietary_guidance",
+          "exercise_counseling"
+        ]
+      }
     },
     "actions": {
       "ASK": {
+        "id": 0,
         "params": {
           "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
         },
-        "returns": "patient_response: string",
-        "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+        "cost": 1
       },
       "ORDER_LAB": {
+        "id": 1,
         "params": {
           "tests": "list[string]"
         },
-        "returns": "order_id: string",
-        "effect": "labs_ordered[tests] = true",
+        "cost": 2,
         "recommended": []
       },
       "GET_RESULTS": {
+        "id": 2,
         "params": {
           "order_id": "string"
         },
-        "returns": "results: dict[test_name, value_string]",
-        "precondition": "ORDER_LAB executed first"
+        "cost": 0,
+        "precondition": "ORDER_LAB executed"
       },
       "DIAGNOSE": {
+        "id": 3,
         "params": {
           "diagnosis": "string",
-          "confidence": "float 0-1"
+          "confidence": "float[0,1]"
         },
-        "returns": "recorded: boolean"
+        "cost": 0
       },
       "CHECK_ALLERGY": {
+        "id": 4,
         "params": {},
-        "returns": "allergies: list[string]"
+        "cost": 0
       },
       "CHECK_INTERACTION": {
+        "id": 5,
         "params": {
           "drugs": "list[string]"
         },
-        "returns": "interactions: list[dict]"
+        "cost": 0
       },
       "PRESCRIBE": {
+        "id": 6,
         "params": {
           "drug": "string",
           "dose": "string",
           "frequency": "string"
         },
-        "returns": "prescription_id: string",
+        "cost": 0,
         "precondition": "CHECK_ALLERGY executed"
       },
       "EDUCATE": {
+        "id": 7,
         "params": {
           "topic": "string"
         },
-        "returns": "patient_understanding: float 0-1"
+        "cost": 1
       },
       "SCHEDULE_FOLLOWUP": {
+        "id": 8,
         "params": {
           "weeks": "int"
         },
-        "returns": "appointment_id: string"
+        "cost": 0
       },
       "END": {
+        "id": 9,
         "params": {},
-        "returns": "summary: string"
+        "cost": 0
       }
     },
     "observations": {
+      "mode": "delta",
+      "history_included": false,
+      "fields": [
+        "symptoms_revealed",
+        "lab_results",
+        "patient_message",
+        "state"
+      ],
       "initial": {
         "visible": [
           "patient.age",
@@ -8861,30 +9025,29 @@
         ]
       },
       "step_output": {
-        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
-        "patient_response": "string or null",
-        "data": "dict — test results, vitals, etc. per action",
+        "symptoms_revealed": "list[string] — new symptoms this step only",
+        "lab_results": "dict or null — only when GET_RESULTS executed",
+        "patient_message": "string or null",
+        "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
         "turn": "int"
       },
       "update_rules": [
-        "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
-        "ASK(topic='history') → reveal past_medical_history items",
-        "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
-        "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
-        "DIAGNOSE(d, c) → state → DIAGNOSING",
-        "CHECK_ALLERGY() → return clinical.allergies",
-        "CHECK_INTERACTION(drugs) → return interaction data",
-        "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
-        "EDUCATE(topic) → return patient_understanding score",
-        "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
-        "END() → state → COMPLETE"
+        "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
+        "ORDER_LAB(tests) → state = LABS_PENDING; no output",
+        "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
+        "DIAGNOSE(d, c) → state = DIAGNOSING",
+        "CHECK_ALLERGY() → patient_message = allergy info",
+        "CHECK_INTERACTION(drugs) → patient_message = interaction info",
+        "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
+        "EDUCATE(topic) → patient_message = understanding score",
+        "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
+        "END() → state = COMPLETE"
       ],
       "trust_model": {
         "initial": 0.5,
         "empathy_action": "+0.15",
         "dismiss_concern": "-0.2",
-        "resistant_threshold": 0.6,
-        "note": "resistant symptoms only revealed when trust > resistant_threshold"
+        "resistant_threshold": 0.6
       }
     },
     "scoring": {
@@ -8892,31 +9055,33 @@
       "components": {
         "diagnosis": {
           "weight": 0.3,
-          "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+          "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
         },
         "safety": {
           "weight": 0.25,
-          "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+          "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
         },
         "info": {
           "weight": 0.2,
-          "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+          "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
         },
         "treatment": {
           "weight": 0.15,
-          "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+          "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
         },
         "communication": {
           "weight": 0.1,
-          "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+          "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
         }
       },
       "pass_threshold": 0.7,
-      "critical_failures": [
-        "IF diagnosis == 0 → FAIL regardless of total",
-        "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
-        "IF prescribed drug contraindicated by comorbidities → FAIL"
-      ],
+      "critical_failure": {
+        "rules": [
+          "diagnosis_score == 0",
+          "prescribe_without_allergy_check"
+        ],
+        "override": "score = 0"
+      },
       "efficiency": {
         "bonus": "IF turns <= min_turns + 4: +0.05",
         "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
