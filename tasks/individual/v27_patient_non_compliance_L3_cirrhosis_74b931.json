@@ -1,50 +1,43 @@
 {
-  "id": "v27_conflicting_evidence_L3_gout_092190",
-  "domain": "rheumatology",
-  "task_type": "conflicting_evidence",
+  "id": "v27_patient_non_compliance_L3_cirrhosis_74b931",
+  "domain": "gastroenterology",
+  "task_type": "patient_non_compliance",
   "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "conflicting_evidence — 39-year-old female with I've been having the pain come on suddenly, especially at night for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having the pain come on suddenly, especially at night for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "patient_non_compliance — 58-year-old male with arthritis for a few weeks",
+    "clinical_scenario": "Patient presents with arthritis for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Ability to resolve conflicting data",
-      "Critical appraisal of evidence",
+      "Communication and trust-building",
+      "Addressing patient concerns and misconceptions",
       "Handle complex multi-condition scenario",
       "Manage difficult patient behavior"
     ],
-    "focus": "Resolving conflicting clinical evidence"
+    "focus": "Addressing patient concerns and building treatment adherence"
   },
   "user_scenario": {
-    "persona": "39-year-old female patient, 初中 education, works as a restaurant cook. a patient who may resist tests or treatment presenting with I've been having the pain come on suddenly, especially at night.",
+    "persona": "58-year-old male patient, 初中 education, works as a security guard. a patient who may resist tests or treatment presenting with arthritis.",
     "patient_profile": {
-      "age": 39,
-      "gender": "female",
+      "age": 58,
+      "gender": "male",
       "education_level": "middle_school",
       "communication_style": "resistant",
       "cooperation_level": "poor",
-      "chief_complaint": "i've had these attacks before for a few weeks",
-      "occupation": "restaurant cook"
+      "chief_complaint": "hepatic cirrhosis for a few weeks",
+      "occupation": "security guard"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "i've had these attacks before"
+          "hepatic cirrhosis"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having the pain come on suddenly, especially at night",
-        "current_medications": [
-          "colchicine 0.6mg once or twice daily",
-          "allopurinol 300mg once daily"
-        ]
+        "general_concern": "arthritis"
       },
       "patient_doesnt_know": {
-        "diagnosis": "gout",
-        "uric_acid": "539 umol/L (abnormal)",
-        "crp": "22.0 mg/L (abnormal)",
-        "wbc": "10.5 x10^9/L (abnormal)"
+        "diagnosis": "cirrhosis"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
@@ -62,21 +55,28 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "i've had these attacks before"
+        "hepatic cirrhosis"
       ],
       "share_only_if_asked": [],
+      "hidden_truth": [
+        "liver cirrhosis (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "noise_symptoms": [
-        "mild neck tension"
+        "mild sensitivity to noise"
       ],
       "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "intense pain at night",
-        "joint pain in unusual locations (ankle, knee)",
-        "attacks triggered by dietary changes",
-        "joint pain and swelling (also seen in rheumatoid arthritis and infection)",
-        "redness (also seen in cellulitis)"
+        "red palms"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 5,
+          "symptom": "liver cirrhosis",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
       "response_style": {
         "honest": false,
         "direct": false,
@@ -93,58 +93,51 @@
         "financial_constraints": true
       }
     },
-    "task_instructions": "You are ZhouXX, a 39-year-old female patient. Your education level is 初中. You work as a restaurant cook. You are seeing a doctor because of i've had these attacks before. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are LiuXX, a 58-year-old male patient. Your education level is 初中. You work as a security guard. You are seeing a doctor because of hepatic cirrhosis. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 39,
-    "gender": "female",
+    "age": 58,
+    "gender": "male",
     "symptoms": {
-      "Have you had these attacks before": "I've had these attacks before"
+      "liver cirrhosis": "liver cirrhosis",
+      "hepatic cirrhosis": "hepatic cirrhosis"
     },
     "duration": "a few weeks",
     "severity": "severe",
-    "lab_results": {
-      "uric_acid": "507 umol/L (abnormal)",
-      "crp": "21.8 mg/L (abnormal)",
-      "wbc": "11.4 x10^9/L (abnormal)",
-      "creatinine": "1.08 mg/dL",
-      "alt": "34.7 U/L"
-    },
     "vital_signs": {
-      "blood_pressure": "131/75 mmHg",
-      "bmi": "21.2"
+      "blood_pressure": "123/89 mmHg",
+      "bmi": "25.7"
     },
     "lifestyle_factors": {
-      "alcohol": "moderate (3-4 drinks/week)",
-      "exercise": "moderate 3x/week"
+      "alcohol": "social drinking only",
+      "exercise": "light activity 1-2x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "restaurant cook",
+      "occupation": "security guard",
       "monthly_income": "about 5000-8000 yuan/month",
       "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "diagnosis": {
-      "primary": "gout",
+      "primary": "cirrhosis",
       "severity": "severe",
       "differential_diagnoses": [
-        "Pseudogout",
-        "Septic Arthritis",
-        "Rheumatoid Arthritis",
-        "Cellulitis"
+        "Budd-Chiari Syndrome",
+        "Metastatic Liver Disease",
+        "Viral Hepatitis"
       ]
     }
   },
-  "ticket": "i've had these attacks before",
+  "ticket": "hepatic cirrhosis",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhouXX",
-          "mrn": "MRN391750",
-          "age": 39,
-          "gender": "female"
+          "name": "LiuXX",
+          "mrn": "MRN137725",
+          "age": 58,
+          "gender": "male"
         }
       },
       {
@@ -152,17 +145,17 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 39,
-            "gender": "female",
+            "age": 58,
+            "gender": "male",
             "symptoms": [
-              "i've had these attacks before"
+              "hepatic cirrhosis"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "i've had these attacks before"
+              "hepatic cirrhosis"
             ],
             "ask_only": []
           },
@@ -185,49 +178,28 @@
         }
       },
       {
-        "action_id": "use_order_lab_tests",
+        "action_id": "use_health_education",
         "requestor": "assistant",
-        "name": "order_lab_tests",
+        "name": "health_education",
         "arguments": {
-          "tests": [
-            "uric_acid",
-            "crp",
-            "wbc",
-            "creatinine",
-            "alt"
-          ],
-          "rationale": "Labs to evaluate gout"
+          "topic": "cirrhosis"
         }
       },
       {
-        "action_id": "use_get_lab_results",
+        "action_id": "use_patient_education",
         "requestor": "assistant",
-        "name": "get_lab_results",
+        "name": "patient_education",
         "arguments": {
-          "patient_id": "current"
+          "topic": "cirrhosis"
         }
       },
       {
-        "action_id": "use_differential_diagnosis",
+        "action_id": "use_prescribe_medication",
         "requestor": "assistant",
-        "name": "differential_diagnosis",
+        "name": "prescribe_medication",
         "arguments": {
-          "symptoms": [
-            "gout"
-          ],
-          "must_consider": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
-          ]
-        }
-      },
-      {
-        "action_id": "use_record_diagnosis",
-        "requestor": "assistant",
-        "name": "record_diagnosis",
-        "arguments": {
-          "diagnosis": "gout"
+          "medication": "",
+          "dose": ""
         }
       }
     ],
@@ -255,11 +227,10 @@
     ],
     "reward_basis": [
       "DB",
-      "COMMUNICATE",
-      "CLINICAL"
+      "COMMUNICATE"
     ],
     "medical_criteria": {
-      "category": "diagnosis",
+      "category": "communication",
       "min_turns": 5,
       "max_turns": 20,
       "information_gathering_requirements": {
@@ -271,7 +242,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of gout identified through systematic questioning",
+            "description": "All major symptoms of cirrhosis identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -311,34 +282,22 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "gout",
+          "correct_diagnosis": "cirrhosis",
           "allow_alternatives": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
+            "Budd-Chiari Syndrome",
+            "Metastatic Liver Disease",
+            "Viral Hepatitis"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
           "must_consider": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
+            "Budd-Chiari Syndrome",
+            "Metastatic Liver Disease",
+            "Viral Hepatitis"
           ],
           "weight": 0.2
-        },
-        "appropriate_tests": {
-          "must_order": [
-            "uric_acid",
-            "crp",
-            "wbc"
-          ],
-          "should_order": [
-            "creatinine",
-            "alt"
-          ],
-          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -351,27 +310,13 @@
         "key_questions": {
           "required": true,
           "must_ask": [
-            "Which joints have been affected? Is it the big toe?",
-            "Does the pain come on suddenly, especially at night?",
-            "Have you had these attacks before?"
+            "Have you noticed any yellowing of your skin or eyes?",
+            "Has your abdomen been feeling swollen or bloated?",
+            "Have you noticed any confusion or difficulty concentrating?"
           ],
           "weight": 0.1
         }
       },
-      "treatment_scenarios": [
-        {
-          "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from colchicine ()",
-          "options": [
-            "Reduce dose of colchicine",
-            "Switch to alternative medication class",
-            "Try extended-release formulation",
-            "Add adjunct medication to manage side effects"
-          ],
-          "correct_approach": "Start with low-dose colchicine, titrate up, monitor symptoms; consider alternative if intolerant",
-          "complexity": "moderate"
-        }
-      ],
       "safety_requirements": {
         "allergy_check_before_prescribe": {
           "required": true,
@@ -383,22 +328,26 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "critical"
         },
-        "nsaid_gi_risk": {
+        "bleeding_risk": {
           "required": true,
-          "description": "Must assess: NSAID GI risk",
+          "description": "Must assess: bleeding risk",
           "severity": "high"
         },
-        "immunosuppression_monitoring": {
+        "hepatic_dose_adjustment": {
           "required": true,
-          "description": "Must assess: immunosuppression monitoring",
+          "description": "Must assess: hepatic dose adjustment",
+          "severity": "high"
+        },
+        "alcohol_interaction": {
+          "required": true,
+          "description": "Must assess: alcohol interaction",
           "severity": "high"
         }
       },
       "required_tools": [
-        "order_lab_tests",
-        "get_lab_results",
-        "differential_diagnosis",
-        "record_diagnosis"
+        "health_education",
+        "patient_education",
+        "prescribe_medication"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -411,8 +360,8 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Pseudogout as alternative diagnosis",
-        "Diagnose gout without ordering any supporting lab tests",
+        "Fail to consider Budd-Chiari Syndrome as alternative diagnosis",
+        "Diagnose cirrhosis without ordering any supporting lab tests",
         "Fail to assess comorbidity impact on treatment plan",
         "Prescribe multiple new medications simultaneously without interaction check"
       ],
@@ -420,7 +369,7 @@
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal uric acid during acute gout attack",
+          "example": "normal liver enzymes with significant liver disease",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
         },
         {
@@ -434,51 +383,18 @@
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "gout",
+      "primary": "cirrhosis",
       "confidence_threshold": 0.8,
       "acceptable_alternatives": [
-        "Pseudogout",
-        "Septic Arthritis",
-        "Rheumatoid Arthritis"
+        "Budd-Chiari Syndrome",
+        "Metastatic Liver Disease",
+        "Viral Hepatitis"
       ],
       "required_evidence": [
-        "symptom_cluster_matching",
-        "lab_result_confirmation",
-        "abnormal_uric_acid"
+        "symptom_cluster_matching"
       ]
     },
-    "expected_lab_results": {
-      "uric_acid": {
-        "expected_value": "523 umol/L (abnormal)",
-        "reference_range": "450-650 umol/L",
-        "is_abnormal": true,
-        "clinical_significance": "high"
-      },
-      "crp": {
-        "expected_value": "28.2 mg/L (abnormal)",
-        "reference_range": "10-50 mg/L",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "wbc": {
-        "expected_value": "11.5 x10^9/L (abnormal)",
-        "reference_range": "8.0-14.0 x10^9/L",
-        "is_abnormal": true,
-        "clinical_significance": "low"
-      },
-      "creatinine": {
-        "expected_value": "1.12 mg/dL",
-        "reference_range": "0.9-1.4 mg/dL",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "alt": {
-        "expected_value": "34.9 U/L",
-        "reference_range": "20-50 U/L",
-        "is_abnormal": false,
-        "clinical_significance": "low"
-      }
-    },
+    "expected_lab_results": {},
     "correct_treatment_plan": {
       "medications": [],
       "non_pharmacological": [
@@ -529,20 +445,19 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "i've had these attacks before"
+          "hepatic cirrhosis"
         ],
-        "hidden_information_to_uncover": []
+        "hidden_information_to_uncover": [
+          "liver cirrhosis"
+        ]
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for gout",
+        "correct_approach": "Order disease-relevant labs for cirrhosis",
         "required_tests": [
-          "uric_acid",
-          "crp",
-          "wbc",
-          "creatinine",
-          "alt"
+          "CBC",
+          "BMP"
         ]
       },
       {
@@ -550,9 +465,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "Pseudogout",
-          "Septic Arthritis",
-          "Rheumatoid Arthritis"
+          "Budd-Chiari Syndrome",
+          "Metastatic Liver Disease",
+          "Viral Hepatitis"
         ]
       },
       {
@@ -633,11 +548,11 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "uric_acid: results pending",
-          "crp: results pending",
-          "wbc: results pending",
-          "creatinine: results pending",
-          "alt: results pending"
+          "hemoglobin: results pending",
+          "reticulocyte_count: results pending",
+          "ldh: results pending",
+          "total_bilirubin: results pending",
+          "indirect_bilirubin: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -875,11 +790,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "gout",
+      "correct_answer": "cirrhosis",
       "acceptable_answers": [
-        "Pseudogout",
-        "Septic Arthritis",
-        "Rheumatoid Arthritis"
+        "Budd-Chiari Syndrome",
+        "Metastatic Liver Disease",
+        "Viral Hepatitis"
       ]
     },
     "secondary_outcomes": [
@@ -893,7 +808,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "colchicine"
+        "correct_answer": "appropriate first-line medication"
       },
       {
         "metric": "safety_adherence",
@@ -1114,8 +1029,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.2,
-        "test_method": "Measure percentage of critical symptoms discovered for gout"
+        "weight": 0.1,
+        "test_method": "Measure percentage of critical symptoms discovered for cirrhosis"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1125,7 +1040,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.35,
+        "weight": 0.1,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1136,7 +1051,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.1,
+        "weight": 0.15,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1158,7 +1073,7 @@
           "misconception_correction",
           "shared_decision_making"
         ],
-        "weight": 0.1,
+        "weight": 0.4,
         "test_method": "Evaluate patient understanding and misconception correction"
       },
       "efficiency": {
@@ -1174,8 +1089,8 @@
       }
     },
     "primary_dimensions": [
-      "diagnostic_reasoning",
-      "information_gathering",
+      "communication_quality",
+      "treatment_planning",
       "efficiency"
     ],
     "difficulty_modifier": {
@@ -1189,13 +1104,13 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "1 total symptoms across tiers"
+        "task_specific": "2 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
-        "score": 2,
+        "score": 1,
         "max": 3,
         "description": "Number of plausible differential diagnoses and ease of differentiation",
-        "task_specific": "4 plausible differentials"
+        "task_specific": "3 plausible differentials"
       },
       "treatment_complexity": {
         "score": 1,
@@ -1213,7 +1128,7 @@
         "score": 1,
         "max": 3,
         "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "0 hidden/resistant symptoms to discover"
+        "task_specific": "1 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
         "score": 0,
@@ -1229,37 +1144,748 @@
       }
     },
     "overall": {
-      "aggregate_score": 10,
+      "aggregate_score": 9,
       "max_possible": 21,
       "difficulty_rating": "L3",
       "primary_difficulty_drivers": [
         "patient_behavior_difficulty",
-        "diagnostic_ambiguity",
-        "time_pressure"
+        "time_pressure",
+        "symptom_complexity"
       ],
-      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, diagnostic ambiguity. The diagnosis of gout requires careful information gathering and clinical reasoning."
+      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, time pressure. The diagnosis of cirrhosis requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
         "misleading_symptoms": 2,
         "noise_symptoms": 1,
-        "cross_overlapping_conditions": 2
+        "cross_overlapping_conditions": 0
       },
       "partial_observability": {
-        "hidden_symptoms": 0,
+        "hidden_symptoms": 1,
         "trust_gated_symptoms": 0,
         "undiagnosed_comorbidities": 0
       },
       "adversarial_patient_behavior": true,
-      "conflicting_evidence": true
+      "conflicting_evidence": false
+    }
+  },
+  "action_space": {
+    "version": "1.0",
+    "schema_type": "json_schema",
+    "total_actions": 7,
+    "actions": {
+      "greet_patient": {
+        "description": "Greet the patient and introduce yourself",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state == INITIAL"
+        ],
+        "postconditions": [
+          "state transitions to HISTORY_TAKING"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "ask_patient": {
+        "description": "Ask the patient a question",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The question to ask"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "symptoms",
+                "history",
+                "medications",
+                "allergies",
+                "lifestyle",
+                "family_history",
+                "other"
+              ]
+            }
+          },
+          "required": [
+            "question"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            },
+            "new_information_revealed": {
+              "type": "boolean"
+            },
+            "trust_change": {
+              "type": "number",
+              "description": "Change in patient trust (-1 to +1)"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PATIENT_DISCUSSION]"
+        ],
+        "postconditions": [
+          "turn_count += 1",
+          "information_revealed may increase"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "health_education": {
+        "description": "Provide health education to the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "key_points": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "topic"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_understanding": {
+              "type": "number"
+            },
+            "questions_asked": {
+              "type": "array"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [TREATMENT_PLANNING, PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
+        ],
+        "postconditions": [
+          "education_provided = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "patient_education": {
+        "description": "Educate patient about their condition and treatment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "use_simple_language": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": [
+            "topic"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_understanding": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "misconceptions_corrected": {
+              "type": "array"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
+        ],
+        "postconditions": [
+          "patient_educated = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "prescribe_medication": {
+        "description": "Prescribe a medication to the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication": {
+              "type": "string"
+            },
+            "dose": {
+              "type": "string"
+            },
+            "frequency": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "medication"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "prescription_id": {
+              "type": "string"
+            },
+            "prescribed": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "array"
+            }
+          }
+        },
+        "preconditions": [
+          "allergy_checked == true",
+          "diagnosis_recorded == true"
+        ],
+        "postconditions": [
+          "prescription_written = true",
+          "state transitions to PRESCRIPTION_WRITTEN"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include_bmi": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "blood_pressure": {
+              "type": "string"
+            },
+            "heart_rate": {
+              "type": "string"
+            },
+            "oxygen_saturation": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            },
+            "bmi": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "vitals_observed = true",
+          "state may transition to PHYSICAL_EXAM"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "schedule_followup": {
+        "description": "Schedule a follow-up appointment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "timeframe": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "tests_to_repeat": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "timeframe"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "appointment_scheduled": {
+              "type": "boolean"
+            },
+            "date": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "prescription_written == true"
+        ],
+        "postconditions": [
+          "followup_scheduled = true",
+          "state transitions to CONSULTATION_COMPLETE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      }
+    },
+    "action_validation": {
+      "unknown_action": "REJECT — action not in action_space",
+      "invalid_precondition": "REJECT — return error message, state unchanged",
+      "missing_required_param": "REJECT — return validation error",
+      "valid_action": "EXECUTE — apply state transition, return observation"
+    }
+  },
+  "observation_function": {
+    "fields": {
+      "patient_demographics": {
+        "field": "age, gender, name, mrn",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "initial_state"
+      },
+      "ticket": {
+        "field": "chief_complaint",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "ticket"
+      },
+      "patient_verbal_responses": {
+        "field": "what patient says in response to questions",
+        "observable": "on_ask",
+        "noise_level": 0.05,
+        "noise_type": "occasional_vagueness",
+        "source": "user_scenario.information_sharing_strategy"
+      },
+      "vital_signs": {
+        "field": "blood_pressure, heart_rate, oxygen_saturation, bmi",
+        "observable": "after_assess_vital_signs",
+        "noise_level": 0.02,
+        "noise_type": "measurement_variance",
+        "source": "medical_persona.vital_signs"
+      },
+      "lab_results": {
+        "field": "all ordered test results",
+        "observable": "after_get_lab_results",
+        "noise_level": 0.01,
+        "noise_type": "lab_variance",
+        "source": "medical_persona.lab_results"
+      },
+      "volunteer_symptoms": {
+        "field": "symptoms patient volunteers without prompting",
+        "observable": "in_turn_1",
+        "noise_level": 0.0,
+        "source": "information_sharing_strategy.volunteer_without_asking"
+      },
+      "if_asked_symptoms": {
+        "field": "symptoms revealed only if specifically asked",
+        "observable": "on_specific_question",
+        "noise_level": 0.05,
+        "noise_type": "partial_recall",
+        "source": "information_sharing_strategy.share_only_if_asked",
+        "trigger": "question matches symptom keyword"
+      },
+      "hidden_symptoms": {
+        "field": "symptoms patient won't mention unless carefully probed",
+        "observable": "on_targeted_probe",
+        "noise_level": 0.1,
+        "noise_type": "reluctance_delay",
+        "source": "information_sharing_strategy.hidden_truth",
+        "trigger": "specific medical question about the symptom area"
+      },
+      "resistant_symptoms": {
+        "field": "sensitive symptoms requiring trust/empathy to reveal",
+        "observable": "after_trust_threshold",
+        "noise_level": 0.15,
+        "noise_type": "emotional_barrier",
+        "source": "information_sharing_strategy.resistant_to_share",
+        "trigger": "empathy demonstrated + specific question"
+      },
+      "undiagnosed_comorbidities": {
+        "field": "conditions patient has but doesn't know about",
+        "observable": "through_symptom_correlation",
+        "noise_level": 0.2,
+        "noise_type": "patient_unaware",
+        "source": "information_state.undiagnosed_comorbidities",
+        "trigger": "doctor recognizes symptom pattern + orders relevant tests"
+      },
+      "patient_misconceptions": {
+        "field": "incorrect beliefs patient holds",
+        "observable": "when_patient_expresses_concern",
+        "noise_level": 0.0,
+        "source": "information_state.patient_misconceptions_and_concerns",
+        "trigger": "treatment discussion or patient asks question"
+      },
+      "correct_diagnosis": {
+        "field": "the actual diagnosis",
+        "observable": "never_to_agent",
+        "noise_level": 0.0,
+        "source": "ground_truth.correct_diagnosis",
+        "note": "only available to evaluator, never to agent"
+      }
+    },
+    "noise_model": {
+      "patient_response_noise": {
+        "type": "categorical",
+        "levels": {
+          "cooperative": {
+            "vagueness": 0.02,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "forgetful": {
+            "vagueness": 0.15,
+            "omission": 0.1,
+            "delay": 0.0
+          },
+          "confused": {
+            "vagueness": 0.1,
+            "omission": 0.05,
+            "delay": 0.05
+          },
+          "concealing": {
+            "vagueness": 0.05,
+            "omission": 0.2,
+            "delay": 0.15
+          },
+          "pressuring": {
+            "vagueness": 0.05,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "refusing": {
+            "vagueness": 0.1,
+            "omission": 0.15,
+            "delay": 0.1
+          }
+        },
+        "active_level": "refusing"
+      },
+      "lab_result_noise": {
+        "type": "gaussian",
+        "sigma": 0.02,
+        "applies_to": "lab_results after get_lab_results"
+      },
+      "vital_sign_noise": {
+        "type": "uniform",
+        "range": [
+          -1,
+          1
+        ],
+        "applies_to": "vital_signs after assess_vital_signs"
+      }
+    },
+    "information_gates": {
+      "volunteer_tier": {
+        "access": "immediate",
+        "fields": [
+          "hepatic cirrhosis"
+        ],
+        "cost": 0
+      },
+      "if_asked_tier": {
+        "access": "on_category_match",
+        "fields": [],
+        "cost": 1,
+        "trigger": "ask_patient with category matching the symptom"
+      },
+      "hidden_tier": {
+        "access": "on_specific_probe",
+        "fields": [
+          "liver cirrhosis"
+        ],
+        "cost": 1,
+        "trigger": "ask_patient with question containing specific symptom keyword"
+      },
+      "resistant_tier": {
+        "access": "after_trust_threshold",
+        "fields": [],
+        "cost": 2,
+        "trust_required": 0.6,
+        "trigger": "demonstrate empathy + ask specific question"
+      }
+    },
+    "difficulty_noise_multiplier": 1.5,
+    "observation_protocol": {
+      "step_input": {
+        "agent_action": "ActionSchema compliant JSON",
+        "current_state": "ENVIRONMENT_STATES key",
+        "turn_count": "integer",
+        "trust_level": "float 0-1"
+      },
+      "step_output": {
+        "observation": "dict of visible fields at current state",
+        "reward": "float — incremental reward for this step",
+        "terminated": "boolean — has consultation ended",
+        "info": "dict — debug/metadata (agent cannot see ground_truth)"
+      }
+    }
+  },
+  "scoring_function": {
+    "version": "1.0",
+    "evaluable": true,
+    "score_range": [
+      0.0,
+      1.0
+    ],
+    "components": {
+      "diagnosis_score": {
+        "weight": 0.3,
+        "logic": "if agent_diagnosis == ground_truth.correct_diagnosis.primary: 1.0 elif agent_diagnosis in ground_truth.correct_diagnosis.acceptable_alternatives: 0.7 elif partial_match(agent_diagnosis, ground_truth): 0.4 else: 0.0",
+        "source": "ground_truth.correct_diagnosis",
+        "evaluable_expression": "exact_match(agent_output.diagnosis, ground_truth.correct_diagnosis.primary) ? 1.0 : (in_list(agent_output.diagnosis, ground_truth.correct_diagnosis.acceptable_alternatives) ? 0.7 : 0.0)"
+      },
+      "safety_score": {
+        "weight": 0.25,
+        "logic": "all_checks = sum(check_performed(c) for c in ground_truth.required_safety_checks); critical_missed = sum(1 for c in ground_truth.required_safety_checks if c.critical and not check_performed(c)); if critical_missed > 0: 0.0 else: all_checks / len(ground_truth.required_safety_checks)",
+        "source": "ground_truth.required_safety_checks",
+        "evaluable_expression": "critical_missed = count(c for c in required_safety_checks where c.critical and not performed); critical_missed == 0 ? performed_count / total_count : 0.0"
+      },
+      "information_score": {
+        "weight": 0.2,
+        "logic": "discovered = count(s for s in all_symptoms if agent_asked_about(s)); total = len(all_symptoms); min(discovered / total, 1.0)",
+        "source": "user_scenario.information_sharing_strategy",
+        "evaluable_expression": "min(discovered_symptoms / total_symptoms, 1.0)"
+      },
+      "treatment_score": {
+        "weight": 0.15,
+        "logic": "if agent_treatment in ground_truth.correct_treatment_plan.medications: 1.0 elif safe_alternative(agent_treatment, disease): 0.7 else: 0.0",
+        "source": "ground_truth.correct_treatment_plan",
+        "evaluable_expression": "in_treatment_plan(agent_output.medication) ? 1.0 : (is_safe_alternative(agent_output.medication) ? 0.7 : 0.0)"
+      },
+      "communication_score": {
+        "weight": 0.1,
+        "logic": "milestones_hit = count(m for m in ground_truth.communication_truth if milestone_achieved(m)); milestones_hit / len(ground_truth.communication_truth)",
+        "source": "ground_truth.communication_truth",
+        "evaluable_expression": "milestones_achieved / total_milestones"
+      }
+    },
+    "aggregate_logic": "sum(component_score * component_weight for each component)",
+    "pass_threshold": 0.8,
+    "critical_failure_rules": [
+      {
+        "condition": "diagnosis_score == 0.0",
+        "result": "FAIL — incorrect diagnosis regardless of other scores",
+        "override_threshold": null
+      },
+      {
+        "condition": "safety_score == 0.0 and critical_check_missed",
+        "result": "FAIL — critical safety check missed",
+        "override_threshold": null
+      },
+      {
+        "condition": "prescribed_contraindicated_drug == true",
+        "result": "FAIL — prescribed contraindicated medication",
+        "override_threshold": null
+      }
+    ],
+    "efficiency_bonus": {
+      "logic": "if turns <= optimal_turns: +0.05; elif turns <= optimal_turns * 1.5: +0.0; else: -0.05 * (turns - optimal_turns * 1.5) / max_turns",
+      "optimal_turns_formula": "len(required_phases) * 2 + len(required_labs) + 2"
+    }
+  },
+  "agent_api": {
+    "protocol_version": "1.0",
+    "interface_type": "step_based",
+    "step_signature": {
+      "input": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Action name from action_space"
+              },
+              "arguments": {
+                "type": "object",
+                "description": "Arguments per action schema"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "observation": {
+            "type": "object",
+            "description": "Fields visible at current state per observation_function"
+          },
+          "reward": {
+            "type": "number",
+            "description": "Incremental reward for this step, from environment_dynamics.reward_function"
+          },
+          "terminated": {
+            "type": "boolean",
+            "description": "True if consultation is complete or max turns reached"
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "True if max_turns exceeded without completion"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "current_state": {
+                "type": "string"
+              },
+              "turn_count": {
+                "type": "integer"
+              },
+              "trust_level": {
+                "type": "number"
+              },
+              "action_valid": {
+                "type": "boolean"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if action was rejected"
+              }
+            }
+          }
+        }
+      }
+    },
+    "turn_rules": {
+      "max_turns": 20,
+      "min_required_turns": 5,
+      "agent_goes_first": true,
+      "patient_responds_after_each_action": true,
+      "multi_action_per_turn": false
+    },
+    "termination_conditions": [
+      {
+        "type": "normal",
+        "condition": "state == CONSULTATION_COMPLETE",
+        "description": "Agent completed all required phases"
+      },
+      {
+        "type": "truncation",
+        "condition": "turn_count >= max_turns",
+        "description": "Maximum turns exceeded"
+      },
+      {
+        "type": "failure",
+        "condition": "prescribed_contraindicated_drug or missed_critical_safety",
+        "description": "Agent made a critical safety error"
+      }
+    ],
+    "reset": {
+      "description": "Reset environment to initial state",
+      "returns": {
+        "observation": "Initial observation (demographics, ticket)",
+        "info": {
+          "state": "INITIAL",
+          "turn_count": 0,
+          "trust_level": 0.5
+        }
+      }
+    }
+  },
+  "execution_config": {
+    "version": "1.0",
+    "environment_type": "medical_consultation",
+    "components": {
+      "action_space": "Defines all valid agent actions with schema",
+      "observation_function": "Controls information flow with noise model and gates",
+      "scoring_function": "Evaluates agent performance with per-component scoring",
+      "agent_api": "Defines step-based interaction protocol",
+      "environment_dynamics": "State machine with transitions and rewards",
+      "ground_truth": "Reference answers for evaluation"
+    },
+    "execution_flow": [
+      "1. Initialize: load task, set state=INITIAL, turn_count=0",
+      "2. Agent calls step(action) with action from action_space",
+      "3. Validate action against action_space schema and preconditions",
+      "4. If valid: apply state transition from environment_dynamics",
+      "5. Apply observation_function to determine what agent sees",
+      "6. Apply noise_model to observations",
+      "7. Calculate incremental reward from environment_dynamics.reward_function",
+      "8. Return (observation, reward, terminated, info)",
+      "9. If terminated: run scoring_function for final score",
+      "10. Return final_score with component breakdown"
+    ],
+    "agent_requirements": {
+      "input_format": "Must produce actions conforming to action_space schema",
+      "output_parsing": "Must handle observations from observation_function",
+      "memory": "Agent must maintain own history (no state reset between turns)",
+      "tool_use": "Must call tools via action_space, not free-form text"
+    },
+    "evaluator_requirements": {
+      "ground_truth_access": "Evaluator has access to ground_truth for scoring",
+      "scoring_execution": "Run scoring_function logic against agent action log",
+      "component_breakdown": "Report per-component scores, not just aggregate",
+      "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
+    },
+    "randomness": {
+      "seed": 411,
+      "stochastic_elements": [
+        "patient_response_variation",
+        "lab_result_noise",
+        "vital_sign_noise",
+        "symptom_reveal_timing"
+      ],
+      "deterministic_elements": [
+        "ground_truth",
+        "correct_diagnosis",
+        "expected_lab_results",
+        "action_space"
+      ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_conflicting_evidence_L3_gout_ae22a1",
+    "scenario_id": "v2_patient_non_compliance_L3_cirrhosis_1c8836",
     "risk_level": "moderate",
-    "uncertainty_level": 0.872,
+    "uncertainty_level": 0.708,
     "behavior_type": "refusing",
-    "seed": 305
+    "seed": 411
   }
 }

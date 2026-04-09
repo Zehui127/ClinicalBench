@@ -1,11 +1,11 @@
 {
-  "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_8e005a",
+  "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_04c8d1",
   "domain": "endocrinology",
   "task_type": "diagnostic_uncertainty",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "diagnostic_uncertainty — 62-year-old female with my appetite has changed for a few weeks",
+    "purpose": "diagnostic_uncertainty — 59-year-old female with my appetite has changed for a few weeks",
     "clinical_scenario": "Patient presents with my appetite has changed for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
@@ -16,35 +16,32 @@
     "focus": "Systematic information gathering and differential diagnosis"
   },
   "user_scenario": {
-    "persona": "62-year-old female patient, 高中/中专 education, works as a nurse aide. a cooperative patient who answers questions clearly presenting with my appetite has changed.",
+    "persona": "59-year-old female patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with my appetite has changed.",
     "patient_profile": {
-      "age": 62,
+      "age": 59,
       "gender": "female",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "my appetite has changed for a few weeks",
-      "occupation": "nurse aide"
+      "chief_complaint": "coronary heart for a few weeks",
+      "occupation": "retail manager"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "my appetite has changed"
+          "coronary heart"
         ],
         "duration_approximate": "about a few weeks",
         "general_concern": "my appetite has changed",
-        "family_history": "family member has high cholesterol",
+        "family_history": "family member has heart disease",
         "past_history": [
-          "high cholesterol"
-        ],
-        "current_medications": [
-          "metformin 500mg twice daily"
+          "heart disease"
         ]
       },
       "patient_doesnt_know": {
         "diagnosis": "type 2 diabetes",
-        "fasting_glucose": "13.1 mmol/L (abnormal)",
-        "hba1c": "9.72 % (abnormal)",
+        "fasting_glucose": "13.3 mmol/L (abnormal)",
+        "hba1c": "9.81 % (abnormal)",
         "specific_medication_needed": "metformin (500mg twice daily)",
         "medication_contraindications": [
           "severe kidney disease"
@@ -68,22 +65,21 @@
         "prognosis_concerns": [
           "Will I go blind or lose my legs soon?",
           "How many years do I have left?"
-        ],
-        "economic_concerns": [
-          "How much will this medication cost per month?",
-          "Is there a cheaper alternative?",
-          "Will my insurance cover this?",
-          "Can we only prescribe what's absolutely necessary?"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "my appetite has changed"
+        "coronary heart"
       ],
       "share_only_if_asked": [
-        "hld (needs doctor to specifically ask)"
+        "chd (needs doctor to specifically ask)",
+        "heart disease (needs doctor to specifically ask)"
       ],
+      "hidden_truth": [
+        "my appetite has changed (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "misleading_symptoms": [
         "recurrent skin infections and slow wound healing",
         "recurrent urinary tract infections",
@@ -91,6 +87,13 @@
         "persistent fatigue (also seen in anemia and depression)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 3,
+          "symptom": "my appetite has changed",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
       "share_in_response_to_medication_discussion": [
         "Concerns about metformin side effects — severe kidney disease"
       ],
@@ -104,22 +107,24 @@
           "insulin",
           "long_term_medication"
         ],
-        "financial_constraints": true
+        "financial_constraints": false
       }
     },
-    "task_instructions": "You are WangXX, a 62-year-old female patient. Your education level is 高中/中专. You work as a nurse aide. You are seeing a doctor because of my appetite has changed. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are LiXX, a 59-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of coronary heart. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
   },
   "medical_persona": {
-    "age": 62,
+    "age": 59,
     "gender": "female",
     "symptoms": {
       "Has your appetite changed unexpectedly": "my appetite has changed",
-      "HLD": "hld"
+      "CAD": "coronary artery disease",
+      "coronary heart disease": "coronary heart",
+      "CHD": "chd"
     },
     "duration": "a few weeks",
     "severity": "mild",
     "past_medical_history": [
-      "high cholesterol"
+      "heart disease"
     ],
     "current_medications": [
       {
@@ -133,30 +138,30 @@
       }
     ],
     "lab_results": {
-      "fasting_glucose": "13.3 mmol/L (abnormal)",
-      "hba1c": "9.88 % (abnormal)",
-      "egfr": "75.2 ml/min/1.73m2",
-      "alt": "56.6 U/L (abnormal)",
-      "total_cholesterol": "6.28 mmol/L (abnormal)",
-      "triglycerides": "2.68 mmol/L (abnormal)",
-      "uric_acid": "469 umol/L (abnormal)"
+      "fasting_glucose": "13.1 mmol/L (abnormal)",
+      "hba1c": "9.86 % (abnormal)",
+      "egfr": "76.0 ml/min/1.73m2",
+      "alt": "57.2 U/L (abnormal)",
+      "total_cholesterol": "6.22 mmol/L (abnormal)",
+      "triglycerides": "2.88 mmol/L (abnormal)",
+      "uric_acid": "477 umol/L (abnormal)"
     },
     "vital_signs": {
-      "blood_pressure": "148/100 mmHg",
-      "bmi": "28.3"
+      "blood_pressure": "144/93 mmHg",
+      "bmi": "30.6"
     },
     "lifestyle_factors": {
-      "smoking": "quit 2 years ago (former 1 pack/day for 25 years)",
-      "alcohol": "social drinking only",
+      "smoking": "yes (1 pack/day for 20+ years)",
+      "alcohol": "occasional (1-2 drinks/week)",
       "exercise": "sedentary"
     },
     "comorbidities": {
-      "hyperlipidemia": "high cholesterol, severity: 0.5"
+      "coronary artery disease": "heart disease, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "nurse aide",
-      "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage"
+      "occupation": "retail manager",
+      "monthly_income": "about 10000+ yuan/month",
+      "insurance": "comprehensive medical insurance, good coverage"
     },
     "medication_considerations": {
       "metformin": {
@@ -177,16 +182,16 @@
       ]
     }
   },
-  "ticket": "my appetite has changed",
+  "ticket": "coronary heart",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "WangXX",
-          "mrn": "MRN169572",
-          "age": 62,
+          "name": "LiXX",
+          "mrn": "MRN196658",
+          "age": 59,
           "gender": "female"
         }
       },
@@ -195,20 +200,21 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 62,
+            "age": 59,
             "gender": "female",
             "symptoms": [
-              "my appetite has changed"
+              "coronary heart"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "my appetite has changed"
+              "coronary heart"
             ],
             "ask_only": [
-              "hld"
+              "chd",
+              "heart disease"
             ]
           },
           "response_style": {
@@ -466,43 +472,43 @@
     },
     "expected_lab_results": {
       "fasting_glucose": {
-        "expected_value": "13.3 mmol/L (abnormal)",
+        "expected_value": "13.1 mmol/L (abnormal)",
         "reference_range": "12.5-14.0 mmol/L",
         "is_abnormal": true,
         "clinical_significance": "high"
       },
       "hba1c": {
-        "expected_value": "9.72 % (abnormal)",
+        "expected_value": "9.88 % (abnormal)",
         "reference_range": "9.3-10.3 %",
         "is_abnormal": true,
         "clinical_significance": "high"
       },
       "egfr": {
-        "expected_value": "74.4 ml/min/1.73m2",
+        "expected_value": "75.2 ml/min/1.73m2",
         "reference_range": "70-80 ml/min/1.73m2",
         "is_abnormal": false,
         "clinical_significance": "moderate"
       },
       "alt": {
-        "expected_value": "56.9 U/L (abnormal)",
+        "expected_value": "57.2 U/L (abnormal)",
         "reference_range": "40-70 U/L",
         "is_abnormal": true,
         "clinical_significance": "moderate"
       },
       "total_cholesterol": {
-        "expected_value": "6.16 mmol/L (abnormal)",
+        "expected_value": "6.25 mmol/L (abnormal)",
         "reference_range": "5.8-6.8 mmol/L",
         "is_abnormal": true,
         "clinical_significance": "moderate"
       },
       "triglycerides": {
-        "expected_value": "2.87 mmol/L (abnormal)",
+        "expected_value": "2.90 mmol/L (abnormal)",
         "reference_range": "2.2-3.5 mmol/L",
         "is_abnormal": true,
         "clinical_significance": "moderate"
       },
       "uric_acid": {
-        "expected_value": "488 umol/L (abnormal)",
+        "expected_value": "493 umol/L (abnormal)",
         "reference_range": "420-550 umol/L",
         "is_abnormal": true,
         "clinical_significance": "low"
@@ -539,7 +545,7 @@
         "check": "contraindication_check",
         "before": "prescribing",
         "conditions": [
-          "hyperlipidemia"
+          "coronary artery disease"
         ],
         "critical": true
       }
@@ -574,9 +580,11 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "my appetite has changed"
+          "coronary heart"
         ],
-        "hidden_information_to_uncover": []
+        "hidden_information_to_uncover": [
+          "my appetite has changed"
+        ]
       },
       {
         "step": 2,
@@ -1223,7 +1231,7 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "2 total symptoms across tiers"
+        "task_specific": "4 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 1,
@@ -1247,7 +1255,7 @@
         "score": 1,
         "max": 3,
         "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "0 hidden/resistant symptoms to discover"
+        "task_specific": "1 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
         "score": 1,
@@ -1280,7 +1288,7 @@
         "cross_overlapping_conditions": 3
       },
       "partial_observability": {
-        "hidden_symptoms": 0,
+        "hidden_symptoms": 1,
         "trust_gated_symptoms": 0,
         "undiagnosed_comorbidities": 0
       },
@@ -1288,12 +1296,794 @@
       "conflicting_evidence": false
     }
   },
+  "action_space": {
+    "version": "1.0",
+    "schema_type": "json_schema",
+    "total_actions": 8,
+    "actions": {
+      "greet_patient": {
+        "description": "Greet the patient and introduce yourself",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state == INITIAL"
+        ],
+        "postconditions": [
+          "state transitions to HISTORY_TAKING"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "ask_patient": {
+        "description": "Ask the patient a question",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The question to ask"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "symptoms",
+                "history",
+                "medications",
+                "allergies",
+                "lifestyle",
+                "family_history",
+                "other"
+              ]
+            }
+          },
+          "required": [
+            "question"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            },
+            "new_information_revealed": {
+              "type": "boolean"
+            },
+            "trust_change": {
+              "type": "number",
+              "description": "Change in patient trust (-1 to +1)"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PATIENT_DISCUSSION]"
+        ],
+        "postconditions": [
+          "turn_count += 1",
+          "information_revealed may increase"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of test names to order"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale for ordering"
+            }
+          },
+          "required": [
+            "tests"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string"
+            },
+            "tests_ordered": {
+              "type": "array"
+            },
+            "estimated_wait": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
+        ],
+        "postconditions": [
+          "labs_ordered = true",
+          "state transitions to LAB_ORDERED"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "recommended_tests": [
+            "fasting_glucose",
+            "hba1c",
+            "egfr",
+            "alt",
+            "total_cholesterol"
+          ]
+        }
+      },
+      "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "all_results_available": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "labs_ordered == true",
+          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
+        ],
+        "postconditions": [
+          "labs_available = true",
+          "state transitions to LAB_RESULTS_AVAILABLE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symptoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "must_consider": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "symptoms"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "differentials": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "reasoning": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "differential_generated = true",
+          "state transitions to DIAGNOSIS_FORMING"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "must_consider": [
+            "Metabolic Syndrome",
+            "Cushing's Syndrome",
+            "Type 1 Diabetes"
+          ]
+        }
+      },
+      "record_diagnosis": {
+        "description": "Record the final diagnosis",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "diagnosis": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "diagnosis"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "recorded": {
+              "type": "boolean"
+            },
+            "diagnosis_id": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
+        ],
+        "postconditions": [
+          "diagnosis_recorded = true",
+          "state transitions to DIAGNOSIS_MADE"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "correct_diagnosis": "type 2 diabetes"
+        }
+      },
+      "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include_bmi": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "blood_pressure": {
+              "type": "string"
+            },
+            "heart_rate": {
+              "type": "string"
+            },
+            "oxygen_saturation": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            },
+            "bmi": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "vitals_observed = true",
+          "state may transition to PHYSICAL_EXAM"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "schedule_followup": {
+        "description": "Schedule a follow-up appointment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "timeframe": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "tests_to_repeat": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "timeframe"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "appointment_scheduled": {
+              "type": "boolean"
+            },
+            "date": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "prescription_written == true"
+        ],
+        "postconditions": [
+          "followup_scheduled = true",
+          "state transitions to CONSULTATION_COMPLETE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      }
+    },
+    "action_validation": {
+      "unknown_action": "REJECT — action not in action_space",
+      "invalid_precondition": "REJECT — return error message, state unchanged",
+      "missing_required_param": "REJECT — return validation error",
+      "valid_action": "EXECUTE — apply state transition, return observation"
+    }
+  },
+  "observation_function": {
+    "fields": {
+      "patient_demographics": {
+        "field": "age, gender, name, mrn",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "initial_state"
+      },
+      "ticket": {
+        "field": "chief_complaint",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "ticket"
+      },
+      "patient_verbal_responses": {
+        "field": "what patient says in response to questions",
+        "observable": "on_ask",
+        "noise_level": 0.05,
+        "noise_type": "occasional_vagueness",
+        "source": "user_scenario.information_sharing_strategy"
+      },
+      "vital_signs": {
+        "field": "blood_pressure, heart_rate, oxygen_saturation, bmi",
+        "observable": "after_assess_vital_signs",
+        "noise_level": 0.02,
+        "noise_type": "measurement_variance",
+        "source": "medical_persona.vital_signs"
+      },
+      "lab_results": {
+        "field": "all ordered test results",
+        "observable": "after_get_lab_results",
+        "noise_level": 0.01,
+        "noise_type": "lab_variance",
+        "source": "medical_persona.lab_results"
+      },
+      "volunteer_symptoms": {
+        "field": "symptoms patient volunteers without prompting",
+        "observable": "in_turn_1",
+        "noise_level": 0.0,
+        "source": "information_sharing_strategy.volunteer_without_asking"
+      },
+      "if_asked_symptoms": {
+        "field": "symptoms revealed only if specifically asked",
+        "observable": "on_specific_question",
+        "noise_level": 0.05,
+        "noise_type": "partial_recall",
+        "source": "information_sharing_strategy.share_only_if_asked",
+        "trigger": "question matches symptom keyword"
+      },
+      "hidden_symptoms": {
+        "field": "symptoms patient won't mention unless carefully probed",
+        "observable": "on_targeted_probe",
+        "noise_level": 0.1,
+        "noise_type": "reluctance_delay",
+        "source": "information_sharing_strategy.hidden_truth",
+        "trigger": "specific medical question about the symptom area"
+      },
+      "resistant_symptoms": {
+        "field": "sensitive symptoms requiring trust/empathy to reveal",
+        "observable": "after_trust_threshold",
+        "noise_level": 0.15,
+        "noise_type": "emotional_barrier",
+        "source": "information_sharing_strategy.resistant_to_share",
+        "trigger": "empathy demonstrated + specific question"
+      },
+      "undiagnosed_comorbidities": {
+        "field": "conditions patient has but doesn't know about",
+        "observable": "through_symptom_correlation",
+        "noise_level": 0.2,
+        "noise_type": "patient_unaware",
+        "source": "information_state.undiagnosed_comorbidities",
+        "trigger": "doctor recognizes symptom pattern + orders relevant tests"
+      },
+      "patient_misconceptions": {
+        "field": "incorrect beliefs patient holds",
+        "observable": "when_patient_expresses_concern",
+        "noise_level": 0.0,
+        "source": "information_state.patient_misconceptions_and_concerns",
+        "trigger": "treatment discussion or patient asks question"
+      },
+      "correct_diagnosis": {
+        "field": "the actual diagnosis",
+        "observable": "never_to_agent",
+        "noise_level": 0.0,
+        "source": "ground_truth.correct_diagnosis",
+        "note": "only available to evaluator, never to agent"
+      }
+    },
+    "noise_model": {
+      "patient_response_noise": {
+        "type": "categorical",
+        "levels": {
+          "cooperative": {
+            "vagueness": 0.02,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "forgetful": {
+            "vagueness": 0.15,
+            "omission": 0.1,
+            "delay": 0.0
+          },
+          "confused": {
+            "vagueness": 0.1,
+            "omission": 0.05,
+            "delay": 0.05
+          },
+          "concealing": {
+            "vagueness": 0.05,
+            "omission": 0.2,
+            "delay": 0.15
+          },
+          "pressuring": {
+            "vagueness": 0.05,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "refusing": {
+            "vagueness": 0.1,
+            "omission": 0.15,
+            "delay": 0.1
+          }
+        },
+        "active_level": "cooperative"
+      },
+      "lab_result_noise": {
+        "type": "gaussian",
+        "sigma": 0.02,
+        "applies_to": "lab_results after get_lab_results"
+      },
+      "vital_sign_noise": {
+        "type": "uniform",
+        "range": [
+          -1,
+          1
+        ],
+        "applies_to": "vital_signs after assess_vital_signs"
+      }
+    },
+    "information_gates": {
+      "volunteer_tier": {
+        "access": "immediate",
+        "fields": [
+          "coronary heart"
+        ],
+        "cost": 0
+      },
+      "if_asked_tier": {
+        "access": "on_category_match",
+        "fields": [
+          "chd",
+          "heart disease"
+        ],
+        "cost": 1,
+        "trigger": "ask_patient with category matching the symptom"
+      },
+      "hidden_tier": {
+        "access": "on_specific_probe",
+        "fields": [
+          "my appetite has changed"
+        ],
+        "cost": 1,
+        "trigger": "ask_patient with question containing specific symptom keyword"
+      },
+      "resistant_tier": {
+        "access": "after_trust_threshold",
+        "fields": [],
+        "cost": 2,
+        "trust_required": 0.0,
+        "trigger": "demonstrate empathy + ask specific question"
+      }
+    },
+    "difficulty_noise_multiplier": 0.5,
+    "observation_protocol": {
+      "step_input": {
+        "agent_action": "ActionSchema compliant JSON",
+        "current_state": "ENVIRONMENT_STATES key",
+        "turn_count": "integer",
+        "trust_level": "float 0-1"
+      },
+      "step_output": {
+        "observation": "dict of visible fields at current state",
+        "reward": "float — incremental reward for this step",
+        "terminated": "boolean — has consultation ended",
+        "info": "dict — debug/metadata (agent cannot see ground_truth)"
+      }
+    }
+  },
+  "scoring_function": {
+    "version": "1.0",
+    "evaluable": true,
+    "score_range": [
+      0.0,
+      1.0
+    ],
+    "components": {
+      "diagnosis_score": {
+        "weight": 0.3,
+        "logic": "if agent_diagnosis == ground_truth.correct_diagnosis.primary: 1.0 elif agent_diagnosis in ground_truth.correct_diagnosis.acceptable_alternatives: 0.7 elif partial_match(agent_diagnosis, ground_truth): 0.4 else: 0.0",
+        "source": "ground_truth.correct_diagnosis",
+        "evaluable_expression": "exact_match(agent_output.diagnosis, ground_truth.correct_diagnosis.primary) ? 1.0 : (in_list(agent_output.diagnosis, ground_truth.correct_diagnosis.acceptable_alternatives) ? 0.7 : 0.0)"
+      },
+      "safety_score": {
+        "weight": 0.25,
+        "logic": "all_checks = sum(check_performed(c) for c in ground_truth.required_safety_checks); critical_missed = sum(1 for c in ground_truth.required_safety_checks if c.critical and not check_performed(c)); if critical_missed > 0: 0.0 else: all_checks / len(ground_truth.required_safety_checks)",
+        "source": "ground_truth.required_safety_checks",
+        "evaluable_expression": "critical_missed = count(c for c in required_safety_checks where c.critical and not performed); critical_missed == 0 ? performed_count / total_count : 0.0"
+      },
+      "information_score": {
+        "weight": 0.2,
+        "logic": "discovered = count(s for s in all_symptoms if agent_asked_about(s)); total = len(all_symptoms); min(discovered / total, 1.0)",
+        "source": "user_scenario.information_sharing_strategy",
+        "evaluable_expression": "min(discovered_symptoms / total_symptoms, 1.0)"
+      },
+      "treatment_score": {
+        "weight": 0.15,
+        "logic": "if agent_treatment in ground_truth.correct_treatment_plan.medications: 1.0 elif safe_alternative(agent_treatment, disease): 0.7 else: 0.0",
+        "source": "ground_truth.correct_treatment_plan",
+        "evaluable_expression": "in_treatment_plan(agent_output.medication) ? 1.0 : (is_safe_alternative(agent_output.medication) ? 0.7 : 0.0)"
+      },
+      "communication_score": {
+        "weight": 0.1,
+        "logic": "milestones_hit = count(m for m in ground_truth.communication_truth if milestone_achieved(m)); milestones_hit / len(ground_truth.communication_truth)",
+        "source": "ground_truth.communication_truth",
+        "evaluable_expression": "milestones_achieved / total_milestones"
+      }
+    },
+    "aggregate_logic": "sum(component_score * component_weight for each component)",
+    "pass_threshold": 0.7,
+    "critical_failure_rules": [
+      {
+        "condition": "diagnosis_score == 0.0",
+        "result": "FAIL — incorrect diagnosis regardless of other scores",
+        "override_threshold": null
+      },
+      {
+        "condition": "safety_score == 0.0 and critical_check_missed",
+        "result": "FAIL — critical safety check missed",
+        "override_threshold": null
+      },
+      {
+        "condition": "prescribed_contraindicated_drug == true",
+        "result": "FAIL — prescribed contraindicated medication",
+        "override_threshold": null
+      }
+    ],
+    "efficiency_bonus": {
+      "logic": "if turns <= optimal_turns: +0.05; elif turns <= optimal_turns * 1.5: +0.0; else: -0.05 * (turns - optimal_turns * 1.5) / max_turns",
+      "optimal_turns_formula": "len(required_phases) * 2 + len(required_labs) + 2"
+    }
+  },
+  "agent_api": {
+    "protocol_version": "1.0",
+    "interface_type": "step_based",
+    "step_signature": {
+      "input": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Action name from action_space"
+              },
+              "arguments": {
+                "type": "object",
+                "description": "Arguments per action schema"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "observation": {
+            "type": "object",
+            "description": "Fields visible at current state per observation_function"
+          },
+          "reward": {
+            "type": "number",
+            "description": "Incremental reward for this step, from environment_dynamics.reward_function"
+          },
+          "terminated": {
+            "type": "boolean",
+            "description": "True if consultation is complete or max turns reached"
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "True if max_turns exceeded without completion"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "current_state": {
+                "type": "string"
+              },
+              "turn_count": {
+                "type": "integer"
+              },
+              "trust_level": {
+                "type": "number"
+              },
+              "action_valid": {
+                "type": "boolean"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if action was rejected"
+              }
+            }
+          }
+        }
+      }
+    },
+    "turn_rules": {
+      "max_turns": 20,
+      "min_required_turns": 3,
+      "agent_goes_first": true,
+      "patient_responds_after_each_action": true,
+      "multi_action_per_turn": false
+    },
+    "termination_conditions": [
+      {
+        "type": "normal",
+        "condition": "state == CONSULTATION_COMPLETE",
+        "description": "Agent completed all required phases"
+      },
+      {
+        "type": "truncation",
+        "condition": "turn_count >= max_turns",
+        "description": "Maximum turns exceeded"
+      },
+      {
+        "type": "failure",
+        "condition": "prescribed_contraindicated_drug or missed_critical_safety",
+        "description": "Agent made a critical safety error"
+      }
+    ],
+    "reset": {
+      "description": "Reset environment to initial state",
+      "returns": {
+        "observation": "Initial observation (demographics, ticket)",
+        "info": {
+          "state": "INITIAL",
+          "turn_count": 0,
+          "trust_level": 0.5
+        }
+      }
+    }
+  },
+  "execution_config": {
+    "version": "1.0",
+    "environment_type": "medical_consultation",
+    "components": {
+      "action_space": "Defines all valid agent actions with schema",
+      "observation_function": "Controls information flow with noise model and gates",
+      "scoring_function": "Evaluates agent performance with per-component scoring",
+      "agent_api": "Defines step-based interaction protocol",
+      "environment_dynamics": "State machine with transitions and rewards",
+      "ground_truth": "Reference answers for evaluation"
+    },
+    "execution_flow": [
+      "1. Initialize: load task, set state=INITIAL, turn_count=0",
+      "2. Agent calls step(action) with action from action_space",
+      "3. Validate action against action_space schema and preconditions",
+      "4. If valid: apply state transition from environment_dynamics",
+      "5. Apply observation_function to determine what agent sees",
+      "6. Apply noise_model to observations",
+      "7. Calculate incremental reward from environment_dynamics.reward_function",
+      "8. Return (observation, reward, terminated, info)",
+      "9. If terminated: run scoring_function for final score",
+      "10. Return final_score with component breakdown"
+    ],
+    "agent_requirements": {
+      "input_format": "Must produce actions conforming to action_space schema",
+      "output_parsing": "Must handle observations from observation_function",
+      "memory": "Agent must maintain own history (no state reset between turns)",
+      "tool_use": "Must call tools via action_space, not free-form text"
+    },
+    "evaluator_requirements": {
+      "ground_truth_access": "Evaluator has access to ground_truth for scoring",
+      "scoring_execution": "Run scoring_function logic against agent action log",
+      "component_breakdown": "Report per-component scores, not just aggregate",
+      "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
+    },
+    "randomness": {
+      "seed": 400,
+      "stochastic_elements": [
+        "patient_response_variation",
+        "lab_result_noise",
+        "vital_sign_noise",
+        "symptom_reveal_timing"
+      ],
+      "deterministic_elements": [
+        "ground_truth",
+        "correct_diagnosis",
+        "expected_lab_results",
+        "action_space"
+      ]
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_ff9b1f",
+    "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_98b62b",
     "risk_level": "moderate",
-    "uncertainty_level": 0.203,
+    "uncertainty_level": 0.269,
     "behavior_type": "cooperative",
-    "seed": 300
+    "seed": 400
   }
 }

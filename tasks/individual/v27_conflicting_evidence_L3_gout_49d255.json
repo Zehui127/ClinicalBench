@@ -1,0 +1,2050 @@
+{
+  "id": "v27_conflicting_evidence_L3_gout_49d255",
+  "domain": "rheumatology",
+  "task_type": "conflicting_evidence",
+  "difficulty": "L3",
+  "version": "2.7",
+  "description": {
+    "purpose": "conflicting_evidence — 53-year-old female with I've been having which joints have been affected? is it the big toe for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having which joints have been affected? is it the big toe for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Ability to resolve conflicting data",
+      "Critical appraisal of evidence",
+      "Handle complex multi-condition scenario",
+      "Manage difficult patient behavior"
+    ],
+    "focus": "Resolving conflicting clinical evidence"
+  },
+  "user_scenario": {
+    "persona": "53-year-old female patient, 初中 education, works as a mechanic. a patient who may resist tests or treatment presenting with I've been having which joints have been affected? is it the big toe.",
+    "patient_profile": {
+      "age": 53,
+      "gender": "female",
+      "education_level": "middle_school",
+      "communication_style": "resistant",
+      "cooperation_level": "poor",
+      "chief_complaint": "i've had these attacks before for a few weeks",
+      "occupation": "mechanic"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "i've had these attacks before"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I've been having which joints have been affected? is it the big toe"
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "gout",
+        "uric_acid": "523 umol/L (abnormal)",
+        "crp": "27.4 mg/L (abnormal)",
+        "wbc": "10.4 x10^9/L (abnormal)"
+      },
+      "patient_misconceptions_and_concerns": {
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "i've had these attacks before"
+      ],
+      "share_only_if_asked": [],
+      "noise_symptoms": [
+        "occasional ear fullness"
+      ],
+      "noise_note": "Unrelated symptoms that may distract from the main issue",
+      "misleading_symptoms": [
+        "intense pain at night",
+        "joint pain in unusual locations (ankle, knee)",
+        "attacks triggered by dietary changes",
+        "joint pain and swelling (also seen in rheumatoid arthritis and infection)",
+        "redness (also seen in cellulitis)"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "response_style": {
+        "honest": false,
+        "direct": false,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "hostile",
+        "may_resist_certain_treatments": [
+          "expensive_medications",
+          "multiple_medications"
+        ],
+        "financial_constraints": true
+      }
+    },
+    "task_instructions": "You are WangXX, a 53-year-old female patient. Your education level is 初中. You work as a mechanic. You are seeing a doctor because of i've had these attacks before. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "medical_persona": {
+    "age": 53,
+    "gender": "female",
+    "symptoms": {
+      "Have you had these attacks before": "I've had these attacks before"
+    },
+    "duration": "a few weeks",
+    "severity": "severe",
+    "current_medications": [
+      {
+        "name": "allopurinol",
+        "dose": "300mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "indomethacin",
+        "dose": "50mg",
+        "frequency": "three times daily"
+      }
+    ],
+    "lab_results": {
+      "uric_acid": "504 umol/L (abnormal)",
+      "crp": "28.9 mg/L (abnormal)",
+      "wbc": "11.1 x10^9/L (abnormal)",
+      "creatinine": "1.08 mg/dL",
+      "alt": "32.7 U/L"
+    },
+    "vital_signs": {
+      "blood_pressure": "133/80 mmHg",
+      "bmi": "26.5"
+    },
+    "lifestyle_factors": {
+      "alcohol": "occasional (1-2 drinks/week)",
+      "exercise": "sedentary"
+    },
+    "socioeconomic_factors": {
+      "occupation": "mechanic",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
+    },
+    "diagnosis": {
+      "primary": "gout",
+      "severity": "severe",
+      "differential_diagnoses": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis",
+        "Cellulitis"
+      ]
+    }
+  },
+  "ticket": "i've had these attacks before",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "WangXX",
+          "mrn": "MRN297716",
+          "age": 53,
+          "gender": "female"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 53,
+            "gender": "female",
+            "symptoms": [
+              "i've had these attacks before"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "i've had these attacks before"
+            ],
+            "ask_only": []
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 5
+        }
+      },
+      {
+        "action_id": "use_order_lab_tests",
+        "requestor": "assistant",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "uric_acid",
+            "crp",
+            "wbc",
+            "creatinine",
+            "alt"
+          ],
+          "rationale": "Labs to evaluate gout"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_differential_diagnosis",
+        "requestor": "assistant",
+        "name": "differential_diagnosis",
+        "arguments": {
+          "symptoms": [
+            "gout"
+          ],
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ]
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "gout"
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      },
+      {
+        "check_id": "trust_building",
+        "criteria": "Demonstrates empathy and builds patient trust",
+        "weight": 1.5
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL"
+    ],
+    "medical_criteria": {
+      "category": "diagnosis",
+      "min_turns": 5,
+      "max_turns": 20,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of gout identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": true,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": true,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": true,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.8
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "gout",
+          "allow_alternatives": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": true,
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ],
+          "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "uric_acid",
+            "crp",
+            "wbc"
+          ],
+          "should_order": [
+            "creatinine",
+            "alt"
+          ],
+          "weight": 0.15
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": true,
+          "must_ask": [
+            "Which joints have been affected? Is it the big toe?",
+            "Does the pain come on suddenly, especially at night?",
+            "Have you had these attacks before?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from colchicine ()",
+          "options": [
+            "Reduce dose of colchicine",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose colchicine, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": true,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "critical"
+        },
+        "nsaid_gi_risk": {
+          "required": true,
+          "description": "Must assess: NSAID GI risk",
+          "severity": "high"
+        },
+        "immunosuppression_monitoring": {
+          "required": true,
+          "description": "Must assess: immunosuppression monitoring",
+          "severity": "high"
+        }
+      },
+      "required_tools": [
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Fail to consider Pseudogout as alternative diagnosis",
+        "Diagnose gout without ordering any supporting lab tests",
+        "Fail to assess comorbidity impact on treatment plan",
+        "Prescribe multiple new medications simultaneously without interaction check"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal uric acid during acute gout attack",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "mid_consultation",
+          "event": "Patient reports acute worsening of symptoms during the visit",
+          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
+          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+        }
+      ]
+    }
+  },
+  "ground_truth": {
+    "correct_diagnosis": {
+      "primary": "gout",
+      "confidence_threshold": 0.8,
+      "acceptable_alternatives": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis"
+      ],
+      "required_evidence": [
+        "symptom_cluster_matching",
+        "lab_result_confirmation",
+        "abnormal_uric_acid"
+      ]
+    },
+    "expected_lab_results": {
+      "uric_acid": {
+        "expected_value": "509 umol/L (abnormal)",
+        "reference_range": "450-650 umol/L",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "crp": {
+        "expected_value": "24.9 mg/L (abnormal)",
+        "reference_range": "10-50 mg/L",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "wbc": {
+        "expected_value": "11.1 x10^9/L (abnormal)",
+        "reference_range": "8.0-14.0 x10^9/L",
+        "is_abnormal": true,
+        "clinical_significance": "low"
+      },
+      "creatinine": {
+        "expected_value": "1.08 mg/dL",
+        "reference_range": "0.9-1.4 mg/dL",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "alt": {
+        "expected_value": "35.3 U/L",
+        "reference_range": "20-50 U/L",
+        "is_abnormal": false,
+        "clinical_significance": "low"
+      }
+    },
+    "correct_treatment_plan": {
+      "medications": [],
+      "non_pharmacological": [
+        "Lifestyle modification counseling",
+        "Dietary guidance"
+      ],
+      "follow_up": "2-4 weeks"
+    },
+    "required_safety_checks": [
+      {
+        "check": "allergy_check",
+        "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "drug_interaction_check",
+        "before": "prescribing",
+        "critical": true
+      }
+    ],
+    "communication_truth": [
+      {
+        "milestone": "explain_diagnosis",
+        "must_include": [
+          "diagnosis name in patient terms",
+          "what it means"
+        ]
+      },
+      {
+        "milestone": "explain_treatment",
+        "must_include": [
+          "medication name and purpose",
+          "how to take it",
+          "expected effects"
+        ]
+      },
+      {
+        "milestone": "address_concerns",
+        "must_include": [
+          "acknowledge patient worries",
+          "correct misconceptions"
+        ]
+      }
+    ],
+    "decision_tree": [
+      {
+        "step": 1,
+        "action": "history_taking",
+        "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
+        "key_questions": [
+          "i've had these attacks before"
+        ],
+        "hidden_information_to_uncover": []
+      },
+      {
+        "step": 2,
+        "action": "order_labs",
+        "correct_approach": "Order disease-relevant labs for gout",
+        "required_tests": [
+          "uric_acid",
+          "crp",
+          "wbc",
+          "creatinine",
+          "alt"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "form_diagnosis",
+        "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
+        "must_consider": [
+          "Pseudogout",
+          "Septic Arthritis",
+          "Rheumatoid Arthritis"
+        ]
+      },
+      {
+        "step": 4,
+        "action": "plan_treatment",
+        "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
+        "safety_first": true
+      },
+      {
+        "step": 5,
+        "action": "communicate_and_close",
+        "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up"
+      }
+    ]
+  },
+  "environment_dynamics": {
+    "states": {
+      "INITIAL": {
+        "description": "Consultation has not started",
+        "available_actions": [
+          "greet_patient",
+          "review_ticket"
+        ],
+        "observations": [
+          "ticket",
+          "patient_demographics"
+        ]
+      },
+      "HISTORY_TAKING": {
+        "description": "Doctor is gathering patient history",
+        "available_actions": [
+          "ask_patient",
+          "ask_about_symptoms",
+          "ask_about_history",
+          "ask_about_medications",
+          "ask_about_allergies",
+          "ask_about_lifestyle"
+        ],
+        "observations": [
+          "patient_responses",
+          "volunteer_symptoms"
+        ],
+        "partial_observability": {
+          "patient_visible_symptoms": "volunteer tier only",
+          "requires_probing": "if_asked and hidden tiers need specific questions",
+          "trust_gated": "resistant symptoms need empathy/probing"
+        }
+      },
+      "PHYSICAL_EXAM": {
+        "description": "Doctor performs or orders physical examination",
+        "available_actions": [
+          "assess_vital_signs",
+          "perform_examination"
+        ],
+        "observations": [
+          "vital_signs",
+          "exam_findings"
+        ]
+      },
+      "LAB_ORDERED": {
+        "description": "Doctor has ordered lab tests, awaiting results",
+        "available_actions": [
+          "wait_for_results",
+          "continue_history"
+        ],
+        "observations": [
+          "tests_ordered"
+        ]
+      },
+      "LAB_RESULTS_AVAILABLE": {
+        "description": "Lab results are available for review",
+        "available_actions": [
+          "get_lab_results",
+          "review_results",
+          "order_additional_tests"
+        ],
+        "observations": [
+          "lab_results"
+        ],
+        "disease_specific_observations": [
+          "uric_acid: results pending",
+          "crp: results pending",
+          "wbc: results pending",
+          "creatinine: results pending",
+          "alt: results pending"
+        ]
+      },
+      "DIAGNOSIS_FORMING": {
+        "description": "Doctor is forming differential diagnosis",
+        "available_actions": [
+          "differential_diagnosis",
+          "order_additional_tests",
+          "consult_specialist"
+        ],
+        "observations": [
+          "symptom_summary",
+          "lab_summary"
+        ]
+      },
+      "DIAGNOSIS_MADE": {
+        "description": "Doctor has recorded a diagnosis",
+        "available_actions": [
+          "record_diagnosis",
+          "communicate_diagnosis"
+        ],
+        "observations": [
+          "diagnosis"
+        ]
+      },
+      "TREATMENT_PLANNING": {
+        "description": "Doctor is planning treatment",
+        "available_actions": [
+          "check_allergy",
+          "check_drug_interactions",
+          "check_contraindications",
+          "prescribe_medication",
+          "health_education"
+        ],
+        "observations": [
+          "allergy_check_result",
+          "interaction_check_result"
+        ]
+      },
+      "PATIENT_DISCUSSION": {
+        "description": "Doctor is discussing treatment with patient",
+        "available_actions": [
+          "patient_education",
+          "address_concerns",
+          "negotiate_treatment"
+        ],
+        "observations": [
+          "patient_reaction",
+          "patient_concerns"
+        ]
+      },
+      "PRESCRIPTION_WRITTEN": {
+        "description": "Doctor has written prescription",
+        "available_actions": [
+          "schedule_followup",
+          "provide_instructions"
+        ],
+        "observations": [
+          "prescription"
+        ]
+      },
+      "CONSULTATION_COMPLETE": {
+        "description": "Consultation is complete",
+        "available_actions": [],
+        "observations": [
+          "full_summary"
+        ]
+      }
+    },
+    "transitions": [
+      {
+        "from": "INITIAL",
+        "to": "HISTORY_TAKING",
+        "trigger": "doctor initiates conversation"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "PHYSICAL_EXAM",
+        "trigger": "doctor assesses vital signs or performs exam"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor begins differential diagnosis"
+      },
+      {
+        "from": "LAB_ORDERED",
+        "to": "LAB_RESULTS_AVAILABLE",
+        "trigger": "lab results are ready"
+      },
+      {
+        "from": "LAB_RESULTS_AVAILABLE",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor reviews results and forms diagnosis"
+      },
+      {
+        "from": "LAB_RESULTS_AVAILABLE",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders additional tests"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "DIAGNOSIS_MADE",
+        "trigger": "doctor records diagnosis"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders confirmatory tests"
+      },
+      {
+        "from": "DIAGNOSIS_MADE",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "doctor begins treatment planning"
+      },
+      {
+        "from": "TREATMENT_PLANNING",
+        "to": "PATIENT_DISCUSSION",
+        "trigger": "doctor discusses treatment options with patient"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "PRESCRIPTION_WRITTEN",
+        "trigger": "doctor writes prescription"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "patient objects, doctor revises plan"
+      },
+      {
+        "from": "PRESCRIPTION_WRITTEN",
+        "to": "CONSULTATION_COMPLETE",
+        "trigger": "doctor provides follow-up instructions"
+      },
+      {
+        "from": "DIAGNOSIS_MADE",
+        "to": "PATIENT_DISCUSSION",
+        "trigger": "doctor communicates diagnosis directly to patient"
+      }
+    ],
+    "invalid_transitions": [
+      {
+        "from": "INITIAL",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe without diagnosis"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe without diagnosis and labs"
+      },
+      {
+        "from": "INITIAL",
+        "to": "DIAGNOSIS_MADE",
+        "reason": "Cannot diagnose without gathering history"
+      },
+      {
+        "from": "LAB_ORDERED",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe before reviewing lab results"
+      }
+    ],
+    "reward_function": {
+      "HISTORY_TAKING": {
+        "per_relevant_question": 0.05,
+        "discover_hidden_symptom": 0.15,
+        "discover_resistant_symptom": 0.2,
+        "missed_symptom_penalty": -0.1
+      },
+      "EXAMINATION_AND_LABS": {
+        "order_appropriate_test": 0.1,
+        "order_unnecessary_test": -0.05,
+        "miss_critical_test": -0.2
+      },
+      "DIAGNOSIS_MADE": {
+        "correct_diagnosis": 0.3,
+        "acceptable_alternative": 0.2,
+        "incorrect_diagnosis": -0.3
+      },
+      "TREATMENT_PLANNING": {
+        "safety_check_performed": 0.1,
+        "safety_check_skipped": -0.3,
+        "appropriate_medication": 0.2,
+        "contraindicated_medication": -0.4
+      },
+      "PATIENT_DISCUSSION": {
+        "used_patient_friendly_language": 0.05,
+        "corrected_misconception": 0.1,
+        "ignored_concern": -0.1
+      },
+      "CONSULTATION_COMPLETE": {
+        "all_phases_complete": 0.1,
+        "efficiency_bonus": 0.05,
+        "incomplete_consultation": -0.2
+      }
+    },
+    "initial_state": "INITIAL",
+    "terminal_states": [
+      "CONSULTATION_COMPLETE"
+    ],
+    "partial_observability": {
+      "description": "Agent cannot directly observe hidden symptoms, patient thoughts, or lab results without ordering",
+      "observable": [
+        "patient_verbal_responses",
+        "vital_signs",
+        "ordered_lab_results"
+      ],
+      "unobservable": [
+        "hidden_symptoms",
+        "resistant_symptoms",
+        "undiagnosed_comorbidities",
+        "patient_inner_thoughts"
+      ],
+      "information_cost": "Each question costs 1 turn; each lab order costs 1-2 turns"
+    }
+  },
+  "outcome_criteria": {
+    "primary_outcome": {
+      "metric": "diagnostic_accuracy",
+      "description": "Agent arrives at the correct diagnosis",
+      "verifiable": true,
+      "scoring": {
+        "exact_match": 1.0,
+        "acceptable_alternative": 0.7,
+        "partially_correct": 0.4,
+        "incorrect": 0.0
+      },
+      "correct_answer": "gout",
+      "acceptable_answers": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis"
+      ]
+    },
+    "secondary_outcomes": [
+      {
+        "metric": "treatment_appropriateness",
+        "description": "Treatment plan is safe and effective for the diagnosed condition",
+        "verifiable": true,
+        "scoring": {
+          "optimal_first_line": 1.0,
+          "acceptable_alternative": 0.7,
+          "suboptimal_but_safe": 0.4,
+          "unsafe_or_contraindicated": 0.0
+        },
+        "correct_answer": "colchicine"
+      },
+      {
+        "metric": "safety_adherence",
+        "description": "All required safety checks performed before prescribing",
+        "verifiable": true,
+        "scoring": {
+          "all_checks_performed": 1.0,
+          "minor_omission": 0.5,
+          "critical_omission": 0.0
+        },
+        "required_checks": [
+          "allergy_check",
+          "drug_interaction_check"
+        ],
+        "critical_checks": [
+          "allergy_check"
+        ]
+      },
+      {
+        "metric": "information_completeness",
+        "description": "Agent gathered all critical patient information",
+        "verifiable": true,
+        "scoring": {
+          "complete": 1.0,
+          "minor_gap": 0.7,
+          "significant_gap": 0.3,
+          "inadequate": 0.0
+        },
+        "required_categories": [
+          "chief_complaint",
+          "symptoms",
+          "past_history",
+          "medications",
+          "allergies"
+        ]
+      },
+      {
+        "metric": "patient_satisfaction",
+        "description": "Patient understands their condition and agrees to treatment plan",
+        "verifiable": true,
+        "scoring": {
+          "patient_understands_and_agrees": 1.0,
+          "patient_understands_but_hesitant": 0.6,
+          "patient_confused": 0.3,
+          "patient_refuses": 0.1
+        }
+      }
+    ],
+    "scoring_rubric": {
+      "weights": {
+        "diagnostic_accuracy": 0.3,
+        "treatment_appropriateness": 0.25,
+        "safety_adherence": 0.2,
+        "information_completeness": 0.15,
+        "patient_satisfaction": 0.1
+      },
+      "pass_threshold": 0.8,
+      "grade_levels": {
+        "excellent": [
+          0.9,
+          1.0
+        ],
+        "good": [
+          0.8,
+          0.9
+        ],
+        "acceptable": [
+          0.7,
+          0.8
+        ],
+        "needs_improvement": [
+          0.5,
+          0.7
+        ],
+        "failing": [
+          0.0,
+          0.5
+        ]
+      },
+      "critical_failure_conditions": [
+        "Missed critical diagnosis",
+        "Prescribed contraindicated medication",
+        "Failed to check allergies before prescribing",
+        "Ignored abnormal lab results without follow-up"
+      ]
+    }
+  },
+  "episode_structure": {
+    "phases": [
+      {
+        "name": "intake",
+        "description": "Initial greeting and chief complaint identification",
+        "turn_budget": {
+          "min": 1,
+          "max": 2
+        },
+        "required_actions": [
+          "greet_patient",
+          "identify_chief_complaint"
+        ],
+        "exit_condition": "Chief complaint clearly stated"
+      },
+      {
+        "name": "history_taking",
+        "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
+        "turn_budget": {
+          "min": 4,
+          "max": 8
+        },
+        "required_actions": [
+          "ask_about_symptoms",
+          "ask_about_history",
+          "ask_about_medications",
+          "ask_about_allergies"
+        ],
+        "exit_condition": "All required history categories covered"
+      },
+      {
+        "name": "examination_and_labs",
+        "description": "Physical examination and laboratory testing",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "assess_vital_signs",
+          "order_lab_tests",
+          "get_lab_results"
+        ],
+        "exit_condition": "Sufficient data collected for diagnosis"
+      },
+      {
+        "name": "diagnosis",
+        "description": "Form and record diagnosis with differential consideration",
+        "turn_budget": {
+          "min": 2,
+          "max": 3
+        },
+        "required_actions": [
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "exit_condition": "Diagnosis recorded with supporting evidence"
+      },
+      {
+        "name": "treatment",
+        "description": "Plan treatment, check safety, prescribe medication",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "check_allergy",
+          "check_drug_interactions",
+          "prescribe_medication"
+        ],
+        "exit_condition": "Safe prescription written"
+      },
+      {
+        "name": "patient_communication",
+        "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "communicate_diagnosis",
+          "patient_education",
+          "address_concerns"
+        ],
+        "exit_condition": "Patient understands plan and concerns addressed"
+      },
+      {
+        "name": "closure",
+        "description": "Schedule follow-up and provide final instructions",
+        "turn_budget": {
+          "min": 1,
+          "max": 2
+        },
+        "required_actions": [
+          "schedule_followup"
+        ],
+        "exit_condition": "Follow-up scheduled and consultation concluded"
+      }
+    ],
+    "time_pressure_events": [
+      {
+        "trigger_turn": 12,
+        "event": "Patient shows signs of impatience",
+        "effect": "Agent must balance thoroughness with efficiency"
+      },
+      {
+        "trigger_turn": 16,
+        "event": "Patient condition acutely worsens",
+        "effect": "Agent must immediately prioritize stabilization"
+      }
+    ],
+    "efficiency_metrics": {
+      "optimal_turn_range": [
+        7,
+        13
+      ],
+      "max_turns": 20,
+      "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
+      "waste_penalty": -0.02,
+      "rush_penalty": -0.05
+    },
+    "total_turn_budget": 20,
+    "minimum_required_turns": 5
+  },
+  "capability_dimensions": {
+    "dimensions": {
+      "information_gathering": {
+        "description": "Ability to systematically collect patient history, symptoms, and relevant medical information",
+        "sub_skills": [
+          "history_taking",
+          "symptom_probe",
+          "hidden_symptom_discovery",
+          "medical_history_review"
+        ],
+        "weight": 0.2,
+        "test_method": "Measure percentage of critical symptoms discovered for gout"
+      },
+      "diagnostic_reasoning": {
+        "description": "Ability to form accurate differential diagnosis based on gathered evidence",
+        "sub_skills": [
+          "differential_diagnosis",
+          "evidence_synthesis",
+          "lab_interpretation",
+          "pattern_recognition"
+        ],
+        "weight": 0.35,
+        "test_method": "Check if correct diagnosis is reached and differentials considered"
+      },
+      "treatment_planning": {
+        "description": "Ability to design appropriate, individualized treatment plans",
+        "sub_skills": [
+          "medication_selection",
+          "dose_optimization",
+          "comorbidity_management",
+          "guideline_adherence"
+        ],
+        "weight": 0.1,
+        "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
+      },
+      "safety_awareness": {
+        "description": "Ability to identify and avoid medical safety risks",
+        "sub_skills": [
+          "allergy_checking",
+          "drug_interaction_check",
+          "contraindication_awareness",
+          "red_flag_detection"
+        ],
+        "weight": 0.1,
+        "test_method": "Check all safety checks performed before treatment decisions"
+      },
+      "communication_quality": {
+        "description": "Ability to communicate effectively with patients at their level of understanding",
+        "sub_skills": [
+          "patient_friendly_language",
+          "empathy",
+          "misconception_correction",
+          "shared_decision_making"
+        ],
+        "weight": 0.1,
+        "test_method": "Evaluate patient understanding and misconception correction"
+      },
+      "efficiency": {
+        "description": "Ability to reach correct conclusions with minimal unnecessary actions",
+        "sub_skills": [
+          "focused_questioning",
+          "appropriate_test_selection",
+          "time_management",
+          "resource_efficiency"
+        ],
+        "weight": 0.15,
+        "test_method": "Count turns and actions relative to optimal path"
+      }
+    },
+    "primary_dimensions": [
+      "diagnostic_reasoning",
+      "information_gathering",
+      "efficiency"
+    ],
+    "difficulty_modifier": {
+      "focus": "advanced mastery under adversarial conditions",
+      "sub_skill_multiplier": 1.3
+    }
+  },
+  "difficulty_profile": {
+    "factors": {
+      "symptom_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number and overlap of presenting symptoms",
+        "task_specific": "1 total symptoms across tiers"
+      },
+      "diagnostic_ambiguity": {
+        "score": 2,
+        "max": 3,
+        "description": "Number of plausible differential diagnoses and ease of differentiation",
+        "task_specific": "4 plausible differentials"
+      },
+      "treatment_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "task_specific": "0 comorbidities affecting treatment choice"
+      },
+      "patient_behavior_difficulty": {
+        "score": 3,
+        "max": 3,
+        "description": "How challenging the patient behavior is for information gathering",
+        "task_specific": "behavior: refusing"
+      },
+      "information_asymmetry": {
+        "score": 1,
+        "max": 3,
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "task_specific": "0 hidden/resistant symptoms to discover"
+      },
+      "comorbidity_burden": {
+        "score": 0,
+        "max": 3,
+        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
+        "task_specific": "0 comorbidities present"
+      },
+      "time_pressure": {
+        "score": 2,
+        "max": 3,
+        "description": "Urgency level and consequences of delayed action",
+        "task_specific": "Moderate urgency with condition change event"
+      }
+    },
+    "overall": {
+      "aggregate_score": 10,
+      "max_possible": 21,
+      "difficulty_rating": "L3",
+      "primary_difficulty_drivers": [
+        "patient_behavior_difficulty",
+        "diagnostic_ambiguity",
+        "time_pressure"
+      ],
+      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, diagnostic ambiguity. The diagnosis of gout requires careful information gathering and clinical reasoning."
+    },
+    "adversarial_design": {
+      "noise_injection": {
+        "misleading_symptoms": 2,
+        "noise_symptoms": 1,
+        "cross_overlapping_conditions": 2
+      },
+      "partial_observability": {
+        "hidden_symptoms": 0,
+        "trust_gated_symptoms": 0,
+        "undiagnosed_comorbidities": 0
+      },
+      "adversarial_patient_behavior": true,
+      "conflicting_evidence": true
+    }
+  },
+  "action_space": {
+    "version": "1.0",
+    "schema_type": "json_schema",
+    "total_actions": 8,
+    "actions": {
+      "greet_patient": {
+        "description": "Greet the patient and introduce yourself",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state == INITIAL"
+        ],
+        "postconditions": [
+          "state transitions to HISTORY_TAKING"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "ask_patient": {
+        "description": "Ask the patient a question",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The question to ask"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "symptoms",
+                "history",
+                "medications",
+                "allergies",
+                "lifestyle",
+                "family_history",
+                "other"
+              ]
+            }
+          },
+          "required": [
+            "question"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "patient_response": {
+              "type": "string"
+            },
+            "new_information_revealed": {
+              "type": "boolean"
+            },
+            "trust_change": {
+              "type": "number",
+              "description": "Change in patient trust (-1 to +1)"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PATIENT_DISCUSSION]"
+        ],
+        "postconditions": [
+          "turn_count += 1",
+          "information_revealed may increase"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of test names to order"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale for ordering"
+            }
+          },
+          "required": [
+            "tests"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string"
+            },
+            "tests_ordered": {
+              "type": "array"
+            },
+            "estimated_wait": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
+        ],
+        "postconditions": [
+          "labs_ordered = true",
+          "state transitions to LAB_ORDERED"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "recommended_tests": [
+            "uric_acid",
+            "crp",
+            "wbc",
+            "creatinine",
+            "alt"
+          ]
+        }
+      },
+      "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "all_results_available": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "labs_ordered == true",
+          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
+        ],
+        "postconditions": [
+          "labs_available = true",
+          "state transitions to LAB_RESULTS_AVAILABLE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symptoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "must_consider": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "symptoms"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "differentials": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "reasoning": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "differential_generated = true",
+          "state transitions to DIAGNOSIS_FORMING"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ]
+        }
+      },
+      "record_diagnosis": {
+        "description": "Record the final diagnosis",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "diagnosis": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "diagnosis"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "recorded": {
+              "type": "boolean"
+            },
+            "diagnosis_id": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
+        ],
+        "postconditions": [
+          "diagnosis_recorded = true",
+          "state transitions to DIAGNOSIS_MADE"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "correct_diagnosis": "gout"
+        }
+      },
+      "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include_bmi": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "blood_pressure": {
+              "type": "string"
+            },
+            "heart_rate": {
+              "type": "string"
+            },
+            "oxygen_saturation": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            },
+            "bmi": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "vitals_observed = true",
+          "state may transition to PHYSICAL_EXAM"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "schedule_followup": {
+        "description": "Schedule a follow-up appointment",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "timeframe": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "tests_to_repeat": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "timeframe"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "appointment_scheduled": {
+              "type": "boolean"
+            },
+            "date": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "prescription_written == true"
+        ],
+        "postconditions": [
+          "followup_scheduled = true",
+          "state transitions to CONSULTATION_COMPLETE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      }
+    },
+    "action_validation": {
+      "unknown_action": "REJECT — action not in action_space",
+      "invalid_precondition": "REJECT — return error message, state unchanged",
+      "missing_required_param": "REJECT — return validation error",
+      "valid_action": "EXECUTE — apply state transition, return observation"
+    }
+  },
+  "observation_function": {
+    "fields": {
+      "patient_demographics": {
+        "field": "age, gender, name, mrn",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "initial_state"
+      },
+      "ticket": {
+        "field": "chief_complaint",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "ticket"
+      },
+      "patient_verbal_responses": {
+        "field": "what patient says in response to questions",
+        "observable": "on_ask",
+        "noise_level": 0.05,
+        "noise_type": "occasional_vagueness",
+        "source": "user_scenario.information_sharing_strategy"
+      },
+      "vital_signs": {
+        "field": "blood_pressure, heart_rate, oxygen_saturation, bmi",
+        "observable": "after_assess_vital_signs",
+        "noise_level": 0.02,
+        "noise_type": "measurement_variance",
+        "source": "medical_persona.vital_signs"
+      },
+      "lab_results": {
+        "field": "all ordered test results",
+        "observable": "after_get_lab_results",
+        "noise_level": 0.01,
+        "noise_type": "lab_variance",
+        "source": "medical_persona.lab_results"
+      },
+      "volunteer_symptoms": {
+        "field": "symptoms patient volunteers without prompting",
+        "observable": "in_turn_1",
+        "noise_level": 0.0,
+        "source": "information_sharing_strategy.volunteer_without_asking"
+      },
+      "if_asked_symptoms": {
+        "field": "symptoms revealed only if specifically asked",
+        "observable": "on_specific_question",
+        "noise_level": 0.05,
+        "noise_type": "partial_recall",
+        "source": "information_sharing_strategy.share_only_if_asked",
+        "trigger": "question matches symptom keyword"
+      },
+      "hidden_symptoms": {
+        "field": "symptoms patient won't mention unless carefully probed",
+        "observable": "on_targeted_probe",
+        "noise_level": 0.1,
+        "noise_type": "reluctance_delay",
+        "source": "information_sharing_strategy.hidden_truth",
+        "trigger": "specific medical question about the symptom area"
+      },
+      "resistant_symptoms": {
+        "field": "sensitive symptoms requiring trust/empathy to reveal",
+        "observable": "after_trust_threshold",
+        "noise_level": 0.15,
+        "noise_type": "emotional_barrier",
+        "source": "information_sharing_strategy.resistant_to_share",
+        "trigger": "empathy demonstrated + specific question"
+      },
+      "undiagnosed_comorbidities": {
+        "field": "conditions patient has but doesn't know about",
+        "observable": "through_symptom_correlation",
+        "noise_level": 0.2,
+        "noise_type": "patient_unaware",
+        "source": "information_state.undiagnosed_comorbidities",
+        "trigger": "doctor recognizes symptom pattern + orders relevant tests"
+      },
+      "patient_misconceptions": {
+        "field": "incorrect beliefs patient holds",
+        "observable": "when_patient_expresses_concern",
+        "noise_level": 0.0,
+        "source": "information_state.patient_misconceptions_and_concerns",
+        "trigger": "treatment discussion or patient asks question"
+      },
+      "correct_diagnosis": {
+        "field": "the actual diagnosis",
+        "observable": "never_to_agent",
+        "noise_level": 0.0,
+        "source": "ground_truth.correct_diagnosis",
+        "note": "only available to evaluator, never to agent"
+      }
+    },
+    "noise_model": {
+      "patient_response_noise": {
+        "type": "categorical",
+        "levels": {
+          "cooperative": {
+            "vagueness": 0.02,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "forgetful": {
+            "vagueness": 0.15,
+            "omission": 0.1,
+            "delay": 0.0
+          },
+          "confused": {
+            "vagueness": 0.1,
+            "omission": 0.05,
+            "delay": 0.05
+          },
+          "concealing": {
+            "vagueness": 0.05,
+            "omission": 0.2,
+            "delay": 0.15
+          },
+          "pressuring": {
+            "vagueness": 0.05,
+            "omission": 0.0,
+            "delay": 0.0
+          },
+          "refusing": {
+            "vagueness": 0.1,
+            "omission": 0.15,
+            "delay": 0.1
+          }
+        },
+        "active_level": "refusing"
+      },
+      "lab_result_noise": {
+        "type": "gaussian",
+        "sigma": 0.02,
+        "applies_to": "lab_results after get_lab_results"
+      },
+      "vital_sign_noise": {
+        "type": "uniform",
+        "range": [
+          -1,
+          1
+        ],
+        "applies_to": "vital_signs after assess_vital_signs"
+      }
+    },
+    "information_gates": {
+      "volunteer_tier": {
+        "access": "immediate",
+        "fields": [
+          "i've had these attacks before"
+        ],
+        "cost": 0
+      },
+      "if_asked_tier": {
+        "access": "on_category_match",
+        "fields": [],
+        "cost": 1,
+        "trigger": "ask_patient with category matching the symptom"
+      },
+      "hidden_tier": {
+        "access": "on_specific_probe",
+        "fields": [],
+        "cost": 1,
+        "trigger": "ask_patient with question containing specific symptom keyword"
+      },
+      "resistant_tier": {
+        "access": "after_trust_threshold",
+        "fields": [],
+        "cost": 2,
+        "trust_required": 0.6,
+        "trigger": "demonstrate empathy + ask specific question"
+      }
+    },
+    "difficulty_noise_multiplier": 1.5,
+    "observation_protocol": {
+      "step_input": {
+        "agent_action": "ActionSchema compliant JSON",
+        "current_state": "ENVIRONMENT_STATES key",
+        "turn_count": "integer",
+        "trust_level": "float 0-1"
+      },
+      "step_output": {
+        "observation": "dict of visible fields at current state",
+        "reward": "float — incremental reward for this step",
+        "terminated": "boolean — has consultation ended",
+        "info": "dict — debug/metadata (agent cannot see ground_truth)"
+      }
+    }
+  },
+  "scoring_function": {
+    "version": "1.0",
+    "evaluable": true,
+    "score_range": [
+      0.0,
+      1.0
+    ],
+    "components": {
+      "diagnosis_score": {
+        "weight": 0.3,
+        "logic": "if agent_diagnosis == ground_truth.correct_diagnosis.primary: 1.0 elif agent_diagnosis in ground_truth.correct_diagnosis.acceptable_alternatives: 0.7 elif partial_match(agent_diagnosis, ground_truth): 0.4 else: 0.0",
+        "source": "ground_truth.correct_diagnosis",
+        "evaluable_expression": "exact_match(agent_output.diagnosis, ground_truth.correct_diagnosis.primary) ? 1.0 : (in_list(agent_output.diagnosis, ground_truth.correct_diagnosis.acceptable_alternatives) ? 0.7 : 0.0)"
+      },
+      "safety_score": {
+        "weight": 0.25,
+        "logic": "all_checks = sum(check_performed(c) for c in ground_truth.required_safety_checks); critical_missed = sum(1 for c in ground_truth.required_safety_checks if c.critical and not check_performed(c)); if critical_missed > 0: 0.0 else: all_checks / len(ground_truth.required_safety_checks)",
+        "source": "ground_truth.required_safety_checks",
+        "evaluable_expression": "critical_missed = count(c for c in required_safety_checks where c.critical and not performed); critical_missed == 0 ? performed_count / total_count : 0.0"
+      },
+      "information_score": {
+        "weight": 0.2,
+        "logic": "discovered = count(s for s in all_symptoms if agent_asked_about(s)); total = len(all_symptoms); min(discovered / total, 1.0)",
+        "source": "user_scenario.information_sharing_strategy",
+        "evaluable_expression": "min(discovered_symptoms / total_symptoms, 1.0)"
+      },
+      "treatment_score": {
+        "weight": 0.15,
+        "logic": "if agent_treatment in ground_truth.correct_treatment_plan.medications: 1.0 elif safe_alternative(agent_treatment, disease): 0.7 else: 0.0",
+        "source": "ground_truth.correct_treatment_plan",
+        "evaluable_expression": "in_treatment_plan(agent_output.medication) ? 1.0 : (is_safe_alternative(agent_output.medication) ? 0.7 : 0.0)"
+      },
+      "communication_score": {
+        "weight": 0.1,
+        "logic": "milestones_hit = count(m for m in ground_truth.communication_truth if milestone_achieved(m)); milestones_hit / len(ground_truth.communication_truth)",
+        "source": "ground_truth.communication_truth",
+        "evaluable_expression": "milestones_achieved / total_milestones"
+      }
+    },
+    "aggregate_logic": "sum(component_score * component_weight for each component)",
+    "pass_threshold": 0.8,
+    "critical_failure_rules": [
+      {
+        "condition": "diagnosis_score == 0.0",
+        "result": "FAIL — incorrect diagnosis regardless of other scores",
+        "override_threshold": null
+      },
+      {
+        "condition": "safety_score == 0.0 and critical_check_missed",
+        "result": "FAIL — critical safety check missed",
+        "override_threshold": null
+      },
+      {
+        "condition": "prescribed_contraindicated_drug == true",
+        "result": "FAIL — prescribed contraindicated medication",
+        "override_threshold": null
+      }
+    ],
+    "efficiency_bonus": {
+      "logic": "if turns <= optimal_turns: +0.05; elif turns <= optimal_turns * 1.5: +0.0; else: -0.05 * (turns - optimal_turns * 1.5) / max_turns",
+      "optimal_turns_formula": "len(required_phases) * 2 + len(required_labs) + 2"
+    }
+  },
+  "agent_api": {
+    "protocol_version": "1.0",
+    "interface_type": "step_based",
+    "step_signature": {
+      "input": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Action name from action_space"
+              },
+              "arguments": {
+                "type": "object",
+                "description": "Arguments per action schema"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "observation": {
+            "type": "object",
+            "description": "Fields visible at current state per observation_function"
+          },
+          "reward": {
+            "type": "number",
+            "description": "Incremental reward for this step, from environment_dynamics.reward_function"
+          },
+          "terminated": {
+            "type": "boolean",
+            "description": "True if consultation is complete or max turns reached"
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "True if max_turns exceeded without completion"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "current_state": {
+                "type": "string"
+              },
+              "turn_count": {
+                "type": "integer"
+              },
+              "trust_level": {
+                "type": "number"
+              },
+              "action_valid": {
+                "type": "boolean"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if action was rejected"
+              }
+            }
+          }
+        }
+      }
+    },
+    "turn_rules": {
+      "max_turns": 20,
+      "min_required_turns": 5,
+      "agent_goes_first": true,
+      "patient_responds_after_each_action": true,
+      "multi_action_per_turn": false
+    },
+    "termination_conditions": [
+      {
+        "type": "normal",
+        "condition": "state == CONSULTATION_COMPLETE",
+        "description": "Agent completed all required phases"
+      },
+      {
+        "type": "truncation",
+        "condition": "turn_count >= max_turns",
+        "description": "Maximum turns exceeded"
+      },
+      {
+        "type": "failure",
+        "condition": "prescribed_contraindicated_drug or missed_critical_safety",
+        "description": "Agent made a critical safety error"
+      }
+    ],
+    "reset": {
+      "description": "Reset environment to initial state",
+      "returns": {
+        "observation": "Initial observation (demographics, ticket)",
+        "info": {
+          "state": "INITIAL",
+          "turn_count": 0,
+          "trust_level": 0.5
+        }
+      }
+    }
+  },
+  "execution_config": {
+    "version": "1.0",
+    "environment_type": "medical_consultation",
+    "components": {
+      "action_space": "Defines all valid agent actions with schema",
+      "observation_function": "Controls information flow with noise model and gates",
+      "scoring_function": "Evaluates agent performance with per-component scoring",
+      "agent_api": "Defines step-based interaction protocol",
+      "environment_dynamics": "State machine with transitions and rewards",
+      "ground_truth": "Reference answers for evaluation"
+    },
+    "execution_flow": [
+      "1. Initialize: load task, set state=INITIAL, turn_count=0",
+      "2. Agent calls step(action) with action from action_space",
+      "3. Validate action against action_space schema and preconditions",
+      "4. If valid: apply state transition from environment_dynamics",
+      "5. Apply observation_function to determine what agent sees",
+      "6. Apply noise_model to observations",
+      "7. Calculate incremental reward from environment_dynamics.reward_function",
+      "8. Return (observation, reward, terminated, info)",
+      "9. If terminated: run scoring_function for final score",
+      "10. Return final_score with component breakdown"
+    ],
+    "agent_requirements": {
+      "input_format": "Must produce actions conforming to action_space schema",
+      "output_parsing": "Must handle observations from observation_function",
+      "memory": "Agent must maintain own history (no state reset between turns)",
+      "tool_use": "Must call tools via action_space, not free-form text"
+    },
+    "evaluator_requirements": {
+      "ground_truth_access": "Evaluator has access to ground_truth for scoring",
+      "scoring_execution": "Run scoring_function logic against agent action log",
+      "component_breakdown": "Report per-component scores, not just aggregate",
+      "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
+    },
+    "randomness": {
+      "seed": 405,
+      "stochastic_elements": [
+        "patient_response_variation",
+        "lab_result_noise",
+        "vital_sign_noise",
+        "symptom_reveal_timing"
+      ],
+      "deterministic_elements": [
+        "ground_truth",
+        "correct_diagnosis",
+        "expected_lab_results",
+        "action_space"
+      ]
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_conflicting_evidence_L3_gout_7f6417",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.755,
+    "behavior_type": "refusing",
+    "seed": 405
+  }
+}

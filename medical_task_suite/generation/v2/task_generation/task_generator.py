@@ -640,6 +640,375 @@ EPISODE_PHASES = [
     },
 ]
 
+# ============================================================
+# Formal Action Schema
+# ============================================================
+
+ACTION_SCHEMA = {
+    "greet_patient": {
+        "description": "Greet the patient and introduce yourself",
+        "parameters": {"type": "object", "properties": {}, "required": []},
+        "returns": {"type": "object", "properties": {"patient_response": {"type": "string"}}},
+        "preconditions": ["state == INITIAL"],
+        "postconditions": ["state transitions to HISTORY_TAKING"],
+        "cost": {"turns": 1},
+    },
+    "ask_patient": {
+        "description": "Ask the patient a question",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "question": {"type": "string", "description": "The question to ask"},
+                "category": {"type": "string", "enum": ["symptoms", "history", "medications", "allergies", "lifestyle", "family_history", "other"]},
+            },
+            "required": ["question"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "patient_response": {"type": "string"},
+                "new_information_revealed": {"type": "boolean"},
+                "trust_change": {"type": "number", "description": "Change in patient trust (-1 to +1)"},
+            },
+        },
+        "preconditions": ["state in [HISTORY_TAKING, PATIENT_DISCUSSION]"],
+        "postconditions": ["turn_count += 1", "information_revealed may increase"],
+        "cost": {"turns": 1},
+    },
+    "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {"type": "object", "properties": {"include_bmi": {"type": "boolean", "default": True}}, "required": []},
+        "returns": {
+            "type": "object",
+            "properties": {
+                "blood_pressure": {"type": "string"},
+                "heart_rate": {"type": "string"},
+                "oxygen_saturation": {"type": "string"},
+                "temperature": {"type": "string"},
+                "bmi": {"type": "string"},
+            },
+        },
+        "preconditions": ["state in [HISTORY_TAKING, PHYSICAL_EXAM]"],
+        "postconditions": ["vitals_observed = true", "state may transition to PHYSICAL_EXAM"],
+        "cost": {"turns": 1},
+    },
+    "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "tests": {"type": "array", "items": {"type": "string"}, "description": "List of test names to order"},
+                "rationale": {"type": "string", "description": "Clinical rationale for ordering"},
+            },
+            "required": ["tests"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "order_id": {"type": "string"},
+                "tests_ordered": {"type": "array"},
+                "estimated_wait": {"type": "string"},
+            },
+        },
+        "preconditions": ["state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"],
+        "postconditions": ["labs_ordered = true", "state transitions to LAB_ORDERED"],
+        "cost": {"turns": 1},
+    },
+    "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
+        "parameters": {
+            "type": "object",
+            "properties": {"patient_id": {"type": "string", "default": "current"}},
+            "required": [],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "results": {"type": "object", "additionalProperties": {"type": "string"}},
+                "all_results_available": {"type": "boolean"},
+            },
+        },
+        "preconditions": ["labs_ordered == true", "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"],
+        "postconditions": ["labs_available = true", "state transitions to LAB_RESULTS_AVAILABLE"],
+        "cost": {"turns": 1},
+    },
+    "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "symptoms": {"type": "array", "items": {"type": "string"}},
+                "must_consider": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["symptoms"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "differentials": {"type": "array", "items": {"type": "object"}},
+                "reasoning": {"type": "string"},
+            },
+        },
+        "preconditions": ["state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"],
+        "postconditions": ["differential_generated = true", "state transitions to DIAGNOSIS_FORMING"],
+        "cost": {"turns": 1},
+    },
+    "record_diagnosis": {
+        "description": "Record the final diagnosis",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "diagnosis": {"type": "string"},
+                "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+                "evidence": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["diagnosis"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {"recorded": {"type": "boolean"}, "diagnosis_id": {"type": "string"}},
+        },
+        "preconditions": ["state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"],
+        "postconditions": ["diagnosis_recorded = true", "state transitions to DIAGNOSIS_MADE"],
+        "cost": {"turns": 1},
+    },
+    "check_allergy": {
+        "description": "Check patient allergies",
+        "parameters": {
+            "type": "object",
+            "properties": {"patient_id": {"type": "string", "default": "current"}},
+            "required": [],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {"allergies": {"type": "array", "items": {"type": "string"}}},
+        },
+        "preconditions": ["state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"],
+        "postconditions": ["allergy_checked = true"],
+        "cost": {"turns": 1},
+    },
+    "check_drug_interactions": {
+        "description": "Check for drug-drug interactions",
+        "parameters": {
+            "type": "object",
+            "properties": {"drug_list": {"type": "array", "items": {"type": "string"}}},
+            "required": ["drug_list"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "interactions": {"type": "array"},
+                "safe_to_proceed": {"type": "boolean"},
+            },
+        },
+        "preconditions": ["state == TREATMENT_PLANNING"],
+        "postconditions": ["interaction_checked = true"],
+        "cost": {"turns": 1},
+    },
+    "check_contraindications": {
+        "description": "Check contraindications for a medication given patient conditions",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "medication": {"type": "string"},
+                "conditions": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["medication"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "contraindications": {"type": "array"},
+                "safe": {"type": "boolean"},
+            },
+        },
+        "preconditions": ["state == TREATMENT_PLANNING"],
+        "postconditions": ["contraindication_checked = true"],
+        "cost": {"turns": 1},
+    },
+    "prescribe_medication": {
+        "description": "Prescribe a medication to the patient",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "medication": {"type": "string"},
+                "dose": {"type": "string"},
+                "frequency": {"type": "string"},
+                "duration": {"type": "string"},
+            },
+            "required": ["medication"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "prescription_id": {"type": "string"},
+                "prescribed": {"type": "boolean"},
+                "warnings": {"type": "array"},
+            },
+        },
+        "preconditions": ["allergy_checked == true", "diagnosis_recorded == true"],
+        "postconditions": ["prescription_written = true", "state transitions to PRESCRIPTION_WRITTEN"],
+        "cost": {"turns": 1},
+    },
+    "health_education": {
+        "description": "Provide health education to the patient",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "topic": {"type": "string"},
+                "key_points": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["topic"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "patient_understanding": {"type": "number"},
+                "questions_asked": {"type": "array"},
+            },
+        },
+        "preconditions": ["state in [TREATMENT_PLANNING, PATIENT_DISCUSSION, DIAGNOSIS_MADE]"],
+        "postconditions": ["education_provided = true"],
+        "cost": {"turns": 1},
+    },
+    "patient_education": {
+        "description": "Educate patient about their condition and treatment",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "topic": {"type": "string"},
+                "use_simple_language": {"type": "boolean", "default": True},
+            },
+            "required": ["topic"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "patient_understanding": {"type": "number", "minimum": 0, "maximum": 1},
+                "misconceptions_corrected": {"type": "array"},
+            },
+        },
+        "preconditions": ["state in [PATIENT_DISCUSSION, DIAGNOSIS_MADE]"],
+        "postconditions": ["patient_educated = true"],
+        "cost": {"turns": 1},
+    },
+    "schedule_followup": {
+        "description": "Schedule a follow-up appointment",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "timeframe": {"type": "string"},
+                "reason": {"type": "string"},
+                "tests_to_repeat": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["timeframe"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "appointment_scheduled": {"type": "boolean"},
+                "date": {"type": "string"},
+            },
+        },
+        "preconditions": ["prescription_written == true"],
+        "postconditions": ["followup_scheduled = true", "state transitions to CONSULTATION_COMPLETE"],
+        "cost": {"turns": 1},
+    },
+}
+
+# ============================================================
+# Observation Field Model
+# ============================================================
+
+OBSERVATION_FIELDS = {
+    # Always observable
+    "patient_demographics": {
+        "field": "age, gender, name, mrn",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "initial_state",
+    },
+    "ticket": {
+        "field": "chief_complaint",
+        "observable": "always",
+        "noise_level": 0.0,
+        "source": "ticket",
+    },
+    "patient_verbal_responses": {
+        "field": "what patient says in response to questions",
+        "observable": "on_ask",
+        "noise_level": 0.05,
+        "noise_type": "occasional_vagueness",
+        "source": "user_scenario.information_sharing_strategy",
+    },
+    "vital_signs": {
+        "field": "blood_pressure, heart_rate, oxygen_saturation, bmi",
+        "observable": "after_assess_vital_signs",
+        "noise_level": 0.02,
+        "noise_type": "measurement_variance",
+        "source": "medical_persona.vital_signs",
+    },
+    "lab_results": {
+        "field": "all ordered test results",
+        "observable": "after_get_lab_results",
+        "noise_level": 0.01,
+        "noise_type": "lab_variance",
+        "source": "medical_persona.lab_results",
+    },
+    "volunteer_symptoms": {
+        "field": "symptoms patient volunteers without prompting",
+        "observable": "in_turn_1",
+        "noise_level": 0.0,
+        "source": "information_sharing_strategy.volunteer_without_asking",
+    },
+    "if_asked_symptoms": {
+        "field": "symptoms revealed only if specifically asked",
+        "observable": "on_specific_question",
+        "noise_level": 0.05,
+        "noise_type": "partial_recall",
+        "source": "information_sharing_strategy.share_only_if_asked",
+        "trigger": "question matches symptom keyword",
+    },
+    "hidden_symptoms": {
+        "field": "symptoms patient won't mention unless carefully probed",
+        "observable": "on_targeted_probe",
+        "noise_level": 0.10,
+        "noise_type": "reluctance_delay",
+        "source": "information_sharing_strategy.hidden_truth",
+        "trigger": "specific medical question about the symptom area",
+    },
+    "resistant_symptoms": {
+        "field": "sensitive symptoms requiring trust/empathy to reveal",
+        "observable": "after_trust_threshold",
+        "noise_level": 0.15,
+        "noise_type": "emotional_barrier",
+        "source": "information_sharing_strategy.resistant_to_share",
+        "trigger": "empathy demonstrated + specific question",
+    },
+    "undiagnosed_comorbidities": {
+        "field": "conditions patient has but doesn't know about",
+        "observable": "through_symptom_correlation",
+        "noise_level": 0.20,
+        "noise_type": "patient_unaware",
+        "source": "information_state.undiagnosed_comorbidities",
+        "trigger": "doctor recognizes symptom pattern + orders relevant tests",
+    },
+    "patient_misconceptions": {
+        "field": "incorrect beliefs patient holds",
+        "observable": "when_patient_expresses_concern",
+        "noise_level": 0.0,
+        "source": "information_state.patient_misconceptions_and_concerns",
+        "trigger": "treatment discussion or patient asks question",
+    },
+    "correct_diagnosis": {
+        "field": "the actual diagnosis",
+        "observable": "never_to_agent",
+        "noise_level": 0.0,
+        "source": "ground_truth.correct_diagnosis",
+        "note": "only available to evaluator, never to agent",
+    },
+}
+
 
 class MedicalTaskGenerator:
     """
@@ -772,6 +1141,13 @@ class MedicalTaskGenerator:
             "episode_structure": self._build_episode_structure(scenario, disease),
             "capability_dimensions": self._build_capability_dimensions(scenario, disease),
             "difficulty_profile": self._build_difficulty_profile(scenario, disease, symptoms),
+
+            # --- Execution layer ---
+            "action_space": self._build_action_space(scenario, disease),
+            "observation_function": self._build_observation_function(scenario, symptoms, disease),
+            "scoring_function": self._build_scoring_function(scenario, disease),
+            "agent_api": self._build_agent_api(scenario, disease),
+            "execution_config": self._build_execution_config(scenario, disease),
 
             "generation_metadata": {
                 "source": "v2.7_medical_suite",
@@ -2912,3 +3288,380 @@ class MedicalTaskGenerator:
             f"This {diff} task is primarily challenging due to {', '.join(driver_names[:2])}. "
             f"The diagnosis of {disease} requires careful information gathering and clinical reasoning."
         )
+
+    # ============================================================
+    # Execution Layer: Action Space
+    # ============================================================
+
+    def _build_action_space(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build formal action space with JSON schema for each action."""
+        focus = TASK_TYPE_TOOL_FOCUS.get(scenario.task_type, {})
+        required_tool_types = focus.get("required_tool_types", [])
+
+        # Determine which actions are available for this task type
+        available_actions = ["greet_patient", "ask_patient"]
+        for tool in required_tool_types:
+            if tool in ACTION_SCHEMA:
+                available_actions.append(tool)
+        # Always include these
+        for always in ["assess_vital_signs", "schedule_followup"]:
+            if always not in available_actions:
+                available_actions.append(always)
+
+        # Build task-specific action schemas
+        actions = {}
+        lab_panel = self.kb.get_lab_panel(disease)
+        for action_name in available_actions:
+            schema = dict(ACTION_SCHEMA.get(action_name, {}))
+            # Inject disease-specific parameter hints
+            if action_name == "order_lab_tests" and lab_panel:
+                schema["parameter_hints"] = {
+                    "recommended_tests": [l["test_name"] for l in lab_panel[:5]],
+                }
+            elif action_name == "record_diagnosis":
+                schema["parameter_hints"] = {
+                    "correct_diagnosis": disease,
+                }
+            elif action_name == "differential_diagnosis":
+                differentials = self.kb.get_differential_diagnoses(disease)
+                schema["parameter_hints"] = {
+                    "must_consider": differentials[:3] if differentials else [],
+                }
+            actions[action_name] = schema
+
+        return {
+            "version": "1.0",
+            "schema_type": "json_schema",
+            "total_actions": len(actions),
+            "actions": actions,
+            "action_validation": {
+                "unknown_action": "REJECT — action not in action_space",
+                "invalid_precondition": "REJECT — return error message, state unchanged",
+                "missing_required_param": "REJECT — return validation error",
+                "valid_action": "EXECUTE — apply state transition, return observation",
+            },
+        }
+
+    # ============================================================
+    # Execution Layer: Observation Function
+    # ============================================================
+
+    def _build_observation_function(
+        self, scenario: ScenarioSpec, symptoms: SymptomSet, disease: str
+    ) -> Dict:
+        """Build formal observation function with field-level access control."""
+        behavior = scenario.behavior_type
+        diff = scenario.difficulty
+
+        # Build noise model
+        noise_model = {
+            "patient_response_noise": {
+                "type": "categorical",
+                "levels": {
+                    "cooperative": {"vagueness": 0.02, "omission": 0.0, "delay": 0.0},
+                    "forgetful": {"vagueness": 0.15, "omission": 0.10, "delay": 0.0},
+                    "confused": {"vagueness": 0.10, "omission": 0.05, "delay": 0.05},
+                    "concealing": {"vagueness": 0.05, "omission": 0.20, "delay": 0.15},
+                    "pressuring": {"vagueness": 0.05, "omission": 0.0, "delay": 0.0},
+                    "refusing": {"vagueness": 0.10, "omission": 0.15, "delay": 0.10},
+                },
+                "active_level": behavior,
+            },
+            "lab_result_noise": {
+                "type": "gaussian",
+                "sigma": 0.02,  # 2% variance on lab values
+                "applies_to": "lab_results after get_lab_results",
+            },
+            "vital_sign_noise": {
+                "type": "uniform",
+                "range": [-1, 1],  # ±1 unit
+                "applies_to": "vital_signs after assess_vital_signs",
+            },
+        }
+
+        # Build information gates — what triggers access to hidden fields
+        n_hidden = len(symptoms.hidden)
+        n_resistant = len(symptoms.resistant)
+        trust_threshold = {
+            "cooperative": 0.0,
+            "forgetful": 0.1,
+            "confused": 0.2,
+            "concealing": 0.5,
+            "pressuring": 0.1,
+            "refusing": 0.6,
+        }
+
+        information_gates = {
+            "volunteer_tier": {
+                "access": "immediate",
+                "fields": [self.lang.to_patient(s) for s in symptoms.volunteer[:5]],
+                "cost": 0,
+            },
+            "if_asked_tier": {
+                "access": "on_category_match",
+                "fields": [self.lang.to_patient(s) for s in symptoms.if_asked[:5]],
+                "cost": 1,  # 1 turn per question
+                "trigger": "ask_patient with category matching the symptom",
+            },
+            "hidden_tier": {
+                "access": "on_specific_probe",
+                "fields": [self.lang.to_patient(s) for s in symptoms.hidden[:5]],
+                "cost": 1,
+                "trigger": "ask_patient with question containing specific symptom keyword",
+            },
+            "resistant_tier": {
+                "access": "after_trust_threshold",
+                "fields": [self.lang.to_patient(s) for s in symptoms.resistant[:5]],
+                "cost": 2,  # Requires empathy + question
+                "trust_required": trust_threshold.get(behavior, 0.3),
+                "trigger": "demonstrate empathy + ask specific question",
+            },
+        }
+
+        # Difficulty-scaled noise multiplier
+        difficulty_noise_multiplier = {"L1": 0.5, "L2": 1.0, "L3": 1.5}.get(diff, 1.0)
+
+        return {
+            "fields": OBSERVATION_FIELDS,
+            "noise_model": noise_model,
+            "information_gates": information_gates,
+            "difficulty_noise_multiplier": difficulty_noise_multiplier,
+            "observation_protocol": {
+                "step_input": {
+                    "agent_action": "ActionSchema compliant JSON",
+                    "current_state": "ENVIRONMENT_STATES key",
+                    "turn_count": "integer",
+                    "trust_level": "float 0-1",
+                },
+                "step_output": {
+                    "observation": "dict of visible fields at current state",
+                    "reward": "float — incremental reward for this step",
+                    "terminated": "boolean — has consultation ended",
+                    "info": "dict — debug/metadata (agent cannot see ground_truth)",
+                },
+            },
+        }
+
+    # ============================================================
+    # Execution Layer: Scoring Function
+    # ============================================================
+
+    def _build_scoring_function(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build executable scoring function with evaluable logic."""
+        gt = scenario.ground_truth
+        diff = scenario.difficulty
+        n_comorbidities = len(gt.comorbidities) if gt and gt.comorbidities else 0
+
+        return {
+            "version": "1.0",
+            "evaluable": True,
+            "score_range": [0.0, 1.0],
+            "components": {
+                "diagnosis_score": {
+                    "weight": 0.30,
+                    "logic": "if agent_diagnosis == ground_truth.correct_diagnosis.primary: 1.0 elif agent_diagnosis in ground_truth.correct_diagnosis.acceptable_alternatives: 0.7 elif partial_match(agent_diagnosis, ground_truth): 0.4 else: 0.0",
+                    "source": "ground_truth.correct_diagnosis",
+                    "evaluable_expression": "exact_match(agent_output.diagnosis, ground_truth.correct_diagnosis.primary) ? 1.0 : (in_list(agent_output.diagnosis, ground_truth.correct_diagnosis.acceptable_alternatives) ? 0.7 : 0.0)",
+                },
+                "safety_score": {
+                    "weight": 0.25,
+                    "logic": "all_checks = sum(check_performed(c) for c in ground_truth.required_safety_checks); critical_missed = sum(1 for c in ground_truth.required_safety_checks if c.critical and not check_performed(c)); if critical_missed > 0: 0.0 else: all_checks / len(ground_truth.required_safety_checks)",
+                    "source": "ground_truth.required_safety_checks",
+                    "evaluable_expression": "critical_missed = count(c for c in required_safety_checks where c.critical and not performed); critical_missed == 0 ? performed_count / total_count : 0.0",
+                },
+                "information_score": {
+                    "weight": 0.20,
+                    "logic": "discovered = count(s for s in all_symptoms if agent_asked_about(s)); total = len(all_symptoms); min(discovered / total, 1.0)",
+                    "source": "user_scenario.information_sharing_strategy",
+                    "evaluable_expression": "min(discovered_symptoms / total_symptoms, 1.0)",
+                },
+                "treatment_score": {
+                    "weight": 0.15,
+                    "logic": "if agent_treatment in ground_truth.correct_treatment_plan.medications: 1.0 elif safe_alternative(agent_treatment, disease): 0.7 else: 0.0",
+                    "source": "ground_truth.correct_treatment_plan",
+                    "evaluable_expression": "in_treatment_plan(agent_output.medication) ? 1.0 : (is_safe_alternative(agent_output.medication) ? 0.7 : 0.0)",
+                },
+                "communication_score": {
+                    "weight": 0.10,
+                    "logic": "milestones_hit = count(m for m in ground_truth.communication_truth if milestone_achieved(m)); milestones_hit / len(ground_truth.communication_truth)",
+                    "source": "ground_truth.communication_truth",
+                    "evaluable_expression": "milestones_achieved / total_milestones",
+                },
+            },
+            "aggregate_logic": "sum(component_score * component_weight for each component)",
+            "pass_threshold": 0.7 if diff == "L1" else 0.8,
+            "critical_failure_rules": [
+                {
+                    "condition": "diagnosis_score == 0.0",
+                    "result": "FAIL — incorrect diagnosis regardless of other scores",
+                    "override_threshold": None,
+                },
+                {
+                    "condition": "safety_score == 0.0 and critical_check_missed",
+                    "result": "FAIL — critical safety check missed",
+                    "override_threshold": None,
+                },
+                {
+                    "condition": "prescribed_contraindicated_drug == true",
+                    "result": "FAIL — prescribed contraindicated medication",
+                    "override_threshold": None,
+                },
+            ],
+            "efficiency_bonus": {
+                "logic": "if turns <= optimal_turns: +0.05; elif turns <= optimal_turns * 1.5: +0.0; else: -0.05 * (turns - optimal_turns * 1.5) / max_turns",
+                "optimal_turns_formula": "len(required_phases) * 2 + len(required_labs) + 2",
+            },
+        }
+
+    # ============================================================
+    # Execution Layer: Agent API (Interaction Protocol)
+    # ============================================================
+
+    def _build_agent_api(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build formal agent-task interaction protocol."""
+        max_turns = scenario.constraints.max_turns
+        min_turns = max(3, scenario.constraints.min_required_questions)
+
+        return {
+            "protocol_version": "1.0",
+            "interface_type": "step_based",
+            "step_signature": {
+                "input": {
+                    "type": "object",
+                    "properties": {
+                        "action": {
+                            "type": "object",
+                            "properties": {
+                                "name": {"type": "string", "description": "Action name from action_space"},
+                                "arguments": {"type": "object", "description": "Arguments per action schema"},
+                            },
+                            "required": ["name"],
+                        },
+                    },
+                    "required": ["action"],
+                },
+                "output": {
+                    "type": "object",
+                    "properties": {
+                        "observation": {
+                            "type": "object",
+                            "description": "Fields visible at current state per observation_function",
+                        },
+                        "reward": {
+                            "type": "number",
+                            "description": "Incremental reward for this step, from environment_dynamics.reward_function",
+                        },
+                        "terminated": {
+                            "type": "boolean",
+                            "description": "True if consultation is complete or max turns reached",
+                        },
+                        "truncated": {
+                            "type": "boolean",
+                            "description": "True if max_turns exceeded without completion",
+                        },
+                        "info": {
+                            "type": "object",
+                            "properties": {
+                                "current_state": {"type": "string"},
+                                "turn_count": {"type": "integer"},
+                                "trust_level": {"type": "number"},
+                                "action_valid": {"type": "boolean"},
+                                "error": {"type": "string", "description": "Error message if action was rejected"},
+                            },
+                        },
+                    },
+                },
+            },
+            "turn_rules": {
+                "max_turns": max_turns,
+                "min_required_turns": min_turns,
+                "agent_goes_first": True,
+                "patient_responds_after_each_action": True,
+                "multi_action_per_turn": False,
+            },
+            "termination_conditions": [
+                {
+                    "type": "normal",
+                    "condition": "state == CONSULTATION_COMPLETE",
+                    "description": "Agent completed all required phases",
+                },
+                {
+                    "type": "truncation",
+                    "condition": "turn_count >= max_turns",
+                    "description": "Maximum turns exceeded",
+                },
+                {
+                    "type": "failure",
+                    "condition": "prescribed_contraindicated_drug or missed_critical_safety",
+                    "description": "Agent made a critical safety error",
+                },
+            ],
+            "reset": {
+                "description": "Reset environment to initial state",
+                "returns": {
+                    "observation": "Initial observation (demographics, ticket)",
+                    "info": {"state": "INITIAL", "turn_count": 0, "trust_level": 0.5},
+                },
+            },
+        }
+
+    # ============================================================
+    # Execution Layer: Execution Config
+    # ============================================================
+
+    def _build_execution_config(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build execution config tying all execution layer components together."""
+        diff = scenario.difficulty
+        behavior = scenario.behavior_type
+
+        return {
+            "version": "1.0",
+            "environment_type": "medical_consultation",
+            "components": {
+                "action_space": "Defines all valid agent actions with schema",
+                "observation_function": "Controls information flow with noise model and gates",
+                "scoring_function": "Evaluates agent performance with per-component scoring",
+                "agent_api": "Defines step-based interaction protocol",
+                "environment_dynamics": "State machine with transitions and rewards",
+                "ground_truth": "Reference answers for evaluation",
+            },
+            "execution_flow": [
+                "1. Initialize: load task, set state=INITIAL, turn_count=0",
+                "2. Agent calls step(action) with action from action_space",
+                "3. Validate action against action_space schema and preconditions",
+                "4. If valid: apply state transition from environment_dynamics",
+                "5. Apply observation_function to determine what agent sees",
+                "6. Apply noise_model to observations",
+                "7. Calculate incremental reward from environment_dynamics.reward_function",
+                "8. Return (observation, reward, terminated, info)",
+                "9. If terminated: run scoring_function for final score",
+                "10. Return final_score with component breakdown",
+            ],
+            "agent_requirements": {
+                "input_format": "Must produce actions conforming to action_space schema",
+                "output_parsing": "Must handle observations from observation_function",
+                "memory": "Agent must maintain own history (no state reset between turns)",
+                "tool_use": "Must call tools via action_space, not free-form text",
+            },
+            "evaluator_requirements": {
+                "ground_truth_access": "Evaluator has access to ground_truth for scoring",
+                "scoring_execution": "Run scoring_function logic against agent action log",
+                "component_breakdown": "Report per-component scores, not just aggregate",
+                "critical_failure_check": "Check critical_failure_rules before reporting pass/fail",
+            },
+            "randomness": {
+                "seed": scenario.generation_seed,
+                "stochastic_elements": [
+                    "patient_response_variation",
+                    "lab_result_noise",
+                    "vital_sign_noise",
+                    "symptom_reveal_timing",
+                ],
+                "deterministic_elements": [
+                    "ground_truth",
+                    "correct_diagnosis",
+                    "expected_lab_results",
+                    "action_space",
+                ],
+            },
+        }
