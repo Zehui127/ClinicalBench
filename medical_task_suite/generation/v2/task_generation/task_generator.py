@@ -423,6 +423,223 @@ SYMPTOM_TRIGGER_PROBES = {
     "cough": "doctor asks about cough and sputum",
 }
 
+# ============================================================
+# Environment State Machine
+# ============================================================
+
+ENVIRONMENT_STATES = {
+    "INITIAL": {
+        "description": "Consultation has not started",
+        "available_actions": ["greet_patient", "review_ticket"],
+        "observations": ["ticket", "patient_demographics"],
+    },
+    "HISTORY_TAKING": {
+        "description": "Doctor is gathering patient history",
+        "available_actions": ["ask_patient", "ask_about_symptoms", "ask_about_history", "ask_about_medications", "ask_about_allergies", "ask_about_lifestyle"],
+        "observations": ["patient_responses", "volunteer_symptoms"],
+    },
+    "PHYSICAL_EXAM": {
+        "description": "Doctor performs or orders physical examination",
+        "available_actions": ["assess_vital_signs", "perform_examination"],
+        "observations": ["vital_signs", "exam_findings"],
+    },
+    "LAB_ORDERED": {
+        "description": "Doctor has ordered lab tests, awaiting results",
+        "available_actions": ["wait_for_results", "continue_history"],
+        "observations": ["tests_ordered"],
+    },
+    "LAB_RESULTS_AVAILABLE": {
+        "description": "Lab results are available for review",
+        "available_actions": ["get_lab_results", "review_results", "order_additional_tests"],
+        "observations": ["lab_results"],
+    },
+    "DIAGNOSIS_FORMING": {
+        "description": "Doctor is forming differential diagnosis",
+        "available_actions": ["differential_diagnosis", "order_additional_tests", "consult_specialist"],
+        "observations": ["symptom_summary", "lab_summary"],
+    },
+    "DIAGNOSIS_MADE": {
+        "description": "Doctor has recorded a diagnosis",
+        "available_actions": ["record_diagnosis", "communicate_diagnosis"],
+        "observations": ["diagnosis"],
+    },
+    "TREATMENT_PLANNING": {
+        "description": "Doctor is planning treatment",
+        "available_actions": ["check_allergy", "check_drug_interactions", "check_contraindications", "prescribe_medication", "health_education"],
+        "observations": ["allergy_check_result", "interaction_check_result"],
+    },
+    "PATIENT_DISCUSSION": {
+        "description": "Doctor is discussing treatment with patient",
+        "available_actions": ["patient_education", "address_concerns", "negotiate_treatment"],
+        "observations": ["patient_reaction", "patient_concerns"],
+    },
+    "PRESCRIPTION_WRITTEN": {
+        "description": "Doctor has written prescription",
+        "available_actions": ["schedule_followup", "provide_instructions"],
+        "observations": ["prescription"],
+    },
+    "CONSULTATION_COMPLETE": {
+        "description": "Consultation is complete",
+        "available_actions": [],
+        "observations": ["full_summary"],
+    },
+}
+
+STATE_TRANSITIONS = [
+    {"from": "INITIAL", "to": "HISTORY_TAKING", "trigger": "doctor initiates conversation"},
+    {"from": "HISTORY_TAKING", "to": "PHYSICAL_EXAM", "trigger": "doctor assesses vital signs or performs exam"},
+    {"from": "HISTORY_TAKING", "to": "LAB_ORDERED", "trigger": "doctor orders lab tests"},
+    {"from": "PHYSICAL_EXAM", "to": "LAB_ORDERED", "trigger": "doctor orders lab tests"},
+    {"from": "PHYSICAL_EXAM", "to": "DIAGNOSIS_FORMING", "trigger": "doctor begins differential diagnosis"},
+    {"from": "LAB_ORDERED", "to": "LAB_RESULTS_AVAILABLE", "trigger": "lab results are ready"},
+    {"from": "LAB_RESULTS_AVAILABLE", "to": "DIAGNOSIS_FORMING", "trigger": "doctor reviews results and forms diagnosis"},
+    {"from": "LAB_RESULTS_AVAILABLE", "to": "LAB_ORDERED", "trigger": "doctor orders additional tests"},
+    {"from": "DIAGNOSIS_FORMING", "to": "DIAGNOSIS_MADE", "trigger": "doctor records diagnosis"},
+    {"from": "DIAGNOSIS_FORMING", "to": "LAB_ORDERED", "trigger": "doctor orders confirmatory tests"},
+    {"from": "DIAGNOSIS_MADE", "to": "TREATMENT_PLANNING", "trigger": "doctor begins treatment planning"},
+    {"from": "TREATMENT_PLANNING", "to": "PATIENT_DISCUSSION", "trigger": "doctor discusses treatment options with patient"},
+    {"from": "PATIENT_DISCUSSION", "to": "PRESCRIPTION_WRITTEN", "trigger": "doctor writes prescription"},
+    {"from": "PATIENT_DISCUSSION", "to": "TREATMENT_PLANNING", "trigger": "patient objects, doctor revises plan"},
+    {"from": "PRESCRIPTION_WRITTEN", "to": "CONSULTATION_COMPLETE", "trigger": "doctor provides follow-up instructions"},
+    {"from": "DIAGNOSIS_MADE", "to": "PATIENT_DISCUSSION", "trigger": "doctor communicates diagnosis directly to patient"},
+]
+
+# ============================================================
+# Agent Capability Dimensions
+# ============================================================
+
+CAPABILITY_DIMENSIONS = {
+    "information_gathering": {
+        "description": "Ability to systematically collect patient history, symptoms, and relevant medical information",
+        "sub_skills": ["history_taking", "symptom_probe", "hidden_symptom_discovery", "medical_history_review"],
+    },
+    "diagnostic_reasoning": {
+        "description": "Ability to form accurate differential diagnosis based on gathered evidence",
+        "sub_skills": ["differential_diagnosis", "evidence_synthesis", "lab_interpretation", "pattern_recognition"],
+    },
+    "treatment_planning": {
+        "description": "Ability to design appropriate, individualized treatment plans",
+        "sub_skills": ["medication_selection", "dose_optimization", "comorbidity_management", "guideline_adherence"],
+    },
+    "safety_awareness": {
+        "description": "Ability to identify and avoid medical safety risks",
+        "sub_skills": ["allergy_checking", "drug_interaction_check", "contraindication_awareness", "red_flag_detection"],
+    },
+    "communication_quality": {
+        "description": "Ability to communicate effectively with patients at their level of understanding",
+        "sub_skills": ["patient_friendly_language", "empathy", "misconception_correction", "shared_decision_making"],
+    },
+    "efficiency": {
+        "description": "Ability to reach correct conclusions with minimal unnecessary actions",
+        "sub_skills": ["focused_questioning", "appropriate_test_selection", "time_management", "resource_efficiency"],
+    },
+}
+
+# ============================================================
+# Difficulty Source Factors (structural)
+# ============================================================
+
+DIFFICULTY_FACTORS = {
+    "symptom_complexity": {
+        "description": "Number and overlap of presenting symptoms",
+        "L1": "2-3 clear symptoms, classic presentation",
+        "L2": "4-6 symptoms with some overlap, partial atypical features",
+        "L3": "6+ symptoms, multiple overlapping conditions, atypical presentation",
+    },
+    "diagnostic_ambiguity": {
+        "description": "Number of plausible differential diagnoses and ease of differentiation",
+        "L1": "1-2 differentials, easily distinguished",
+        "L2": "3-4 differentials, requires specific tests to differentiate",
+        "L3": "5+ differentials, conflicting evidence, rare presentations",
+    },
+    "treatment_complexity": {
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "L1": "Single first-line treatment, no significant interactions",
+        "L2": "Multiple options, 1-2 interactions to manage, 1 comorbidity",
+        "L3": "Multiple contraindications, polypharmacy, 3+ comorbidities",
+    },
+    "patient_behavior_difficulty": {
+        "description": "How challenging the patient behavior is for information gathering",
+        "L1": "cooperative — clear communication, volunteers information",
+        "L2": "forgetful/confused — needs prompting, may miss details",
+        "L3": "concealing/refusing — actively resists, requires trust-building",
+    },
+    "information_asymmetry": {
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "L1": "Most information volunteered, minimal hidden symptoms",
+        "L2": "Key symptoms in if_asked/hidden tier, progressive reveal",
+        "L3": "Critical symptoms hidden/resistant, adversarial noise, misleading symptoms",
+    },
+    "comorbidity_burden": {
+        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
+        "L1": "0-1 comorbidities, mild, not affecting primary condition",
+        "L2": "1-2 comorbidities, moderate interaction with primary condition",
+        "L3": "3+ comorbidities, significant interaction, undiagnosed conditions present",
+    },
+    "time_pressure": {
+        "description": "Urgency level and consequences of delayed action",
+        "L1": "No urgency, routine consultation",
+        "L2": "Moderate urgency, condition may worsen without timely action",
+        "L3": "High urgency, time-sensitive decisions, emergency triage needed",
+    },
+}
+
+# ============================================================
+# Episode Phases
+# ============================================================
+
+EPISODE_PHASES = [
+    {
+        "name": "intake",
+        "description": "Initial greeting and chief complaint identification",
+        "recommended_turns": (1, 2),
+        "required_actions": ["greet_patient", "identify_chief_complaint"],
+        "exit_condition": "Chief complaint clearly stated",
+    },
+    {
+        "name": "history_taking",
+        "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
+        "recommended_turns": (4, 8),
+        "required_actions": ["ask_about_symptoms", "ask_about_history", "ask_about_medications", "ask_about_allergies"],
+        "exit_condition": "All required history categories covered",
+    },
+    {
+        "name": "examination_and_labs",
+        "description": "Physical examination and laboratory testing",
+        "recommended_turns": (2, 4),
+        "required_actions": ["assess_vital_signs", "order_lab_tests", "get_lab_results"],
+        "exit_condition": "Sufficient data collected for diagnosis",
+    },
+    {
+        "name": "diagnosis",
+        "description": "Form and record diagnosis with differential consideration",
+        "recommended_turns": (2, 3),
+        "required_actions": ["differential_diagnosis", "record_diagnosis"],
+        "exit_condition": "Diagnosis recorded with supporting evidence",
+    },
+    {
+        "name": "treatment",
+        "description": "Plan treatment, check safety, prescribe medication",
+        "recommended_turns": (2, 4),
+        "required_actions": ["check_allergy", "check_drug_interactions", "prescribe_medication"],
+        "exit_condition": "Safe prescription written",
+    },
+    {
+        "name": "patient_communication",
+        "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
+        "recommended_turns": (2, 4),
+        "required_actions": ["communicate_diagnosis", "patient_education", "address_concerns"],
+        "exit_condition": "Patient understands plan and concerns addressed",
+    },
+    {
+        "name": "closure",
+        "description": "Schedule follow-up and provide final instructions",
+        "recommended_turns": (1, 2),
+        "required_actions": ["schedule_followup"],
+        "exit_condition": "Follow-up scheduled and consultation concluded",
+    },
+]
+
 
 class MedicalTaskGenerator:
     """
@@ -547,6 +764,14 @@ class MedicalTaskGenerator:
             "ticket": self._build_ticket(scenario, symptoms),
             "initial_state": self._build_initial_state(persona, symptoms),
             "evaluation_criteria": self._build_evaluation_criteria(scenario, profile),
+
+            # --- New structural additions ---
+            "ground_truth": self._build_ground_truth(scenario, symptoms, profile),
+            "environment_dynamics": self._build_environment_dynamics(scenario, disease),
+            "outcome_criteria": self._build_outcome_criteria(scenario, profile, disease),
+            "episode_structure": self._build_episode_structure(scenario, disease),
+            "capability_dimensions": self._build_capability_dimensions(scenario, disease),
+            "difficulty_profile": self._build_difficulty_profile(scenario, disease, symptoms),
 
             "generation_metadata": {
                 "source": "v2.7_medical_suite",
@@ -2089,3 +2314,601 @@ class MedicalTaskGenerator:
             "emergency_triage": "emergency",
         }
         return mapping.get(task_type, "diagnosis")
+
+    # ============================================================
+    # Ground Truth Manifold
+    # ============================================================
+
+    def _build_ground_truth(
+        self, scenario: ScenarioSpec, symptoms: SymptomSet, profile
+    ) -> Dict:
+        """Build verifiable standard answer space with decision tree."""
+        disease = scenario.target_disease or "unknown"
+        gt = scenario.ground_truth
+        meds = self.kb.get_medications_for_condition(disease)
+        lab_panel = self.kb.get_lab_panel(disease)
+        differentials = self.kb.get_differential_diagnoses(disease)
+
+        # Correct diagnosis
+        correct_diagnosis = {
+            "primary": disease,
+            "confidence_threshold": 0.8 if scenario.difficulty != "L1" else 0.7,
+            "acceptable_alternatives": differentials[:3] if differentials else [],
+            "required_evidence": [],
+        }
+
+        # Evidence needed for diagnosis
+        evidence_items = ["symptom_cluster_matching"]
+        if lab_panel:
+            evidence_items.append("lab_result_confirmation")
+            abnormal_labs = [l["test_name"] for l in lab_panel if l.get("is_abnormal")]
+            if abnormal_labs:
+                evidence_items.append(f"abnormal_{abnormal_labs[0]}")
+        correct_diagnosis["required_evidence"] = evidence_items
+
+        # Expected lab results
+        expected_labs = {}
+        if lab_panel:
+            for lab in lab_panel:
+                expected_labs[lab["test_name"]] = {
+                    "expected_value": self._generate_realistic_lab_value(lab),
+                    "reference_range": f"{lab['range_low']}-{lab['range_high']} {lab.get('unit', '')}",
+                    "is_abnormal": lab.get("is_abnormal", False),
+                    "clinical_significance": lab.get("clinical_significance", ""),
+                }
+
+        # Correct treatment plan
+        correct_treatment = {"medications": [], "non_pharmacological": [], "follow_up": "2-4 weeks"}
+        if meds:
+            for m in meds[:3]:
+                if isinstance(m, dict) and m.get("is_first_line", True):
+                    drug_info = self.kb.get_drug_info(m["name"])
+                    if drug_info:
+                        correct_treatment["medications"].append({
+                            "name": drug_info.generic_name,
+                            "drug_class": drug_info.drug_class,
+                            "dose": drug_info.standard_doses[0]["dose"] if drug_info.standard_doses else m.get("dose", ""),
+                            "frequency": drug_info.standard_doses[0]["frequency"] if drug_info.standard_doses else m.get("frequency", ""),
+                            "rationale": f"First-line treatment for {disease}",
+                        })
+                        break  # Only first-line
+        correct_treatment["non_pharmacological"] = [
+            "Lifestyle modification counseling",
+            "Dietary guidance",
+        ]
+
+        # Safety checks that must be performed
+        required_safety_checks = [
+            {"check": "allergy_check", "before": "prescribing", "critical": True},
+            {"check": "drug_interaction_check", "before": "prescribing", "critical": scenario.difficulty != "L1"},
+        ]
+        if gt and gt.comorbidities:
+            required_safety_checks.append({
+                "check": "contraindication_check",
+                "before": "prescribing",
+                "conditions": [c.name for c in gt.comorbidities],
+                "critical": True,
+            })
+
+        # Communication milestones
+        communication_truth = [
+            {"milestone": "explain_diagnosis", "must_include": [f"diagnosis name in patient terms", "what it means"]},
+            {"milestone": "explain_treatment", "must_include": ["medication name and purpose", "how to take it", "expected effects"]},
+            {"milestone": "address_concerns", "must_include": ["acknowledge patient worries", "correct misconceptions"]},
+        ]
+
+        # Decision tree — correct path through consultation
+        decision_tree = [
+            {
+                "step": 1,
+                "action": "history_taking",
+                "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
+                "key_questions": [
+                    self.lang.to_patient(s) for s in symptoms.volunteer[:3]
+                ],
+                "hidden_information_to_uncover": [
+                    self.lang.to_patient(s) for s in (symptoms.hidden + symptoms.resistant)[:3]
+                ],
+            },
+            {
+                "step": 2,
+                "action": "order_labs",
+                "correct_approach": f"Order disease-relevant labs for {disease}",
+                "required_tests": [lab["test_name"] for lab in lab_panel[:5]] if lab_panel else ["CBC", "BMP"],
+            },
+            {
+                "step": 3,
+                "action": "form_diagnosis",
+                "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
+                "must_consider": differentials[:3] if differentials else [],
+            },
+            {
+                "step": 4,
+                "action": "plan_treatment",
+                "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
+                "safety_first": True,
+            },
+            {
+                "step": 5,
+                "action": "communicate_and_close",
+                "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up",
+            },
+        ]
+
+        return {
+            "correct_diagnosis": correct_diagnosis,
+            "expected_lab_results": expected_labs,
+            "correct_treatment_plan": correct_treatment,
+            "required_safety_checks": required_safety_checks,
+            "communication_truth": communication_truth,
+            "decision_tree": decision_tree,
+        }
+
+    # ============================================================
+    # Environment Dynamics (State Transition System)
+    # ============================================================
+
+    def _build_environment_dynamics(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build state machine for agent-environment interaction."""
+        gt = scenario.ground_truth
+
+        # Filter transitions relevant to this task type
+        task_type = scenario.task_type
+        if task_type == "emergency_triage":
+            # Emergency skips ahead faster
+            active_states = ["INITIAL", "HISTORY_TAKING", "LAB_ORDERED", "LAB_RESULTS_AVAILABLE",
+                           "DIAGNOSIS_MADE", "TREATMENT_PLANNING", "PRESCRIPTION_WRITTEN", "CONSULTATION_COMPLETE"]
+        else:
+            active_states = list(ENVIRONMENT_STATES.keys())
+
+        states = {k: v for k, v in ENVIRONMENT_STATES.items() if k in active_states}
+
+        # Add disease-specific observations per state
+        lab_panel = self.kb.get_lab_panel(disease)
+        for state_name, state_data in states.items():
+            if state_name == "LAB_RESULTS_AVAILABLE" and lab_panel:
+                state_data["disease_specific_observations"] = [
+                    f"{lab['test_name']}: results pending" for lab in lab_panel[:5]
+                ]
+            if state_name == "HISTORY_TAKING":
+                state_data["partial_observability"] = {
+                    "patient_visible_symptoms": "volunteer tier only",
+                    "requires_probing": "if_asked and hidden tiers need specific questions",
+                    "trust_gated": "resistant symptoms need empathy/probing",
+                }
+
+        # Build reward function per state
+        rewards = {
+            "HISTORY_TAKING": {
+                "per_relevant_question": 0.05,
+                "discover_hidden_symptom": 0.15,
+                "discover_resistant_symptom": 0.20,
+                "missed_symptom_penalty": -0.10,
+            },
+            "EXAMINATION_AND_LABS": {
+                "order_appropriate_test": 0.10,
+                "order_unnecessary_test": -0.05,
+                "miss_critical_test": -0.20,
+            },
+            "DIAGNOSIS_MADE": {
+                "correct_diagnosis": 0.30,
+                "acceptable_alternative": 0.20,
+                "incorrect_diagnosis": -0.30,
+            },
+            "TREATMENT_PLANNING": {
+                "safety_check_performed": 0.10,
+                "safety_check_skipped": -0.30,
+                "appropriate_medication": 0.20,
+                "contraindicated_medication": -0.40,
+            },
+            "PATIENT_DISCUSSION": {
+                "used_patient_friendly_language": 0.05,
+                "corrected_misconception": 0.10,
+                "ignored_concern": -0.10,
+            },
+            "CONSULTATION_COMPLETE": {
+                "all_phases_complete": 0.10,
+                "efficiency_bonus": 0.05,
+                "incomplete_consultation": -0.20,
+            },
+        }
+
+        # Penalty for forbidden state transitions
+        invalid_transitions = [
+            {"from": "INITIAL", "to": "PRESCRIPTION_WRITTEN", "reason": "Cannot prescribe without diagnosis"},
+            {"from": "HISTORY_TAKING", "to": "PRESCRIPTION_WRITTEN", "reason": "Cannot prescribe without diagnosis and labs"},
+            {"from": "INITIAL", "to": "DIAGNOSIS_MADE", "reason": "Cannot diagnose without gathering history"},
+            {"from": "LAB_ORDERED", "to": "PRESCRIPTION_WRITTEN", "reason": "Cannot prescribe before reviewing lab results"},
+        ]
+
+        return {
+            "states": states,
+            "transitions": [t for t in STATE_TRANSITIONS if t["from"] in active_states],
+            "invalid_transitions": invalid_transitions,
+            "reward_function": rewards,
+            "initial_state": "INITIAL",
+            "terminal_states": ["CONSULTATION_COMPLETE"],
+            "partial_observability": {
+                "description": "Agent cannot directly observe hidden symptoms, patient thoughts, or lab results without ordering",
+                "observable": ["patient_verbal_responses", "vital_signs", "ordered_lab_results"],
+                "unobservable": ["hidden_symptoms", "resistant_symptoms", "undiagnosed_comorbidities", "patient_inner_thoughts"],
+                "information_cost": "Each question costs 1 turn; each lab order costs 1-2 turns",
+            },
+        }
+
+    # ============================================================
+    # Result-Driven Outcome Criteria
+    # ============================================================
+
+    def _build_outcome_criteria(self, scenario: ScenarioSpec, profile, disease: str) -> Dict:
+        """Build outcome-driven evaluation metrics focused on decision correctness."""
+        meds = self.kb.get_medications_for_condition(disease)
+        differentials = self.kb.get_differential_diagnoses(disease)
+
+        # Primary outcome — the main result that matters
+        primary = {
+            "metric": "diagnostic_accuracy",
+            "description": "Agent arrives at the correct diagnosis",
+            "verifiable": True,
+            "scoring": {
+                "exact_match": 1.0,
+                "acceptable_alternative": 0.7,
+                "partially_correct": 0.4,
+                "incorrect": 0.0,
+            },
+            "correct_answer": disease,
+            "acceptable_answers": differentials[:3] if differentials else [],
+        }
+
+        # Secondary outcomes
+        secondary = [
+            {
+                "metric": "treatment_appropriateness",
+                "description": "Treatment plan is safe and effective for the diagnosed condition",
+                "verifiable": True,
+                "scoring": {
+                    "optimal_first_line": 1.0,
+                    "acceptable_alternative": 0.7,
+                    "suboptimal_but_safe": 0.4,
+                    "unsafe_or_contraindicated": 0.0,
+                },
+                "correct_answer": meds[0]["name"] if meds and isinstance(meds[0], dict) else "appropriate first-line medication",
+            },
+            {
+                "metric": "safety_adherence",
+                "description": "All required safety checks performed before prescribing",
+                "verifiable": True,
+                "scoring": {
+                    "all_checks_performed": 1.0,
+                    "minor_omission": 0.5,
+                    "critical_omission": 0.0,
+                },
+                "required_checks": ["allergy_check", "drug_interaction_check"],
+                "critical_checks": ["allergy_check"],
+            },
+            {
+                "metric": "information_completeness",
+                "description": "Agent gathered all critical patient information",
+                "verifiable": True,
+                "scoring": {
+                    "complete": 1.0,
+                    "minor_gap": 0.7,
+                    "significant_gap": 0.3,
+                    "inadequate": 0.0,
+                },
+                "required_categories": ["chief_complaint", "symptoms", "past_history", "medications", "allergies"],
+            },
+            {
+                "metric": "patient_satisfaction",
+                "description": "Patient understands their condition and agrees to treatment plan",
+                "verifiable": True,
+                "scoring": {
+                    "patient_understands_and_agrees": 1.0,
+                    "patient_understands_but_hesitant": 0.6,
+                    "patient_confused": 0.3,
+                    "patient_refuses": 0.1,
+                },
+            },
+        ]
+
+        # Aggregate scoring rubric
+        rubric = {
+            "weights": {
+                "diagnostic_accuracy": 0.30,
+                "treatment_appropriateness": 0.25,
+                "safety_adherence": 0.20,
+                "information_completeness": 0.15,
+                "patient_satisfaction": 0.10,
+            },
+            "pass_threshold": 0.7 if scenario.difficulty == "L1" else 0.8,
+            "grade_levels": {
+                "excellent": (0.9, 1.0),
+                "good": (0.8, 0.9),
+                "acceptable": (0.7, 0.8),
+                "needs_improvement": (0.5, 0.7),
+                "failing": (0.0, 0.5),
+            },
+            "critical_failure_conditions": [
+                "Missed critical diagnosis",
+                "Prescribed contraindicated medication",
+                "Failed to check allergies before prescribing",
+                "Ignored abnormal lab results without follow-up",
+            ],
+        }
+
+        return {
+            "primary_outcome": primary,
+            "secondary_outcomes": secondary,
+            "scoring_rubric": rubric,
+        }
+
+    # ============================================================
+    # Episode Structure (Time / Phase)
+    # ============================================================
+
+    def _build_episode_structure(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build time-structured episode with phases and turn budgets."""
+        max_turns = scenario.constraints.max_turns
+        min_turns = max(3, scenario.constraints.min_required_questions)
+
+        # Adjust phase turn budgets based on max_turns
+        phases = []
+        for phase in EPISODE_PHASES:
+            rec_low, rec_high = phase["recommended_turns"]
+            # Scale to available turns
+            scaled_low = max(1, int(rec_low * max_turns / 20))
+            scaled_high = max(scaled_low + 1, int(rec_high * max_turns / 20))
+            phases.append({
+                "name": phase["name"],
+                "description": phase["description"],
+                "turn_budget": {"min": scaled_low, "max": scaled_high},
+                "required_actions": phase["required_actions"],
+                "exit_condition": phase["exit_condition"],
+            })
+
+        # Time pressure events
+        time_events = []
+        if scenario.difficulty in ("L2", "L3"):
+            time_events.append({
+                "trigger_turn": int(max_turns * 0.6),
+                "event": "Patient shows signs of impatience",
+                "effect": "Agent must balance thoroughness with efficiency",
+            })
+        if scenario.difficulty == "L3":
+            time_events.append({
+                "trigger_turn": int(max_turns * 0.8),
+                "event": "Patient condition acutely worsens",
+                "effect": "Agent must immediately prioritize stabilization",
+            })
+
+        # Efficiency metrics
+        efficiency = {
+            "optimal_turn_range": (min_turns + 2, min_turns + 8),
+            "max_turns": max_turns,
+            "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
+            "waste_penalty": -0.02,  # Per unnecessary turn beyond optimal
+            "rush_penalty": -0.05,   # Per critical step skipped for speed
+        }
+
+        return {
+            "phases": phases,
+            "time_pressure_events": time_events,
+            "efficiency_metrics": efficiency,
+            "total_turn_budget": max_turns,
+            "minimum_required_turns": min_turns,
+        }
+
+    # ============================================================
+    # Capability Dimensions (Benchmark Tags)
+    # ============================================================
+
+    def _build_capability_dimensions(self, scenario: ScenarioSpec, disease: str) -> Dict:
+        """Build agent capability dimension tags with task-specific weights."""
+        task_type = scenario.task_type
+        diff = scenario.difficulty
+
+        # Task type → dimension weight profiles
+        weight_profiles = {
+            "diagnostic_uncertainty": {
+                "information_gathering": 0.25,
+                "diagnostic_reasoning": 0.30,
+                "treatment_planning": 0.15,
+                "safety_awareness": 0.10,
+                "communication_quality": 0.10,
+                "efficiency": 0.10,
+            },
+            "conflicting_evidence": {
+                "information_gathering": 0.20,
+                "diagnostic_reasoning": 0.35,
+                "treatment_planning": 0.10,
+                "safety_awareness": 0.10,
+                "communication_quality": 0.10,
+                "efficiency": 0.15,
+            },
+            "treatment_tradeoff": {
+                "information_gathering": 0.10,
+                "diagnostic_reasoning": 0.10,
+                "treatment_planning": 0.35,
+                "safety_awareness": 0.20,
+                "communication_quality": 0.15,
+                "efficiency": 0.10,
+            },
+            "patient_non_compliance": {
+                "information_gathering": 0.10,
+                "diagnostic_reasoning": 0.10,
+                "treatment_planning": 0.15,
+                "safety_awareness": 0.10,
+                "communication_quality": 0.40,
+                "efficiency": 0.15,
+            },
+            "drug_safety_risk": {
+                "information_gathering": 0.10,
+                "diagnostic_reasoning": 0.10,
+                "treatment_planning": 0.20,
+                "safety_awareness": 0.40,
+                "communication_quality": 0.10,
+                "efficiency": 0.10,
+            },
+            "emergency_triage": {
+                "information_gathering": 0.15,
+                "diagnostic_reasoning": 0.25,
+                "treatment_planning": 0.15,
+                "safety_awareness": 0.15,
+                "communication_quality": 0.10,
+                "efficiency": 0.20,
+            },
+        }
+
+        weights = weight_profiles.get(task_type, weight_profiles["diagnostic_uncertainty"])
+
+        dimensions = {}
+        for dim_key, dim_info in CAPABILITY_DIMENSIONS.items():
+            dimensions[dim_key] = {
+                "description": dim_info["description"],
+                "sub_skills": dim_info["sub_skills"],
+                "weight": weights.get(dim_key, 0.1),
+                "test_method": self._get_dimension_test_method(dim_key, disease),
+            }
+
+        # Difficulty modifiers on sub-skills
+        difficulty_modifiers = {
+            "L1": {"focus": "basic competence", "sub_skill_multiplier": 0.8},
+            "L2": {"focus": "intermediate proficiency with nuance", "sub_skill_multiplier": 1.0},
+            "L3": {"focus": "advanced mastery under adversarial conditions", "sub_skill_multiplier": 1.3},
+        }
+
+        return {
+            "dimensions": dimensions,
+            "primary_dimensions": sorted(weights, key=weights.get, reverse=True)[:3],
+            "difficulty_modifier": difficulty_modifiers.get(diff, difficulty_modifiers["L2"]),
+        }
+
+    def _get_dimension_test_method(self, dimension: str, disease: str) -> str:
+        """Get how a capability dimension is tested."""
+        methods = {
+            "information_gathering": f"Measure percentage of critical symptoms discovered for {disease}",
+            "diagnostic_reasoning": "Check if correct diagnosis is reached and differentials considered",
+            "treatment_planning": "Verify treatment matches guidelines and accounts for comorbidities",
+            "safety_awareness": "Check all safety checks performed before treatment decisions",
+            "communication_quality": "Evaluate patient understanding and misconception correction",
+            "efficiency": "Count turns and actions relative to optimal path",
+        }
+        return methods.get(dimension, "Evaluate against ground truth decision tree")
+
+    # ============================================================
+    # Structural Difficulty Profile
+    # ============================================================
+
+    def _build_difficulty_profile(
+        self, scenario: ScenarioSpec, disease: str, symptoms: SymptomSet
+    ) -> Dict:
+        """Build structural difficulty breakdown explaining WHY this task is hard."""
+        diff = scenario.difficulty
+        gt = scenario.ground_truth
+        behavior = scenario.behavior_type
+
+        n_comorbidities = len(gt.comorbidities) if gt and gt.comorbidities else 0
+        n_hidden = len(symptoms.hidden) + len(symptoms.resistant)
+        n_misleading = len(symptoms.misleading) + len(symptoms.noise)
+
+        profile = {}
+        for factor_key, factor_info in DIFFICULTY_FACTORS.items():
+            level_desc = factor_info.get(diff, factor_info.get("L2", ""))
+            score = {"L1": 1, "L2": 2, "L3": 3}.get(diff, 2)
+
+            # Adjust score based on actual task content
+            if factor_key == "symptom_complexity":
+                total_symptoms = len(symptoms.volunteer) + len(symptoms.if_asked) + n_hidden
+                score = min(3, max(1, total_symptoms // 3))
+                level_desc = f"{total_symptoms} total symptoms across tiers"
+            elif factor_key == "diagnostic_ambiguity":
+                differentials = self.kb.get_differential_diagnoses(disease)
+                n_diffs = len(differentials) if differentials else 1
+                score = min(3, max(1, n_diffs // 2))
+                level_desc = f"{n_diffs} plausible differentials"
+            elif factor_key == "treatment_complexity":
+                score = min(3, n_comorbidities + 1)
+                level_desc = f"{n_comorbidities} comorbidities affecting treatment choice"
+            elif factor_key == "patient_behavior_difficulty":
+                behavior_scores = {
+                    "cooperative": 1, "forgetful": 2, "confused": 2,
+                    "pressuring": 2, "concealing": 3, "refusing": 3,
+                }
+                score = behavior_scores.get(behavior, 2)
+                level_desc = f"behavior: {behavior}"
+            elif factor_key == "information_asymmetry":
+                score = min(3, max(1, n_hidden))
+                level_desc = f"{n_hidden} hidden/resistant symptoms to discover"
+            elif factor_key == "comorbidity_burden":
+                score = min(3, n_comorbidities)
+                level_desc = f"{n_comorbidities} comorbidities present"
+            elif factor_key == "time_pressure":
+                if scenario.task_type == "emergency_triage":
+                    score = 3
+                    level_desc = "Emergency — time-sensitive decisions required"
+                elif diff == "L3":
+                    score = 2
+                    level_desc = "Moderate urgency with condition change event"
+                else:
+                    score = 1
+                    level_desc = "Routine consultation, no urgency"
+
+            profile[factor_key] = {
+                "score": score,
+                "max": 3,
+                "description": factor_info["description"],
+                "task_specific": level_desc,
+            }
+
+        # Overall difficulty score and explanation
+        total_score = sum(p["score"] for p in profile.values())
+        max_possible = len(profile) * 3
+        overall = {
+            "aggregate_score": total_score,
+            "max_possible": max_possible,
+            "difficulty_rating": diff,
+            "primary_difficulty_drivers": sorted(
+                profile.keys(), key=lambda k: profile[k]["score"], reverse=True
+            )[:3],
+            "explanation": self._generate_difficulty_explanation(profile, diff, disease),
+        }
+
+        # Adversarial design
+        adversarial = {
+            "noise_injection": {
+                "misleading_symptoms": n_misleading,
+                "noise_symptoms": len(symptoms.noise),
+                "cross_overlapping_conditions": self._get_overlap_count(disease),
+            },
+            "partial_observability": {
+                "hidden_symptoms": n_hidden,
+                "trust_gated_symptoms": len(symptoms.resistant),
+                "undiagnosed_comorbidities": n_comorbidities if diff == "L3" else max(0, n_comorbidities - 1),
+            },
+            "adversarial_patient_behavior": behavior in ("concealing", "refusing", "confused"),
+            "conflicting_evidence": diff in ("L2", "L3") and scenario.task_type == "conflicting_evidence",
+        }
+
+        return {
+            "factors": profile,
+            "overall": overall,
+            "adversarial_design": adversarial,
+        }
+
+    def _get_overlap_count(self, disease: str) -> int:
+        """Count diseases with overlapping symptoms."""
+        disease_lower = disease.lower()
+        for key in DISEASE_MISLEADING_MAP:
+            if key in disease_lower:
+                misl = DISEASE_MISLEADING_MAP[key]
+                return len(misl.get("cross_overlapping", []))
+        return 0
+
+    def _generate_difficulty_explanation(self, profile: Dict, diff: str, disease: str) -> str:
+        """Generate human-readable difficulty explanation."""
+        drivers = sorted(profile.keys(), key=lambda k: profile[k]["score"], reverse=True)[:3]
+        driver_names = [k.replace("_", " ") for k in drivers]
+        return (
+            f"This {diff} task is primarily challenging due to {', '.join(driver_names[:2])}. "
+            f"The diagnosis of {disease} requires careful information gathering and clinical reasoning."
+        )

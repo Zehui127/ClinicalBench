@@ -1,0 +1,1186 @@
+{
+  "id": "v27_drug_safety_risk_L1_rheumatoid_arthritis_9492f5",
+  "domain": "rheumatology",
+  "task_type": "drug_safety_risk",
+  "difficulty": "L1",
+  "version": "2.7",
+  "description": {
+    "purpose": "drug_safety_risk — 39-year-old female with I have prolonged morning stiffness lasting more than an hour for a few weeks",
+    "clinical_scenario": "Patient presents with I have prolonged morning stiffness lasting more than an hour for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "educational_objectives": [
+      "Assess information gathering ability",
+      "Evaluate clinical reasoning",
+      "Safety checking before prescribing",
+      "Drug interaction awareness"
+    ],
+    "focus": "Safe prescribing with allergy and interaction checks"
+  },
+  "user_scenario": {
+    "persona": "39-year-old female patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with I have prolonged morning stiffness lasting more than an hour.",
+    "patient_profile": {
+      "age": 39,
+      "gender": "female",
+      "education_level": "high_school",
+      "communication_style": "clear",
+      "cooperation_level": "good",
+      "chief_complaint": "i've been having joint deformities for a few weeks",
+      "occupation": "sales associate"
+    },
+    "information_state": {
+      "patient_knows": {
+        "symptoms": [
+          "i've been having joint deformities"
+        ],
+        "duration_approximate": "about a few weeks",
+        "general_concern": "I have prolonged morning stiffness lasting more than an hour",
+        "current_medications": [
+          "folic acid 1mg daily except methotrexate day"
+        ]
+      },
+      "patient_doesnt_know": {
+        "diagnosis": "rheumatoid arthritis",
+        "specific_medication_needed": "methotrexate (15mg once weekly)",
+        "medication_contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
+      },
+      "patient_misconceptions_and_concerns": {
+        "exercise_misconception": [
+          "Should I stop exercising so I don't wear out my joints?",
+          "My joints hurt, shouldn't I just rest?"
+        ],
+        "medication_concerns": [
+          "I heard arthritis painkillers damage your stomach",
+          "Is there a cure for arthritis?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
+        ]
+      }
+    },
+    "information_sharing_strategy": {
+      "volunteer_without_asking": [
+        "i've been having joint deformities"
+      ],
+      "share_only_if_asked": [],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about methotrexate side effects — pregnancy, liver disease"
+      ],
+      "response_style": {
+        "honest": true,
+        "direct": true,
+        "limited_medical_knowledge": true,
+        "may_need_clarification": [],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": true
+      }
+    },
+    "task_instructions": "You are WangXX, a 39-year-old female patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of i've been having joint deformities. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "medical_persona": {
+    "age": 39,
+    "gender": "female",
+    "symptoms": {
+      "Have you noticed any joint deformities": "I've been having joint deformities"
+    },
+    "duration": "a few weeks",
+    "severity": "mild",
+    "current_medications": [
+      {
+        "name": "methotrexate",
+        "brand_names": [],
+        "drug_class": "antimetabolite / DMARD",
+        "dose": "15mg",
+        "frequency": "once weekly"
+      }
+    ],
+    "allergies": [
+      "sulfa drugs"
+    ],
+    "vital_signs": {
+      "blood_pressure": "120/85 mmHg",
+      "bmi": "22.9"
+    },
+    "lifestyle_factors": {
+      "smoking": "yes (1 pack/day for 20+ years)",
+      "exercise": "light activity 1-2x/week"
+    },
+    "socioeconomic_factors": {
+      "occupation": "sales associate",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
+    },
+    "medication_considerations": {
+      "methotrexate": {
+        "drug_class": "antimetabolite / DMARD",
+        "standard_dose": "",
+        "contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
+      }
+    },
+    "diagnosis": {
+      "primary": "rheumatoid arthritis",
+      "severity": "mild",
+      "differential_diagnoses": [
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus",
+        "Gout"
+      ]
+    }
+  },
+  "ticket": "i've been having joint deformities",
+  "initial_state": {
+    "initialization_actions": [
+      {
+        "env_type": "user",
+        "func_name": "set_user_info",
+        "arguments": {
+          "name": "WangXX",
+          "mrn": "MRN365058",
+          "age": 39,
+          "gender": "female"
+        }
+      },
+      {
+        "env_type": "user",
+        "func_name": "set_medical_persona",
+        "arguments": {
+          "patient_profile": {
+            "age": 39,
+            "gender": "female",
+            "symptoms": [
+              "i've been having joint deformities"
+            ],
+            "duration": "a few weeks",
+            "severity": "moderate"
+          },
+          "information_sharing_strategy": {
+            "volunteer": [
+              "i've been having joint deformities"
+            ],
+            "ask_only": []
+          },
+          "response_style": {
+            "honest": true,
+            "limited_medical_knowledge": true
+          }
+        }
+      }
+    ]
+  },
+  "evaluation_criteria": {
+    "actions": [
+      {
+        "action_id": "gather_patient_history",
+        "requestor": "assistant",
+        "name": "ask_patient",
+        "arguments": {
+          "min_questions": 2
+        }
+      },
+      {
+        "action_id": "use_check_allergy",
+        "requestor": "assistant",
+        "name": "check_allergy",
+        "arguments": {
+          "patient_id": "current"
+        }
+      },
+      {
+        "action_id": "use_check_drug_interactions",
+        "requestor": "assistant",
+        "name": "check_drug_interactions",
+        "arguments": {
+          "drug_list": [
+            "methotrexate",
+            "folic acid",
+            "prednisone"
+          ]
+        }
+      },
+      {
+        "action_id": "use_check_contraindications",
+        "requestor": "assistant",
+        "name": "check_contraindications",
+        "arguments": {
+          "medication": "methotrexate",
+          "conditions": []
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "methotrexate",
+          "dose": ""
+        }
+      }
+    ],
+    "communication_checks": [
+      {
+        "check_id": "patient_understands",
+        "criteria": "Patient should understand the diagnosis and treatment plan",
+        "weight": 1.0
+      },
+      {
+        "check_id": "appropriate_language",
+        "criteria": "Uses clear, patient-friendly language appropriate to education level",
+        "weight": 1.0
+      }
+    ],
+    "reward_basis": [
+      "DB",
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY"
+    ],
+    "medical_criteria": {
+      "category": "safety",
+      "min_turns": 3,
+      "max_turns": 20,
+      "information_gathering_requirements": {
+        "must_collect": {
+          "chief_complaint_detail": {
+            "required": true,
+            "description": "Complete chief complaint with onset, duration, severity, and aggravating/relieving factors",
+            "weight": 0.18
+          },
+          "symptoms_completeness": {
+            "required": true,
+            "description": "All major symptoms of rheumatoid arthritis identified through systematic questioning",
+            "weight": 0.2
+          },
+          "past_medical_history": {
+            "required": true,
+            "description": "Relevant past medical history including comorbidities",
+            "weight": 0.12
+          },
+          "current_medications": {
+            "required": true,
+            "description": "Current medication list with doses and adherence",
+            "weight": 0.15
+          },
+          "allergies": {
+            "required": true,
+            "description": "Drug allergy history",
+            "weight": 0.15
+          },
+          "family_history": {
+            "required": false,
+            "description": "Relevant family history",
+            "weight": 0.08
+          },
+          "lifestyle_factors": {
+            "required": false,
+            "description": "Smoking, alcohol, diet, exercise habits",
+            "weight": 0.05
+          },
+          "social_determinants": {
+            "required": false,
+            "description": "Socioeconomic factors affecting treatment adherence",
+            "weight": 0.04
+          }
+        },
+        "scoring_method": "count",
+        "pass_threshold": 0.7
+      },
+      "diagnostic_requirements": {
+        "diagnosis_accuracy": {
+          "required": true,
+          "correct_diagnosis": "rheumatoid arthritis",
+          "allow_alternatives": [
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
+          ],
+          "weight": 0.35
+        },
+        "differential_diagnosis": {
+          "required": false,
+          "must_consider": [
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
+          ],
+          "weight": 0.2
+        },
+        "evidence_based": {
+          "required": true,
+          "diagnosis_must_be_based_on": [
+            "symptoms",
+            "lab_results"
+          ],
+          "weight": 0.1
+        },
+        "key_questions": {
+          "required": false,
+          "must_ask": [
+            "Which joints are affected? Are the symptoms symmetric on both sides?",
+            "Is there prolonged morning stiffness lasting more than an hour?",
+            "Are the joints swollen, warm, or tender?"
+          ],
+          "weight": 0.1
+        }
+      },
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "methotrexate",
+          "appropriate_dosage": "15mg once weekly",
+          "weight": 0.3
+        },
+        "contraindication_awareness": {
+          "required": true,
+          "must_check": [
+            "pregnancy",
+            "liver disease"
+          ],
+          "weight": 0.2
+        }
+      },
+      "safety_requirements": {
+        "allergy_check_before_prescribe": {
+          "required": true,
+          "description": "Must check allergies before prescribing",
+          "severity": "critical"
+        },
+        "drug_interaction_check": {
+          "required": false,
+          "description": "Must check drug interactions before prescribing",
+          "severity": "major"
+        },
+        "nsaid_gi_risk": {
+          "required": true,
+          "description": "Must assess: NSAID GI risk",
+          "severity": "major"
+        },
+        "immunosuppression_monitoring": {
+          "required": true,
+          "description": "Must assess: immunosuppression monitoring",
+          "severity": "major"
+        }
+      },
+      "required_tools": [
+        "check_allergy",
+        "check_drug_interactions",
+        "check_contraindications",
+        "prescribe_medication"
+      ],
+      "forbidden_actions": [
+        "Prescribe medication before checking allergies",
+        "Agree with patient misconceptions without correction",
+        "Ignore abnormal lab values without explanation or follow-up plan",
+        "Diagnose without asking about symptom onset, duration, and progression",
+        "Diagnose without exploring at least one differential diagnosis",
+        "Dismiss patient concerns without addressing them",
+        "Use medical jargon without explanation when patient has limited health literacy",
+        "Fail to correct patient misconceptions about treatment",
+        "Prescribe contraindicated drug without documenting rationale",
+        "Order unnecessary tests without clinical justification",
+        "Fail to consider Osteoarthritis as alternative diagnosis",
+        "Prescribe methotrexate in patient with pregnancy without special precautions",
+        "Diagnose rheumatoid arthritis without ordering any supporting lab tests"
+      ]
+    }
+  },
+  "ground_truth": {
+    "correct_diagnosis": {
+      "primary": "rheumatoid arthritis",
+      "confidence_threshold": 0.7,
+      "acceptable_alternatives": [
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus"
+      ],
+      "required_evidence": [
+        "symptom_cluster_matching"
+      ]
+    },
+    "expected_lab_results": {},
+    "correct_treatment_plan": {
+      "medications": [
+        {
+          "name": "methotrexate",
+          "drug_class": "antimetabolite / DMARD",
+          "dose": "15mg",
+          "frequency": "once weekly",
+          "rationale": "First-line treatment for rheumatoid arthritis"
+        }
+      ],
+      "non_pharmacological": [
+        "Lifestyle modification counseling",
+        "Dietary guidance"
+      ],
+      "follow_up": "2-4 weeks"
+    },
+    "required_safety_checks": [
+      {
+        "check": "allergy_check",
+        "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "drug_interaction_check",
+        "before": "prescribing",
+        "critical": false
+      }
+    ],
+    "communication_truth": [
+      {
+        "milestone": "explain_diagnosis",
+        "must_include": [
+          "diagnosis name in patient terms",
+          "what it means"
+        ]
+      },
+      {
+        "milestone": "explain_treatment",
+        "must_include": [
+          "medication name and purpose",
+          "how to take it",
+          "expected effects"
+        ]
+      },
+      {
+        "milestone": "address_concerns",
+        "must_include": [
+          "acknowledge patient worries",
+          "correct misconceptions"
+        ]
+      }
+    ],
+    "decision_tree": [
+      {
+        "step": 1,
+        "action": "history_taking",
+        "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
+        "key_questions": [
+          "i've been having joint deformities"
+        ],
+        "hidden_information_to_uncover": []
+      },
+      {
+        "step": 2,
+        "action": "order_labs",
+        "correct_approach": "Order disease-relevant labs for rheumatoid arthritis",
+        "required_tests": [
+          "CBC",
+          "BMP"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "form_diagnosis",
+        "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
+        "must_consider": [
+          "Osteoarthritis",
+          "Psoriatic Arthritis",
+          "Lupus"
+        ]
+      },
+      {
+        "step": 4,
+        "action": "plan_treatment",
+        "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
+        "safety_first": true
+      },
+      {
+        "step": 5,
+        "action": "communicate_and_close",
+        "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up"
+      }
+    ]
+  },
+  "environment_dynamics": {
+    "states": {
+      "INITIAL": {
+        "description": "Consultation has not started",
+        "available_actions": [
+          "greet_patient",
+          "review_ticket"
+        ],
+        "observations": [
+          "ticket",
+          "patient_demographics"
+        ]
+      },
+      "HISTORY_TAKING": {
+        "description": "Doctor is gathering patient history",
+        "available_actions": [
+          "ask_patient",
+          "ask_about_symptoms",
+          "ask_about_history",
+          "ask_about_medications",
+          "ask_about_allergies",
+          "ask_about_lifestyle"
+        ],
+        "observations": [
+          "patient_responses",
+          "volunteer_symptoms"
+        ],
+        "partial_observability": {
+          "patient_visible_symptoms": "volunteer tier only",
+          "requires_probing": "if_asked and hidden tiers need specific questions",
+          "trust_gated": "resistant symptoms need empathy/probing"
+        }
+      },
+      "PHYSICAL_EXAM": {
+        "description": "Doctor performs or orders physical examination",
+        "available_actions": [
+          "assess_vital_signs",
+          "perform_examination"
+        ],
+        "observations": [
+          "vital_signs",
+          "exam_findings"
+        ]
+      },
+      "LAB_ORDERED": {
+        "description": "Doctor has ordered lab tests, awaiting results",
+        "available_actions": [
+          "wait_for_results",
+          "continue_history"
+        ],
+        "observations": [
+          "tests_ordered"
+        ]
+      },
+      "LAB_RESULTS_AVAILABLE": {
+        "description": "Lab results are available for review",
+        "available_actions": [
+          "get_lab_results",
+          "review_results",
+          "order_additional_tests"
+        ],
+        "observations": [
+          "lab_results"
+        ],
+        "disease_specific_observations": [
+          "hemoglobin: results pending",
+          "reticulocyte_count: results pending",
+          "ldh: results pending",
+          "total_bilirubin: results pending",
+          "indirect_bilirubin: results pending"
+        ]
+      },
+      "DIAGNOSIS_FORMING": {
+        "description": "Doctor is forming differential diagnosis",
+        "available_actions": [
+          "differential_diagnosis",
+          "order_additional_tests",
+          "consult_specialist"
+        ],
+        "observations": [
+          "symptom_summary",
+          "lab_summary"
+        ]
+      },
+      "DIAGNOSIS_MADE": {
+        "description": "Doctor has recorded a diagnosis",
+        "available_actions": [
+          "record_diagnosis",
+          "communicate_diagnosis"
+        ],
+        "observations": [
+          "diagnosis"
+        ]
+      },
+      "TREATMENT_PLANNING": {
+        "description": "Doctor is planning treatment",
+        "available_actions": [
+          "check_allergy",
+          "check_drug_interactions",
+          "check_contraindications",
+          "prescribe_medication",
+          "health_education"
+        ],
+        "observations": [
+          "allergy_check_result",
+          "interaction_check_result"
+        ]
+      },
+      "PATIENT_DISCUSSION": {
+        "description": "Doctor is discussing treatment with patient",
+        "available_actions": [
+          "patient_education",
+          "address_concerns",
+          "negotiate_treatment"
+        ],
+        "observations": [
+          "patient_reaction",
+          "patient_concerns"
+        ]
+      },
+      "PRESCRIPTION_WRITTEN": {
+        "description": "Doctor has written prescription",
+        "available_actions": [
+          "schedule_followup",
+          "provide_instructions"
+        ],
+        "observations": [
+          "prescription"
+        ]
+      },
+      "CONSULTATION_COMPLETE": {
+        "description": "Consultation is complete",
+        "available_actions": [],
+        "observations": [
+          "full_summary"
+        ]
+      }
+    },
+    "transitions": [
+      {
+        "from": "INITIAL",
+        "to": "HISTORY_TAKING",
+        "trigger": "doctor initiates conversation"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "PHYSICAL_EXAM",
+        "trigger": "doctor assesses vital signs or performs exam"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor begins differential diagnosis"
+      },
+      {
+        "from": "LAB_ORDERED",
+        "to": "LAB_RESULTS_AVAILABLE",
+        "trigger": "lab results are ready"
+      },
+      {
+        "from": "LAB_RESULTS_AVAILABLE",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor reviews results and forms diagnosis"
+      },
+      {
+        "from": "LAB_RESULTS_AVAILABLE",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders additional tests"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "DIAGNOSIS_MADE",
+        "trigger": "doctor records diagnosis"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders confirmatory tests"
+      },
+      {
+        "from": "DIAGNOSIS_MADE",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "doctor begins treatment planning"
+      },
+      {
+        "from": "TREATMENT_PLANNING",
+        "to": "PATIENT_DISCUSSION",
+        "trigger": "doctor discusses treatment options with patient"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "PRESCRIPTION_WRITTEN",
+        "trigger": "doctor writes prescription"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "patient objects, doctor revises plan"
+      },
+      {
+        "from": "PRESCRIPTION_WRITTEN",
+        "to": "CONSULTATION_COMPLETE",
+        "trigger": "doctor provides follow-up instructions"
+      },
+      {
+        "from": "DIAGNOSIS_MADE",
+        "to": "PATIENT_DISCUSSION",
+        "trigger": "doctor communicates diagnosis directly to patient"
+      }
+    ],
+    "invalid_transitions": [
+      {
+        "from": "INITIAL",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe without diagnosis"
+      },
+      {
+        "from": "HISTORY_TAKING",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe without diagnosis and labs"
+      },
+      {
+        "from": "INITIAL",
+        "to": "DIAGNOSIS_MADE",
+        "reason": "Cannot diagnose without gathering history"
+      },
+      {
+        "from": "LAB_ORDERED",
+        "to": "PRESCRIPTION_WRITTEN",
+        "reason": "Cannot prescribe before reviewing lab results"
+      }
+    ],
+    "reward_function": {
+      "HISTORY_TAKING": {
+        "per_relevant_question": 0.05,
+        "discover_hidden_symptom": 0.15,
+        "discover_resistant_symptom": 0.2,
+        "missed_symptom_penalty": -0.1
+      },
+      "EXAMINATION_AND_LABS": {
+        "order_appropriate_test": 0.1,
+        "order_unnecessary_test": -0.05,
+        "miss_critical_test": -0.2
+      },
+      "DIAGNOSIS_MADE": {
+        "correct_diagnosis": 0.3,
+        "acceptable_alternative": 0.2,
+        "incorrect_diagnosis": -0.3
+      },
+      "TREATMENT_PLANNING": {
+        "safety_check_performed": 0.1,
+        "safety_check_skipped": -0.3,
+        "appropriate_medication": 0.2,
+        "contraindicated_medication": -0.4
+      },
+      "PATIENT_DISCUSSION": {
+        "used_patient_friendly_language": 0.05,
+        "corrected_misconception": 0.1,
+        "ignored_concern": -0.1
+      },
+      "CONSULTATION_COMPLETE": {
+        "all_phases_complete": 0.1,
+        "efficiency_bonus": 0.05,
+        "incomplete_consultation": -0.2
+      }
+    },
+    "initial_state": "INITIAL",
+    "terminal_states": [
+      "CONSULTATION_COMPLETE"
+    ],
+    "partial_observability": {
+      "description": "Agent cannot directly observe hidden symptoms, patient thoughts, or lab results without ordering",
+      "observable": [
+        "patient_verbal_responses",
+        "vital_signs",
+        "ordered_lab_results"
+      ],
+      "unobservable": [
+        "hidden_symptoms",
+        "resistant_symptoms",
+        "undiagnosed_comorbidities",
+        "patient_inner_thoughts"
+      ],
+      "information_cost": "Each question costs 1 turn; each lab order costs 1-2 turns"
+    }
+  },
+  "outcome_criteria": {
+    "primary_outcome": {
+      "metric": "diagnostic_accuracy",
+      "description": "Agent arrives at the correct diagnosis",
+      "verifiable": true,
+      "scoring": {
+        "exact_match": 1.0,
+        "acceptable_alternative": 0.7,
+        "partially_correct": 0.4,
+        "incorrect": 0.0
+      },
+      "correct_answer": "rheumatoid arthritis",
+      "acceptable_answers": [
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus"
+      ]
+    },
+    "secondary_outcomes": [
+      {
+        "metric": "treatment_appropriateness",
+        "description": "Treatment plan is safe and effective for the diagnosed condition",
+        "verifiable": true,
+        "scoring": {
+          "optimal_first_line": 1.0,
+          "acceptable_alternative": 0.7,
+          "suboptimal_but_safe": 0.4,
+          "unsafe_or_contraindicated": 0.0
+        },
+        "correct_answer": "methotrexate"
+      },
+      {
+        "metric": "safety_adherence",
+        "description": "All required safety checks performed before prescribing",
+        "verifiable": true,
+        "scoring": {
+          "all_checks_performed": 1.0,
+          "minor_omission": 0.5,
+          "critical_omission": 0.0
+        },
+        "required_checks": [
+          "allergy_check",
+          "drug_interaction_check"
+        ],
+        "critical_checks": [
+          "allergy_check"
+        ]
+      },
+      {
+        "metric": "information_completeness",
+        "description": "Agent gathered all critical patient information",
+        "verifiable": true,
+        "scoring": {
+          "complete": 1.0,
+          "minor_gap": 0.7,
+          "significant_gap": 0.3,
+          "inadequate": 0.0
+        },
+        "required_categories": [
+          "chief_complaint",
+          "symptoms",
+          "past_history",
+          "medications",
+          "allergies"
+        ]
+      },
+      {
+        "metric": "patient_satisfaction",
+        "description": "Patient understands their condition and agrees to treatment plan",
+        "verifiable": true,
+        "scoring": {
+          "patient_understands_and_agrees": 1.0,
+          "patient_understands_but_hesitant": 0.6,
+          "patient_confused": 0.3,
+          "patient_refuses": 0.1
+        }
+      }
+    ],
+    "scoring_rubric": {
+      "weights": {
+        "diagnostic_accuracy": 0.3,
+        "treatment_appropriateness": 0.25,
+        "safety_adherence": 0.2,
+        "information_completeness": 0.15,
+        "patient_satisfaction": 0.1
+      },
+      "pass_threshold": 0.7,
+      "grade_levels": {
+        "excellent": [
+          0.9,
+          1.0
+        ],
+        "good": [
+          0.8,
+          0.9
+        ],
+        "acceptable": [
+          0.7,
+          0.8
+        ],
+        "needs_improvement": [
+          0.5,
+          0.7
+        ],
+        "failing": [
+          0.0,
+          0.5
+        ]
+      },
+      "critical_failure_conditions": [
+        "Missed critical diagnosis",
+        "Prescribed contraindicated medication",
+        "Failed to check allergies before prescribing",
+        "Ignored abnormal lab results without follow-up"
+      ]
+    }
+  },
+  "episode_structure": {
+    "phases": [
+      {
+        "name": "intake",
+        "description": "Initial greeting and chief complaint identification",
+        "turn_budget": {
+          "min": 1,
+          "max": 2
+        },
+        "required_actions": [
+          "greet_patient",
+          "identify_chief_complaint"
+        ],
+        "exit_condition": "Chief complaint clearly stated"
+      },
+      {
+        "name": "history_taking",
+        "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
+        "turn_budget": {
+          "min": 4,
+          "max": 8
+        },
+        "required_actions": [
+          "ask_about_symptoms",
+          "ask_about_history",
+          "ask_about_medications",
+          "ask_about_allergies"
+        ],
+        "exit_condition": "All required history categories covered"
+      },
+      {
+        "name": "examination_and_labs",
+        "description": "Physical examination and laboratory testing",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "assess_vital_signs",
+          "order_lab_tests",
+          "get_lab_results"
+        ],
+        "exit_condition": "Sufficient data collected for diagnosis"
+      },
+      {
+        "name": "diagnosis",
+        "description": "Form and record diagnosis with differential consideration",
+        "turn_budget": {
+          "min": 2,
+          "max": 3
+        },
+        "required_actions": [
+          "differential_diagnosis",
+          "record_diagnosis"
+        ],
+        "exit_condition": "Diagnosis recorded with supporting evidence"
+      },
+      {
+        "name": "treatment",
+        "description": "Plan treatment, check safety, prescribe medication",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "check_allergy",
+          "check_drug_interactions",
+          "prescribe_medication"
+        ],
+        "exit_condition": "Safe prescription written"
+      },
+      {
+        "name": "patient_communication",
+        "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
+        "turn_budget": {
+          "min": 2,
+          "max": 4
+        },
+        "required_actions": [
+          "communicate_diagnosis",
+          "patient_education",
+          "address_concerns"
+        ],
+        "exit_condition": "Patient understands plan and concerns addressed"
+      },
+      {
+        "name": "closure",
+        "description": "Schedule follow-up and provide final instructions",
+        "turn_budget": {
+          "min": 1,
+          "max": 2
+        },
+        "required_actions": [
+          "schedule_followup"
+        ],
+        "exit_condition": "Follow-up scheduled and consultation concluded"
+      }
+    ],
+    "time_pressure_events": [],
+    "efficiency_metrics": {
+      "optimal_turn_range": [
+        5,
+        11
+      ],
+      "max_turns": 20,
+      "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
+      "waste_penalty": -0.02,
+      "rush_penalty": -0.05
+    },
+    "total_turn_budget": 20,
+    "minimum_required_turns": 3
+  },
+  "capability_dimensions": {
+    "dimensions": {
+      "information_gathering": {
+        "description": "Ability to systematically collect patient history, symptoms, and relevant medical information",
+        "sub_skills": [
+          "history_taking",
+          "symptom_probe",
+          "hidden_symptom_discovery",
+          "medical_history_review"
+        ],
+        "weight": 0.1,
+        "test_method": "Measure percentage of critical symptoms discovered for rheumatoid arthritis"
+      },
+      "diagnostic_reasoning": {
+        "description": "Ability to form accurate differential diagnosis based on gathered evidence",
+        "sub_skills": [
+          "differential_diagnosis",
+          "evidence_synthesis",
+          "lab_interpretation",
+          "pattern_recognition"
+        ],
+        "weight": 0.1,
+        "test_method": "Check if correct diagnosis is reached and differentials considered"
+      },
+      "treatment_planning": {
+        "description": "Ability to design appropriate, individualized treatment plans",
+        "sub_skills": [
+          "medication_selection",
+          "dose_optimization",
+          "comorbidity_management",
+          "guideline_adherence"
+        ],
+        "weight": 0.2,
+        "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
+      },
+      "safety_awareness": {
+        "description": "Ability to identify and avoid medical safety risks",
+        "sub_skills": [
+          "allergy_checking",
+          "drug_interaction_check",
+          "contraindication_awareness",
+          "red_flag_detection"
+        ],
+        "weight": 0.4,
+        "test_method": "Check all safety checks performed before treatment decisions"
+      },
+      "communication_quality": {
+        "description": "Ability to communicate effectively with patients at their level of understanding",
+        "sub_skills": [
+          "patient_friendly_language",
+          "empathy",
+          "misconception_correction",
+          "shared_decision_making"
+        ],
+        "weight": 0.1,
+        "test_method": "Evaluate patient understanding and misconception correction"
+      },
+      "efficiency": {
+        "description": "Ability to reach correct conclusions with minimal unnecessary actions",
+        "sub_skills": [
+          "focused_questioning",
+          "appropriate_test_selection",
+          "time_management",
+          "resource_efficiency"
+        ],
+        "weight": 0.1,
+        "test_method": "Count turns and actions relative to optimal path"
+      }
+    },
+    "primary_dimensions": [
+      "safety_awareness",
+      "treatment_planning",
+      "information_gathering"
+    ],
+    "difficulty_modifier": {
+      "focus": "basic competence",
+      "sub_skill_multiplier": 0.8
+    }
+  },
+  "difficulty_profile": {
+    "factors": {
+      "symptom_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number and overlap of presenting symptoms",
+        "task_specific": "1 total symptoms across tiers"
+      },
+      "diagnostic_ambiguity": {
+        "score": 2,
+        "max": 3,
+        "description": "Number of plausible differential diagnoses and ease of differentiation",
+        "task_specific": "4 plausible differentials"
+      },
+      "treatment_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "task_specific": "0 comorbidities affecting treatment choice"
+      },
+      "patient_behavior_difficulty": {
+        "score": 1,
+        "max": 3,
+        "description": "How challenging the patient behavior is for information gathering",
+        "task_specific": "behavior: cooperative"
+      },
+      "information_asymmetry": {
+        "score": 1,
+        "max": 3,
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "task_specific": "0 hidden/resistant symptoms to discover"
+      },
+      "comorbidity_burden": {
+        "score": 0,
+        "max": 3,
+        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
+        "task_specific": "0 comorbidities present"
+      },
+      "time_pressure": {
+        "score": 1,
+        "max": 3,
+        "description": "Urgency level and consequences of delayed action",
+        "task_specific": "Routine consultation, no urgency"
+      }
+    },
+    "overall": {
+      "aggregate_score": 7,
+      "max_possible": 21,
+      "difficulty_rating": "L1",
+      "primary_difficulty_drivers": [
+        "diagnostic_ambiguity",
+        "symptom_complexity",
+        "treatment_complexity"
+      ],
+      "explanation": "This L1 task is primarily challenging due to diagnostic ambiguity, symptom complexity. The diagnosis of rheumatoid arthritis requires careful information gathering and clinical reasoning."
+    },
+    "adversarial_design": {
+      "noise_injection": {
+        "misleading_symptoms": 0,
+        "noise_symptoms": 0,
+        "cross_overlapping_conditions": 0
+      },
+      "partial_observability": {
+        "hidden_symptoms": 0,
+        "trust_gated_symptoms": 0,
+        "undiagnosed_comorbidities": 0
+      },
+      "adversarial_patient_behavior": false,
+      "conflicting_evidence": false
+    }
+  },
+  "generation_metadata": {
+    "source": "v2.7_medical_suite",
+    "scenario_id": "v2_drug_safety_risk_L1_rheumatoid_arthritis_820c4c",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.297,
+    "behavior_type": "cooperative",
+    "seed": 312
+  }
+}
