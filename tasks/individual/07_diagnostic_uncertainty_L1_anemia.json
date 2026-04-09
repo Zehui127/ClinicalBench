@@ -1,0 +1,523 @@
+{
+  "id": "v27_diagnostic_uncertainty_L1_anemia_f3ce3e",
+  "task_config": {
+    "domain": "hematology",
+    "task_type": "diagnostic_uncertainty",
+    "difficulty": "L1",
+    "seed": 234053,
+    "max_turns": 20,
+    "min_turns": 3,
+    "version": "3.0"
+  },
+  "patient": {
+    "profile": {
+      "age": 30,
+      "gender": "female",
+      "education": "high_school",
+      "occupation": "retail manager",
+      "economic_status": "low"
+    },
+    "chief_complaint": "anaemia for a few weeks",
+    "behavior": {
+      "type": "cooperative",
+      "cooperation": "good",
+      "communication": "clear",
+      "empathy_needed": false
+    },
+    "symptoms": {
+      "volunteer": [
+        "anaemia"
+      ],
+      "if_asked": [],
+      "hidden": [],
+      "resistant": [],
+      "misleading": [],
+      "noise": []
+    },
+    "progressive_reveal": [],
+    "misconceptions": {
+      "general_concerns": [
+        "Is this serious?",
+        "Will I need surgery?",
+        "How long will treatment take?"
+      ],
+      "economic_concerns": [
+        "How much will this medication cost per month?",
+        "Is there a cheaper alternative?",
+        "Will my insurance cover this?",
+        "Can we only prescribe what's absolutely necessary?"
+      ]
+    },
+    "instructions": "You are ChenXX, a 30-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of anaemia. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+  },
+  "clinical": {
+    "vitals": {
+      "blood_pressure": "120/91 mmHg",
+      "bmi": "27.4"
+    },
+    "labs": {
+      "hemoglobin": "9.31 g/dL (abnormal)",
+      "mcv": "77.9 fL (abnormal)",
+      "rdw": "16.9 % (abnormal)",
+      "ferritin": "21.9 ng/mL (abnormal)",
+      "tibc": "411 ug/dL (abnormal)"
+    },
+    "medications": [
+      "ferrous sulfate 325mg three times daily"
+    ],
+    "comorbidities": [],
+    "allergies": [],
+    "confounders": [],
+    "diagnosis": {
+      "primary": "anemia",
+      "differentials": [
+        "Iron Deficiency Anemia",
+        "Thalassemia",
+        "Anemia of Chronic Disease"
+      ]
+    }
+  },
+  "ground_truth": {
+    "correct_diagnosis": {
+      "primary": "anemia",
+      "confidence_threshold": 0.7,
+      "acceptable_alternatives": [
+        "Iron Deficiency Anemia",
+        "Thalassemia",
+        "Anemia of Chronic Disease"
+      ],
+      "required_evidence": [
+        "symptom_cluster_matching",
+        "lab_result_confirmation",
+        "abnormal_hemoglobin"
+      ]
+    },
+    "expected_lab_results": {
+      "hemoglobin": {
+        "expected_value": "8.76 g/dL (abnormal)",
+        "reference_range": "7.0-10.5 g/dL",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "mcv": {
+        "expected_value": "79.4 fL (abnormal)",
+        "reference_range": "70-85 fL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "rdw": {
+        "expected_value": "16.7 % (abnormal)",
+        "reference_range": "14.0-18.0 %",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "ferritin": {
+        "expected_value": "18.5 ng/mL (abnormal)",
+        "reference_range": "10-40 ng/mL",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "tibc": {
+        "expected_value": "430 ug/dL (abnormal)",
+        "reference_range": "350-500 ug/dL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      }
+    },
+    "correct_treatment_plan": {
+      "medications": [
+        {
+          "name": "ferrous sulfate",
+          "drug_class": "iron supplement",
+          "dose": "325mg",
+          "frequency": "three times daily",
+          "rationale": "First-line treatment for anemia"
+        }
+      ],
+      "non_pharmacological": [
+        "Lifestyle modification counseling",
+        "Dietary guidance"
+      ],
+      "follow_up": "2-4 weeks"
+    },
+    "required_safety_checks": [
+      {
+        "check": "allergy_check",
+        "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "drug_interaction_check",
+        "before": "prescribing",
+        "critical": false
+      }
+    ],
+    "communication_truth": [
+      {
+        "milestone": "explain_diagnosis",
+        "must_include": [
+          "diagnosis name in patient terms",
+          "what it means"
+        ]
+      },
+      {
+        "milestone": "explain_treatment",
+        "must_include": [
+          "medication name and purpose",
+          "how to take it",
+          "expected effects"
+        ]
+      },
+      {
+        "milestone": "address_concerns",
+        "must_include": [
+          "acknowledge patient worries",
+          "correct misconceptions"
+        ]
+      }
+    ],
+    "decision_tree": [
+      {
+        "step": 1,
+        "action": "history_taking",
+        "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
+        "key_questions": [
+          "anaemia"
+        ],
+        "hidden_information_to_uncover": []
+      },
+      {
+        "step": 2,
+        "action": "order_labs",
+        "correct_approach": "Order disease-relevant labs for anemia",
+        "required_tests": [
+          "hemoglobin",
+          "mcv",
+          "rdw",
+          "ferritin",
+          "tibc"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "form_diagnosis",
+        "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
+        "must_consider": [
+          "Iron Deficiency Anemia",
+          "Thalassemia",
+          "Anemia of Chronic Disease"
+        ]
+      },
+      {
+        "step": 4,
+        "action": "plan_treatment",
+        "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
+        "safety_first": true
+      },
+      {
+        "step": 5,
+        "action": "communicate_and_close",
+        "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up"
+      }
+    ]
+  },
+  "ground_truth_validation": {
+    "diagnosis_rules": [
+      {
+        "id": "DR1",
+        "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
+        "pass_value": true,
+        "on_fail": "FAIL diagnosis_score = 0"
+      },
+      {
+        "id": "DR2",
+        "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
+        "pass_value": true,
+        "on_fail": "diagnosis_score *= 0.5"
+      }
+    ],
+    "safety_rules": [
+      {
+        "id": "SF1",
+        "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
+        "pass_value": true,
+        "on_fail": "FAIL safety_score = 0"
+      },
+      {
+        "id": "SF2",
+        "check": "action CHECK_INTERACTION executed IF agent prescribes",
+        "pass_value": true,
+        "on_fail": "safety_score *= 0.5"
+      }
+    ],
+    "treatment_rules": [
+      {
+        "id": "TR1",
+        "check": "agent_prescription.drug == ferrous sulfate OR agent_prescription.drug in acceptable_alternatives",
+        "first_line": "ferrous sulfate",
+        "pass_value": true,
+        "on_fail": "treatment_score *= 0.5"
+      }
+    ],
+    "all_rules_count": 5
+  },
+  "actions": {
+    "ASK": {
+      "params": {
+        "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
+      },
+      "returns": "patient_response: string",
+      "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+    },
+    "ORDER_LAB": {
+      "params": {
+        "tests": "list[string]"
+      },
+      "returns": "order_id: string",
+      "effect": "labs_ordered[tests] = true",
+      "recommended": [
+        "hemoglobin",
+        "mcv",
+        "rdw",
+        "ferritin",
+        "tibc"
+      ]
+    },
+    "GET_RESULTS": {
+      "params": {
+        "order_id": "string"
+      },
+      "returns": "results: dict[test_name, value_string]",
+      "precondition": "ORDER_LAB executed first"
+    },
+    "DIAGNOSE": {
+      "params": {
+        "diagnosis": "string",
+        "confidence": "float 0-1"
+      },
+      "returns": "recorded: boolean"
+    },
+    "CHECK_ALLERGY": {
+      "params": {},
+      "returns": "allergies: list[string]"
+    },
+    "CHECK_INTERACTION": {
+      "params": {
+        "drugs": "list[string]"
+      },
+      "returns": "interactions: list[dict]"
+    },
+    "PRESCRIBE": {
+      "params": {
+        "drug": "string",
+        "dose": "string",
+        "frequency": "string"
+      },
+      "returns": "prescription_id: string",
+      "precondition": "CHECK_ALLERGY executed"
+    },
+    "EDUCATE": {
+      "params": {
+        "topic": "string"
+      },
+      "returns": "patient_understanding: float 0-1"
+    },
+    "SCHEDULE_FOLLOWUP": {
+      "params": {
+        "weeks": "int"
+      },
+      "returns": "appointment_id: string"
+    },
+    "END": {
+      "params": {},
+      "returns": "summary: string"
+    }
+  },
+  "observations": {
+    "initial": {
+      "visible": [
+        "patient.age",
+        "patient.gender",
+        "patient.chief_complaint"
+      ],
+      "hidden": [
+        "clinical.labs",
+        "clinical.diagnosis",
+        "patient.symptoms.hidden"
+      ]
+    },
+    "step_output": {
+      "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
+      "patient_response": "string or null",
+      "data": "dict — test results, vitals, etc. per action",
+      "turn": "int"
+    },
+    "update_rules": [
+      "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
+      "ASK(topic='history') → reveal past_medical_history items",
+      "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
+      "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
+      "DIAGNOSE(d, c) → state → DIAGNOSING",
+      "CHECK_ALLERGY() → return clinical.allergies",
+      "CHECK_INTERACTION(drugs) → return interaction data",
+      "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
+      "EDUCATE(topic) → return patient_understanding score",
+      "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
+      "END() → state → COMPLETE"
+    ],
+    "trust_model": {
+      "initial": 0.5,
+      "empathy_action": "+0.15",
+      "dismiss_concern": "-0.2",
+      "resistant_threshold": 0.6,
+      "note": "resistant symptoms only revealed when trust > resistant_threshold"
+    }
+  },
+  "scoring": {
+    "formula": "0.30*diagnosis + 0.25*safety + 0.20*info + 0.15*treatment + 0.10*communication",
+    "components": {
+      "diagnosis": {
+        "weight": 0.3,
+        "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+      },
+      "safety": {
+        "weight": 0.25,
+        "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+      },
+      "info": {
+        "weight": 0.2,
+        "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+      },
+      "treatment": {
+        "weight": 0.15,
+        "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+      },
+      "communication": {
+        "weight": 0.1,
+        "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+      }
+    },
+    "pass_threshold": 0.7,
+    "critical_failures": [
+      "IF diagnosis == 0 → FAIL regardless of total",
+      "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
+      "IF prescribed drug contraindicated by comorbidities → FAIL"
+    ],
+    "efficiency": {
+      "bonus": "IF turns <= min_turns + 4: +0.05",
+      "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
+    }
+  },
+  "task_profile": {
+    "dimensions": {
+      "info": 0.25,
+      "diagnosis": 0.3,
+      "treatment": 0.15,
+      "safety": 0.1,
+      "communication": 0.1,
+      "efficiency": 0.1
+    },
+    "difficulty_factors": {
+      "symptom_complexity": 1,
+      "diagnostic_ambiguity": 1,
+      "treatment_complexity": 1,
+      "patient_behavior": 1,
+      "information_asymmetry": 1,
+      "comorbidity_burden": 0,
+      "time_pressure": 1
+    },
+    "overall_difficulty_score": 6,
+    "max_possible": 21,
+    "adversarial": {
+      "noise": false,
+      "partial_observability": false,
+      "adversarial_behavior": false,
+      "misleading_symptoms": false
+    }
+  },
+  "baseline": {
+    "random_agent": {
+      "expected_score": 0.2,
+      "strategy": "Random action from action set"
+    },
+    "rule_based": {
+      "expected_score": 0.65,
+      "strategy": "Fixed order: ASK(symptoms) → ORDER_LAB → GET_RESULTS → DIAGNOSE → CHECK_ALLERGY → PRESCRIBE → END"
+    },
+    "llm_baseline": {
+      "expected_score": null,
+      "model": "to_be_filled",
+      "strategy": "General-purpose LLM with system prompt",
+      "note": "Run and fill in score to establish anchor"
+    }
+  },
+  "error_taxonomy": [
+    {
+      "code": "E01",
+      "type": "wrong_diagnosis",
+      "severity": "critical",
+      "trigger": "agent.diagnosis NOT IN [primary + acceptable]"
+    },
+    {
+      "code": "E02",
+      "type": "missed_safety_check",
+      "severity": "critical",
+      "trigger": "PRESCRIBE without prior CHECK_ALLERGY"
+    },
+    {
+      "code": "E03",
+      "type": "contraindicated_prescription",
+      "severity": "critical",
+      "trigger": "prescribed drug contraindicated by comorbidities"
+    },
+    {
+      "code": "E04",
+      "type": "incomplete_history",
+      "severity": "major",
+      "trigger": "info_score < 0.5"
+    },
+    {
+      "code": "E05",
+      "type": "wrong_treatment",
+      "severity": "major",
+      "trigger": "treatment_score == 0"
+    },
+    {
+      "code": "E06",
+      "type": "missed_hidden_symptom",
+      "severity": "moderate",
+      "trigger": "hidden symptom never revealed"
+    },
+    {
+      "code": "E07",
+      "type": "ignored_patient_concern",
+      "severity": "moderate",
+      "trigger": "patient expressed concern, agent did not address"
+    },
+    {
+      "code": "E08",
+      "type": "poor_communication",
+      "severity": "minor",
+      "trigger": "communication_score < 0.5"
+    },
+    {
+      "code": "E09",
+      "type": "inefficient",
+      "severity": "minor",
+      "trigger": "turns > max_turns * 0.8"
+    },
+    {
+      "code": "E10",
+      "type": "unnecessary_test",
+      "severity": "minor",
+      "trigger": "ordered test not in recommended list"
+    }
+  ],
+  "minimal_config": {
+    "quick_eval": "score = diagnosis_component + safety_component; PASS if both > 0",
+    "full_eval": "score = weighted_sum(all_components); PASS if score >= pass_threshold",
+    "leaderboard_metric": "mean(normalized_score) across tasks",
+    "run_command": "for each task: agent.step(action) loop until terminated; score with scoring formula",
+    "comparable_across": "same task_type + difficulty group"
+  }
+}

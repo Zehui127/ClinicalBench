@@ -1,110 +1,128 @@
 [
   {
-    "file": "v27_diagnostic_uncertainty_L1_type_2_diabetes_2dc3fb.json",
+    "file": "01_diagnostic_uncertainty_L1_sleep_apnea.json",
+    "id": "v27_diagnostic_uncertainty_L1_sleep_apnea_400781",
+    "disease": "sleep apnea",
     "task_type": "diagnostic_uncertainty",
-    "difficulty": "L1",
-    "disease": "type 2 diabetes"
+    "difficulty": "L1"
   },
   {
-    "file": "v27_diagnostic_uncertainty_L2_hypertension_33af61.json",
+    "file": "02_conflicting_evidence_L2_osteoporosis.json",
+    "id": "v27_conflicting_evidence_L2_osteoporosis_f8d064",
+    "disease": "osteoporosis",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2"
+  },
+  {
+    "file": "03_treatment_tradeoff_L3_anxiety_disorder.json",
+    "id": "v27_treatment_tradeoff_L3_anxiety_disorder_2ce50d",
+    "disease": "anxiety disorder",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3"
+  },
+  {
+    "file": "04_patient_non_compliance_L1_psoriasis.json",
+    "id": "v27_patient_non_compliance_L1_psoriasis_54386c",
+    "disease": "psoriasis",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L1"
+  },
+  {
+    "file": "05_drug_safety_risk_L2_coronary_artery_disease.json",
+    "id": "v27_drug_safety_risk_L2_coronary_artery_disease_0a63fa",
+    "disease": "coronary artery disease",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L2"
+  },
+  {
+    "file": "06_emergency_triage_L3_stroke.json",
+    "id": "v27_emergency_triage_L3_stroke_b64298",
+    "disease": "stroke",
+    "task_type": "emergency_triage",
+    "difficulty": "L3"
+  },
+  {
+    "file": "07_diagnostic_uncertainty_L1_anemia.json",
+    "id": "v27_diagnostic_uncertainty_L1_anemia_f3ce3e",
+    "disease": "anemia",
     "task_type": "diagnostic_uncertainty",
-    "difficulty": "L2",
-    "disease": "hypertension"
+    "difficulty": "L1"
   },
   {
-    "file": "v27_diagnostic_uncertainty_L3_copd_ad22d5.json",
+    "file": "08_conflicting_evidence_L2_cystic_fibrosis.json",
+    "id": "v27_conflicting_evidence_L2_cystic_fibrosis_d89bbf",
+    "disease": "cystic fibrosis",
+    "task_type": "conflicting_evidence",
+    "difficulty": "L2"
+  },
+  {
+    "file": "09_treatment_tradeoff_L3_type_2_diabetes.json",
+    "id": "v27_treatment_tradeoff_L3_type_2_diabetes_75e679",
+    "disease": "type 2 diabetes",
+    "task_type": "treatment_tradeoff",
+    "difficulty": "L3"
+  },
+  {
+    "file": "10_patient_non_compliance_L1_anxiety_disorder.json",
+    "id": "v27_patient_non_compliance_L1_anxiety_disorder_67aa22",
+    "disease": "anxiety disorder",
+    "task_type": "patient_non_compliance",
+    "difficulty": "L1"
+  },
+  {
+    "file": "11_drug_safety_risk_L2_multiple_sclerosis.json",
+    "id": "v27_drug_safety_risk_L2_multiple_sclerosis_dcf21a",
+    "disease": "multiple sclerosis",
+    "task_type": "drug_safety_risk",
+    "difficulty": "L2"
+  },
+  {
+    "file": "12_emergency_triage_L3_multiple_sclerosis.json",
+    "id": "v27_emergency_triage_L3_multiple_sclerosis_f9e1a4",
+    "disease": "multiple sclerosis",
+    "task_type": "emergency_triage",
+    "difficulty": "L3"
+  },
+  {
+    "file": "13_diagnostic_uncertainty_L1_epilepsy.json",
+    "id": "v27_diagnostic_uncertainty_L1_epilepsy_706b0e",
+    "disease": "epilepsy",
     "task_type": "diagnostic_uncertainty",
-    "difficulty": "L3",
-    "disease": "copd"
+    "difficulty": "L1"
   },
   {
-    "file": "v27_conflicting_evidence_L1_heart_failure_54c4f4.json",
+    "file": "14_conflicting_evidence_L2_coronary_artery_disease.json",
+    "id": "v27_conflicting_evidence_L2_coronary_artery_disease_f3e51d",
+    "disease": "coronary artery disease",
     "task_type": "conflicting_evidence",
-    "difficulty": "L1",
-    "disease": "heart failure"
+    "difficulty": "L2"
   },
   {
-    "file": "v27_conflicting_evidence_L2_chronic_kidney_disease_5b3102.json",
-    "task_type": "conflicting_evidence",
-    "difficulty": "L2",
-    "disease": "chronic kidney disease"
-  },
-  {
-    "file": "v27_conflicting_evidence_L3_gout_83dff6.json",
-    "task_type": "conflicting_evidence",
-    "difficulty": "L3",
-    "disease": "gout"
-  },
-  {
-    "file": "v27_treatment_tradeoff_L1_coronary_artery_disease_52f7b2.json",
+    "file": "15_treatment_tradeoff_L3_meningitis.json",
+    "id": "v27_treatment_tradeoff_L3_meningitis_73d978",
+    "disease": "meningitis",
     "task_type": "treatment_tradeoff",
-    "difficulty": "L1",
-    "disease": "coronary artery disease"
+    "difficulty": "L3"
   },
   {
-    "file": "v27_treatment_tradeoff_L2_asthma_4f765c.json",
-    "task_type": "treatment_tradeoff",
-    "difficulty": "L2",
-    "disease": "asthma"
-  },
-  {
-    "file": "v27_treatment_tradeoff_L3_stroke_fc54ba.json",
-    "task_type": "treatment_tradeoff",
-    "difficulty": "L3",
-    "disease": "stroke"
-  },
-  {
-    "file": "v27_patient_non_compliance_L1_anemia_883241.json",
+    "file": "16_patient_non_compliance_L1_osteoporosis.json",
+    "id": "v27_patient_non_compliance_L1_osteoporosis_cb77ff",
+    "disease": "osteoporosis",
     "task_type": "patient_non_compliance",
-    "difficulty": "L1",
-    "disease": "anemia"
+    "difficulty": "L1"
   },
   {
-    "file": "v27_patient_non_compliance_L2_sickle_cell_anemia_d6e3af.json",
-    "task_type": "patient_non_compliance",
-    "difficulty": "L2",
-    "disease": "sickle cell anemia"
-  },
-  {
-    "file": "v27_patient_non_compliance_L3_cirrhosis_ce3fbd.json",
-    "task_type": "patient_non_compliance",
-    "difficulty": "L3",
-    "disease": "cirrhosis"
-  },
-  {
-    "file": "v27_drug_safety_risk_L1_rheumatoid_arthritis_49fcab.json",
+    "file": "17_drug_safety_risk_L2_glaucoma.json",
+    "id": "v27_drug_safety_risk_L2_glaucoma_1ad5b5",
+    "disease": "glaucoma",
     "task_type": "drug_safety_risk",
-    "difficulty": "L1",
-    "disease": "rheumatoid arthritis"
+    "difficulty": "L2"
   },
   {
-    "file": "v27_drug_safety_risk_L2_hyperthyroidism_3a1bed.json",
-    "task_type": "drug_safety_risk",
-    "difficulty": "L2",
-    "disease": "hyperthyroidism"
-  },
-  {
-    "file": "v27_drug_safety_risk_L3_depression_71b690.json",
-    "task_type": "drug_safety_risk",
-    "difficulty": "L3",
-    "disease": "depression"
-  },
-  {
-    "file": "v27_emergency_triage_L1_peptic_ulcer_disease_f4f6bd.json",
+    "file": "18_emergency_triage_L3_bipolar_disorder.json",
+    "id": "v27_emergency_triage_L3_bipolar_disorder_01acc0",
+    "disease": "bipolar disorder",
     "task_type": "emergency_triage",
-    "difficulty": "L1",
-    "disease": "peptic ulcer disease"
-  },
-  {
-    "file": "v27_emergency_triage_L2_atrial_fibrillation_eea0b4.json",
-    "task_type": "emergency_triage",
-    "difficulty": "L2",
-    "disease": "atrial fibrillation"
-  },
-  {
-    "file": "v27_emergency_triage_L3_nephrolithiasis_174d37.json",
-    "task_type": "emergency_triage",
-    "difficulty": "L3",
-    "disease": "nephrolithiasis"
+    "difficulty": "L3"
   }
 ]

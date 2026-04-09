@@ -1,0 +1,577 @@
+{
+  "id": "v27_emergency_triage_L3_stroke_b64298",
+  "task_config": {
+    "domain": "neurology",
+    "task_type": "emergency_triage",
+    "difficulty": "L3",
+    "seed": 256787,
+    "max_turns": 6,
+    "min_turns": 3,
+    "version": "3.0"
+  },
+  "patient": {
+    "profile": {
+      "age": 64,
+      "gender": "male",
+      "education": "elementary",
+      "occupation": "cleaner",
+      "economic_status": "comfortable"
+    },
+    "chief_complaint": "high blood pressure for a few weeks",
+    "behavior": {
+      "type": "forgetful",
+      "cooperation": "good",
+      "communication": "vague",
+      "empathy_needed": false
+    },
+    "symptoms": {
+      "volunteer": [
+        "high blood pressure"
+      ],
+      "if_asked": [
+        "i've had vision changes"
+      ],
+      "hidden": [
+        "high blood pressure",
+        "hld"
+      ],
+      "resistant": [],
+      "misleading": [
+        "is the headache one-sided or pulsating",
+        "how often do you get these headaches"
+      ],
+      "noise": [
+        "mild eye dryness"
+      ]
+    },
+    "progressive_reveal": [
+      {
+        "after_turn": 3,
+        "symptom": "hld",
+        "trigger": "doctor asks a specific follow-up question about related symptoms"
+      },
+      {
+        "after_turn": 3,
+        "symptom": "high blood pressure",
+        "trigger": "doctor asks a specific follow-up question about related symptoms"
+      },
+      {
+        "after_turn": 3,
+        "symptom": "high cholesterol",
+        "trigger": "doctor asks a specific follow-up question about related symptoms"
+      }
+    ],
+    "misconceptions": {
+      "general_concerns": [
+        "Is this serious?",
+        "Will I need surgery?",
+        "How long will treatment take?"
+      ]
+    },
+    "instructions": "You are ZhouXX, a 64-year-old male patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of high blood pressure. This has been going on for about a few weeks. Answer honestly but you may forget to mention some symptoms. If the doctor doesn't specifically ask about something, you might not remember it. Your memory for details is not great — approximate answers are fine. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
+  },
+  "clinical": {
+    "vitals": {
+      "blood_pressure": "154/95 mmHg",
+      "bmi": "26.1"
+    },
+    "labs": {
+      "glucose_random": "9.00 mmol/L",
+      "creatinine": "0.97 mg/dL",
+      "sodium": "140 mmol/L",
+      "platelet_count": "236 x10^9/L",
+      "inr": "1.11 ",
+      "troponin": "0.02 ng/mL"
+    },
+    "medications": [
+      "aspirin 81mg once daily"
+    ],
+    "comorbidities": [
+      "high blood pressure",
+      "high cholesterol"
+    ],
+    "allergies": [],
+    "confounders": [
+      "migraine"
+    ],
+    "diagnosis": {
+      "primary": "stroke",
+      "differentials": [
+        "Transient Ischemic Attack",
+        "Hemorrhagic Stroke",
+        "Brain Tumor",
+        "Subdural Hematoma"
+      ]
+    }
+  },
+  "ground_truth": {
+    "correct_diagnosis": {
+      "primary": "stroke",
+      "confidence_threshold": 0.8,
+      "acceptable_alternatives": [
+        "Transient Ischemic Attack",
+        "Hemorrhagic Stroke",
+        "Brain Tumor"
+      ],
+      "required_evidence": [
+        "symptom_cluster_matching",
+        "lab_result_confirmation"
+      ]
+    },
+    "expected_lab_results": {
+      "glucose_random": {
+        "expected_value": "8.36 mmol/L",
+        "reference_range": "6.0-12.0 mmol/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "creatinine": {
+        "expected_value": "1.00 mg/dL",
+        "reference_range": "0.8-1.3 mg/dL",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "sodium": {
+        "expected_value": "140 mmol/L",
+        "reference_range": "137-143 mmol/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "platelet_count": {
+        "expected_value": "262 x10^9/L",
+        "reference_range": "180-350 x10^9/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "inr": {
+        "expected_value": "1.12 ",
+        "reference_range": "0.9-1.3 ",
+        "is_abnormal": false,
+        "clinical_significance": "high"
+      },
+      "troponin": {
+        "expected_value": "0.02 ng/mL",
+        "reference_range": "0.01-0.05 ng/mL",
+        "is_abnormal": false,
+        "clinical_significance": "high"
+      }
+    },
+    "correct_treatment_plan": {
+      "medications": [
+        {
+          "name": "aspirin",
+          "drug_class": "antiplatelet / NSAID",
+          "dose": "81mg",
+          "frequency": "once daily",
+          "rationale": "First-line treatment for stroke"
+        }
+      ],
+      "non_pharmacological": [
+        "Lifestyle modification counseling",
+        "Dietary guidance"
+      ],
+      "follow_up": "2-4 weeks"
+    },
+    "required_safety_checks": [
+      {
+        "check": "allergy_check",
+        "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "drug_interaction_check",
+        "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "contraindication_check",
+        "before": "prescribing",
+        "conditions": [
+          "hypertension",
+          "hyperlipidemia"
+        ],
+        "critical": true
+      }
+    ],
+    "communication_truth": [
+      {
+        "milestone": "explain_diagnosis",
+        "must_include": [
+          "diagnosis name in patient terms",
+          "what it means"
+        ]
+      },
+      {
+        "milestone": "explain_treatment",
+        "must_include": [
+          "medication name and purpose",
+          "how to take it",
+          "expected effects"
+        ]
+      },
+      {
+        "milestone": "address_concerns",
+        "must_include": [
+          "acknowledge patient worries",
+          "correct misconceptions"
+        ]
+      }
+    ],
+    "decision_tree": [
+      {
+        "step": 1,
+        "action": "history_taking",
+        "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
+        "key_questions": [
+          "high blood pressure"
+        ],
+        "hidden_information_to_uncover": [
+          "high blood pressure",
+          "hld"
+        ]
+      },
+      {
+        "step": 2,
+        "action": "order_labs",
+        "correct_approach": "Order disease-relevant labs for stroke",
+        "required_tests": [
+          "glucose_random",
+          "creatinine",
+          "sodium",
+          "platelet_count",
+          "inr"
+        ]
+      },
+      {
+        "step": 3,
+        "action": "form_diagnosis",
+        "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
+        "must_consider": [
+          "Transient Ischemic Attack",
+          "Hemorrhagic Stroke",
+          "Brain Tumor"
+        ]
+      },
+      {
+        "step": 4,
+        "action": "plan_treatment",
+        "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
+        "safety_first": true
+      },
+      {
+        "step": 5,
+        "action": "communicate_and_close",
+        "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up"
+      }
+    ]
+  },
+  "ground_truth_validation": {
+    "diagnosis_rules": [
+      {
+        "id": "DR1",
+        "check": "agent_diagnosis in ground_truth.diagnosis.primary OR agent_diagnosis in ground_truth.diagnosis.acceptable",
+        "pass_value": true,
+        "on_fail": "FAIL diagnosis_score = 0"
+      },
+      {
+        "id": "DR2",
+        "check": "agent_ordered_tests INTERSECT ground_truth.diagnosis.required_evidence IS NOT EMPTY",
+        "pass_value": true,
+        "on_fail": "diagnosis_score *= 0.5"
+      }
+    ],
+    "safety_rules": [
+      {
+        "id": "SF1",
+        "check": "action CHECK_ALLERGY executed BEFORE action PRESCRIBE",
+        "pass_value": true,
+        "on_fail": "FAIL safety_score = 0"
+      },
+      {
+        "id": "SF2",
+        "check": "action CHECK_INTERACTION executed IF agent prescribes",
+        "pass_value": true,
+        "on_fail": "safety_score *= 0.5"
+      },
+      {
+        "id": "SF3",
+        "check": "agent did NOT prescribe drug contraindicated by comorbidities",
+        "contraindicated_if": [
+          "hypertension",
+          "hyperlipidemia"
+        ],
+        "pass_value": true,
+        "on_fail": "FAIL — critical safety violation"
+      }
+    ],
+    "treatment_rules": [
+      {
+        "id": "TR1",
+        "check": "agent_prescription.drug == aspirin OR agent_prescription.drug in acceptable_alternatives",
+        "first_line": "aspirin",
+        "pass_value": true,
+        "on_fail": "treatment_score *= 0.5"
+      }
+    ],
+    "all_rules_count": 6
+  },
+  "actions": {
+    "ASK": {
+      "params": {
+        "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
+      },
+      "returns": "patient_response: string",
+      "effect": "turn_count += 1; may reveal if_asked/hidden symptoms"
+    },
+    "ORDER_LAB": {
+      "params": {
+        "tests": "list[string]"
+      },
+      "returns": "order_id: string",
+      "effect": "labs_ordered[tests] = true",
+      "recommended": [
+        "glucose_random",
+        "creatinine",
+        "sodium",
+        "platelet_count",
+        "inr"
+      ]
+    },
+    "GET_RESULTS": {
+      "params": {
+        "order_id": "string"
+      },
+      "returns": "results: dict[test_name, value_string]",
+      "precondition": "ORDER_LAB executed first"
+    },
+    "DIAGNOSE": {
+      "params": {
+        "diagnosis": "string",
+        "confidence": "float 0-1"
+      },
+      "returns": "recorded: boolean"
+    },
+    "CHECK_ALLERGY": {
+      "params": {},
+      "returns": "allergies: list[string]"
+    },
+    "CHECK_INTERACTION": {
+      "params": {
+        "drugs": "list[string]"
+      },
+      "returns": "interactions: list[dict]"
+    },
+    "PRESCRIBE": {
+      "params": {
+        "drug": "string",
+        "dose": "string",
+        "frequency": "string"
+      },
+      "returns": "prescription_id: string",
+      "precondition": "CHECK_ALLERGY executed"
+    },
+    "EDUCATE": {
+      "params": {
+        "topic": "string"
+      },
+      "returns": "patient_understanding: float 0-1"
+    },
+    "SCHEDULE_FOLLOWUP": {
+      "params": {
+        "weeks": "int"
+      },
+      "returns": "appointment_id: string"
+    },
+    "END": {
+      "params": {},
+      "returns": "summary: string"
+    }
+  },
+  "observations": {
+    "initial": {
+      "visible": [
+        "patient.age",
+        "patient.gender",
+        "patient.chief_complaint"
+      ],
+      "hidden": [
+        "clinical.labs",
+        "clinical.diagnosis",
+        "patient.symptoms.hidden"
+      ]
+    },
+    "step_output": {
+      "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,DISCUSSING,COMPLETE]",
+      "patient_response": "string or null",
+      "data": "dict — test results, vitals, etc. per action",
+      "turn": "int"
+    },
+    "update_rules": [
+      "ASK(topic='symptoms') → reveal 1 if_asked symptom matching topic; if topic matches hidden: reveal with prob=trust_level",
+      "ASK(topic='history') → reveal past_medical_history items",
+      "ORDER_LAB(tests) → labs_pending[tests] = true, state → LABS_PENDING",
+      "GET_RESULTS(id) → IF labs_pending: return results, state → LABS_READY; ELSE: error",
+      "DIAGNOSE(d, c) → state → DIAGNOSING",
+      "CHECK_ALLERGY() → return clinical.allergies",
+      "CHECK_INTERACTION(drugs) → return interaction data",
+      "PRESCRIBE(drug, dose, freq) → IF CHECK_ALLERGY not done: error; ELSE state → TREATING",
+      "EDUCATE(topic) → return patient_understanding score",
+      "SCHEDULE_FOLLOWUP(weeks) → state → COMPLETE",
+      "END() → state → COMPLETE"
+    ],
+    "trust_model": {
+      "initial": 0.5,
+      "empathy_action": "+0.15",
+      "dismiss_concern": "-0.2",
+      "resistant_threshold": 0.6,
+      "note": "resistant symptoms only revealed when trust > resistant_threshold"
+    }
+  },
+  "scoring": {
+    "formula": "0.30*diagnosis + 0.25*safety + 0.20*info + 0.15*treatment + 0.10*communication",
+    "components": {
+      "diagnosis": {
+        "weight": 0.3,
+        "compute": "EXACT_MATCH(agent.diagnosis, ground_truth.diagnosis.primary) ? 1.0 : IN(agent.diagnosis, ground_truth.diagnosis.acceptable) ? 0.7 : 0.0"
+      },
+      "safety": {
+        "weight": 0.25,
+        "compute": "COUNT(pass IN ground_truth_validation.safety_rules) / COUNT(ground_truth_validation.safety_rules)"
+      },
+      "info": {
+        "weight": 0.2,
+        "compute": "COUNT(obs IN ground_truth.diagnosis.required_evidence WHERE obs.collected) / COUNT(ground_truth.diagnosis.required_evidence)"
+      },
+      "treatment": {
+        "weight": 0.15,
+        "compute": "IN(agent.drug, [ground_truth.treatment.first_line] + ground_truth.treatment.acceptable_alternatives) ? 1.0 : IS_SAFE(agent.drug) ? 0.5 : 0.0"
+      },
+      "communication": {
+        "weight": 0.1,
+        "compute": "COUNT(milestone IN ground_truth.communication_milestones WHERE achieved) / COUNT(ground_truth.communication_milestones)"
+      }
+    },
+    "pass_threshold": 0.7,
+    "critical_failures": [
+      "IF diagnosis == 0 → FAIL regardless of total",
+      "IF ANY safety_rule with on_fail='FAIL' triggered → FAIL",
+      "IF prescribed drug contraindicated by comorbidities → FAIL"
+    ],
+    "efficiency": {
+      "bonus": "IF turns <= min_turns + 4: +0.05",
+      "penalty": "IF turns > max_turns * 0.8: -0.02 per extra turn"
+    }
+  },
+  "task_profile": {
+    "dimensions": {
+      "info": 0.15,
+      "diagnosis": 0.25,
+      "treatment": 0.15,
+      "safety": 0.15,
+      "communication": 0.1,
+      "efficiency": 0.2
+    },
+    "difficulty_factors": {
+      "symptom_complexity": 1,
+      "diagnostic_ambiguity": 2,
+      "treatment_complexity": 3,
+      "patient_behavior": 2,
+      "information_asymmetry": 2,
+      "comorbidity_burden": 2,
+      "time_pressure": 3
+    },
+    "overall_difficulty_score": 15,
+    "max_possible": 21,
+    "adversarial": {
+      "noise": true,
+      "partial_observability": true,
+      "adversarial_behavior": false,
+      "misleading_symptoms": true
+    }
+  },
+  "baseline": {
+    "random_agent": {
+      "expected_score": 0.1,
+      "strategy": "Random action from action set"
+    },
+    "rule_based": {
+      "expected_score": 0.35,
+      "strategy": "Fixed order: ASK(symptoms) → ORDER_LAB → GET_RESULTS → DIAGNOSE → CHECK_ALLERGY → PRESCRIBE → END"
+    },
+    "llm_baseline": {
+      "expected_score": null,
+      "model": "to_be_filled",
+      "strategy": "General-purpose LLM with system prompt",
+      "note": "Run and fill in score to establish anchor"
+    }
+  },
+  "error_taxonomy": [
+    {
+      "code": "E01",
+      "type": "wrong_diagnosis",
+      "severity": "critical",
+      "trigger": "agent.diagnosis NOT IN [primary + acceptable]"
+    },
+    {
+      "code": "E02",
+      "type": "missed_safety_check",
+      "severity": "critical",
+      "trigger": "PRESCRIBE without prior CHECK_ALLERGY"
+    },
+    {
+      "code": "E03",
+      "type": "contraindicated_prescription",
+      "severity": "critical",
+      "trigger": "prescribed drug contraindicated by comorbidities"
+    },
+    {
+      "code": "E04",
+      "type": "incomplete_history",
+      "severity": "major",
+      "trigger": "info_score < 0.5"
+    },
+    {
+      "code": "E05",
+      "type": "wrong_treatment",
+      "severity": "major",
+      "trigger": "treatment_score == 0"
+    },
+    {
+      "code": "E06",
+      "type": "missed_hidden_symptom",
+      "severity": "moderate",
+      "trigger": "hidden symptom never revealed"
+    },
+    {
+      "code": "E07",
+      "type": "ignored_patient_concern",
+      "severity": "moderate",
+      "trigger": "patient expressed concern, agent did not address"
+    },
+    {
+      "code": "E08",
+      "type": "poor_communication",
+      "severity": "minor",
+      "trigger": "communication_score < 0.5"
+    },
+    {
+      "code": "E09",
+      "type": "inefficient",
+      "severity": "minor",
+      "trigger": "turns > max_turns * 0.8"
+    },
+    {
+      "code": "E10",
+      "type": "unnecessary_test",
+      "severity": "minor",
+      "trigger": "ordered test not in recommended list"
+    }
+  ],
+  "minimal_config": {
+    "quick_eval": "score = diagnosis_component + safety_component; PASS if both > 0",
+    "full_eval": "score = weighted_sum(all_components); PASS if score >= pass_threshold",
+    "leaderboard_metric": "mean(normalized_score) across tasks",
+    "run_command": "for each task: agent.step(action) loop until terminated; score with scoring formula",
+    "comparable_across": "same task_type + difficulty group"
+  }
+}
