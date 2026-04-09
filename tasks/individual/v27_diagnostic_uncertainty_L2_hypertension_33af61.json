@@ -1,48 +1,62 @@
 {
-  "id": "v27_drug_safety_risk_L3_depression_950818",
-  "domain": "psychiatry",
-  "task_type": "drug_safety_risk",
-  "difficulty": "L3",
+  "id": "v27_diagnostic_uncertainty_L2_hypertension_33af61",
+  "domain": "cardiology",
+  "task_type": "diagnostic_uncertainty",
+  "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "drug_safety_risk — 32-year-old male with I've had thoughts of hurting yourself for a few weeks",
-    "clinical_scenario": "Patient presents with I've had thoughts of hurting yourself for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "diagnostic_uncertainty — 53-year-old female with feeling my heart racing for a few weeks",
+    "clinical_scenario": "Patient presents with feeling my heart racing for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Safety checking before prescribing",
-      "Drug interaction awareness",
-      "Handle complex multi-condition scenario"
+      "Ability to probe for hidden symptoms",
+      "Quality of differential diagnosis"
     ],
-    "focus": "Safe prescribing with allergy and interaction checks"
+    "focus": "Systematic information gathering and differential diagnosis"
   },
   "user_scenario": {
-    "persona": "32-year-old male patient, 小学 education, works as a factory worker. a patient who is confused about medical terms and needs simple explanations presenting with I've had thoughts of hurting yourself.",
+    "persona": "53-year-old female patient, 小学 education, works as a cleaner. a patient who is confused about medical terms and needs simple explanations presenting with feeling my heart racing.",
     "patient_profile": {
-      "age": 32,
-      "gender": "male",
+      "age": 53,
+      "gender": "female",
       "education_level": "elementary",
       "communication_style": "uncertain",
       "cooperation_level": "moderate",
-      "chief_complaint": "depression for a few weeks",
-      "occupation": "factory worker"
+      "chief_complaint": "kidney disease for a few weeks",
+      "occupation": "cleaner"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "depression"
+          "kidney disease"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've had thoughts of hurting yourself"
+        "general_concern": "feeling my heart racing",
+        "family_history": "family member has kidney disease",
+        "past_history": [
+          "kidney disease"
+        ],
+        "current_medications": [
+          "amlodipine 5mg once daily"
+        ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "depression"
+        "diagnosis": "hypertension",
+        "specific_medication_needed": "lisinopril (10mg once daily)",
+        "medication_contraindications": [
+          "pregnancy"
+        ]
       },
       "patient_misconceptions_and_concerns": {
-        "general_concerns": [
-          "Is this serious?",
-          "Will I need surgery?",
-          "How long will treatment take?"
+        "medication_concerns": [
+          "I feel fine, do I really need to take blood pressure medicine?",
+          "Will I become dependent on blood pressure medication?",
+          "I heard blood pressure medicine causes impotence"
+        ],
+        "lifestyle_beliefs": [
+          "My blood pressure is only high because I'm stressed at work",
+          "If I cut out salt completely, I won't need medication"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -54,29 +68,34 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "depression"
+        "kidney disease"
       ],
       "share_only_if_asked": [
-        "depression (needs doctor to specifically ask)"
+        "high blood pressure (needs doctor to specifically ask)",
+        "high blood pressure (needs doctor to specifically ask)"
       ],
       "hidden_truth": [
-        "mdd (won't mention unless specifically probed)"
+        "high blood pressure (won't mention unless specifically probed)",
+        "high blood pressure (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
-      "noise_symptoms": [
-        "occasional heartburn"
-      ],
-      "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "social withdrawal"
+        "i've been having wake up with morning headaches",
+        "nosebleeds without obvious cause",
+        "visual changes or spots in vision",
+        "morning headache (also seen in sleep apnea and migraine)",
+        "dizziness (also seen in anemia and inner ear disorders)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "progressive_reveal": [
         {
           "after_turn": 4,
-          "symptom": "mdd",
+          "symptom": "high blood pressure",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
+      ],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about lisinopril side effects — pregnancy"
       ],
       "response_style": {
         "honest": true,
@@ -91,45 +110,102 @@
         "financial_constraints": true
       }
     },
-    "task_instructions": "You are LiuXX, a 32-year-old male patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of depression. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are LiuXX, a 53-year-old female patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of kidney disease. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 32,
-    "gender": "male",
+    "age": 53,
+    "gender": "female",
     "symptoms": {
-      "major depressive disorder": "depression",
-      "MDD": "mdd",
-      "clinical depression": "depression"
+      "HTN": "high blood pressure",
+      "high blood pressure": "high blood pressure",
+      "essential hypertension": "high blood pressure",
+      "primary hypertension": "high blood pressure",
+      "CKD": "chronic kidney disease"
     },
     "duration": "a few weeks",
-    "severity": "severe",
-    "allergies": [
-      "latex",
-      "sulfa drugs"
+    "severity": "moderate",
+    "past_medical_history": [
+      "kidney disease",
+      "stopping breathing in my sleep"
     ],
+    "current_medications": [
+      {
+        "name": "lisinopril",
+        "brand_names": [
+          "Zestril",
+          "Prinivil"
+        ],
+        "drug_class": "ACE inhibitor",
+        "dose": "10mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "amlodipine",
+        "brand_names": [
+          "Norvasc"
+        ],
+        "drug_class": "calcium channel blocker",
+        "dose": "5mg",
+        "frequency": "once daily"
+      }
+    ],
+    "lab_results": {
+      "sodium": "140 mmol/L",
+      "potassium": "3.82 mmol/L",
+      "creatinine": "94.8 umol/L",
+      "egfr": "73.4 ml/min/1.73m2"
+    },
     "vital_signs": {
-      "blood_pressure": "121/92 mmHg",
-      "bmi": "24.6"
+      "blood_pressure": "155/91 mmHg",
+      "bmi": "23.1"
     },
     "lifestyle_factors": {
-      "exercise": "minimal"
+      "smoking": "yes (half pack/day for 15+ years)",
+      "alcohol": "occasional (1-2 drinks/week)",
+      "exercise": "sedentary"
+    },
+    "comorbidities": {
+      "chronic kidney disease": "kidney disease, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "factory worker",
+      "occupation": "cleaner",
       "monthly_income": "about 5000-8000 yuan/month",
       "insurance": "employee medical insurance, ~60-70% coverage"
     },
+    "medication_considerations": {
+      "lisinopril": {
+        "drug_class": "ACE inhibitor",
+        "standard_dose": "10mg once daily",
+        "contraindications": [
+          "pregnancy"
+        ]
+      }
+    },
     "diagnosis": {
-      "primary": "depression",
-      "severity": "severe",
+      "primary": "hypertension",
+      "severity": "moderate",
       "differential_diagnoses": [
-        "Bipolar Disorder",
-        "Anxiety Disorder",
-        "Hypothyroidism"
+        "Secondary Hypertension",
+        "Pheochromocytoma",
+        "Renal Artery Stenosis"
       ]
+    },
+    "confounder_conditions": [
+      "sleep apnea"
+    ],
+    "complication_symptoms": {
+      "chronic kidney disease": {
+        "symptoms": [
+          "chronic kidney disease",
+          "long-term renal failure",
+          "crf"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may cause overlapping chest symptoms"
+      }
     }
   },
-  "ticket": "depression",
+  "ticket": "kidney disease",
   "initial_state": {
     "initialization_actions": [
       {
@@ -137,9 +213,9 @@
         "func_name": "set_user_info",
         "arguments": {
           "name": "LiuXX",
-          "mrn": "MRN994164",
-          "age": 32,
-          "gender": "male"
+          "mrn": "MRN699632",
+          "age": 53,
+          "gender": "female"
         }
       },
       {
@@ -147,20 +223,21 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 32,
-            "gender": "male",
+            "age": 53,
+            "gender": "female",
             "symptoms": [
-              "depression"
+              "kidney disease"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "depression"
+              "kidney disease"
             ],
             "ask_only": [
-              "depression"
+              "high blood pressure",
+              "high blood pressure"
             ]
           },
           "response_style": {
@@ -182,37 +259,48 @@
         }
       },
       {
-        "action_id": "use_check_allergy",
+        "action_id": "use_order_lab_tests",
         "requestor": "assistant",
-        "name": "check_allergy",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "sodium",
+            "potassium",
+            "creatinine",
+            "egfr"
+          ],
+          "rationale": "Labs to evaluate hypertension"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_check_drug_interactions",
+        "action_id": "use_differential_diagnosis",
         "requestor": "assistant",
-        "name": "check_drug_interactions",
+        "name": "differential_diagnosis",
         "arguments": {
-          "drug_list": []
+          "symptoms": [
+            "high blood pressure"
+          ],
+          "must_consider": [
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
+          ]
         }
       },
       {
-        "action_id": "use_check_contraindications",
+        "action_id": "use_record_diagnosis",
         "requestor": "assistant",
-        "name": "check_contraindications",
+        "name": "record_diagnosis",
         "arguments": {
-          "medication": "",
-          "conditions": []
-        }
-      },
-      {
-        "action_id": "use_prescribe_medication",
-        "requestor": "assistant",
-        "name": "prescribe_medication",
-        "arguments": {
-          "medication": "",
-          "dose": ""
+          "diagnosis": "hypertension"
         }
       }
     ],
@@ -236,13 +324,12 @@
     "reward_basis": [
       "DB",
       "COMMUNICATE",
-      "CLINICAL",
-      "SAFETY"
+      "CLINICAL"
     ],
     "medical_criteria": {
-      "category": "safety",
+      "category": "diagnosis",
       "min_turns": 4,
-      "max_turns": 15,
+      "max_turns": 25,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -252,7 +339,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of depression identified through systematic questioning",
+            "description": "All major symptoms of hypertension identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -276,12 +363,12 @@
             "weight": 0.08
           },
           "lifestyle_factors": {
-            "required": true,
+            "required": false,
             "description": "Smoking, alcohol, diet, exercise habits",
             "weight": 0.05
           },
           "social_determinants": {
-            "required": true,
+            "required": false,
             "description": "Socioeconomic factors affecting treatment adherence",
             "weight": 0.04
           }
@@ -292,22 +379,30 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "depression",
+          "correct_diagnosis": "hypertension",
           "allow_alternatives": [
-            "Bipolar Disorder",
-            "Anxiety Disorder",
-            "Hypothyroidism"
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
           "must_consider": [
-            "Bipolar Disorder",
-            "Anxiety Disorder",
-            "Hypothyroidism"
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
           ],
           "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [],
+          "should_order": [
+            "sodium",
+            "potassium"
+          ],
+          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -320,13 +415,27 @@
         "key_questions": {
           "required": true,
           "must_ask": [
-            "How has your mood been over the past few weeks?",
-            "Have you lost interest in activities you used to enjoy?",
-            "How has your sleep been — trouble falling or staying asleep?"
+            "Do you get headaches, especially in the morning?",
+            "Have you noticed any visual changes or spots in your vision?",
+            "Do you experience palpitations or racing heartbeat?"
           ],
           "weight": 0.1
         }
       },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from lisinopril (ACE inhibitor)",
+          "options": [
+            "Reduce dose of lisinopril",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose lisinopril, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
       "safety_requirements": {
         "allergy_check_before_prescribe": {
           "required": true,
@@ -336,24 +445,29 @@
         "drug_interaction_check": {
           "required": true,
           "description": "Must check drug interactions before prescribing",
-          "severity": "critical"
+          "severity": "major"
         },
-        "allergy_check": {
+        "bleeding_risk_with_anticoagulants": {
           "required": true,
-          "description": "Must assess: allergy check",
+          "description": "Must assess: bleeding risk with anticoagulants",
+          "severity": "major"
+        },
+        "blood_pressure_control": {
+          "required": true,
+          "description": "Must assess and address blood pressure",
           "severity": "high"
         },
-        "drug_interaction": {
+        "potassium_monitoring": {
           "required": true,
-          "description": "Must assess: drug interaction",
-          "severity": "high"
+          "description": "Must assess: potassium monitoring",
+          "severity": "major"
         }
       },
       "required_tools": [
-        "check_allergy",
-        "check_drug_interactions",
-        "check_contraindications",
-        "prescribe_medication"
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -366,37 +480,78 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Bipolar Disorder as alternative diagnosis",
-        "Diagnose depression without ordering any supporting lab tests",
-        "Fail to assess comorbidity impact on treatment plan",
-        "Prescribe multiple new medications simultaneously without interaction check"
+        "Prescribe NSAIDs without assessing cardiovascular risk",
+        "Discharge without assessing exercise tolerance",
+        "Fail to consider Secondary Hypertension as alternative diagnosis",
+        "Prescribe lisinopril in patient with pregnancy without special precautions",
+        "Diagnose hypertension without ordering any supporting lab tests"
       ],
       "uncertainty_events": [
         {
-          "trigger": "mid_consultation",
-          "event": "Patient reports acute worsening of symptoms during the visit",
-          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
-          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal troponin with angina symptoms",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'chronic kidney disease' when discussing treatment options",
+          "example": "'Oh, I also sometimes get chronic kidney disease — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed kidney disease, update differential, order appropriate workup"
         }
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "depression",
+      "primary": "hypertension",
       "confidence_threshold": 0.8,
       "acceptable_alternatives": [
-        "Bipolar Disorder",
-        "Anxiety Disorder",
-        "Hypothyroidism"
+        "Secondary Hypertension",
+        "Pheochromocytoma",
+        "Renal Artery Stenosis"
       ],
       "required_evidence": [
-        "symptom_cluster_matching"
+        "symptom_cluster_matching",
+        "lab_result_confirmation"
       ]
     },
-    "expected_lab_results": {},
+    "expected_lab_results": {
+      "sodium": {
+        "expected_value": "140 mmol/L",
+        "reference_range": "138-142 mmol/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "potassium": {
+        "expected_value": "3.75 mmol/L",
+        "reference_range": "3.5-4.2 mmol/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "creatinine": {
+        "expected_value": "93.7 umol/L",
+        "reference_range": "80-110 umol/L",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      },
+      "egfr": {
+        "expected_value": "72.3 ml/min/1.73m2",
+        "reference_range": "65-80 ml/min/1.73m2",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
+      }
+    },
     "correct_treatment_plan": {
-      "medications": [],
+      "medications": [
+        {
+          "name": "lisinopril",
+          "drug_class": "ACE inhibitor",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "rationale": "First-line treatment for hypertension"
+        }
+      ],
       "non_pharmacological": [
         "Lifestyle modification counseling",
         "Dietary guidance"
@@ -412,6 +567,14 @@
       {
         "check": "drug_interaction_check",
         "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "contraindication_check",
+        "before": "prescribing",
+        "conditions": [
+          "chronic kidney disease"
+        ],
         "critical": true
       }
     ],
@@ -445,19 +608,22 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "depression"
+          "kidney disease"
         ],
         "hidden_information_to_uncover": [
-          "mdd"
+          "high blood pressure",
+          "high blood pressure"
         ]
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for depression",
+        "correct_approach": "Order disease-relevant labs for hypertension",
         "required_tests": [
-          "CBC",
-          "BMP"
+          "sodium",
+          "potassium",
+          "creatinine",
+          "egfr"
         ]
       },
       {
@@ -465,9 +631,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "Bipolar Disorder",
-          "Anxiety Disorder",
-          "Hypothyroidism"
+          "Secondary Hypertension",
+          "Pheochromocytoma",
+          "Renal Artery Stenosis"
         ]
       },
       {
@@ -548,11 +714,10 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "tsh: results pending",
-          "free_t4: results pending",
-          "free_t3: results pending",
-          "total_cholesterol: results pending",
-          "alt: results pending"
+          "sodium: results pending",
+          "potassium: results pending",
+          "creatinine: results pending",
+          "egfr: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -790,11 +955,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "depression",
+      "correct_answer": "hypertension",
       "acceptable_answers": [
-        "Bipolar Disorder",
-        "Anxiety Disorder",
-        "Hypothyroidism"
+        "Secondary Hypertension",
+        "Pheochromocytoma",
+        "Renal Artery Stenosis"
       ]
     },
     "secondary_outcomes": [
@@ -808,7 +973,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "appropriate first-line medication"
+        "correct_answer": "lisinopril"
       },
       {
         "metric": "safety_adherence",
@@ -915,8 +1080,8 @@
         "name": "history_taking",
         "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
         "turn_budget": {
-          "min": 3,
-          "max": 6
+          "min": 5,
+          "max": 10
         },
         "required_actions": [
           "ask_about_symptoms",
@@ -930,8 +1095,8 @@
         "name": "examination_and_labs",
         "description": "Physical examination and laboratory testing",
         "turn_budget": {
-          "min": 1,
-          "max": 3
+          "min": 2,
+          "max": 5
         },
         "required_actions": [
           "assess_vital_signs",
@@ -944,8 +1109,8 @@
         "name": "diagnosis",
         "description": "Form and record diagnosis with differential consideration",
         "turn_budget": {
-          "min": 1,
-          "max": 2
+          "min": 2,
+          "max": 3
         },
         "required_actions": [
           "differential_diagnosis",
@@ -957,8 +1122,8 @@
         "name": "treatment",
         "description": "Plan treatment, check safety, prescribe medication",
         "turn_budget": {
-          "min": 1,
-          "max": 3
+          "min": 2,
+          "max": 5
         },
         "required_actions": [
           "check_allergy",
@@ -971,8 +1136,8 @@
         "name": "patient_communication",
         "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
         "turn_budget": {
-          "min": 1,
-          "max": 3
+          "min": 2,
+          "max": 5
         },
         "required_actions": [
           "communicate_diagnosis",
@@ -996,14 +1161,9 @@
     ],
     "time_pressure_events": [
       {
-        "trigger_turn": 9,
+        "trigger_turn": 15,
         "event": "Patient shows signs of impatience",
         "effect": "Agent must balance thoroughness with efficiency"
-      },
-      {
-        "trigger_turn": 12,
-        "event": "Patient condition acutely worsens",
-        "effect": "Agent must immediately prioritize stabilization"
       }
     ],
     "efficiency_metrics": {
@@ -1011,12 +1171,12 @@
         6,
         12
       ],
-      "max_turns": 15,
+      "max_turns": 25,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
       "waste_penalty": -0.02,
       "rush_penalty": -0.05
     },
-    "total_turn_budget": 15,
+    "total_turn_budget": 25,
     "minimum_required_turns": 4
   },
   "capability_dimensions": {
@@ -1029,8 +1189,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.1,
-        "test_method": "Measure percentage of critical symptoms discovered for depression"
+        "weight": 0.25,
+        "test_method": "Measure percentage of critical symptoms discovered for hypertension"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1040,7 +1200,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.1,
+        "weight": 0.3,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1051,7 +1211,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.2,
+        "weight": 0.15,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1062,7 +1222,7 @@
           "contraindication_awareness",
           "red_flag_detection"
         ],
-        "weight": 0.4,
+        "weight": 0.1,
         "test_method": "Check all safety checks performed before treatment decisions"
       },
       "communication_quality": {
@@ -1089,13 +1249,13 @@
       }
     },
     "primary_dimensions": [
-      "safety_awareness",
-      "treatment_planning",
-      "information_gathering"
+      "diagnostic_reasoning",
+      "information_gathering",
+      "treatment_planning"
     ],
     "difficulty_modifier": {
-      "focus": "advanced mastery under adversarial conditions",
-      "sub_skill_multiplier": 1.3
+      "focus": "intermediate proficiency with nuance",
+      "sub_skill_multiplier": 1.0
     }
   },
   "difficulty_profile": {
@@ -1104,7 +1264,7 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "3 total symptoms across tiers"
+        "task_specific": "5 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 1,
@@ -1113,10 +1273,10 @@
         "task_specific": "3 plausible differentials"
       },
       "treatment_complexity": {
-        "score": 1,
+        "score": 2,
         "max": 3,
         "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "0 comorbidities affecting treatment choice"
+        "task_specific": "1 comorbidities affecting treatment choice"
       },
       "patient_behavior_difficulty": {
         "score": 2,
@@ -1125,43 +1285,43 @@
         "task_specific": "behavior: confused"
       },
       "information_asymmetry": {
-        "score": 1,
-        "max": 3,
-        "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "1 hidden/resistant symptoms to discover"
-      },
-      "comorbidity_burden": {
-        "score": 0,
-        "max": 3,
-        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "0 comorbidities present"
-      },
-      "time_pressure": {
         "score": 2,
         "max": 3,
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "task_specific": "2 hidden/resistant symptoms to discover"
+      },
+      "comorbidity_burden": {
+        "score": 1,
+        "max": 3,
+        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
+        "task_specific": "1 comorbidities present"
+      },
+      "time_pressure": {
+        "score": 1,
+        "max": 3,
         "description": "Urgency level and consequences of delayed action",
-        "task_specific": "Moderate urgency with condition change event"
+        "task_specific": "Routine consultation, no urgency"
       }
     },
     "overall": {
-      "aggregate_score": 8,
+      "aggregate_score": 10,
       "max_possible": 21,
-      "difficulty_rating": "L3",
+      "difficulty_rating": "L2",
       "primary_difficulty_drivers": [
+        "treatment_complexity",
         "patient_behavior_difficulty",
-        "time_pressure",
-        "symptom_complexity"
+        "information_asymmetry"
       ],
-      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, time pressure. The diagnosis of depression requires careful information gathering and clinical reasoning."
+      "explanation": "This L2 task is primarily challenging due to treatment complexity, patient behavior difficulty. The diagnosis of hypertension requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
-        "misleading_symptoms": 2,
-        "noise_symptoms": 1,
-        "cross_overlapping_conditions": 0
+        "misleading_symptoms": 1,
+        "noise_symptoms": 0,
+        "cross_overlapping_conditions": 2
       },
       "partial_observability": {
-        "hidden_symptoms": 1,
+        "hidden_symptoms": 2,
         "trust_gated_symptoms": 0,
         "undiagnosed_comorbidities": 0
       },
@@ -1251,8 +1411,62 @@
           "turns": 1
         }
       },
-      "check_allergy": {
-        "description": "Check patient allergies",
+      "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of test names to order"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale for ordering"
+            }
+          },
+          "required": [
+            "tests"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string"
+            },
+            "tests_ordered": {
+              "type": "array"
+            },
+            "estimated_wait": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
+        ],
+        "postconditions": [
+          "labs_ordered = true",
+          "state transitions to LAB_ORDERED"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "recommended_tests": [
+            "sodium",
+            "potassium",
+            "creatinine",
+            "egfr"
+          ]
+        }
+      },
+      "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
         "parameters": {
           "type": "object",
           "properties": {
@@ -1266,70 +1480,41 @@
         "returns": {
           "type": "object",
           "properties": {
-            "allergies": {
-              "type": "array",
-              "items": {
+            "results": {
+              "type": "object",
+              "additionalProperties": {
                 "type": "string"
               }
-            }
-          }
-        },
-        "preconditions": [
-          "state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"
-        ],
-        "postconditions": [
-          "allergy_checked = true"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "check_drug_interactions": {
-        "description": "Check for drug-drug interactions",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "drug_list": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "drug_list"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "interactions": {
-              "type": "array"
             },
-            "safe_to_proceed": {
+            "all_results_available": {
               "type": "boolean"
             }
           }
         },
         "preconditions": [
-          "state == TREATMENT_PLANNING"
+          "labs_ordered == true",
+          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
         ],
         "postconditions": [
-          "interaction_checked = true"
+          "labs_available = true",
+          "state transitions to LAB_RESULTS_AVAILABLE"
         ],
         "cost": {
           "turns": 1
         }
       },
-      "check_contraindications": {
-        "description": "Check contraindications for a medication given patient conditions",
+      "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
         "parameters": {
           "type": "object",
           "properties": {
-            "medication": {
-              "type": "string"
+            "symptoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
-            "conditions": {
+            "must_consider": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1337,76 +1522,88 @@
             }
           },
           "required": [
-            "medication"
+            "symptoms"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "contraindications": {
-              "type": "array"
+            "differentials": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
             },
-            "safe": {
-              "type": "boolean"
+            "reasoning": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "state == TREATMENT_PLANNING"
+          "state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"
         ],
         "postconditions": [
-          "contraindication_checked = true"
+          "differential_generated = true",
+          "state transitions to DIAGNOSIS_FORMING"
         ],
         "cost": {
           "turns": 1
+        },
+        "parameter_hints": {
+          "must_consider": [
+            "Secondary Hypertension",
+            "Pheochromocytoma",
+            "Renal Artery Stenosis"
+          ]
         }
       },
-      "prescribe_medication": {
-        "description": "Prescribe a medication to the patient",
+      "record_diagnosis": {
+        "description": "Record the final diagnosis",
         "parameters": {
           "type": "object",
           "properties": {
-            "medication": {
+            "diagnosis": {
               "type": "string"
             },
-            "dose": {
-              "type": "string"
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             },
-            "frequency": {
-              "type": "string"
-            },
-            "duration": {
-              "type": "string"
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [
-            "medication"
+            "diagnosis"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "prescription_id": {
-              "type": "string"
-            },
-            "prescribed": {
+            "recorded": {
               "type": "boolean"
             },
-            "warnings": {
-              "type": "array"
+            "diagnosis_id": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "allergy_checked == true",
-          "diagnosis_recorded == true"
+          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
         ],
         "postconditions": [
-          "prescription_written = true",
-          "state transitions to PRESCRIPTION_WRITTEN"
+          "diagnosis_recorded = true",
+          "state transitions to DIAGNOSIS_MADE"
         ],
         "cost": {
           "turns": 1
+        },
+        "parameter_hints": {
+          "correct_diagnosis": "hypertension"
         }
       },
       "assess_vital_signs": {
@@ -1647,14 +1844,15 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "depression"
+          "kidney disease"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
         "fields": [
-          "depression"
+          "high blood pressure",
+          "high blood pressure"
         ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
@@ -1662,7 +1860,8 @@
       "hidden_tier": {
         "access": "on_specific_probe",
         "fields": [
-          "mdd"
+          "high blood pressure",
+          "high blood pressure"
         ],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
@@ -1675,7 +1874,7 @@
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
-    "difficulty_noise_multiplier": 1.5,
+    "difficulty_noise_multiplier": 1.0,
     "observation_protocol": {
       "step_input": {
         "agent_action": "ActionSchema compliant JSON",
@@ -1826,7 +2025,7 @@
       }
     },
     "turn_rules": {
-      "max_turns": 15,
+      "max_turns": 25,
       "min_required_turns": 4,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
@@ -1897,7 +2096,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 414,
+      "seed": 501,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -1912,12 +2111,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (hypertension) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "ACC/AHA Hypertension Clinical Practice Guidelines",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.6,
+      "std": 0.15,
+      "percentiles": {
+        "p10": 0.38,
+        "p25": 0.5,
+        "p50": 0.6,
+        "p75": 0.72,
+        "p90": 0.82
+      },
+      "description": "Reference distribution from baseline agent performance on L2 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "see L3 reference"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 501,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "4e929c8b0d4b7b17",
+    "hash_input": "v2_diagnostic_uncertainty_L2_hypertension_e69eb6|hypertension|L2|diagnostic_uncertainty|confused|501",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_drug_safety_risk_L3_depression_9e1d8e",
+    "scenario_id": "v2_diagnostic_uncertainty_L2_hypertension_e69eb6",
     "risk_level": "moderate",
-    "uncertainty_level": 0.954,
+    "uncertainty_level": 0.589,
     "behavior_type": "confused",
-    "seed": 414
+    "seed": 501
   }
 }

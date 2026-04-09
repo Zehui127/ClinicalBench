@@ -1,101 +1,86 @@
 {
-  "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_04c8d1",
-  "domain": "endocrinology",
-  "task_type": "diagnostic_uncertainty",
+  "id": "v27_conflicting_evidence_L1_heart_failure_54c4f4",
+  "domain": "cardiology",
+  "task_type": "conflicting_evidence",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "diagnostic_uncertainty — 59-year-old female with my appetite has changed for a few weeks",
-    "clinical_scenario": "Patient presents with my appetite has changed for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "conflicting_evidence — 35-year-old male with I've been having swelling in your ankles or legs for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having swelling in your ankles or legs for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Ability to probe for hidden symptoms",
-      "Quality of differential diagnosis"
+      "Ability to resolve conflicting data",
+      "Critical appraisal of evidence"
     ],
-    "focus": "Systematic information gathering and differential diagnosis"
+    "focus": "Resolving conflicting clinical evidence"
   },
   "user_scenario": {
-    "persona": "59-year-old female patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with my appetite has changed.",
+    "persona": "35-year-old male patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with I've been having swelling in your ankles or legs.",
     "patient_profile": {
-      "age": 59,
-      "gender": "female",
+      "age": 35,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "coronary heart for a few weeks",
-      "occupation": "retail manager"
+      "chief_complaint": "high blood pressure for a few weeks",
+      "occupation": "sales associate"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "coronary heart"
+          "high blood pressure"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "my appetite has changed",
-        "family_history": "family member has heart disease",
+        "general_concern": "I've been having swelling in your ankles or legs",
+        "family_history": "family member has high blood pressure",
         "past_history": [
-          "heart disease"
+          "high blood pressure"
+        ],
+        "current_medications": [
+          "lisinopril 10mg once daily",
+          "furosemide 40mg once daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "type 2 diabetes",
-        "fasting_glucose": "13.3 mmol/L (abnormal)",
-        "hba1c": "9.81 % (abnormal)",
-        "specific_medication_needed": "metformin (500mg twice daily)",
+        "diagnosis": "heart failure",
+        "nt_probnp": "892 pg/mL (abnormal)",
+        "creatinine": "1.33 mg/dL (abnormal)",
+        "sodium": "134 mmol/L (abnormal)",
+        "specific_medication_needed": "lisinopril (10mg once daily)",
         "medication_contraindications": [
-          "severe kidney disease"
+          "pregnancy"
         ]
       },
       "patient_misconceptions_and_concerns": {
-        "insulin_fears": [
-          "I heard insulin is addictive — once you start, you can never stop",
-          "My neighbor's aunt took insulin and got so thin, it's scary"
+        "anxiety_fears": [
+          "Am I going to have a heart attack?",
+          "Will I need bypass surgery?",
+          "Can I still exercise?"
         ],
         "medication_concerns": [
-          "Long-term diabetes medication will ruin my kidneys",
-          "Western medicine has too many side effects, can I take Chinese herbs instead?",
-          "Can I just control it with diet instead of medication?"
-        ],
-        "dietary_extremes": [
-          "Does having diabetes mean I can never eat anything sweet?",
-          "Are fruits completely off-limits now?",
-          "Do I have to only eat whole grains and never eat rice again?"
-        ],
-        "prognosis_concerns": [
-          "Will I go blind or lose my legs soon?",
-          "How many years do I have left?"
+          "Do I have to take heart medication for the rest of my life?",
+          "I heard statins damage your liver"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "coronary heart"
+        "high blood pressure"
       ],
       "share_only_if_asked": [
-        "chd (needs doctor to specifically ask)",
-        "heart disease (needs doctor to specifically ask)"
+        "my weight has changed (needs doctor to specifically ask)",
+        "high blood pressure (needs doctor to specifically ask)"
       ],
-      "hidden_truth": [
-        "my appetite has changed (won't mention unless specifically probed)"
-      ],
-      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "misleading_symptoms": [
-        "recurrent skin infections and slow wound healing",
-        "recurrent urinary tract infections",
-        "unexplained weight loss (also seen in hyperthyroidism and cancer)",
-        "persistent fatigue (also seen in anemia and depression)"
+        "waking up gasping for air (paroxysmal nocturnal dyspnea)",
+        "abdominal swelling and loss of appetite",
+        "shortness of breath (also seen in COPD and pneumonia)",
+        "swelling (also seen in kidney disease and liver disease)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
-      "progressive_reveal": [
-        {
-          "after_turn": 3,
-          "symptom": "my appetite has changed",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        }
-      ],
       "share_in_response_to_medication_discussion": [
-        "Concerns about metformin side effects — severe kidney disease"
+        "Concerns about lisinopril side effects — pregnancy"
       ],
       "response_style": {
         "honest": true,
@@ -103,96 +88,91 @@
         "limited_medical_knowledge": true,
         "may_need_clarification": [],
         "emotional_state": "neutral",
-        "may_resist_certain_treatments": [
-          "insulin",
-          "long_term_medication"
-        ],
+        "may_resist_certain_treatments": [],
         "financial_constraints": false
       }
     },
-    "task_instructions": "You are LiXX, a 59-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of coronary heart. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
+    "task_instructions": "You are YangXX, a 35-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of high blood pressure. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words."
   },
   "medical_persona": {
-    "age": 59,
-    "gender": "female",
+    "age": 35,
+    "gender": "male",
     "symptoms": {
-      "Has your appetite changed unexpectedly": "my appetite has changed",
-      "CAD": "coronary artery disease",
-      "coronary heart disease": "coronary heart",
-      "CHD": "chd"
+      "Has your weight changed unexpectedly": "my weight has changed",
+      "HTN": "high blood pressure",
+      "high blood pressure": "high blood pressure"
     },
     "duration": "a few weeks",
     "severity": "mild",
     "past_medical_history": [
-      "heart disease"
+      "high blood pressure"
     ],
     "current_medications": [
       {
-        "name": "metformin",
+        "name": "lisinopril",
         "brand_names": [
-          "Glucophage"
+          "Zestril",
+          "Prinivil"
         ],
-        "drug_class": "biguanide",
-        "dose": "500mg",
-        "frequency": "twice daily"
+        "drug_class": "ACE inhibitor",
+        "dose": "10mg",
+        "frequency": "once daily"
       }
     ],
     "lab_results": {
-      "fasting_glucose": "13.1 mmol/L (abnormal)",
-      "hba1c": "9.86 % (abnormal)",
-      "egfr": "76.0 ml/min/1.73m2",
-      "alt": "57.2 U/L (abnormal)",
-      "total_cholesterol": "6.22 mmol/L (abnormal)",
-      "triglycerides": "2.88 mmol/L (abnormal)",
-      "uric_acid": "477 umol/L (abnormal)"
+      "nt_probnp": "873 pg/mL (abnormal)",
+      "creatinine": "1.35 mg/dL (abnormal)",
+      "sodium": "136 mmol/L (abnormal)",
+      "bnp": "363 pg/mL (abnormal)",
+      "hemoglobin": "11.9 g/dL"
     },
     "vital_signs": {
-      "blood_pressure": "144/93 mmHg",
-      "bmi": "30.6"
+      "blood_pressure": "139/84 mmHg",
+      "heart_rate": "101 bpm",
+      "bmi": "23.8"
     },
     "lifestyle_factors": {
-      "smoking": "yes (1 pack/day for 20+ years)",
-      "alcohol": "occasional (1-2 drinks/week)",
-      "exercise": "sedentary"
+      "smoking": "quit 2 years ago (former 1 pack/day for 25 years)",
+      "exercise": "minimal"
     },
     "comorbidities": {
-      "coronary artery disease": "heart disease, severity: 0.5"
+      "hypertension": "high blood pressure, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "retail manager",
+      "occupation": "sales associate",
       "monthly_income": "about 10000+ yuan/month",
       "insurance": "comprehensive medical insurance, good coverage"
     },
     "medication_considerations": {
-      "metformin": {
-        "drug_class": "biguanide",
-        "standard_dose": "500mg twice daily",
+      "lisinopril": {
+        "drug_class": "ACE inhibitor",
+        "standard_dose": "10mg once daily",
         "contraindications": [
-          "severe kidney disease"
+          "pregnancy"
         ]
       }
     },
     "diagnosis": {
-      "primary": "type 2 diabetes",
+      "primary": "heart failure",
       "severity": "mild",
       "differential_diagnoses": [
-        "Metabolic Syndrome",
-        "Cushing's Syndrome",
-        "Type 1 Diabetes"
+        "COPD",
+        "Pulmonary Embolism",
+        "Nephrotic Syndrome"
       ]
     }
   },
-  "ticket": "coronary heart",
+  "ticket": "high blood pressure",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "LiXX",
-          "mrn": "MRN196658",
-          "age": 59,
-          "gender": "female"
+          "name": "YangXX",
+          "mrn": "MRN967158",
+          "age": 35,
+          "gender": "male"
         }
       },
       {
@@ -200,21 +180,21 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 59,
-            "gender": "female",
+            "age": 35,
+            "gender": "male",
             "symptoms": [
-              "coronary heart"
+              "high blood pressure"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "coronary heart"
+              "high blood pressure"
             ],
             "ask_only": [
-              "chd",
-              "heart disease"
+              "my weight has changed",
+              "high blood pressure"
             ]
           },
           "response_style": {
@@ -241,13 +221,13 @@
         "name": "order_lab_tests",
         "arguments": {
           "tests": [
-            "fasting_glucose",
-            "hba1c",
-            "egfr",
-            "alt",
-            "total_cholesterol"
+            "nt_probnp",
+            "creatinine",
+            "sodium",
+            "bnp",
+            "hemoglobin"
           ],
-          "rationale": "Labs to evaluate type 2 diabetes"
+          "rationale": "Labs to evaluate heart failure"
         }
       },
       {
@@ -264,12 +244,12 @@
         "name": "differential_diagnosis",
         "arguments": {
           "symptoms": [
-            "type 2 diabetes"
+            "heart failure"
           ],
           "must_consider": [
-            "Metabolic Syndrome",
-            "Cushing's Syndrome",
-            "Type 1 Diabetes"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ]
         }
       },
@@ -278,7 +258,7 @@
         "requestor": "assistant",
         "name": "record_diagnosis",
         "arguments": {
-          "diagnosis": "type 2 diabetes"
+          "diagnosis": "heart failure"
         }
       }
     ],
@@ -312,7 +292,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of type 2 diabetes identified through systematic questioning",
+            "description": "All major symptoms of heart failure identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -352,31 +332,31 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "type 2 diabetes",
+          "correct_diagnosis": "heart failure",
           "allow_alternatives": [
-            "Metabolic Syndrome",
-            "Cushing's Syndrome",
-            "Type 1 Diabetes"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
           "must_consider": [
-            "Metabolic Syndrome",
-            "Cushing's Syndrome",
-            "Type 1 Diabetes"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "fasting_glucose",
-            "hba1c",
-            "alt"
+            "nt_probnp",
+            "creatinine",
+            "sodium"
           ],
           "should_order": [
-            "egfr"
+            "hemoglobin"
           ],
           "weight": 0.15
         },
@@ -391,9 +371,9 @@
         "key_questions": {
           "required": false,
           "must_ask": [
-            "Have you noticed increased thirst or urination recently?",
-            "Have you had any episodes of blurred vision?",
-            "Has your appetite changed unexpectedly?"
+            "Do you wake up at night feeling short of breath?",
+            "Have you noticed swelling in your ankles or legs?",
+            "Do you find you need more pillows to sleep comfortably?"
           ],
           "weight": 0.1
         }
@@ -409,25 +389,20 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "kidney_function_before_medication": {
+        "bleeding_risk_with_anticoagulants": {
           "required": true,
-          "description": "Must assess: kidney function before medication",
+          "description": "Must assess: bleeding risk with anticoagulants",
           "severity": "major"
         },
-        "hypoglycemia_risk": {
+        "blood_pressure_control": {
           "required": true,
-          "description": "Must assess: hypoglycemia risk",
-          "severity": "major"
-        },
-        "liver_function": {
-          "required": true,
-          "description": "Must assess: liver function",
-          "severity": "major"
-        },
-        "kidney_function_before_metformin": {
-          "required": true,
-          "description": "Must assess kidney function before prescribing metformin",
+          "description": "Must assess and address blood pressure",
           "severity": "high"
+        },
+        "potassium_monitoring": {
+          "required": true,
+          "description": "Must assess: potassium monitoring",
+          "severity": "major"
         }
       },
       "required_tools": [
@@ -447,81 +422,69 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Prescribe metformin without checking kidney function (eGFR)",
-        "Ignore declining kidney function in medication dosing",
-        "Fail to consider Metabolic Syndrome as alternative diagnosis",
-        "Prescribe metformin in patient with severe kidney disease without special precautions",
-        "Diagnose type 2 diabetes without ordering any supporting lab tests"
+        "Prescribe NSAIDs without assessing cardiovascular risk",
+        "Discharge without assessing exercise tolerance",
+        "Fail to consider COPD as alternative diagnosis",
+        "Prescribe lisinopril in patient with pregnancy without special precautions",
+        "Diagnose heart failure without ordering any supporting lab tests"
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "type 2 diabetes",
+      "primary": "heart failure",
       "confidence_threshold": 0.7,
       "acceptable_alternatives": [
-        "Metabolic Syndrome",
-        "Cushing's Syndrome",
-        "Type 1 Diabetes"
+        "COPD",
+        "Pulmonary Embolism",
+        "Nephrotic Syndrome"
       ],
       "required_evidence": [
         "symptom_cluster_matching",
         "lab_result_confirmation",
-        "abnormal_fasting_glucose"
+        "abnormal_nt_probnp"
       ]
     },
     "expected_lab_results": {
-      "fasting_glucose": {
-        "expected_value": "13.1 mmol/L (abnormal)",
-        "reference_range": "12.5-14.0 mmol/L",
+      "nt_probnp": {
+        "expected_value": "846 pg/mL (abnormal)",
+        "reference_range": "400-2000 pg/mL",
         "is_abnormal": true,
         "clinical_significance": "high"
       },
-      "hba1c": {
-        "expected_value": "9.88 % (abnormal)",
-        "reference_range": "9.3-10.3 %",
+      "creatinine": {
+        "expected_value": "1.33 mg/dL (abnormal)",
+        "reference_range": "1.0-1.8 mg/dL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "sodium": {
+        "expected_value": "136 mmol/L (abnormal)",
+        "reference_range": "130-138 mmol/L",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "bnp": {
+        "expected_value": "317 pg/mL (abnormal)",
+        "reference_range": "150-600 pg/mL",
         "is_abnormal": true,
         "clinical_significance": "high"
       },
-      "egfr": {
-        "expected_value": "75.2 ml/min/1.73m2",
-        "reference_range": "70-80 ml/min/1.73m2",
+      "hemoglobin": {
+        "expected_value": "12.2 g/dL",
+        "reference_range": "10.5-13.5 g/dL",
         "is_abnormal": false,
         "clinical_significance": "moderate"
-      },
-      "alt": {
-        "expected_value": "57.2 U/L (abnormal)",
-        "reference_range": "40-70 U/L",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "total_cholesterol": {
-        "expected_value": "6.25 mmol/L (abnormal)",
-        "reference_range": "5.8-6.8 mmol/L",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "triglycerides": {
-        "expected_value": "2.90 mmol/L (abnormal)",
-        "reference_range": "2.2-3.5 mmol/L",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "uric_acid": {
-        "expected_value": "493 umol/L (abnormal)",
-        "reference_range": "420-550 umol/L",
-        "is_abnormal": true,
-        "clinical_significance": "low"
       }
     },
     "correct_treatment_plan": {
       "medications": [
         {
-          "name": "metformin",
-          "drug_class": "biguanide",
-          "dose": "500mg",
-          "frequency": "twice daily",
-          "rationale": "First-line treatment for type 2 diabetes"
+          "name": "lisinopril",
+          "drug_class": "ACE inhibitor",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "rationale": "First-line treatment for heart failure"
         }
       ],
       "non_pharmacological": [
@@ -545,7 +508,7 @@
         "check": "contraindication_check",
         "before": "prescribing",
         "conditions": [
-          "coronary artery disease"
+          "hypertension"
         ],
         "critical": true
       }
@@ -580,22 +543,20 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "coronary heart"
+          "high blood pressure"
         ],
-        "hidden_information_to_uncover": [
-          "my appetite has changed"
-        ]
+        "hidden_information_to_uncover": []
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for type 2 diabetes",
+        "correct_approach": "Order disease-relevant labs for heart failure",
         "required_tests": [
-          "fasting_glucose",
-          "hba1c",
-          "egfr",
-          "alt",
-          "total_cholesterol"
+          "nt_probnp",
+          "creatinine",
+          "sodium",
+          "bnp",
+          "hemoglobin"
         ]
       },
       {
@@ -603,9 +564,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "Metabolic Syndrome",
-          "Cushing's Syndrome",
-          "Type 1 Diabetes"
+          "COPD",
+          "Pulmonary Embolism",
+          "Nephrotic Syndrome"
         ]
       },
       {
@@ -686,11 +647,11 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "fasting_glucose: results pending",
-          "hba1c: results pending",
-          "egfr: results pending",
-          "alt: results pending",
-          "total_cholesterol: results pending"
+          "nt_probnp: results pending",
+          "creatinine: results pending",
+          "sodium: results pending",
+          "bnp: results pending",
+          "hemoglobin: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -928,11 +889,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "type 2 diabetes",
+      "correct_answer": "heart failure",
       "acceptable_answers": [
-        "Metabolic Syndrome",
-        "Cushing's Syndrome",
-        "Type 1 Diabetes"
+        "COPD",
+        "Pulmonary Embolism",
+        "Nephrotic Syndrome"
       ]
     },
     "secondary_outcomes": [
@@ -946,7 +907,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "metformin"
+        "correct_answer": "lisinopril"
       },
       {
         "metric": "safety_adherence",
@@ -1156,8 +1117,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.25,
-        "test_method": "Measure percentage of critical symptoms discovered for type 2 diabetes"
+        "weight": 0.2,
+        "test_method": "Measure percentage of critical symptoms discovered for heart failure"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1167,7 +1128,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.3,
+        "weight": 0.35,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1178,7 +1139,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.1,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1211,14 +1172,14 @@
           "time_management",
           "resource_efficiency"
         ],
-        "weight": 0.1,
+        "weight": 0.15,
         "test_method": "Count turns and actions relative to optimal path"
       }
     },
     "primary_dimensions": [
       "diagnostic_reasoning",
       "information_gathering",
-      "treatment_planning"
+      "efficiency"
     ],
     "difficulty_modifier": {
       "focus": "basic competence",
@@ -1231,7 +1192,7 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "4 total symptoms across tiers"
+        "task_specific": "3 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 1,
@@ -1255,7 +1216,7 @@
         "score": 1,
         "max": 3,
         "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "1 hidden/resistant symptoms to discover"
+        "task_specific": "0 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
         "score": 1,
@@ -1279,16 +1240,16 @@
         "symptom_complexity",
         "diagnostic_ambiguity"
       ],
-      "explanation": "This L1 task is primarily challenging due to treatment complexity, symptom complexity. The diagnosis of type 2 diabetes requires careful information gathering and clinical reasoning."
+      "explanation": "This L1 task is primarily challenging due to treatment complexity, symptom complexity. The diagnosis of heart failure requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
         "misleading_symptoms": 0,
         "noise_symptoms": 0,
-        "cross_overlapping_conditions": 3
+        "cross_overlapping_conditions": 2
       },
       "partial_observability": {
-        "hidden_symptoms": 1,
+        "hidden_symptoms": 0,
         "trust_gated_symptoms": 0,
         "undiagnosed_comorbidities": 0
       },
@@ -1425,11 +1386,11 @@
         },
         "parameter_hints": {
           "recommended_tests": [
-            "fasting_glucose",
-            "hba1c",
-            "egfr",
-            "alt",
-            "total_cholesterol"
+            "nt_probnp",
+            "creatinine",
+            "sodium",
+            "bnp",
+            "hemoglobin"
           ]
         }
       },
@@ -1519,9 +1480,9 @@
         },
         "parameter_hints": {
           "must_consider": [
-            "Metabolic Syndrome",
-            "Cushing's Syndrome",
-            "Type 1 Diabetes"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ]
         }
       },
@@ -1571,7 +1532,7 @@
           "turns": 1
         },
         "parameter_hints": {
-          "correct_diagnosis": "type 2 diabetes"
+          "correct_diagnosis": "heart failure"
         }
       },
       "assess_vital_signs": {
@@ -1812,24 +1773,22 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "coronary heart"
+          "high blood pressure"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
         "fields": [
-          "chd",
-          "heart disease"
+          "my weight has changed",
+          "high blood pressure"
         ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
       },
       "hidden_tier": {
         "access": "on_specific_probe",
-        "fields": [
-          "my appetite has changed"
-        ],
+        "fields": [],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
       },
@@ -2063,7 +2022,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 400,
+      "seed": 503,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -2078,12 +2037,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (heart failure) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "ACC/AHA Heart Failure Guideline",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.75,
+      "std": 0.12,
+      "percentiles": {
+        "p10": 0.55,
+        "p25": 0.65,
+        "p50": 0.75,
+        "p75": 0.85,
+        "p90": 0.92
+      },
+      "description": "Reference distribution from baseline agent performance on L1 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "z = (0.7 - 0.75) / 0.12 = -0.42",
+        "raw_0.7_at_L3": "see L3 reference"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 503,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "eccfb44b59f695ca",
+    "hash_input": "v2_conflicting_evidence_L1_heart_failure_50a704|heart failure|L1|conflicting_evidence|cooperative|503",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_98b62b",
-    "risk_level": "moderate",
-    "uncertainty_level": 0.269,
+    "scenario_id": "v2_conflicting_evidence_L1_heart_failure_50a704",
+    "risk_level": "high",
+    "uncertainty_level": 0.146,
     "behavior_type": "cooperative",
-    "seed": 400
+    "seed": 503
   }
 }

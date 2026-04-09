@@ -1,49 +1,66 @@
 {
-  "id": "v27_patient_non_compliance_L3_cirrhosis_74b931",
-  "domain": "gastroenterology",
-  "task_type": "patient_non_compliance",
-  "difficulty": "L3",
+  "id": "v27_conflicting_evidence_L2_chronic_kidney_disease_5b3102",
+  "domain": "nephrology",
+  "task_type": "conflicting_evidence",
+  "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "patient_non_compliance — 58-year-old male with arthritis for a few weeks",
-    "clinical_scenario": "Patient presents with arthritis for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "conflicting_evidence — 54-year-old female with long-term renal insufficiency for a few weeks",
+    "clinical_scenario": "Patient presents with long-term renal insufficiency for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Communication and trust-building",
-      "Addressing patient concerns and misconceptions",
-      "Handle complex multi-condition scenario",
-      "Manage difficult patient behavior"
+      "Ability to resolve conflicting data",
+      "Critical appraisal of evidence"
     ],
-    "focus": "Addressing patient concerns and building treatment adherence"
+    "focus": "Resolving conflicting clinical evidence"
   },
   "user_scenario": {
-    "persona": "58-year-old male patient, 初中 education, works as a security guard. a patient who may resist tests or treatment presenting with arthritis.",
+    "persona": "54-year-old female patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with long-term renal insufficiency.",
     "patient_profile": {
-      "age": 58,
-      "gender": "male",
-      "education_level": "middle_school",
-      "communication_style": "resistant",
-      "cooperation_level": "poor",
-      "chief_complaint": "hepatic cirrhosis for a few weeks",
-      "occupation": "security guard"
+      "age": 54,
+      "gender": "female",
+      "education_level": "high_school",
+      "communication_style": "clear",
+      "cooperation_level": "good",
+      "chief_complaint": "long-term renal failure and and kidney disease for a few weeks",
+      "occupation": "sales associate"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "hepatic cirrhosis"
+          "long-term renal failure",
+          "kidney disease"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "arthritis"
+        "general_concern": "long-term renal insufficiency",
+        "family_history": "family member has sickle cell disease",
+        "past_history": [
+          "sickle cell disease",
+          "type 2 diabetes"
+        ],
+        "current_medications": [
+          "lisinopril 5mg once daily"
+        ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "cirrhosis"
+        "diagnosis": "chronic kidney disease",
+        "creatinine": "2.03 mg/dL (abnormal)",
+        "egfr": "36.9 ml/min/1.73m2 (abnormal)",
+        "bun": "30.2 mg/dL (abnormal)",
+        "specific_medication_needed": "lisinopril (10mg once daily)",
+        "medication_contraindications": [
+          "pregnancy"
+        ]
       },
       "patient_misconceptions_and_concerns": {
-        "general_concerns": [
-          "Is this serious?",
-          "Will I need surgery?",
-          "How long will treatment take?"
+        "dialysis_fears": [
+          "Will I need dialysis?",
+          "How long until my kidneys fail completely?"
+        ],
+        "dietary_restrictions": [
+          "What can I even eat anymore?",
+          "Do I have to drink less water?"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -55,89 +72,154 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "hepatic cirrhosis"
+        "long-term renal failure",
+        "kidney disease"
       ],
-      "share_only_if_asked": [],
+      "share_only_if_asked": [
+        "long-term renal insufficiency (needs doctor to specifically ask)",
+        "anaemia (needs doctor to specifically ask)"
+      ],
       "hidden_truth": [
-        "liver cirrhosis (won't mention unless specifically probed)"
+        "crf (won't mention unless specifically probed)",
+        "my appetite has changed (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
-      "noise_symptoms": [
-        "mild sensitivity to noise"
-      ],
-      "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "red palms"
+        "metallic taste",
+        "persistent itching without rash",
+        "metallic taste in mouth",
+        "fatigue (also seen in anemia and hypothyroidism)",
+        "swelling (also seen in heart failure and liver disease)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "progressive_reveal": [
         {
+          "after_turn": 3,
+          "symptom": "my appetite has changed",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
           "after_turn": 5,
-          "symptom": "liver cirrhosis",
+          "symptom": "crf",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about lisinopril side effects — pregnancy"
+      ],
       "response_style": {
-        "honest": false,
-        "direct": false,
+        "honest": true,
+        "direct": true,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [
-          "medical terminology",
-          "complex concepts"
-        ],
-        "emotional_state": "hostile",
-        "may_resist_certain_treatments": [
-          "expensive_medications",
-          "multiple_medications"
-        ],
+        "may_need_clarification": [],
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
         "financial_constraints": true
       }
     },
-    "task_instructions": "You are LiuXX, a 58-year-old male patient. Your education level is 初中. You work as a security guard. You are seeing a doctor because of hepatic cirrhosis. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are WangXX, a 54-year-old female patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of long-term renal failure. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 58,
-    "gender": "male",
+    "age": 54,
+    "gender": "female",
     "symptoms": {
-      "liver cirrhosis": "liver cirrhosis",
-      "hepatic cirrhosis": "hepatic cirrhosis"
+      "CKD": "chronic kidney disease",
+      "chronic renal failure": "long-term renal failure",
+      "CRF": "crf",
+      "chronic renal insufficiency": "long-term renal insufficiency",
+      "anaemia": "anaemia",
+      "Has your appetite changed unexpectedly": "my appetite has changed"
     },
     "duration": "a few weeks",
-    "severity": "severe",
+    "severity": "moderate",
+    "past_medical_history": [
+      "sickle cell disease",
+      "type 2 diabetes"
+    ],
+    "current_medications": [
+      {
+        "name": "lisinopril",
+        "brand_names": [
+          "Zestril",
+          "Prinivil"
+        ],
+        "drug_class": "ACE inhibitor",
+        "dose": "10mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "epoetin alfa",
+        "brand_names": [],
+        "drug_class": "erythropoiesis-stimulating agent (ESA)",
+        "dose": "5000 units",
+        "frequency": "once weekly subcutaneous"
+      }
+    ],
+    "lab_results": {
+      "creatinine": "1.88 mg/dL (abnormal)",
+      "egfr": "33.5 ml/min/1.73m2 (abnormal)",
+      "bun": "31.7 mg/dL (abnormal)",
+      "potassium": "5.19 mmol/L (abnormal)",
+      "phosphorus": "4.91 mg/dL (abnormal)",
+      "hemoglobin": "10.7 g/dL (abnormal)"
+    },
     "vital_signs": {
-      "blood_pressure": "123/89 mmHg",
-      "bmi": "25.7"
+      "blood_pressure": "143/80 mmHg",
+      "bmi": "21.1"
     },
     "lifestyle_factors": {
-      "alcohol": "social drinking only",
-      "exercise": "light activity 1-2x/week"
+      "exercise": "sedentary"
+    },
+    "comorbidities": {
+      "anemia": "sickle cell disease, severity: 0.5",
+      "type 2 diabetes": "type 2 diabetes, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "security guard",
-      "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage"
+      "occupation": "sales associate",
+      "monthly_income": "about 3000-5000 yuan/month",
+      "insurance": "basic rural/cooperative medical insurance, limited coverage"
+    },
+    "medication_considerations": {
+      "lisinopril": {
+        "drug_class": "ACE inhibitor",
+        "standard_dose": "10mg once daily",
+        "contraindications": [
+          "pregnancy"
+        ]
+      }
     },
     "diagnosis": {
-      "primary": "cirrhosis",
-      "severity": "severe",
-      "differential_diagnoses": [
-        "Budd-Chiari Syndrome",
-        "Metastatic Liver Disease",
-        "Viral Hepatitis"
-      ]
+      "primary": "chronic kidney disease",
+      "severity": "moderate"
+    },
+    "complication_symptoms": {
+      "anemia": {
+        "symptoms": [
+          "anaemia"
+        ],
+        "status": "known_to_patient",
+        "interaction_with_primary": "may cause overlapping swelling/fatigue"
+      },
+      "type 2 diabetes": {
+        "symptoms": [
+          "my appetite has changed"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may cause overlapping swelling/fatigue"
+      }
     }
   },
-  "ticket": "hepatic cirrhosis",
+  "ticket": "long-term renal failure, kidney disease",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "LiuXX",
-          "mrn": "MRN137725",
-          "age": 58,
-          "gender": "male"
+          "name": "WangXX",
+          "mrn": "MRN384811",
+          "age": 54,
+          "gender": "female"
         }
       },
       {
@@ -145,19 +227,24 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 58,
-            "gender": "male",
+            "age": 54,
+            "gender": "female",
             "symptoms": [
-              "hepatic cirrhosis"
+              "long-term renal failure",
+              "kidney disease"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "hepatic cirrhosis"
+              "long-term renal failure",
+              "kidney disease"
             ],
-            "ask_only": []
+            "ask_only": [
+              "long-term renal insufficiency",
+              "anaemia"
+            ]
           },
           "response_style": {
             "honest": true,
@@ -174,32 +261,49 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 5
+          "min_questions": 3
         }
       },
       {
-        "action_id": "use_health_education",
+        "action_id": "use_order_lab_tests",
         "requestor": "assistant",
-        "name": "health_education",
+        "name": "order_lab_tests",
         "arguments": {
-          "topic": "cirrhosis"
+          "tests": [
+            "creatinine",
+            "egfr",
+            "bun",
+            "potassium",
+            "phosphorus"
+          ],
+          "rationale": "Labs to evaluate chronic kidney disease"
         }
       },
       {
-        "action_id": "use_patient_education",
+        "action_id": "use_get_lab_results",
         "requestor": "assistant",
-        "name": "patient_education",
+        "name": "get_lab_results",
         "arguments": {
-          "topic": "cirrhosis"
+          "patient_id": "current"
         }
       },
       {
-        "action_id": "use_prescribe_medication",
+        "action_id": "use_differential_diagnosis",
         "requestor": "assistant",
-        "name": "prescribe_medication",
+        "name": "differential_diagnosis",
         "arguments": {
-          "medication": "",
-          "dose": ""
+          "symptoms": [
+            "kidney disease"
+          ],
+          "must_consider": []
+        }
+      },
+      {
+        "action_id": "use_record_diagnosis",
+        "requestor": "assistant",
+        "name": "record_diagnosis",
+        "arguments": {
+          "diagnosis": "chronic kidney disease"
         }
       }
     ],
@@ -215,11 +319,6 @@
         "weight": 1.0
       },
       {
-        "check_id": "trust_building",
-        "criteria": "Demonstrates empathy and builds patient trust",
-        "weight": 1.5
-      },
-      {
         "check_id": "addresses_concerns",
         "criteria": "Addresses patient concerns, misconceptions, and questions",
         "weight": 1.0
@@ -227,12 +326,13 @@
     ],
     "reward_basis": [
       "DB",
-      "COMMUNICATE"
+      "COMMUNICATE",
+      "CLINICAL"
     ],
     "medical_criteria": {
-      "category": "communication",
-      "min_turns": 5,
-      "max_turns": 20,
+      "category": "diagnosis",
+      "min_turns": 3,
+      "max_turns": 25,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -242,7 +342,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of cirrhosis identified through systematic questioning",
+            "description": "All major symptoms of chronic kidney disease identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -266,12 +366,12 @@
             "weight": 0.08
           },
           "lifestyle_factors": {
-            "required": true,
+            "required": false,
             "description": "Smoking, alcohol, diet, exercise habits",
             "weight": 0.05
           },
           "social_determinants": {
-            "required": true,
+            "required": false,
             "description": "Socioeconomic factors affecting treatment adherence",
             "weight": 0.04
           }
@@ -282,22 +382,23 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "cirrhosis",
-          "allow_alternatives": [
-            "Budd-Chiari Syndrome",
-            "Metastatic Liver Disease",
-            "Viral Hepatitis"
-          ],
+          "correct_diagnosis": "chronic kidney disease",
+          "allow_alternatives": [],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
-          "must_consider": [
-            "Budd-Chiari Syndrome",
-            "Metastatic Liver Disease",
-            "Viral Hepatitis"
-          ],
+          "must_consider": [],
           "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "creatinine",
+            "egfr",
+            "bun"
+          ],
+          "should_order": [],
+          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -306,17 +407,22 @@
             "lab_results"
           ],
           "weight": 0.1
-        },
-        "key_questions": {
-          "required": true,
-          "must_ask": [
-            "Have you noticed any yellowing of your skin or eyes?",
-            "Has your abdomen been feeling swollen or bloated?",
-            "Have you noticed any confusion or difficulty concentrating?"
-          ],
-          "weight": 0.1
         }
       },
+      "treatment_scenarios": [
+        {
+          "scenario": "first_line_intolerance",
+          "description": "Patient reports side effects from lisinopril (ACE inhibitor)",
+          "options": [
+            "Reduce dose of lisinopril",
+            "Switch to alternative medication class",
+            "Try extended-release formulation",
+            "Add adjunct medication to manage side effects"
+          ],
+          "correct_approach": "Start with low-dose lisinopril, titrate up, monitor symptoms; consider alternative if intolerant",
+          "complexity": "moderate"
+        }
+      ],
       "safety_requirements": {
         "allergy_check_before_prescribe": {
           "required": true,
@@ -326,28 +432,34 @@
         "drug_interaction_check": {
           "required": true,
           "description": "Must check drug interactions before prescribing",
-          "severity": "critical"
+          "severity": "major"
         },
-        "bleeding_risk": {
+        "avoid_nephrotoxic_drugs": {
           "required": true,
-          "description": "Must assess: bleeding risk",
-          "severity": "high"
+          "description": "Must assess: avoid nephrotoxic drugs",
+          "severity": "major"
         },
-        "hepatic_dose_adjustment": {
+        "monitor_potassium": {
           "required": true,
-          "description": "Must assess: hepatic dose adjustment",
-          "severity": "high"
+          "description": "Must assess: monitor potassium",
+          "severity": "major"
         },
-        "alcohol_interaction": {
+        "fluid_restriction": {
           "required": true,
-          "description": "Must assess: alcohol interaction",
+          "description": "Must assess: fluid restriction",
+          "severity": "major"
+        },
+        "kidney_function_before_metformin": {
+          "required": true,
+          "description": "Must assess kidney function before prescribing metformin",
           "severity": "high"
         }
       },
       "required_tools": [
-        "health_education",
-        "patient_education",
-        "prescribe_medication"
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -360,43 +472,86 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Budd-Chiari Syndrome as alternative diagnosis",
-        "Diagnose cirrhosis without ordering any supporting lab tests",
-        "Fail to assess comorbidity impact on treatment plan",
-        "Prescribe multiple new medications simultaneously without interaction check"
+        "Prescribe metformin without checking kidney function (eGFR)",
+        "Ignore declining kidney function in medication dosing",
+        "Prescribe lisinopril in patient with pregnancy without special precautions",
+        "Diagnose chronic kidney disease without ordering any supporting lab tests"
       ],
       "uncertainty_events": [
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal liver enzymes with significant liver disease",
+          "example": "stable creatinine but declining GFR",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
         },
         {
-          "trigger": "mid_consultation",
-          "event": "Patient reports acute worsening of symptoms during the visit",
-          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
-          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'anaemia' when discussing treatment options",
+          "example": "'Oh, I also sometimes get anaemia — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed sickle cell disease, update differential, order appropriate workup"
         }
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "cirrhosis",
+      "primary": "chronic kidney disease",
       "confidence_threshold": 0.8,
-      "acceptable_alternatives": [
-        "Budd-Chiari Syndrome",
-        "Metastatic Liver Disease",
-        "Viral Hepatitis"
-      ],
+      "acceptable_alternatives": [],
       "required_evidence": [
-        "symptom_cluster_matching"
+        "symptom_cluster_matching",
+        "lab_result_confirmation",
+        "abnormal_creatinine"
       ]
     },
-    "expected_lab_results": {},
+    "expected_lab_results": {
+      "creatinine": {
+        "expected_value": "1.88 mg/dL (abnormal)",
+        "reference_range": "1.5-3.0 mg/dL",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "egfr": {
+        "expected_value": "34.6 ml/min/1.73m2 (abnormal)",
+        "reference_range": "25-45 ml/min/1.73m2",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "bun": {
+        "expected_value": "28.4 mg/dL (abnormal)",
+        "reference_range": "20-45 mg/dL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "potassium": {
+        "expected_value": "5.26 mmol/L (abnormal)",
+        "reference_range": "4.5-5.8 mmol/L",
+        "is_abnormal": true,
+        "clinical_significance": "high"
+      },
+      "phosphorus": {
+        "expected_value": "4.84 mg/dL (abnormal)",
+        "reference_range": "4.0-6.0 mg/dL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "hemoglobin": {
+        "expected_value": "10.4 g/dL (abnormal)",
+        "reference_range": "9.0-11.5 g/dL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      }
+    },
     "correct_treatment_plan": {
-      "medications": [],
+      "medications": [
+        {
+          "name": "lisinopril",
+          "drug_class": "ACE inhibitor",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "rationale": "First-line treatment for chronic kidney disease"
+        }
+      ],
       "non_pharmacological": [
         "Lifestyle modification counseling",
         "Dietary guidance"
@@ -412,6 +567,15 @@
       {
         "check": "drug_interaction_check",
         "before": "prescribing",
+        "critical": true
+      },
+      {
+        "check": "contraindication_check",
+        "before": "prescribing",
+        "conditions": [
+          "anemia",
+          "type 2 diabetes"
+        ],
         "critical": true
       }
     ],
@@ -445,30 +609,31 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "hepatic cirrhosis"
+          "long-term renal failure",
+          "kidney disease"
         ],
         "hidden_information_to_uncover": [
-          "liver cirrhosis"
+          "crf",
+          "my appetite has changed"
         ]
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for cirrhosis",
+        "correct_approach": "Order disease-relevant labs for chronic kidney disease",
         "required_tests": [
-          "CBC",
-          "BMP"
+          "creatinine",
+          "egfr",
+          "bun",
+          "potassium",
+          "phosphorus"
         ]
       },
       {
         "step": 3,
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
-        "must_consider": [
-          "Budd-Chiari Syndrome",
-          "Metastatic Liver Disease",
-          "Viral Hepatitis"
-        ]
+        "must_consider": []
       },
       {
         "step": 4,
@@ -548,11 +713,11 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "hemoglobin: results pending",
-          "reticulocyte_count: results pending",
-          "ldh: results pending",
-          "total_bilirubin: results pending",
-          "indirect_bilirubin: results pending"
+          "creatinine: results pending",
+          "egfr: results pending",
+          "bun: results pending",
+          "potassium: results pending",
+          "phosphorus: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -790,12 +955,8 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "cirrhosis",
-      "acceptable_answers": [
-        "Budd-Chiari Syndrome",
-        "Metastatic Liver Disease",
-        "Viral Hepatitis"
-      ]
+      "correct_answer": "chronic kidney disease",
+      "acceptable_answers": []
     },
     "secondary_outcomes": [
       {
@@ -808,7 +969,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "appropriate first-line medication"
+        "correct_answer": "lisinopril"
       },
       {
         "metric": "safety_adherence",
@@ -915,8 +1076,8 @@
         "name": "history_taking",
         "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
         "turn_budget": {
-          "min": 4,
-          "max": 8
+          "min": 5,
+          "max": 10
         },
         "required_actions": [
           "ask_about_symptoms",
@@ -931,7 +1092,7 @@
         "description": "Physical examination and laboratory testing",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "assess_vital_signs",
@@ -958,7 +1119,7 @@
         "description": "Plan treatment, check safety, prescribe medication",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "check_allergy",
@@ -972,7 +1133,7 @@
         "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "communicate_diagnosis",
@@ -996,28 +1157,23 @@
     ],
     "time_pressure_events": [
       {
-        "trigger_turn": 12,
+        "trigger_turn": 15,
         "event": "Patient shows signs of impatience",
         "effect": "Agent must balance thoroughness with efficiency"
-      },
-      {
-        "trigger_turn": 16,
-        "event": "Patient condition acutely worsens",
-        "effect": "Agent must immediately prioritize stabilization"
       }
     ],
     "efficiency_metrics": {
       "optimal_turn_range": [
-        7,
-        13
+        5,
+        11
       ],
-      "max_turns": 20,
+      "max_turns": 25,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
       "waste_penalty": -0.02,
       "rush_penalty": -0.05
     },
-    "total_turn_budget": 20,
-    "minimum_required_turns": 5
+    "total_turn_budget": 25,
+    "minimum_required_turns": 3
   },
   "capability_dimensions": {
     "dimensions": {
@@ -1029,8 +1185,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.1,
-        "test_method": "Measure percentage of critical symptoms discovered for cirrhosis"
+        "weight": 0.2,
+        "test_method": "Measure percentage of critical symptoms discovered for chronic kidney disease"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1040,7 +1196,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.1,
+        "weight": 0.35,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1051,7 +1207,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.1,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1073,7 +1229,7 @@
           "misconception_correction",
           "shared_decision_making"
         ],
-        "weight": 0.4,
+        "weight": 0.1,
         "test_method": "Evaluate patient understanding and misconception correction"
       },
       "efficiency": {
@@ -1089,90 +1245,90 @@
       }
     },
     "primary_dimensions": [
-      "communication_quality",
-      "treatment_planning",
+      "diagnostic_reasoning",
+      "information_gathering",
       "efficiency"
     ],
     "difficulty_modifier": {
-      "focus": "advanced mastery under adversarial conditions",
-      "sub_skill_multiplier": 1.3
+      "focus": "intermediate proficiency with nuance",
+      "sub_skill_multiplier": 1.0
     }
   },
   "difficulty_profile": {
     "factors": {
       "symptom_complexity": {
-        "score": 1,
+        "score": 2,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "2 total symptoms across tiers"
+        "task_specific": "6 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 1,
         "max": 3,
         "description": "Number of plausible differential diagnoses and ease of differentiation",
-        "task_specific": "3 plausible differentials"
+        "task_specific": "1 plausible differentials"
       },
       "treatment_complexity": {
-        "score": 1,
-        "max": 3,
-        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "0 comorbidities affecting treatment choice"
-      },
-      "patient_behavior_difficulty": {
         "score": 3,
         "max": 3,
-        "description": "How challenging the patient behavior is for information gathering",
-        "task_specific": "behavior: refusing"
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "task_specific": "2 comorbidities affecting treatment choice"
       },
-      "information_asymmetry": {
+      "patient_behavior_difficulty": {
         "score": 1,
         "max": 3,
-        "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "1 hidden/resistant symptoms to discover"
+        "description": "How challenging the patient behavior is for information gathering",
+        "task_specific": "behavior: cooperative"
       },
-      "comorbidity_burden": {
-        "score": 0,
-        "max": 3,
-        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "0 comorbidities present"
-      },
-      "time_pressure": {
+      "information_asymmetry": {
         "score": 2,
         "max": 3,
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "task_specific": "2 hidden/resistant symptoms to discover"
+      },
+      "comorbidity_burden": {
+        "score": 2,
+        "max": 3,
+        "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
+        "task_specific": "2 comorbidities present"
+      },
+      "time_pressure": {
+        "score": 1,
+        "max": 3,
         "description": "Urgency level and consequences of delayed action",
-        "task_specific": "Moderate urgency with condition change event"
+        "task_specific": "Routine consultation, no urgency"
       }
     },
     "overall": {
-      "aggregate_score": 9,
+      "aggregate_score": 12,
       "max_possible": 21,
-      "difficulty_rating": "L3",
+      "difficulty_rating": "L2",
       "primary_difficulty_drivers": [
-        "patient_behavior_difficulty",
-        "time_pressure",
-        "symptom_complexity"
+        "treatment_complexity",
+        "symptom_complexity",
+        "information_asymmetry"
       ],
-      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, time pressure. The diagnosis of cirrhosis requires careful information gathering and clinical reasoning."
+      "explanation": "This L2 task is primarily challenging due to treatment complexity, symptom complexity. The diagnosis of chronic kidney disease requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
-        "misleading_symptoms": 2,
-        "noise_symptoms": 1,
-        "cross_overlapping_conditions": 0
+        "misleading_symptoms": 1,
+        "noise_symptoms": 0,
+        "cross_overlapping_conditions": 2
       },
       "partial_observability": {
-        "hidden_symptoms": 1,
+        "hidden_symptoms": 2,
         "trust_gated_symptoms": 0,
-        "undiagnosed_comorbidities": 0
+        "undiagnosed_comorbidities": 1
       },
-      "adversarial_patient_behavior": true,
-      "conflicting_evidence": false
+      "adversarial_patient_behavior": false,
+      "conflicting_evidence": true
     }
   },
   "action_space": {
     "version": "1.0",
     "schema_type": "json_schema",
-    "total_actions": 7,
+    "total_actions": 8,
     "actions": {
       "greet_patient": {
         "description": "Greet the patient and introduce yourself",
@@ -1251,15 +1407,111 @@
           "turns": 1
         }
       },
-      "health_education": {
-        "description": "Provide health education to the patient",
+      "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
         "parameters": {
           "type": "object",
           "properties": {
-            "topic": {
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of test names to order"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale for ordering"
+            }
+          },
+          "required": [
+            "tests"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "order_id": {
               "type": "string"
             },
-            "key_points": {
+            "tests_ordered": {
+              "type": "array"
+            },
+            "estimated_wait": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
+        ],
+        "postconditions": [
+          "labs_ordered = true",
+          "state transitions to LAB_ORDERED"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "recommended_tests": [
+            "creatinine",
+            "egfr",
+            "bun",
+            "potassium",
+            "phosphorus"
+          ]
+        }
+      },
+      "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "all_results_available": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "labs_ordered == true",
+          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
+        ],
+        "postconditions": [
+          "labs_available = true",
+          "state transitions to LAB_RESULTS_AVAILABLE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "symptoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "must_consider": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1267,116 +1519,84 @@
             }
           },
           "required": [
-            "topic"
+            "symptoms"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "patient_understanding": {
-              "type": "number"
+            "differentials": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
             },
-            "questions_asked": {
-              "type": "array"
+            "reasoning": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "state in [TREATMENT_PLANNING, PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
+          "state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"
         ],
         "postconditions": [
-          "education_provided = true"
+          "differential_generated = true",
+          "state transitions to DIAGNOSIS_FORMING"
         ],
         "cost": {
           "turns": 1
+        },
+        "parameter_hints": {
+          "must_consider": []
         }
       },
-      "patient_education": {
-        "description": "Educate patient about their condition and treatment",
+      "record_diagnosis": {
+        "description": "Record the final diagnosis",
         "parameters": {
           "type": "object",
           "properties": {
-            "topic": {
+            "diagnosis": {
               "type": "string"
             },
-            "use_simple_language": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          "required": [
-            "topic"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "patient_understanding": {
+            "confidence": {
               "type": "number",
               "minimum": 0,
               "maximum": 1
             },
-            "misconceptions_corrected": {
-              "type": "array"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
-        ],
-        "postconditions": [
-          "patient_educated = true"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "prescribe_medication": {
-        "description": "Prescribe a medication to the patient",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "medication": {
-              "type": "string"
-            },
-            "dose": {
-              "type": "string"
-            },
-            "frequency": {
-              "type": "string"
-            },
-            "duration": {
-              "type": "string"
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [
-            "medication"
+            "diagnosis"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "prescription_id": {
-              "type": "string"
-            },
-            "prescribed": {
+            "recorded": {
               "type": "boolean"
             },
-            "warnings": {
-              "type": "array"
+            "diagnosis_id": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "allergy_checked == true",
-          "diagnosis_recorded == true"
+          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
         ],
         "postconditions": [
-          "prescription_written = true",
-          "state transitions to PRESCRIPTION_WRITTEN"
+          "diagnosis_recorded = true",
+          "state transitions to DIAGNOSIS_MADE"
         ],
         "cost": {
           "turns": 1
+        },
+        "parameter_hints": {
+          "correct_diagnosis": "chronic kidney disease"
         }
       },
       "assess_vital_signs": {
@@ -1597,7 +1817,7 @@
             "delay": 0.1
           }
         },
-        "active_level": "refusing"
+        "active_level": "cooperative"
       },
       "lab_result_noise": {
         "type": "gaussian",
@@ -1617,20 +1837,25 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "hepatic cirrhosis"
+          "long-term renal failure",
+          "kidney disease"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
-        "fields": [],
+        "fields": [
+          "long-term renal insufficiency",
+          "anaemia"
+        ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
       },
       "hidden_tier": {
         "access": "on_specific_probe",
         "fields": [
-          "liver cirrhosis"
+          "crf",
+          "my appetite has changed"
         ],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
@@ -1639,11 +1864,11 @@
         "access": "after_trust_threshold",
         "fields": [],
         "cost": 2,
-        "trust_required": 0.6,
+        "trust_required": 0.0,
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
-    "difficulty_noise_multiplier": 1.5,
+    "difficulty_noise_multiplier": 1.0,
     "observation_protocol": {
       "step_input": {
         "agent_action": "ActionSchema compliant JSON",
@@ -1794,8 +2019,8 @@
       }
     },
     "turn_rules": {
-      "max_turns": 20,
-      "min_required_turns": 5,
+      "max_turns": 25,
+      "min_required_turns": 3,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
       "multi_action_per_turn": false
@@ -1865,7 +2090,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 411,
+      "seed": 504,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -1880,12 +2105,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (chronic kidney disease) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "KDIGO Clinical Practice Guidelines",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.6,
+      "std": 0.15,
+      "percentiles": {
+        "p10": 0.38,
+        "p25": 0.5,
+        "p50": 0.6,
+        "p75": 0.72,
+        "p90": 0.82
+      },
+      "description": "Reference distribution from baseline agent performance on L2 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "see L3 reference"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 504,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "c46cb55f60815dc1",
+    "hash_input": "v2_conflicting_evidence_L2_chronic_kidney_disease_f0d714|chronic kidney disease|L2|conflicting_evidence|cooperative|504",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_patient_non_compliance_L3_cirrhosis_1c8836",
+    "scenario_id": "v2_conflicting_evidence_L2_chronic_kidney_disease_f0d714",
     "risk_level": "moderate",
-    "uncertainty_level": 0.708,
-    "behavior_type": "refusing",
-    "seed": 411
+    "uncertainty_level": 0.647,
+    "behavior_type": "cooperative",
+    "seed": 504
   }
 }

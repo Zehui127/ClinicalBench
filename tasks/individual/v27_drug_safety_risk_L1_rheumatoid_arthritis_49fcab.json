@@ -1,69 +1,74 @@
 {
-  "id": "v27_emergency_triage_L1_peptic_ulcer_disease_a756bc",
-  "domain": "internal_medicine",
-  "task_type": "emergency_triage",
+  "id": "v27_drug_safety_risk_L1_rheumatoid_arthritis_49fcab",
+  "domain": "rheumatology",
+  "task_type": "drug_safety_risk",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "emergency_triage — 56-year-old male with I've been having black, tarry stools for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having black, tarry stools for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "drug_safety_risk — 31-year-old female with I've been having which joints are affected? are the symptoms symmetric on both sides for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having which joints are affected? are the symptoms symmetric on both sides for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Rapid assessment and prioritization",
-      "Time-sensitive decision making"
+      "Safety checking before prescribing",
+      "Drug interaction awareness"
     ],
-    "focus": "Rapid assessment and stabilization"
+    "focus": "Safe prescribing with allergy and interaction checks"
   },
   "user_scenario": {
-    "persona": "56-year-old male patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with I've been having black, tarry stools.",
+    "persona": "31-year-old female patient, 高中/中专 education, works as a technician. a cooperative patient who answers questions clearly presenting with I've been having which joints are affected? are the symptoms symmetric on both sides.",
     "patient_profile": {
-      "age": 56,
-      "gender": "male",
+      "age": 31,
+      "gender": "female",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "stomach ulcer and and pud for a few weeks",
-      "occupation": "sales associate"
+      "chief_complaint": "i've been having joint deformities for a few weeks",
+      "occupation": "technician"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "stomach ulcer",
-          "pud"
+          "i've been having joint deformities"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having black, tarry stools",
+        "general_concern": "I've been having which joints are affected? are the symptoms symmetric on both sides",
+        "family_history": "family member has sickle cell disease",
+        "past_history": [
+          "sickle cell disease"
+        ],
         "current_medications": [
-          "amoxicillin 1g twice daily for 14 days"
+          "methotrexate 15mg once weekly"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "peptic ulcer disease",
-        "specific_medication_needed": "omeprazole (40mg once daily)"
+        "diagnosis": "rheumatoid arthritis",
+        "specific_medication_needed": "methotrexate (15mg once weekly)",
+        "medication_contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
       },
       "patient_misconceptions_and_concerns": {
-        "general_concerns": [
-          "Is this serious?",
-          "Will I need surgery?",
-          "How long will treatment take?"
+        "exercise_misconception": [
+          "Should I stop exercising so I don't wear out my joints?",
+          "My joints hurt, shouldn't I just rest?"
         ],
-        "economic_concerns": [
-          "How much will this medication cost per month?",
-          "Is there a cheaper alternative?",
-          "Will my insurance cover this?",
-          "Can we only prescribe what's absolutely necessary?"
+        "medication_concerns": [
+          "I heard arthritis painkillers damage your stomach",
+          "Is there a cure for arthritis?"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "stomach ulcer",
-        "pud"
+        "i've been having joint deformities"
       ],
       "share_only_if_asked": [
-        "gastric ulcer (needs doctor to specifically ask)",
-        "duodenal ulcer (needs doctor to specifically ask)"
+        "anaemia (needs doctor to specifically ask)"
+      ],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about methotrexate side effects — pregnancy, liver disease"
       ],
       "response_style": {
         "honest": true,
@@ -72,79 +77,95 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true
+        "financial_constraints": false
       }
     },
-    "task_instructions": "You are ChenXX, a 56-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of stomach ulcer. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ZhangXX, a 31-year-old female patient. Your education level is 高中/中专. You work as a technician. You are seeing a doctor because of i've been having joint deformities. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words."
   },
   "medical_persona": {
-    "age": 56,
-    "gender": "male",
+    "age": 31,
+    "gender": "female",
     "symptoms": {
-      "PUD": "pud",
-      "stomach ulcer": "stomach ulcer",
-      "gastric ulcer": "gastric ulcer",
-      "duodenal ulcer": "duodenal ulcer"
+      "Have you noticed any joint deformities": "I've been having joint deformities",
+      "anaemia": "anaemia"
     },
     "duration": "a few weeks",
     "severity": "mild",
+    "past_medical_history": [
+      "sickle cell disease"
+    ],
     "current_medications": [
       {
-        "name": "clarithromycin",
+        "name": "methotrexate",
         "brand_names": [],
-        "drug_class": "macrolide antibiotic",
-        "dose": "500mg",
-        "frequency": "twice daily for 14 days"
+        "drug_class": "antimetabolite / DMARD",
+        "dose": "15mg",
+        "frequency": "once weekly"
       },
       {
-        "name": "amoxicillin",
-        "dose": "1g",
-        "frequency": "twice daily for 14 days"
+        "name": "folic acid",
+        "brand_names": [],
+        "drug_class": "vitamin B9 supplement",
+        "dose": "1mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "hydroxychloroquine",
+        "dose": "200mg",
+        "frequency": "twice daily"
       }
     ],
+    "allergies": [
+      "contrast dye"
+    ],
     "vital_signs": {
-      "blood_pressure": "122/75 mmHg",
-      "bmi": "22.8"
+      "blood_pressure": "133/78 mmHg",
+      "bmi": "24.6"
     },
     "lifestyle_factors": {
       "smoking": "yes (half pack/day for 15+ years)",
-      "alcohol": "moderate (3-4 drinks/week)",
       "exercise": "moderate 3x/week"
     },
+    "comorbidities": {
+      "anemia": "sickle cell disease, severity: 0.5"
+    },
     "socioeconomic_factors": {
-      "occupation": "sales associate",
-      "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage"
+      "occupation": "technician",
+      "monthly_income": "about 10000+ yuan/month",
+      "insurance": "comprehensive medical insurance, good coverage"
     },
     "medication_considerations": {
-      "omeprazole": {
-        "drug_class": "proton pump inhibitor (PPI)",
+      "methotrexate": {
+        "drug_class": "antimetabolite / DMARD",
         "standard_dose": "",
-        "contraindications": []
+        "contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
       }
     },
     "diagnosis": {
-      "primary": "peptic ulcer disease",
+      "primary": "rheumatoid arthritis",
       "severity": "mild",
       "differential_diagnoses": [
-        "GERD",
-        "Gastritis",
-        "Gastric Cancer",
-        "Functional Dyspepsia"
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus",
+        "Gout"
       ]
     }
   },
-  "ticket": "stomach ulcer, pud",
+  "ticket": "i've been having joint deformities",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ChenXX",
-          "mrn": "MRN197601",
-          "age": 56,
-          "gender": "male"
+          "name": "ZhangXX",
+          "mrn": "MRN952012",
+          "age": 31,
+          "gender": "female"
         }
       },
       {
@@ -152,23 +173,20 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 56,
-            "gender": "male",
+            "age": 31,
+            "gender": "female",
             "symptoms": [
-              "stomach ulcer",
-              "pud"
+              "i've been having joint deformities"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "stomach ulcer",
-              "pud"
+              "i've been having joint deformities"
             ],
             "ask_only": [
-              "gastric ulcer",
-              "duodenal ulcer"
+              "anaemia"
             ]
           },
           "response_style": {
@@ -186,43 +204,47 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 1
+          "min_questions": 2
         }
       },
       {
-        "action_id": "use_assess_vital_signs",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "assess_vital_signs",
-        "arguments": {
-          "include_bmi": true
-        }
-      },
-      {
-        "action_id": "use_order_lab_tests",
-        "requestor": "assistant",
-        "name": "order_lab_tests",
-        "arguments": {
-          "tests": [
-            "CBC",
-            "BMP"
-          ],
-          "rationale": "Labs to evaluate peptic ulcer disease"
-        }
-      },
-      {
-        "action_id": "use_get_lab_results",
-        "requestor": "assistant",
-        "name": "get_lab_results",
+        "name": "check_allergy",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_record_diagnosis",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "record_diagnosis",
+        "name": "check_drug_interactions",
         "arguments": {
-          "diagnosis": "peptic ulcer disease"
+          "drug_list": [
+            "methotrexate",
+            "folic acid",
+            "prednisone"
+          ]
+        }
+      },
+      {
+        "action_id": "use_check_contraindications",
+        "requestor": "assistant",
+        "name": "check_contraindications",
+        "arguments": {
+          "medication": "methotrexate",
+          "conditions": [
+            "anemia"
+          ]
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "methotrexate",
+          "dose": ""
         }
       }
     ],
@@ -242,13 +264,12 @@
       "DB",
       "COMMUNICATE",
       "CLINICAL",
-      "SAFETY",
-      "TIME"
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "emergency",
+      "category": "safety",
       "min_turns": 3,
-      "max_turns": 10,
+      "max_turns": 20,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -258,7 +279,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of peptic ulcer disease identified through systematic questioning",
+            "description": "All major symptoms of rheumatoid arthritis identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -298,20 +319,20 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "peptic ulcer disease",
+          "correct_diagnosis": "rheumatoid arthritis",
           "allow_alternatives": [
-            "GERD",
-            "Gastritis",
-            "Gastric Cancer"
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
           "must_consider": [
-            "GERD",
-            "Gastritis",
-            "Gastric Cancer"
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
           ],
           "weight": 0.2
         },
@@ -326,11 +347,27 @@
         "key_questions": {
           "required": false,
           "must_ask": [
-            "Do you have burning or gnawing pain in your upper abdomen?",
-            "Does the pain improve or worsen with eating?",
-            "Have you noticed any black, tarry stools?"
+            "Which joints are affected? Are the symptoms symmetric on both sides?",
+            "Is there prolonged morning stiffness lasting more than an hour?",
+            "Are the joints swollen, warm, or tender?"
           ],
           "weight": 0.1
+        }
+      },
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "methotrexate",
+          "appropriate_dosage": "15mg once weekly",
+          "weight": 0.3
+        },
+        "contraindication_awareness": {
+          "required": true,
+          "must_check": [
+            "pregnancy",
+            "liver disease"
+          ],
+          "weight": 0.2
         }
       },
       "safety_requirements": {
@@ -344,27 +381,22 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "bleeding_risk": {
+        "nsaid_gi_risk": {
           "required": true,
-          "description": "Must assess: bleeding risk",
+          "description": "Must assess: NSAID GI risk",
           "severity": "major"
         },
-        "hepatic_dose_adjustment": {
+        "immunosuppression_monitoring": {
           "required": true,
-          "description": "Must assess: hepatic dose adjustment",
-          "severity": "major"
-        },
-        "alcohol_interaction": {
-          "required": true,
-          "description": "Must assess: alcohol interaction",
+          "description": "Must assess: immunosuppression monitoring",
           "severity": "major"
         }
       },
       "required_tools": [
-        "assess_vital_signs",
-        "order_lab_tests",
-        "get_lab_results",
-        "record_diagnosis"
+        "check_allergy",
+        "check_drug_interactions",
+        "check_contraindications",
+        "prescribe_medication"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -377,19 +409,20 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider GERD as alternative diagnosis",
-        "Diagnose peptic ulcer disease without ordering any supporting lab tests"
+        "Fail to consider Osteoarthritis as alternative diagnosis",
+        "Prescribe methotrexate in patient with pregnancy without special precautions",
+        "Diagnose rheumatoid arthritis without ordering any supporting lab tests"
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "peptic ulcer disease",
+      "primary": "rheumatoid arthritis",
       "confidence_threshold": 0.7,
       "acceptable_alternatives": [
-        "GERD",
-        "Gastritis",
-        "Gastric Cancer"
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus"
       ],
       "required_evidence": [
         "symptom_cluster_matching"
@@ -399,11 +432,11 @@
     "correct_treatment_plan": {
       "medications": [
         {
-          "name": "omeprazole",
-          "drug_class": "proton pump inhibitor (PPI)",
-          "dose": "40mg",
-          "frequency": "once daily",
-          "rationale": "First-line treatment for peptic ulcer disease"
+          "name": "methotrexate",
+          "drug_class": "antimetabolite / DMARD",
+          "dose": "15mg",
+          "frequency": "once weekly",
+          "rationale": "First-line treatment for rheumatoid arthritis"
         }
       ],
       "non_pharmacological": [
@@ -422,6 +455,14 @@
         "check": "drug_interaction_check",
         "before": "prescribing",
         "critical": false
+      },
+      {
+        "check": "contraindication_check",
+        "before": "prescribing",
+        "conditions": [
+          "anemia"
+        ],
+        "critical": true
       }
     ],
     "communication_truth": [
@@ -454,15 +495,14 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "stomach ulcer",
-          "pud"
+          "i've been having joint deformities"
         ],
         "hidden_information_to_uncover": []
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for peptic ulcer disease",
+        "correct_approach": "Order disease-relevant labs for rheumatoid arthritis",
         "required_tests": [
           "CBC",
           "BMP"
@@ -473,9 +513,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "GERD",
-          "Gastritis",
-          "Gastric Cancer"
+          "Osteoarthritis",
+          "Psoriatic Arthritis",
+          "Lupus"
         ]
       },
       {
@@ -524,6 +564,17 @@
           "trust_gated": "resistant symptoms need empathy/probing"
         }
       },
+      "PHYSICAL_EXAM": {
+        "description": "Doctor performs or orders physical examination",
+        "available_actions": [
+          "assess_vital_signs",
+          "perform_examination"
+        ],
+        "observations": [
+          "vital_signs",
+          "exam_findings"
+        ]
+      },
       "LAB_ORDERED": {
         "description": "Doctor has ordered lab tests, awaiting results",
         "available_actions": [
@@ -545,11 +596,23 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "tsh: results pending",
-          "free_t4: results pending",
-          "free_t3: results pending",
-          "total_cholesterol: results pending",
-          "alt: results pending"
+          "hemoglobin: results pending",
+          "reticulocyte_count: results pending",
+          "ldh: results pending",
+          "total_bilirubin: results pending",
+          "indirect_bilirubin: results pending"
+        ]
+      },
+      "DIAGNOSIS_FORMING": {
+        "description": "Doctor is forming differential diagnosis",
+        "available_actions": [
+          "differential_diagnosis",
+          "order_additional_tests",
+          "consult_specialist"
+        ],
+        "observations": [
+          "symptom_summary",
+          "lab_summary"
         ]
       },
       "DIAGNOSIS_MADE": {
@@ -574,6 +637,18 @@
         "observations": [
           "allergy_check_result",
           "interaction_check_result"
+        ]
+      },
+      "PATIENT_DISCUSSION": {
+        "description": "Doctor is discussing treatment with patient",
+        "available_actions": [
+          "patient_education",
+          "address_concerns",
+          "negotiate_treatment"
+        ],
+        "observations": [
+          "patient_reaction",
+          "patient_concerns"
         ]
       },
       "PRESCRIPTION_WRITTEN": {
@@ -611,6 +686,16 @@
         "trigger": "doctor orders lab tests"
       },
       {
+        "from": "PHYSICAL_EXAM",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor begins differential diagnosis"
+      },
+      {
         "from": "LAB_ORDERED",
         "to": "LAB_RESULTS_AVAILABLE",
         "trigger": "lab results are ready"
@@ -626,6 +711,16 @@
         "trigger": "doctor orders additional tests"
       },
       {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "DIAGNOSIS_MADE",
+        "trigger": "doctor records diagnosis"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders confirmatory tests"
+      },
+      {
         "from": "DIAGNOSIS_MADE",
         "to": "TREATMENT_PLANNING",
         "trigger": "doctor begins treatment planning"
@@ -634,6 +729,16 @@
         "from": "TREATMENT_PLANNING",
         "to": "PATIENT_DISCUSSION",
         "trigger": "doctor discusses treatment options with patient"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "PRESCRIPTION_WRITTEN",
+        "trigger": "doctor writes prescription"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "patient objects, doctor revises plan"
       },
       {
         "from": "PRESCRIPTION_WRITTEN",
@@ -733,11 +838,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "peptic ulcer disease",
+      "correct_answer": "rheumatoid arthritis",
       "acceptable_answers": [
-        "GERD",
-        "Gastritis",
-        "Gastric Cancer"
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus"
       ]
     },
     "secondary_outcomes": [
@@ -751,7 +856,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "omeprazole"
+        "correct_answer": "methotrexate"
       },
       {
         "metric": "safety_adherence",
@@ -858,8 +963,8 @@
         "name": "history_taking",
         "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
         "turn_budget": {
-          "min": 2,
-          "max": 4
+          "min": 4,
+          "max": 8
         },
         "required_actions": [
           "ask_about_symptoms",
@@ -873,8 +978,8 @@
         "name": "examination_and_labs",
         "description": "Physical examination and laboratory testing",
         "turn_budget": {
-          "min": 1,
-          "max": 2
+          "min": 2,
+          "max": 4
         },
         "required_actions": [
           "assess_vital_signs",
@@ -887,8 +992,8 @@
         "name": "diagnosis",
         "description": "Form and record diagnosis with differential consideration",
         "turn_budget": {
-          "min": 1,
-          "max": 2
+          "min": 2,
+          "max": 3
         },
         "required_actions": [
           "differential_diagnosis",
@@ -900,8 +1005,8 @@
         "name": "treatment",
         "description": "Plan treatment, check safety, prescribe medication",
         "turn_budget": {
-          "min": 1,
-          "max": 2
+          "min": 2,
+          "max": 4
         },
         "required_actions": [
           "check_allergy",
@@ -914,8 +1019,8 @@
         "name": "patient_communication",
         "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
         "turn_budget": {
-          "min": 1,
-          "max": 2
+          "min": 2,
+          "max": 4
         },
         "required_actions": [
           "communicate_diagnosis",
@@ -943,12 +1048,12 @@
         5,
         11
       ],
-      "max_turns": 10,
+      "max_turns": 20,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
       "waste_penalty": -0.02,
       "rush_penalty": -0.05
     },
-    "total_turn_budget": 10,
+    "total_turn_budget": 20,
     "minimum_required_turns": 3
   },
   "capability_dimensions": {
@@ -961,8 +1066,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.15,
-        "test_method": "Measure percentage of critical symptoms discovered for peptic ulcer disease"
+        "weight": 0.1,
+        "test_method": "Measure percentage of critical symptoms discovered for rheumatoid arthritis"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -972,7 +1077,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.25,
+        "weight": 0.1,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -983,7 +1088,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.2,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -994,7 +1099,7 @@
           "contraindication_awareness",
           "red_flag_detection"
         ],
-        "weight": 0.15,
+        "weight": 0.4,
         "test_method": "Check all safety checks performed before treatment decisions"
       },
       "communication_quality": {
@@ -1016,13 +1121,13 @@
           "time_management",
           "resource_efficiency"
         ],
-        "weight": 0.2,
+        "weight": 0.1,
         "test_method": "Count turns and actions relative to optimal path"
       }
     },
     "primary_dimensions": [
-      "diagnostic_reasoning",
-      "efficiency",
+      "safety_awareness",
+      "treatment_planning",
       "information_gathering"
     ],
     "difficulty_modifier": {
@@ -1036,7 +1141,7 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "4 total symptoms across tiers"
+        "task_specific": "2 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 2,
@@ -1045,10 +1150,10 @@
         "task_specific": "4 plausible differentials"
       },
       "treatment_complexity": {
-        "score": 1,
+        "score": 2,
         "max": 3,
         "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "0 comorbidities affecting treatment choice"
+        "task_specific": "1 comorbidities affecting treatment choice"
       },
       "patient_behavior_difficulty": {
         "score": 1,
@@ -1063,16 +1168,16 @@
         "task_specific": "0 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
-        "score": 0,
+        "score": 1,
         "max": 3,
         "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "0 comorbidities present"
+        "task_specific": "1 comorbidities present"
       },
       "time_pressure": {
-        "score": 3,
+        "score": 1,
         "max": 3,
         "description": "Urgency level and consequences of delayed action",
-        "task_specific": "Emergency — time-sensitive decisions required"
+        "task_specific": "Routine consultation, no urgency"
       }
     },
     "overall": {
@@ -1080,11 +1185,11 @@
       "max_possible": 21,
       "difficulty_rating": "L1",
       "primary_difficulty_drivers": [
-        "time_pressure",
         "diagnostic_ambiguity",
+        "treatment_complexity",
         "symptom_complexity"
       ],
-      "explanation": "This L1 task is primarily challenging due to time pressure, diagnostic ambiguity. The diagnosis of peptic ulcer disease requires careful information gathering and clinical reasoning."
+      "explanation": "This L1 task is primarily challenging due to diagnostic ambiguity, treatment complexity. The diagnosis of rheumatoid arthritis requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
@@ -1104,7 +1209,7 @@
   "action_space": {
     "version": "1.0",
     "schema_type": "json_schema",
-    "total_actions": 7,
+    "total_actions": 8,
     "actions": {
       "greet_patient": {
         "description": "Greet the patient and introduce yourself",
@@ -1183,6 +1288,164 @@
           "turns": 1
         }
       },
+      "check_allergy": {
+        "description": "Check patient allergies",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "allergies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "preconditions": [
+          "state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"
+        ],
+        "postconditions": [
+          "allergy_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "check_drug_interactions": {
+        "description": "Check for drug-drug interactions",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "drug_list"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "interactions": {
+              "type": "array"
+            },
+            "safe_to_proceed": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "state == TREATMENT_PLANNING"
+        ],
+        "postconditions": [
+          "interaction_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "check_contraindications": {
+        "description": "Check contraindications for a medication given patient conditions",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication": {
+              "type": "string"
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "medication"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "contraindications": {
+              "type": "array"
+            },
+            "safe": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "state == TREATMENT_PLANNING"
+        ],
+        "postconditions": [
+          "contraindication_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "prescribe_medication": {
+        "description": "Prescribe a medication to the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication": {
+              "type": "string"
+            },
+            "dose": {
+              "type": "string"
+            },
+            "frequency": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "medication"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "prescription_id": {
+              "type": "string"
+            },
+            "prescribed": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "array"
+            }
+          }
+        },
+        "preconditions": [
+          "allergy_checked == true",
+          "diagnosis_recorded == true"
+        ],
+        "postconditions": [
+          "prescription_written = true",
+          "state transitions to PRESCRIPTION_WRITTEN"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
       "assess_vital_signs": {
         "description": "Measure patient vital signs",
         "parameters": {
@@ -1224,139 +1487,6 @@
         ],
         "cost": {
           "turns": 1
-        }
-      },
-      "order_lab_tests": {
-        "description": "Order laboratory tests for the patient",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "tests": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "List of test names to order"
-            },
-            "rationale": {
-              "type": "string",
-              "description": "Clinical rationale for ordering"
-            }
-          },
-          "required": [
-            "tests"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "order_id": {
-              "type": "string"
-            },
-            "tests_ordered": {
-              "type": "array"
-            },
-            "estimated_wait": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
-        ],
-        "postconditions": [
-          "labs_ordered = true",
-          "state transitions to LAB_ORDERED"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "get_lab_results": {
-        "description": "Retrieve results of ordered lab tests",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "patient_id": {
-              "type": "string",
-              "default": "current"
-            }
-          },
-          "required": []
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "results": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "all_results_available": {
-              "type": "boolean"
-            }
-          }
-        },
-        "preconditions": [
-          "labs_ordered == true",
-          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
-        ],
-        "postconditions": [
-          "labs_available = true",
-          "state transitions to LAB_RESULTS_AVAILABLE"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "record_diagnosis": {
-        "description": "Record the final diagnosis",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "diagnosis": {
-              "type": "string"
-            },
-            "confidence": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "evidence": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "diagnosis"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "recorded": {
-              "type": "boolean"
-            },
-            "diagnosis_id": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
-        ],
-        "postconditions": [
-          "diagnosis_recorded = true",
-          "state transitions to DIAGNOSIS_MADE"
-        ],
-        "cost": {
-          "turns": 1
-        },
-        "parameter_hints": {
-          "correct_diagnosis": "peptic ulcer disease"
         }
       },
       "schedule_followup": {
@@ -1554,16 +1684,14 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "stomach ulcer",
-          "pud"
+          "i've been having joint deformities"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
         "fields": [
-          "gastric ulcer",
-          "duodenal ulcer"
+          "anaemia"
         ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
@@ -1733,7 +1861,7 @@
       }
     },
     "turn_rules": {
-      "max_turns": 10,
+      "max_turns": 20,
       "min_required_turns": 3,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
@@ -1804,7 +1932,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 415,
+      "seed": 512,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -1819,12 +1947,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (rheumatoid arthritis) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "General internal medicine guidelines",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.75,
+      "std": 0.12,
+      "percentiles": {
+        "p10": 0.55,
+        "p25": 0.65,
+        "p50": 0.75,
+        "p75": 0.85,
+        "p90": 0.92
+      },
+      "description": "Reference distribution from baseline agent performance on L1 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "z = (0.7 - 0.75) / 0.12 = -0.42",
+        "raw_0.7_at_L3": "see L3 reference"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 512,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "cdfd41f254c7d511",
+    "hash_input": "v2_drug_safety_risk_L1_rheumatoid_arthritis_a5b246|rheumatoid arthritis|L1|drug_safety_risk|cooperative|512",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_emergency_triage_L1_peptic_ulcer_disease_383f12",
+    "scenario_id": "v2_drug_safety_risk_L1_rheumatoid_arthritis_a5b246",
     "risk_level": "moderate",
-    "uncertainty_level": 0.174,
+    "uncertainty_level": 0.344,
     "behavior_type": "cooperative",
-    "seed": 415
+    "seed": 512
   }
 }

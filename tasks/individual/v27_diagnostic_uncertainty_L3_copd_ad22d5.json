@@ -1,63 +1,63 @@
 {
-  "id": "v27_treatment_tradeoff_L3_stroke_b19bfe",
-  "domain": "neurology",
-  "task_type": "treatment_tradeoff",
+  "id": "v27_diagnostic_uncertainty_L3_copd_ad22d5",
+  "domain": "pulmonology",
+  "task_type": "diagnostic_uncertainty",
   "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "treatment_tradeoff — 72-year-old female with I've had vision changes for a few weeks",
-    "clinical_scenario": "Patient presents with I've had vision changes for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "diagnostic_uncertainty — 77-year-old female with COPD for a few weeks",
+    "clinical_scenario": "Patient presents with COPD for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Consideration of comorbidities in treatment",
-      "Shared decision-making ability",
-      "Handle complex multi-condition scenario",
-      "Manage difficult patient behavior"
+      "Ability to probe for hidden symptoms",
+      "Quality of differential diagnosis",
+      "Handle complex multi-condition scenario"
     ],
-    "focus": "Weighing treatment options with comorbidity considerations"
+    "focus": "Systematic information gathering and differential diagnosis"
   },
   "user_scenario": {
-    "persona": "72-year-old female patient, 初中 education, works as a warehouse worker. a patient who may resist tests or treatment presenting with I've had vision changes.",
+    "persona": "77-year-old female patient, 大学 education, works as a accountant. a patient who is impatient and wants quick resolution presenting with COPD.",
     "patient_profile": {
-      "age": 72,
+      "age": 77,
       "gender": "female",
-      "education_level": "middle_school",
-      "communication_style": "resistant",
-      "cooperation_level": "poor",
-      "chief_complaint": "irregular heartbeat for a few weeks",
-      "occupation": "warehouse worker"
+      "education_level": "college",
+      "communication_style": "demanding",
+      "cooperation_level": "moderate",
+      "chief_complaint": "COPD for a few weeks",
+      "occupation": "accountant"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "irregular heartbeat"
+          "COPD"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've had vision changes",
-        "family_history": "family member has irregular heartbeat",
+        "general_concern": "COPD",
+        "family_history": "family member has heart failure",
         "past_history": [
-          "irregular heartbeat",
-          "type 2 diabetes"
+          "heart failure",
+          "anxiety"
         ],
         "current_medications": [
-          "aspirin 81mg once daily",
-          "clopidogrel 75mg once daily"
+          "albuterol 90mcg as needed inhaled"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "stroke",
-        "specific_medication_needed": "aspirin (81mg once daily)",
-        "medication_contraindications": [
-          "peptic ulcer",
-          "asthma"
-        ]
+        "diagnosis": "copd",
+        "pao2": "69.4 mmHg (abnormal)",
+        "paco2": "49.0 mmHg (abnormal)",
+        "fev1_predicted": "55.0 % (abnormal)",
+        "specific_medication_needed": "tiotropium (18mcg once daily inhaled)"
       },
       "patient_misconceptions_and_concerns": {
-        "general_concerns": [
-          "Is this serious?",
-          "Will I need surgery?",
-          "How long will treatment take?"
+        "smoking_denial": [
+          "My grandfather smoked until he was 90 and was fine",
+          "I've already quit, why isn't my breathing better?"
+        ],
+        "inhaler_concerns": [
+          "Are inhalers addictive?",
+          "I don't want to use steroids"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -68,17 +68,17 @@
       },
       "undiagnosed_comorbidities": [
         {
-          "condition": "atrial fibrillation",
+          "condition": "heart failure",
           "patient_aware_of_symptoms": [
-            "atrial fibrillation",
-            "atrial fibrillation"
+            "my weight has changed"
           ],
           "patient_unaware_of_diagnosis": true
         },
         {
-          "condition": "type 2 diabetes",
+          "condition": "anxiety disorder",
           "patient_aware_of_symptoms": [
-            "my appetite has changed"
+            "anxiety",
+            "gad"
           ],
           "patient_unaware_of_diagnosis": true
         }
@@ -86,167 +86,154 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "irregular heartbeat"
+        "COPD"
       ],
       "share_only_if_asked": [
-        "i've had vision changes (needs doctor to specifically ask)"
+        "COPD (needs doctor to specifically ask)",
+        "COPD (needs doctor to specifically ask)"
       ],
       "hidden_truth": [
-        "my appetite has changed (won't mention unless specifically probed)"
+        "COPD (won't mention unless specifically probed)",
+        "my weight has changed (won't mention unless specifically probed)",
+        "anxiety (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "noise_symptoms": [
-        "mild eye dryness"
+        "mild unsteadiness when walking"
       ],
       "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "is the headache one-sided or pulsating",
-        "how often do you get these headaches",
-        "sudden severe headache without known cause",
-        "difficulty speaking or understanding speech",
-        "weakness on one side (also seen in migraine with aura)",
-        "confusion (also seen in infection and medication effects)"
+        "constant tiredness",
+        "pain",
+        "morning headache from CO2 retention",
+        "swollen ankles from right heart strain",
+        "chronic cough (also seen in GERD and heart failure)",
+        "fatigue (also seen in depression and anemia)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "progressive_reveal": [
         {
-          "after_turn": 4,
-          "symptom": "atrial fibrillation",
+          "after_turn": 6,
+          "symptom": "my weight has changed",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
-          "after_turn": 5,
-          "symptom": "my appetite has changed",
+          "after_turn": 7,
+          "symptom": "gad",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        },
+        {
+          "after_turn": 12,
+          "symptom": "anxiety",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
-      "share_in_response_to_medication_discussion": [
-        "Concerns about aspirin side effects — peptic ulcer, asthma",
-        "Concerns about clopidogrel side effects — active_bleeding"
-      ],
       "response_style": {
         "honest": false,
-        "direct": false,
+        "direct": true,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [
-          "medical terminology",
-          "complex concepts"
-        ],
-        "emotional_state": "hostile",
-        "may_resist_certain_treatments": [
-          "expensive_medications",
-          "multiple_medications"
-        ],
+        "may_need_clarification": [],
+        "emotional_state": "impatient",
+        "may_resist_certain_treatments": [],
         "financial_constraints": true
       }
     },
-    "task_instructions": "You are WangXX, a 72-year-old female patient. Your education level is 初中. You work as a warehouse worker. You are seeing a doctor because of irregular heartbeat. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ZhangXX, a 77-year-old female patient. Your education level is 大学. You work as a accountant. You are seeing a doctor because of COPD. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 72,
+    "age": 77,
     "gender": "female",
     "symptoms": {
-      "Have you had any vision changes": "I've had vision changes",
-      "AFib": "atrial fibrillation",
-      "Has your appetite changed unexpectedly": "my appetite has changed"
+      "COPD": "COPD",
+      "chronic obstructive pulmonary disease": "COPD",
+      "chronic obstructive airway disease": "COPD",
+      "COAD": "COPD",
+      "Has your weight changed unexpectedly": "my weight has changed",
+      "generalized anxiety disorder": "anxiety"
     },
     "duration": "a few weeks",
     "severity": "severe",
     "past_medical_history": [
-      "irregular heartbeat",
-      "type 2 diabetes",
-      "migraine"
+      "heart failure",
+      "anxiety",
+      "lung cancer"
     ],
     "current_medications": [
       {
-        "name": "aspirin",
+        "name": "budesonide/formoterol",
         "brand_names": [],
-        "drug_class": "antiplatelet / NSAID",
-        "dose": "81mg",
-        "frequency": "once daily"
+        "drug_class": "ICS/LABA combination",
+        "dose": "160/4.5mcg",
+        "frequency": "twice daily inhaled"
       }
     ],
-    "allergies": [
-      "penicillin"
-    ],
     "lab_results": {
-      "glucose_random": "8.90 mmol/L",
-      "creatinine": "0.98 mg/dL",
-      "sodium": "140 mmol/L",
-      "platelet_count": "238 x10^9/L",
-      "inr": "1.14 ",
-      "troponin": "0.02 ng/mL"
+      "pao2": "68.8 mmHg (abnormal)",
+      "paco2": "47.1 mmHg (abnormal)",
+      "fev1_predicted": "52.7 % (abnormal)",
+      "wbc": "12.6 x10^9/L (abnormal)",
+      "hemoglobin": "15.2 g/dL"
     },
     "vital_signs": {
-      "blood_pressure": "181/114 mmHg",
-      "bmi": "21.5"
+      "blood_pressure": "123/82 mmHg",
+      "bmi": "21.9"
     },
     "lifestyle_factors": {
-      "smoking": "quit 2 years ago (former 1 pack/day for 25 years)",
-      "alcohol": "occasional (1-2 drinks/week)",
+      "smoking": "yes (1 pack/day for 20+ years)",
       "exercise": "sedentary"
     },
     "comorbidities": {
-      "atrial fibrillation": "irregular heartbeat, severity: 0.5",
-      "type 2 diabetes": "type 2 diabetes, severity: 0.5"
+      "heart failure": "heart failure, severity: 0.5",
+      "anxiety disorder": "anxiety, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "warehouse worker",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage"
+      "occupation": "accountant",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
-      "aspirin": {
-        "drug_class": "antiplatelet / NSAID",
-        "standard_dose": "81mg once daily",
-        "contraindications": [
-          "peptic ulcer",
-          "asthma"
-        ]
+      "tiotropium": {
+        "drug_class": "long-acting muscarinic antagonist (LAMA)",
+        "standard_dose": "18mcg once daily inhaled",
+        "contraindications": []
       }
     },
     "diagnosis": {
-      "primary": "stroke",
-      "severity": "severe",
-      "differential_diagnoses": [
-        "Transient Ischemic Attack",
-        "Hemorrhagic Stroke",
-        "Brain Tumor",
-        "Subdural Hematoma"
-      ]
+      "primary": "copd",
+      "severity": "severe"
     },
     "confounder_conditions": [
-      "migraine"
+      "lung cancer"
     ],
     "complication_symptoms": {
-      "atrial fibrillation": {
+      "heart failure": {
         "symptoms": [
-          "atrial fibrillation",
-          "atrial fibrillation",
-          "irregular heartbeat"
-        ],
-        "status": "undiagnosed",
-        "interaction_with_primary": "may cause overlapping confusion/weakness"
-      },
-      "type 2 diabetes": {
-        "symptoms": [
-          "my appetite has changed"
+          "my weight has changed"
         ],
         "status": "partially_diagnosed",
-        "interaction_with_primary": "may cause overlapping confusion/weakness"
+        "interaction_with_primary": "may worsen breathlessness"
+      },
+      "anxiety disorder": {
+        "symptoms": [
+          "anxiety",
+          "gad",
+          "anxiety"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may worsen breathlessness"
       }
     }
   },
-  "ticket": "irregular heartbeat",
+  "ticket": "COPD",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "WangXX",
-          "mrn": "MRN699579",
-          "age": 72,
+          "name": "ZhangXX",
+          "mrn": "MRN997525",
+          "age": 77,
           "gender": "female"
         }
       },
@@ -255,20 +242,21 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 72,
+            "age": 77,
             "gender": "female",
             "symptoms": [
-              "irregular heartbeat"
+              "COPD"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "irregular heartbeat"
+              "COPD"
             ],
             "ask_only": [
-              "i've had vision changes"
+              "COPD",
+              "COPD"
             ]
           },
           "response_style": {
@@ -286,44 +274,49 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 4
+          "min_questions": 6
         }
       },
       {
-        "action_id": "use_check_allergy",
+        "action_id": "use_order_lab_tests",
         "requestor": "assistant",
-        "name": "check_allergy",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "pao2",
+            "paco2",
+            "fev1_predicted",
+            "wbc",
+            "hemoglobin"
+          ],
+          "rationale": "Labs to evaluate copd"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_check_drug_interactions",
+        "action_id": "use_differential_diagnosis",
         "requestor": "assistant",
-        "name": "check_drug_interactions",
+        "name": "differential_diagnosis",
         "arguments": {
-          "drug_list": [
-            "aspirin",
-            "clopidogrel",
-            "atorvastatin"
-          ]
+          "symptoms": [
+            "COPD"
+          ],
+          "must_consider": []
         }
       },
       {
-        "action_id": "use_prescribe_medication",
+        "action_id": "use_record_diagnosis",
         "requestor": "assistant",
-        "name": "prescribe_medication",
+        "name": "record_diagnosis",
         "arguments": {
-          "medication": "aspirin",
-          "dose": ""
-        }
-      },
-      {
-        "action_id": "use_schedule_followup",
-        "requestor": "assistant",
-        "name": "schedule_followup",
-        "arguments": {
-          "timeframe": "2-4 weeks"
+          "diagnosis": "copd"
         }
       }
     ],
@@ -339,11 +332,6 @@
         "weight": 1.0
       },
       {
-        "check_id": "trust_building",
-        "criteria": "Demonstrates empathy and builds patient trust",
-        "weight": 1.5
-      },
-      {
         "check_id": "addresses_concerns",
         "criteria": "Addresses patient concerns, misconceptions, and questions",
         "weight": 1.0
@@ -352,12 +340,11 @@
     "reward_basis": [
       "DB",
       "COMMUNICATE",
-      "CLINICAL",
-      "SAFETY"
+      "CLINICAL"
     ],
     "medical_criteria": {
-      "category": "treatment",
-      "min_turns": 4,
+      "category": "diagnosis",
+      "min_turns": 6,
       "max_turns": 20,
       "information_gathering_requirements": {
         "must_collect": {
@@ -368,7 +355,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of stroke identified through systematic questioning",
+            "description": "All major symptoms of copd identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -408,28 +395,23 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "stroke",
-          "allow_alternatives": [
-            "Transient Ischemic Attack",
-            "Hemorrhagic Stroke",
-            "Brain Tumor"
-          ],
+          "correct_diagnosis": "copd",
+          "allow_alternatives": [],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
-          "must_consider": [
-            "Transient Ischemic Attack",
-            "Hemorrhagic Stroke",
-            "Brain Tumor"
-          ],
+          "must_consider": [],
           "weight": 0.2
         },
         "appropriate_tests": {
-          "must_order": [],
+          "must_order": [
+            "pao2",
+            "paco2",
+            "fev1_predicted"
+          ],
           "should_order": [
-            "glucose_random",
-            "creatinine"
+            "hemoglobin"
           ],
           "weight": 0.15
         },
@@ -440,44 +422,19 @@
             "lab_results"
           ],
           "weight": 0.1
-        },
-        "key_questions": {
-          "required": true,
-          "must_ask": [
-            "Did the symptoms come on suddenly or gradually?",
-            "Have you had any weakness on one side of your body?",
-            "Have you had any difficulty speaking or understanding speech?"
-          ],
-          "weight": 0.1
-        }
-      },
-      "treatment_requirements": {
-        "medication_appropriateness": {
-          "required": true,
-          "should_prescribe": "aspirin",
-          "appropriate_dosage": "81mg once daily",
-          "weight": 0.3
-        },
-        "contraindication_awareness": {
-          "required": true,
-          "must_check": [
-            "peptic ulcer",
-            "asthma"
-          ],
-          "weight": 0.2
         }
       },
       "treatment_scenarios": [
         {
           "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from aspirin (antiplatelet / NSAID)",
+          "description": "Patient reports side effects from tiotropium (long-acting muscarinic antagonist (LAMA))",
           "options": [
-            "Reduce dose of aspirin",
+            "Reduce dose of tiotropium",
             "Switch to alternative medication class",
             "Try extended-release formulation",
             "Add adjunct medication to manage side effects"
           ],
-          "correct_approach": "Start with low-dose aspirin, titrate up, monitor symptoms; consider alternative if intolerant",
+          "correct_approach": "Start with low-dose tiotropium, titrate up, monitor symptoms; consider alternative if intolerant",
           "complexity": "moderate"
         }
       ],
@@ -492,27 +449,22 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "critical"
         },
-        "aspiration_risk": {
+        "oxygen_saturation_monitoring": {
           "required": true,
-          "description": "Must assess: aspiration risk",
+          "description": "Must assess: oxygen saturation monitoring",
           "severity": "high"
         },
-        "fall_prevention": {
+        "respiratory_distress_signs": {
           "required": true,
-          "description": "Must assess: fall prevention",
-          "severity": "high"
-        },
-        "seizure_precautions": {
-          "required": true,
-          "description": "Must assess: seizure precautions",
+          "description": "Must assess: respiratory distress signs",
           "severity": "high"
         }
       },
       "required_tools": [
-        "check_allergy",
-        "check_drug_interactions",
-        "prescribe_medication",
-        "schedule_followup"
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -525,9 +477,9 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Transient Ischemic Attack as alternative diagnosis",
-        "Prescribe aspirin in patient with peptic ulcer without special precautions",
-        "Diagnose stroke without ordering any supporting lab tests",
+        "Prescribe beta-blockers without considering pulmonary contraindication",
+        "Discharge without checking oxygen saturation",
+        "Diagnose copd without ordering any supporting lab tests",
         "Fail to assess comorbidity impact on treatment plan",
         "Prescribe multiple new medications simultaneously without interaction check"
       ],
@@ -535,14 +487,14 @@
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal imaging with acute neurological symptoms",
+          "example": "normal chest X-ray with significant dyspnea",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
         },
         {
           "trigger": "during_treatment_discussion",
-          "event": "Patient casually mentions 'atrial fibrillation' when discussing treatment options",
-          "example": "'Oh, I also sometimes get atrial fibrillation — is that related?'",
-          "expected_handling": "Recognize this may indicate undiagnosed irregular heartbeat, update differential, order appropriate workup"
+          "event": "Patient casually mentions 'my weight has changed' when discussing treatment options",
+          "example": "'Oh, I also sometimes get my weight has changed — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed heart failure, update differential, order appropriate workup"
         },
         {
           "trigger": "mid_consultation",
@@ -555,64 +507,55 @@
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "stroke",
+      "primary": "copd",
       "confidence_threshold": 0.8,
-      "acceptable_alternatives": [
-        "Transient Ischemic Attack",
-        "Hemorrhagic Stroke",
-        "Brain Tumor"
-      ],
+      "acceptable_alternatives": [],
       "required_evidence": [
         "symptom_cluster_matching",
-        "lab_result_confirmation"
+        "lab_result_confirmation",
+        "abnormal_pao2"
       ]
     },
     "expected_lab_results": {
-      "glucose_random": {
-        "expected_value": "9.03 mmol/L",
-        "reference_range": "6.0-12.0 mmol/L",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "creatinine": {
-        "expected_value": "0.97 mg/dL",
-        "reference_range": "0.8-1.3 mg/dL",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "sodium": {
-        "expected_value": "141 mmol/L",
-        "reference_range": "137-143 mmol/L",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "platelet_count": {
-        "expected_value": "261 x10^9/L",
-        "reference_range": "180-350 x10^9/L",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "inr": {
-        "expected_value": "1.12 ",
-        "reference_range": "0.9-1.3 ",
-        "is_abnormal": false,
+      "pao2": {
+        "expected_value": "69.9 mmHg (abnormal)",
+        "reference_range": "55-75 mmHg",
+        "is_abnormal": true,
         "clinical_significance": "high"
       },
-      "troponin": {
-        "expected_value": "0.02 ng/mL",
-        "reference_range": "0.01-0.05 ng/mL",
-        "is_abnormal": false,
+      "paco2": {
+        "expected_value": "49.4 mmHg (abnormal)",
+        "reference_range": "40-55 mmHg",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "fev1_predicted": {
+        "expected_value": "55.2 % (abnormal)",
+        "reference_range": "40-65 %",
+        "is_abnormal": true,
         "clinical_significance": "high"
+      },
+      "wbc": {
+        "expected_value": "11.7 x10^9/L (abnormal)",
+        "reference_range": "8.0-15.0 x10^9/L",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "hemoglobin": {
+        "expected_value": "15.5 g/dL",
+        "reference_range": "14.0-17.0 g/dL",
+        "is_abnormal": false,
+        "clinical_significance": "moderate"
       }
     },
     "correct_treatment_plan": {
       "medications": [
         {
-          "name": "aspirin",
-          "drug_class": "antiplatelet / NSAID",
-          "dose": "81mg",
-          "frequency": "once daily",
-          "rationale": "First-line treatment for stroke"
+          "name": "tiotropium",
+          "drug_class": "long-acting muscarinic antagonist (LAMA)",
+          "dose": "18mcg",
+          "frequency": "once daily inhaled",
+          "rationale": "First-line treatment for copd"
         }
       ],
       "non_pharmacological": [
@@ -636,8 +579,8 @@
         "check": "contraindication_check",
         "before": "prescribing",
         "conditions": [
-          "atrial fibrillation",
-          "type 2 diabetes"
+          "heart failure",
+          "anxiety disorder"
         ],
         "critical": true
       }
@@ -672,33 +615,31 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "irregular heartbeat"
+          "COPD"
         ],
         "hidden_information_to_uncover": [
-          "my appetite has changed"
+          "COPD",
+          "my weight has changed",
+          "anxiety"
         ]
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for stroke",
+        "correct_approach": "Order disease-relevant labs for copd",
         "required_tests": [
-          "glucose_random",
-          "creatinine",
-          "sodium",
-          "platelet_count",
-          "inr"
+          "pao2",
+          "paco2",
+          "fev1_predicted",
+          "wbc",
+          "hemoglobin"
         ]
       },
       {
         "step": 3,
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
-        "must_consider": [
-          "Transient Ischemic Attack",
-          "Hemorrhagic Stroke",
-          "Brain Tumor"
-        ]
+        "must_consider": []
       },
       {
         "step": 4,
@@ -778,11 +719,11 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "glucose_random: results pending",
-          "creatinine: results pending",
-          "sodium: results pending",
-          "platelet_count: results pending",
-          "inr: results pending"
+          "pao2: results pending",
+          "paco2: results pending",
+          "fev1_predicted: results pending",
+          "wbc: results pending",
+          "hemoglobin: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -1020,12 +961,8 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "stroke",
-      "acceptable_answers": [
-        "Transient Ischemic Attack",
-        "Hemorrhagic Stroke",
-        "Brain Tumor"
-      ]
+      "correct_answer": "copd",
+      "acceptable_answers": []
     },
     "secondary_outcomes": [
       {
@@ -1038,7 +975,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "aspirin"
+        "correct_answer": "tiotropium"
       },
       {
         "metric": "safety_adherence",
@@ -1238,8 +1175,8 @@
     ],
     "efficiency_metrics": {
       "optimal_turn_range": [
-        6,
-        12
+        8,
+        14
       ],
       "max_turns": 20,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
@@ -1247,7 +1184,7 @@
       "rush_penalty": -0.05
     },
     "total_turn_budget": 20,
-    "minimum_required_turns": 4
+    "minimum_required_turns": 6
   },
   "capability_dimensions": {
     "dimensions": {
@@ -1259,8 +1196,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.1,
-        "test_method": "Measure percentage of critical symptoms discovered for stroke"
+        "weight": 0.25,
+        "test_method": "Measure percentage of critical symptoms discovered for copd"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1270,7 +1207,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.1,
+        "weight": 0.3,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1281,7 +1218,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.35,
+        "weight": 0.15,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1292,7 +1229,7 @@
           "contraindication_awareness",
           "red_flag_detection"
         ],
-        "weight": 0.2,
+        "weight": 0.1,
         "test_method": "Check all safety checks performed before treatment decisions"
       },
       "communication_quality": {
@@ -1303,7 +1240,7 @@
           "misconception_correction",
           "shared_decision_making"
         ],
-        "weight": 0.15,
+        "weight": 0.1,
         "test_method": "Evaluate patient understanding and misconception correction"
       },
       "efficiency": {
@@ -1319,9 +1256,9 @@
       }
     },
     "primary_dimensions": [
-      "treatment_planning",
-      "safety_awareness",
-      "communication_quality"
+      "diagnostic_reasoning",
+      "information_gathering",
+      "treatment_planning"
     ],
     "difficulty_modifier": {
       "focus": "advanced mastery under adversarial conditions",
@@ -1331,16 +1268,16 @@
   "difficulty_profile": {
     "factors": {
       "symptom_complexity": {
-        "score": 1,
-        "max": 3,
-        "description": "Number and overlap of presenting symptoms",
-        "task_specific": "3 total symptoms across tiers"
-      },
-      "diagnostic_ambiguity": {
         "score": 2,
         "max": 3,
+        "description": "Number and overlap of presenting symptoms",
+        "task_specific": "6 total symptoms across tiers"
+      },
+      "diagnostic_ambiguity": {
+        "score": 1,
+        "max": 3,
         "description": "Number of plausible differential diagnoses and ease of differentiation",
-        "task_specific": "4 plausible differentials"
+        "task_specific": "1 plausible differentials"
       },
       "treatment_complexity": {
         "score": 3,
@@ -1349,16 +1286,16 @@
         "task_specific": "2 comorbidities affecting treatment choice"
       },
       "patient_behavior_difficulty": {
-        "score": 3,
+        "score": 2,
         "max": 3,
         "description": "How challenging the patient behavior is for information gathering",
-        "task_specific": "behavior: refusing"
+        "task_specific": "behavior: pressuring"
       },
       "information_asymmetry": {
-        "score": 1,
+        "score": 3,
         "max": 3,
         "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "1 hidden/resistant symptoms to discover"
+        "task_specific": "3 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
         "score": 2,
@@ -1374,15 +1311,15 @@
       }
     },
     "overall": {
-      "aggregate_score": 14,
+      "aggregate_score": 15,
       "max_possible": 21,
       "difficulty_rating": "L3",
       "primary_difficulty_drivers": [
         "treatment_complexity",
-        "patient_behavior_difficulty",
-        "diagnostic_ambiguity"
+        "information_asymmetry",
+        "symptom_complexity"
       ],
-      "explanation": "This L3 task is primarily challenging due to treatment complexity, patient behavior difficulty. The diagnosis of stroke requires careful information gathering and clinical reasoning."
+      "explanation": "This L3 task is primarily challenging due to treatment complexity, information asymmetry. The diagnosis of copd requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
@@ -1391,18 +1328,18 @@
         "cross_overlapping_conditions": 2
       },
       "partial_observability": {
-        "hidden_symptoms": 1,
+        "hidden_symptoms": 3,
         "trust_gated_symptoms": 0,
         "undiagnosed_comorbidities": 2
       },
-      "adversarial_patient_behavior": true,
+      "adversarial_patient_behavior": false,
       "conflicting_evidence": false
     }
   },
   "action_space": {
     "version": "1.0",
     "schema_type": "json_schema",
-    "total_actions": 7,
+    "total_actions": 8,
     "actions": {
       "greet_patient": {
         "description": "Greet the patient and introduce yourself",
@@ -1481,8 +1418,63 @@
           "turns": 1
         }
       },
-      "check_allergy": {
-        "description": "Check patient allergies",
+      "order_lab_tests": {
+        "description": "Order laboratory tests for the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of test names to order"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale for ordering"
+            }
+          },
+          "required": [
+            "tests"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string"
+            },
+            "tests_ordered": {
+              "type": "array"
+            },
+            "estimated_wait": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
+        ],
+        "postconditions": [
+          "labs_ordered = true",
+          "state transitions to LAB_ORDERED"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "recommended_tests": [
+            "pao2",
+            "paco2",
+            "fev1_predicted",
+            "wbc",
+            "hemoglobin"
+          ]
+        }
+      },
+      "get_lab_results": {
+        "description": "Retrieve results of ordered lab tests",
         "parameters": {
           "type": "object",
           "properties": {
@@ -1496,30 +1488,41 @@
         "returns": {
           "type": "object",
           "properties": {
-            "allergies": {
-              "type": "array",
-              "items": {
+            "results": {
+              "type": "object",
+              "additionalProperties": {
                 "type": "string"
               }
+            },
+            "all_results_available": {
+              "type": "boolean"
             }
           }
         },
         "preconditions": [
-          "state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"
+          "labs_ordered == true",
+          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
         ],
         "postconditions": [
-          "allergy_checked = true"
+          "labs_available = true",
+          "state transitions to LAB_RESULTS_AVAILABLE"
         ],
         "cost": {
           "turns": 1
         }
       },
-      "check_drug_interactions": {
-        "description": "Check for drug-drug interactions",
+      "differential_diagnosis": {
+        "description": "Generate differential diagnosis based on available information",
         "parameters": {
           "type": "object",
           "properties": {
-            "drug_list": {
+            "symptoms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "must_consider": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1527,73 +1530,124 @@
             }
           },
           "required": [
-            "drug_list"
+            "symptoms"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "interactions": {
-              "type": "array"
+            "differentials": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
             },
-            "safe_to_proceed": {
-              "type": "boolean"
+            "reasoning": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "state == TREATMENT_PLANNING"
+          "state in [LAB_RESULTS_AVAILABLE, DIAGNOSIS_FORMING, PHYSICAL_EXAM]"
         ],
         "postconditions": [
-          "interaction_checked = true"
+          "differential_generated = true",
+          "state transitions to DIAGNOSIS_FORMING"
         ],
         "cost": {
           "turns": 1
+        },
+        "parameter_hints": {
+          "must_consider": []
         }
       },
-      "prescribe_medication": {
-        "description": "Prescribe a medication to the patient",
+      "record_diagnosis": {
+        "description": "Record the final diagnosis",
         "parameters": {
           "type": "object",
           "properties": {
-            "medication": {
+            "diagnosis": {
               "type": "string"
             },
-            "dose": {
-              "type": "string"
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             },
-            "frequency": {
-              "type": "string"
-            },
-            "duration": {
-              "type": "string"
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [
-            "medication"
+            "diagnosis"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "prescription_id": {
-              "type": "string"
-            },
-            "prescribed": {
+            "recorded": {
               "type": "boolean"
             },
-            "warnings": {
-              "type": "array"
+            "diagnosis_id": {
+              "type": "string"
             }
           }
         },
         "preconditions": [
-          "allergy_checked == true",
-          "diagnosis_recorded == true"
+          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
         ],
         "postconditions": [
-          "prescription_written = true",
-          "state transitions to PRESCRIPTION_WRITTEN"
+          "diagnosis_recorded = true",
+          "state transitions to DIAGNOSIS_MADE"
+        ],
+        "cost": {
+          "turns": 1
+        },
+        "parameter_hints": {
+          "correct_diagnosis": "copd"
+        }
+      },
+      "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include_bmi": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "blood_pressure": {
+              "type": "string"
+            },
+            "heart_rate": {
+              "type": "string"
+            },
+            "oxygen_saturation": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            },
+            "bmi": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "vitals_observed = true",
+          "state may transition to PHYSICAL_EXAM"
         ],
         "cost": {
           "turns": 1
@@ -1638,49 +1692,6 @@
         "postconditions": [
           "followup_scheduled = true",
           "state transitions to CONSULTATION_COMPLETE"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "assess_vital_signs": {
-        "description": "Measure patient vital signs",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "include_bmi": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          "required": []
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "blood_pressure": {
-              "type": "string"
-            },
-            "heart_rate": {
-              "type": "string"
-            },
-            "oxygen_saturation": {
-              "type": "string"
-            },
-            "temperature": {
-              "type": "string"
-            },
-            "bmi": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
-        ],
-        "postconditions": [
-          "vitals_observed = true",
-          "state may transition to PHYSICAL_EXAM"
         ],
         "cost": {
           "turns": 1
@@ -1817,7 +1828,7 @@
             "delay": 0.1
           }
         },
-        "active_level": "refusing"
+        "active_level": "pressuring"
       },
       "lab_result_noise": {
         "type": "gaussian",
@@ -1837,14 +1848,15 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "irregular heartbeat"
+          "COPD"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
         "fields": [
-          "i've had vision changes"
+          "COPD",
+          "COPD"
         ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
@@ -1852,7 +1864,9 @@
       "hidden_tier": {
         "access": "on_specific_probe",
         "fields": [
-          "my appetite has changed"
+          "COPD",
+          "my weight has changed",
+          "anxiety"
         ],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
@@ -1861,7 +1875,7 @@
         "access": "after_trust_threshold",
         "fields": [],
         "cost": 2,
-        "trust_required": 0.6,
+        "trust_required": 0.1,
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
@@ -2017,7 +2031,7 @@
     },
     "turn_rules": {
       "max_turns": 20,
-      "min_required_turns": 4,
+      "min_required_turns": 6,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
       "multi_action_per_turn": false
@@ -2087,7 +2101,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 408,
+      "seed": 502,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -2102,12 +2116,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (copd) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "GOLD Global Strategy for COPD",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.45,
+      "std": 0.18,
+      "percentiles": {
+        "p10": 0.22,
+        "p25": 0.33,
+        "p50": 0.45,
+        "p75": 0.58,
+        "p90": 0.7
+      },
+      "description": "Reference distribution from baseline agent performance on L3 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "z = (0.7 - 0.45) / 0.18 = 1.39 — excellent at hardest level"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 502,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "c1868d1986379879",
+    "hash_input": "v2_diagnostic_uncertainty_L3_copd_3edeac|copd|L3|diagnostic_uncertainty|pressuring|502",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_treatment_tradeoff_L3_stroke_3b3819",
-    "risk_level": "high",
-    "uncertainty_level": 0.78,
-    "behavior_type": "refusing",
-    "seed": 408
+    "scenario_id": "v2_diagnostic_uncertainty_L3_copd_3edeac",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.751,
+    "behavior_type": "pressuring",
+    "seed": 502
   }
 }

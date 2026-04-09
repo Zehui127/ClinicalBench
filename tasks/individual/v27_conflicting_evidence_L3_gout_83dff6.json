@@ -1,65 +1,54 @@
 {
-  "id": "v27_diagnostic_uncertainty_L3_copd_6d5b78",
-  "domain": "pulmonology",
-  "task_type": "diagnostic_uncertainty",
+  "id": "v27_conflicting_evidence_L3_gout_83dff6",
+  "domain": "rheumatology",
+  "task_type": "conflicting_evidence",
   "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "diagnostic_uncertainty — 74-year-old male with COPD for a few weeks",
-    "clinical_scenario": "Patient presents with COPD for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "conflicting_evidence — 44-year-old female with I've been having the pain come on suddenly, especially at night for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having the pain come on suddenly, especially at night for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Ability to probe for hidden symptoms",
-      "Quality of differential diagnosis",
-      "Handle complex multi-condition scenario",
-      "Manage difficult patient behavior"
+      "Ability to resolve conflicting data",
+      "Critical appraisal of evidence",
+      "Handle complex multi-condition scenario"
     ],
-    "focus": "Systematic information gathering and differential diagnosis"
+    "focus": "Resolving conflicting clinical evidence"
   },
   "user_scenario": {
-    "persona": "74-year-old male patient, 初中 education, works as a warehouse worker. a patient who may resist tests or treatment presenting with COPD.",
+    "persona": "44-year-old female patient, 大学 education, works as a accountant. a patient who is impatient and wants quick resolution presenting with I've been having the pain come on suddenly, especially at night.",
     "patient_profile": {
-      "age": 74,
-      "gender": "male",
-      "education_level": "middle_school",
-      "communication_style": "resistant",
-      "cooperation_level": "poor",
-      "chief_complaint": "COPD for a few weeks",
-      "occupation": "warehouse worker"
+      "age": 44,
+      "gender": "female",
+      "education_level": "college",
+      "communication_style": "demanding",
+      "cooperation_level": "moderate",
+      "chief_complaint": "i've had these attacks before for a few weeks",
+      "occupation": "accountant"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "COPD"
+          "i've had these attacks before"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "COPD",
-        "family_history": "family member has high blood pressure",
-        "past_history": [
-          "high blood pressure",
-          "heart failure"
-        ],
+        "general_concern": "I've been having the pain come on suddenly, especially at night",
         "current_medications": [
-          "tiotropium 18mcg once daily inhaled",
-          "albuterol 90mcg as needed inhaled"
+          "allopurinol 300mg once daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "copd",
-        "pao2": "68.8 mmHg (abnormal)",
-        "paco2": "48.7 mmHg (abnormal)",
-        "fev1_predicted": "53.1 % (abnormal)",
-        "specific_medication_needed": "tiotropium (18mcg once daily inhaled)"
+        "diagnosis": "gout",
+        "uric_acid": "526 umol/L (abnormal)",
+        "crp": "21.5 mg/L (abnormal)",
+        "wbc": "11.6 x10^9/L (abnormal)"
       },
       "patient_misconceptions_and_concerns": {
-        "smoking_denial": [
-          "My grandfather smoked until he was 90 and was fine",
-          "I've already quit, why isn't my breathing better?"
-        ],
-        "inhaler_concerns": [
-          "Are inhalers addictive?",
-          "I don't want to use steroids"
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -67,174 +56,94 @@
           "Will my insurance cover this?",
           "Can we only prescribe what's absolutely necessary?"
         ]
-      },
-      "undiagnosed_comorbidities": [
-        {
-          "condition": "heart failure",
-          "patient_aware_of_symptoms": [
-            "my weight has changed"
-          ],
-          "patient_unaware_of_diagnosis": true
-        }
-      ]
+      }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "COPD"
+        "i've had these attacks before"
       ],
-      "share_only_if_asked": [
-        "COPD (needs doctor to specifically ask)",
-        "COPD (needs doctor to specifically ask)"
-      ],
-      "hidden_truth": [
-        "COPD (won't mention unless specifically probed)",
-        "my weight has changed (won't mention unless specifically probed)",
-        "high blood pressure (won't mention unless specifically probed)"
-      ],
-      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "share_only_if_asked": [],
       "noise_symptoms": [
-        "mild joint stiffness"
+        "RA"
       ],
       "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "constant tiredness",
-        "pain",
-        "morning headache from CO2 retention",
-        "swollen ankles from right heart strain",
-        "chronic cough (also seen in GERD and heart failure)",
-        "fatigue (also seen in depression and anemia)"
+        "red hot joint",
+        "joint pain in unusual locations (ankle, knee)",
+        "attacks triggered by dietary changes",
+        "joint pain and swelling (also seen in rheumatoid arthritis and infection)",
+        "redness (also seen in cellulitis)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
-      "progressive_reveal": [
-        {
-          "after_turn": 6,
-          "symptom": "high blood pressure",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        },
-        {
-          "after_turn": 15,
-          "symptom": "my weight has changed",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        },
-        {
-          "after_turn": 17,
-          "symptom": "COPD",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        }
-      ],
       "response_style": {
         "honest": false,
-        "direct": false,
+        "direct": true,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [
-          "medical terminology",
-          "complex concepts"
-        ],
-        "emotional_state": "hostile",
-        "may_resist_certain_treatments": [
-          "expensive_medications",
-          "multiple_medications"
-        ],
+        "may_need_clarification": [],
+        "emotional_state": "impatient",
+        "may_resist_certain_treatments": [],
         "financial_constraints": true
       }
     },
-    "task_instructions": "You are LiuXX, a 74-year-old male patient. Your education level is 初中. You work as a warehouse worker. You are seeing a doctor because of COPD. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ChenXX, a 44-year-old female patient. Your education level is 大学. You work as a accountant. You are seeing a doctor because of i've had these attacks before. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 74,
-    "gender": "male",
+    "age": 44,
+    "gender": "female",
     "symptoms": {
-      "COPD": "COPD",
-      "chronic obstructive pulmonary disease": "COPD",
-      "chronic obstructive airway disease": "COPD",
-      "COAD": "COPD",
-      "HTN": "high blood pressure",
-      "Has your weight changed unexpectedly": "my weight has changed"
+      "Have you had these attacks before": "I've had these attacks before"
     },
     "duration": "a few weeks",
     "severity": "severe",
-    "past_medical_history": [
-      "high blood pressure",
-      "heart failure",
-      "lung cancer"
-    ],
     "current_medications": [
       {
-        "name": "albuterol",
-        "brand_names": [],
-        "drug_class": "short-acting beta-agonist (SABA)",
-        "dose": "90mcg",
-        "frequency": "as needed inhaled"
+        "name": "allopurinol",
+        "dose": "300mg",
+        "frequency": "once daily"
       }
     ],
     "lab_results": {
-      "pao2": "68.4 mmHg (abnormal)",
-      "paco2": "46.9 mmHg (abnormal)",
-      "fev1_predicted": "52.8 % (abnormal)",
-      "wbc": "11.5 x10^9/L (abnormal)",
-      "hemoglobin": "15.3 g/dL"
+      "uric_acid": "529 umol/L (abnormal)",
+      "crp": "27.0 mg/L (abnormal)",
+      "wbc": "11.4 x10^9/L (abnormal)",
+      "creatinine": "1.15 mg/dL",
+      "alt": "37.6 U/L"
     },
     "vital_signs": {
-      "blood_pressure": "140/88 mmHg",
-      "bmi": "24.9"
+      "blood_pressure": "127/78 mmHg",
+      "bmi": "21.1"
     },
     "lifestyle_factors": {
-      "smoking": "no",
-      "exercise": "sedentary"
-    },
-    "comorbidities": {
-      "hypertension": "high blood pressure, severity: 0.5",
-      "heart failure": "heart failure, severity: 0.5"
+      "alcohol": "social drinking only",
+      "exercise": "light activity 1-2x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "warehouse worker",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage"
-    },
-    "medication_considerations": {
-      "tiotropium": {
-        "drug_class": "long-acting muscarinic antagonist (LAMA)",
-        "standard_dose": "18mcg once daily inhaled",
-        "contraindications": []
-      }
+      "occupation": "accountant",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "diagnosis": {
-      "primary": "copd",
-      "severity": "severe"
-    },
-    "confounder_conditions": [
-      "lung cancer"
-    ],
-    "complication_symptoms": {
-      "hypertension": {
-        "symptoms": [
-          "high blood pressure",
-          "high blood pressure",
-          "high blood pressure"
-        ],
-        "status": "known_to_patient",
-        "interaction_with_primary": "may worsen breathlessness"
-      },
-      "heart failure": {
-        "symptoms": [
-          "my weight has changed"
-        ],
-        "status": "known_to_patient",
-        "interaction_with_primary": "may worsen breathlessness"
-      }
+      "primary": "gout",
+      "severity": "severe",
+      "differential_diagnoses": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis",
+        "Cellulitis"
+      ]
     }
   },
-  "ticket": "COPD",
+  "ticket": "i've had these attacks before",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "LiuXX",
-          "mrn": "MRN838553",
-          "age": 74,
-          "gender": "male"
+          "name": "ChenXX",
+          "mrn": "MRN323372",
+          "age": 44,
+          "gender": "female"
         }
       },
       {
@@ -242,22 +151,19 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 74,
-            "gender": "male",
+            "age": 44,
+            "gender": "female",
             "symptoms": [
-              "COPD"
+              "i've had these attacks before"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "COPD"
+              "i've had these attacks before"
             ],
-            "ask_only": [
-              "COPD",
-              "COPD"
-            ]
+            "ask_only": []
           },
           "response_style": {
             "honest": true,
@@ -274,7 +180,7 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 6
+          "min_questions": 5
         }
       },
       {
@@ -283,13 +189,13 @@
         "name": "order_lab_tests",
         "arguments": {
           "tests": [
-            "pao2",
-            "paco2",
-            "fev1_predicted",
+            "uric_acid",
+            "crp",
             "wbc",
-            "hemoglobin"
+            "creatinine",
+            "alt"
           ],
-          "rationale": "Labs to evaluate copd"
+          "rationale": "Labs to evaluate gout"
         }
       },
       {
@@ -306,9 +212,13 @@
         "name": "differential_diagnosis",
         "arguments": {
           "symptoms": [
-            "COPD"
+            "gout"
           ],
-          "must_consider": []
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ]
         }
       },
       {
@@ -316,7 +226,7 @@
         "requestor": "assistant",
         "name": "record_diagnosis",
         "arguments": {
-          "diagnosis": "copd"
+          "diagnosis": "gout"
         }
       }
     ],
@@ -332,11 +242,6 @@
         "weight": 1.0
       },
       {
-        "check_id": "trust_building",
-        "criteria": "Demonstrates empathy and builds patient trust",
-        "weight": 1.5
-      },
-      {
         "check_id": "addresses_concerns",
         "criteria": "Addresses patient concerns, misconceptions, and questions",
         "weight": 1.0
@@ -349,7 +254,7 @@
     ],
     "medical_criteria": {
       "category": "diagnosis",
-      "min_turns": 6,
+      "min_turns": 5,
       "max_turns": 20,
       "information_gathering_requirements": {
         "must_collect": {
@@ -360,7 +265,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of copd identified through systematic questioning",
+            "description": "All major symptoms of gout identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -400,23 +305,32 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "copd",
-          "allow_alternatives": [],
+          "correct_diagnosis": "gout",
+          "allow_alternatives": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
-          "must_consider": [],
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "pao2",
-            "paco2",
-            "fev1_predicted"
+            "uric_acid",
+            "crp",
+            "wbc"
           ],
           "should_order": [
-            "hemoglobin"
+            "creatinine",
+            "alt"
           ],
           "weight": 0.15
         },
@@ -427,19 +341,28 @@
             "lab_results"
           ],
           "weight": 0.1
+        },
+        "key_questions": {
+          "required": true,
+          "must_ask": [
+            "Which joints have been affected? Is it the big toe?",
+            "Does the pain come on suddenly, especially at night?",
+            "Have you had these attacks before?"
+          ],
+          "weight": 0.1
         }
       },
       "treatment_scenarios": [
         {
           "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from tiotropium (long-acting muscarinic antagonist (LAMA))",
+          "description": "Patient reports side effects from colchicine ()",
           "options": [
-            "Reduce dose of tiotropium",
+            "Reduce dose of colchicine",
             "Switch to alternative medication class",
             "Try extended-release formulation",
             "Add adjunct medication to manage side effects"
           ],
-          "correct_approach": "Start with low-dose tiotropium, titrate up, monitor symptoms; consider alternative if intolerant",
+          "correct_approach": "Start with low-dose colchicine, titrate up, monitor symptoms; consider alternative if intolerant",
           "complexity": "moderate"
         }
       ],
@@ -454,14 +377,14 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "critical"
         },
-        "oxygen_saturation_monitoring": {
+        "nsaid_gi_risk": {
           "required": true,
-          "description": "Must assess: oxygen saturation monitoring",
+          "description": "Must assess: NSAID GI risk",
           "severity": "high"
         },
-        "respiratory_distress_signs": {
+        "immunosuppression_monitoring": {
           "required": true,
-          "description": "Must assess: respiratory distress signs",
+          "description": "Must assess: immunosuppression monitoring",
           "severity": "high"
         }
       },
@@ -482,9 +405,8 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Prescribe beta-blockers without considering pulmonary contraindication",
-        "Discharge without checking oxygen saturation",
-        "Diagnose copd without ordering any supporting lab tests",
+        "Fail to consider Pseudogout as alternative diagnosis",
+        "Diagnose gout without ordering any supporting lab tests",
         "Fail to assess comorbidity impact on treatment plan",
         "Prescribe multiple new medications simultaneously without interaction check"
       ],
@@ -492,14 +414,8 @@
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal chest X-ray with significant dyspnea",
+          "example": "normal uric acid during acute gout attack",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
-        },
-        {
-          "trigger": "during_treatment_discussion",
-          "event": "Patient casually mentions 'high blood pressure' when discussing treatment options",
-          "example": "'Oh, I also sometimes get high blood pressure — is that related?'",
-          "expected_handling": "Recognize this may indicate undiagnosed high blood pressure, update differential, order appropriate workup"
         },
         {
           "trigger": "mid_consultation",
@@ -512,57 +428,53 @@
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "copd",
+      "primary": "gout",
       "confidence_threshold": 0.8,
-      "acceptable_alternatives": [],
+      "acceptable_alternatives": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis"
+      ],
       "required_evidence": [
         "symptom_cluster_matching",
         "lab_result_confirmation",
-        "abnormal_pao2"
+        "abnormal_uric_acid"
       ]
     },
     "expected_lab_results": {
-      "pao2": {
-        "expected_value": "69.8 mmHg (abnormal)",
-        "reference_range": "55-75 mmHg",
+      "uric_acid": {
+        "expected_value": "505 umol/L (abnormal)",
+        "reference_range": "450-650 umol/L",
         "is_abnormal": true,
         "clinical_significance": "high"
       },
-      "paco2": {
-        "expected_value": "46.9 mmHg (abnormal)",
-        "reference_range": "40-55 mmHg",
+      "crp": {
+        "expected_value": "24.5 mg/L (abnormal)",
+        "reference_range": "10-50 mg/L",
         "is_abnormal": true,
         "clinical_significance": "moderate"
-      },
-      "fev1_predicted": {
-        "expected_value": "54.6 % (abnormal)",
-        "reference_range": "40-65 %",
-        "is_abnormal": true,
-        "clinical_significance": "high"
       },
       "wbc": {
         "expected_value": "11.5 x10^9/L (abnormal)",
-        "reference_range": "8.0-15.0 x10^9/L",
+        "reference_range": "8.0-14.0 x10^9/L",
         "is_abnormal": true,
-        "clinical_significance": "moderate"
+        "clinical_significance": "low"
       },
-      "hemoglobin": {
-        "expected_value": "15.4 g/dL",
-        "reference_range": "14.0-17.0 g/dL",
+      "creatinine": {
+        "expected_value": "1.13 mg/dL",
+        "reference_range": "0.9-1.4 mg/dL",
         "is_abnormal": false,
         "clinical_significance": "moderate"
+      },
+      "alt": {
+        "expected_value": "35.2 U/L",
+        "reference_range": "20-50 U/L",
+        "is_abnormal": false,
+        "clinical_significance": "low"
       }
     },
     "correct_treatment_plan": {
-      "medications": [
-        {
-          "name": "tiotropium",
-          "drug_class": "long-acting muscarinic antagonist (LAMA)",
-          "dose": "18mcg",
-          "frequency": "once daily inhaled",
-          "rationale": "First-line treatment for copd"
-        }
-      ],
+      "medications": [],
       "non_pharmacological": [
         "Lifestyle modification counseling",
         "Dietary guidance"
@@ -578,15 +490,6 @@
       {
         "check": "drug_interaction_check",
         "before": "prescribing",
-        "critical": true
-      },
-      {
-        "check": "contraindication_check",
-        "before": "prescribing",
-        "conditions": [
-          "hypertension",
-          "heart failure"
-        ],
         "critical": true
       }
     ],
@@ -620,31 +523,31 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "COPD"
+          "i've had these attacks before"
         ],
-        "hidden_information_to_uncover": [
-          "COPD",
-          "my weight has changed",
-          "high blood pressure"
-        ]
+        "hidden_information_to_uncover": []
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for copd",
+        "correct_approach": "Order disease-relevant labs for gout",
         "required_tests": [
-          "pao2",
-          "paco2",
-          "fev1_predicted",
+          "uric_acid",
+          "crp",
           "wbc",
-          "hemoglobin"
+          "creatinine",
+          "alt"
         ]
       },
       {
         "step": 3,
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
-        "must_consider": []
+        "must_consider": [
+          "Pseudogout",
+          "Septic Arthritis",
+          "Rheumatoid Arthritis"
+        ]
       },
       {
         "step": 4,
@@ -724,11 +627,11 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "pao2: results pending",
-          "paco2: results pending",
-          "fev1_predicted: results pending",
+          "uric_acid: results pending",
+          "crp: results pending",
           "wbc: results pending",
-          "hemoglobin: results pending"
+          "creatinine: results pending",
+          "alt: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -966,8 +869,12 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "copd",
-      "acceptable_answers": []
+      "correct_answer": "gout",
+      "acceptable_answers": [
+        "Pseudogout",
+        "Septic Arthritis",
+        "Rheumatoid Arthritis"
+      ]
     },
     "secondary_outcomes": [
       {
@@ -980,7 +887,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "tiotropium"
+        "correct_answer": "colchicine"
       },
       {
         "metric": "safety_adherence",
@@ -1180,8 +1087,8 @@
     ],
     "efficiency_metrics": {
       "optimal_turn_range": [
-        8,
-        14
+        7,
+        13
       ],
       "max_turns": 20,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
@@ -1189,7 +1096,7 @@
       "rush_penalty": -0.05
     },
     "total_turn_budget": 20,
-    "minimum_required_turns": 6
+    "minimum_required_turns": 5
   },
   "capability_dimensions": {
     "dimensions": {
@@ -1201,8 +1108,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.25,
-        "test_method": "Measure percentage of critical symptoms discovered for copd"
+        "weight": 0.2,
+        "test_method": "Measure percentage of critical symptoms discovered for gout"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1212,7 +1119,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.3,
+        "weight": 0.35,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1223,7 +1130,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.1,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1256,14 +1163,14 @@
           "time_management",
           "resource_efficiency"
         ],
-        "weight": 0.1,
+        "weight": 0.15,
         "test_method": "Count turns and actions relative to optimal path"
       }
     },
     "primary_dimensions": [
       "diagnostic_reasoning",
       "information_gathering",
-      "treatment_planning"
+      "efficiency"
     ],
     "difficulty_modifier": {
       "focus": "advanced mastery under adversarial conditions",
@@ -1273,40 +1180,40 @@
   "difficulty_profile": {
     "factors": {
       "symptom_complexity": {
-        "score": 2,
-        "max": 3,
-        "description": "Number and overlap of presenting symptoms",
-        "task_specific": "6 total symptoms across tiers"
-      },
-      "diagnostic_ambiguity": {
         "score": 1,
         "max": 3,
-        "description": "Number of plausible differential diagnoses and ease of differentiation",
-        "task_specific": "1 plausible differentials"
+        "description": "Number and overlap of presenting symptoms",
+        "task_specific": "1 total symptoms across tiers"
       },
-      "treatment_complexity": {
-        "score": 3,
-        "max": 3,
-        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "2 comorbidities affecting treatment choice"
-      },
-      "patient_behavior_difficulty": {
-        "score": 3,
-        "max": 3,
-        "description": "How challenging the patient behavior is for information gathering",
-        "task_specific": "behavior: refusing"
-      },
-      "information_asymmetry": {
-        "score": 3,
-        "max": 3,
-        "description": "Gap between what patient volunteers and what doctor needs to discover",
-        "task_specific": "3 hidden/resistant symptoms to discover"
-      },
-      "comorbidity_burden": {
+      "diagnostic_ambiguity": {
         "score": 2,
         "max": 3,
+        "description": "Number of plausible differential diagnoses and ease of differentiation",
+        "task_specific": "4 plausible differentials"
+      },
+      "treatment_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "task_specific": "0 comorbidities affecting treatment choice"
+      },
+      "patient_behavior_difficulty": {
+        "score": 2,
+        "max": 3,
+        "description": "How challenging the patient behavior is for information gathering",
+        "task_specific": "behavior: pressuring"
+      },
+      "information_asymmetry": {
+        "score": 1,
+        "max": 3,
+        "description": "Gap between what patient volunteers and what doctor needs to discover",
+        "task_specific": "0 hidden/resistant symptoms to discover"
+      },
+      "comorbidity_burden": {
+        "score": 0,
+        "max": 3,
         "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "2 comorbidities present"
+        "task_specific": "0 comorbidities present"
       },
       "time_pressure": {
         "score": 2,
@@ -1316,29 +1223,29 @@
       }
     },
     "overall": {
-      "aggregate_score": 16,
+      "aggregate_score": 9,
       "max_possible": 21,
       "difficulty_rating": "L3",
       "primary_difficulty_drivers": [
-        "treatment_complexity",
+        "diagnostic_ambiguity",
         "patient_behavior_difficulty",
-        "information_asymmetry"
+        "time_pressure"
       ],
-      "explanation": "This L3 task is primarily challenging due to treatment complexity, patient behavior difficulty. The diagnosis of copd requires careful information gathering and clinical reasoning."
+      "explanation": "This L3 task is primarily challenging due to diagnostic ambiguity, patient behavior difficulty. The diagnosis of gout requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
-        "misleading_symptoms": 3,
+        "misleading_symptoms": 2,
         "noise_symptoms": 1,
         "cross_overlapping_conditions": 2
       },
       "partial_observability": {
-        "hidden_symptoms": 3,
+        "hidden_symptoms": 0,
         "trust_gated_symptoms": 0,
-        "undiagnosed_comorbidities": 2
+        "undiagnosed_comorbidities": 0
       },
-      "adversarial_patient_behavior": true,
-      "conflicting_evidence": false
+      "adversarial_patient_behavior": false,
+      "conflicting_evidence": true
     }
   },
   "action_space": {
@@ -1470,11 +1377,11 @@
         },
         "parameter_hints": {
           "recommended_tests": [
-            "pao2",
-            "paco2",
-            "fev1_predicted",
+            "uric_acid",
+            "crp",
             "wbc",
-            "hemoglobin"
+            "creatinine",
+            "alt"
           ]
         }
       },
@@ -1563,7 +1470,11 @@
           "turns": 1
         },
         "parameter_hints": {
-          "must_consider": []
+          "must_consider": [
+            "Pseudogout",
+            "Septic Arthritis",
+            "Rheumatoid Arthritis"
+          ]
         }
       },
       "record_diagnosis": {
@@ -1612,7 +1523,7 @@
           "turns": 1
         },
         "parameter_hints": {
-          "correct_diagnosis": "copd"
+          "correct_diagnosis": "gout"
         }
       },
       "assess_vital_signs": {
@@ -1833,7 +1744,7 @@
             "delay": 0.1
           }
         },
-        "active_level": "refusing"
+        "active_level": "pressuring"
       },
       "lab_result_noise": {
         "type": "gaussian",
@@ -1853,26 +1764,19 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "COPD"
+          "i've had these attacks before"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
-        "fields": [
-          "COPD",
-          "COPD"
-        ],
+        "fields": [],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
       },
       "hidden_tier": {
         "access": "on_specific_probe",
-        "fields": [
-          "COPD",
-          "my weight has changed",
-          "high blood pressure"
-        ],
+        "fields": [],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
       },
@@ -1880,7 +1784,7 @@
         "access": "after_trust_threshold",
         "fields": [],
         "cost": 2,
-        "trust_required": 0.6,
+        "trust_required": 0.1,
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
@@ -2036,7 +1940,7 @@
     },
     "turn_rules": {
       "max_turns": 20,
-      "min_required_turns": 6,
+      "min_required_turns": 5,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
       "multi_action_per_turn": false
@@ -2106,7 +2010,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 402,
+      "seed": 505,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -2121,12 +2025,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (gout) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "high",
+        "reason": "First-line medication from drug_database.json"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "ACR Gout Management Guidelines",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.45,
+      "std": 0.18,
+      "percentiles": {
+        "p10": 0.22,
+        "p25": 0.33,
+        "p50": 0.45,
+        "p75": 0.58,
+        "p90": 0.7
+      },
+      "description": "Reference distribution from baseline agent performance on L3 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "z = (0.7 - 0.45) / 0.18 = 1.39 — excellent at hardest level"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 505,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "e8b918fc2efcde1d",
+    "hash_input": "v2_conflicting_evidence_L3_gout_6ebc46|gout|L3|conflicting_evidence|pressuring|505",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_diagnostic_uncertainty_L3_copd_8bfde9",
+    "scenario_id": "v2_conflicting_evidence_L3_gout_6ebc46",
     "risk_level": "moderate",
-    "uncertainty_level": 0.729,
-    "behavior_type": "refusing",
-    "seed": 402
+    "uncertainty_level": 0.777,
+    "behavior_type": "pressuring",
+    "seed": 505
   }
 }

@@ -1,195 +1,138 @@
 {
-  "id": "v27_emergency_triage_L2_atrial_fibrillation_e9b4c0",
-  "domain": "cardiology",
-  "task_type": "emergency_triage",
-  "difficulty": "L2",
+  "id": "v27_drug_safety_risk_L3_depression_71b690",
+  "domain": "psychiatry",
+  "task_type": "drug_safety_risk",
+  "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "emergency_triage — 63-year-old male with feeling my heart racing for a few weeks",
-    "clinical_scenario": "Patient presents with feeling my heart racing for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "drug_safety_risk — 47-year-old male with lupus for a few weeks",
+    "clinical_scenario": "Patient presents with lupus for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Rapid assessment and prioritization",
-      "Time-sensitive decision making"
+      "Safety checking before prescribing",
+      "Drug interaction awareness",
+      "Handle complex multi-condition scenario"
     ],
-    "focus": "Rapid assessment and stabilization"
+    "focus": "Safe prescribing with allergy and interaction checks"
   },
   "user_scenario": {
-    "persona": "63-year-old male patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with feeling my heart racing.",
+    "persona": "47-year-old male patient, 小学 education, works as a construction worker. a patient who is confused about medical terms and needs simple explanations presenting with lupus.",
     "patient_profile": {
-      "age": 63,
+      "age": 47,
       "gender": "male",
-      "education_level": "high_school",
-      "communication_style": "clear",
-      "cooperation_level": "good",
-      "chief_complaint": "irregular heartbeat and and irregular heartbeat for a few weeks",
-      "occupation": "retail manager"
+      "education_level": "elementary",
+      "communication_style": "uncertain",
+      "cooperation_level": "moderate",
+      "chief_complaint": "mdd for a few weeks",
+      "occupation": "construction worker"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "irregular heartbeat",
-          "irregular heartbeat"
+          "mdd"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "feeling my heart racing",
-        "family_history": "family member has high blood pressure",
-        "past_history": [
-          "high blood pressure",
-          "type 2 diabetes"
-        ]
+        "general_concern": "lupus"
       },
       "patient_doesnt_know": {
-        "diagnosis": "atrial fibrillation",
-        "bnp": "223 pg/mL (abnormal)"
+        "diagnosis": "depression"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
           "Is this serious?",
           "Will I need surgery?",
           "How long will treatment take?"
-        ],
-        "economic_concerns": [
-          "How much will this medication cost per month?",
-          "Is there a cheaper alternative?",
-          "Will my insurance cover this?",
-          "Can we only prescribe what's absolutely necessary?"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "irregular heartbeat",
-        "irregular heartbeat"
+        "mdd"
       ],
       "share_only_if_asked": [
-        "high blood pressure (needs doctor to specifically ask)",
-        "irregular heartbeat (needs doctor to specifically ask)"
+        "depression (needs doctor to specifically ask)"
       ],
       "hidden_truth": [
-        "my appetite has changed (won't mention unless specifically probed)"
+        "depression (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "noise_symptoms": [
+        "mild foot arch pain"
+      ],
+      "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "anxiety",
-        "gad"
+        "unexplained aches"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "progressive_reveal": [
         {
-          "after_turn": 3,
-          "symptom": "my appetite has changed",
+          "after_turn": 4,
+          "symptom": "depression",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
-      "share_in_response_to_medication_discussion": [
-        "Concerns about warfarin side effects — pregnancy"
-      ],
       "response_style": {
         "honest": true,
-        "direct": true,
+        "direct": false,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [],
-        "emotional_state": "neutral",
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "anxious",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true
+        "financial_constraints": false
       }
     },
-    "task_instructions": "You are ZhouXX, a 63-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of irregular heartbeat. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are LiuXX, a 47-year-old male patient. Your education level is 小学. You work as a construction worker. You are seeing a doctor because of mdd. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
   },
   "medical_persona": {
-    "age": 63,
+    "age": 47,
     "gender": "male",
     "symptoms": {
-      "AFib": "atrial fibrillation",
-      "AF": "atrial fibrillation",
-      "atrial fib": "irregular heartbeat",
-      "HTN": "high blood pressure",
-      "Has your appetite changed unexpectedly": "my appetite has changed"
+      "major depressive disorder": "depression",
+      "MDD": "mdd",
+      "clinical depression": "depression"
     },
     "duration": "a few weeks",
-    "severity": "moderate",
-    "past_medical_history": [
-      "high blood pressure",
-      "type 2 diabetes",
-      "anxiety"
+    "severity": "severe",
+    "allergies": [
+      "latex",
+      "aspirin"
     ],
-    "current_medications": [
-      {
-        "name": "amiodarone",
-        "dose": "200mg",
-        "frequency": "once daily"
-      }
-    ],
-    "lab_results": {
-      "troponin": "0.02 ng/mL",
-      "bnp": "201 pg/mL (abnormal)",
-      "tsh": "3.20 mIU/L",
-      "potassium": "4.18 mmol/L",
-      "creatinine": "1.04 mg/dL",
-      "inr": "1.02 "
-    },
     "vital_signs": {
-      "heart_rate": "117 bpm",
-      "bmi": "24.0"
+      "blood_pressure": "133/83 mmHg",
+      "bmi": "25.0"
     },
     "lifestyle_factors": {
-      "smoking": "yes (1 pack/day for 20+ years)",
-      "alcohol": "social drinking only",
-      "exercise": "sedentary"
-    },
-    "comorbidities": {
-      "hypertension": "high blood pressure, severity: 0.5",
-      "type 2 diabetes": "type 2 diabetes, severity: 0.5"
+      "exercise": "moderate 3x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "retail manager",
-      "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage"
+      "occupation": "construction worker",
+      "monthly_income": "about 10000+ yuan/month",
+      "insurance": "comprehensive medical insurance, good coverage"
     },
     "diagnosis": {
-      "primary": "atrial fibrillation",
-      "severity": "moderate",
+      "primary": "depression",
+      "severity": "severe",
       "differential_diagnoses": [
-        "Atrial Flutter",
-        "Multifocal Atrial Tachycardia",
-        "Sinus Tachycardia",
-        "SVT"
+        "Bipolar Disorder",
+        "Anxiety Disorder",
+        "Hypothyroidism"
       ]
-    },
-    "confounder_conditions": [
-      "anxiety disorder"
-    ],
-    "complication_symptoms": {
-      "hypertension": {
-        "symptoms": [
-          "high blood pressure",
-          "high blood pressure",
-          "high blood pressure"
-        ],
-        "status": "undiagnosed",
-        "interaction_with_primary": "may cause overlapping chest symptoms"
-      },
-      "type 2 diabetes": {
-        "symptoms": [
-          "my appetite has changed"
-        ],
-        "status": "undiagnosed",
-        "interaction_with_primary": "may cause overlapping chest symptoms"
-      }
     }
   },
-  "ticket": "irregular heartbeat, irregular heartbeat",
+  "ticket": "mdd",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhouXX",
-          "mrn": "MRN268690",
-          "age": 63,
+          "name": "LiuXX",
+          "mrn": "MRN963989",
+          "age": 47,
           "gender": "male"
         }
       },
@@ -198,23 +141,20 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 63,
+            "age": 47,
             "gender": "male",
             "symptoms": [
-              "irregular heartbeat",
-              "irregular heartbeat"
+              "mdd"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "irregular heartbeat",
-              "irregular heartbeat"
+              "mdd"
             ],
             "ask_only": [
-              "high blood pressure",
-              "irregular heartbeat"
+              "depression"
             ]
           },
           "response_style": {
@@ -232,46 +172,41 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 2
+          "min_questions": 4
         }
       },
       {
-        "action_id": "use_assess_vital_signs",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "assess_vital_signs",
-        "arguments": {
-          "include_bmi": true
-        }
-      },
-      {
-        "action_id": "use_order_lab_tests",
-        "requestor": "assistant",
-        "name": "order_lab_tests",
-        "arguments": {
-          "tests": [
-            "troponin",
-            "bnp",
-            "tsh",
-            "potassium",
-            "creatinine"
-          ],
-          "rationale": "Labs to evaluate atrial fibrillation"
-        }
-      },
-      {
-        "action_id": "use_get_lab_results",
-        "requestor": "assistant",
-        "name": "get_lab_results",
+        "name": "check_allergy",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_record_diagnosis",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "record_diagnosis",
+        "name": "check_drug_interactions",
         "arguments": {
-          "diagnosis": "atrial fibrillation"
+          "drug_list": []
+        }
+      },
+      {
+        "action_id": "use_check_contraindications",
+        "requestor": "assistant",
+        "name": "check_contraindications",
+        "arguments": {
+          "medication": "",
+          "conditions": []
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "",
+          "dose": ""
         }
       }
     ],
@@ -296,13 +231,12 @@
       "DB",
       "COMMUNICATE",
       "CLINICAL",
-      "SAFETY",
-      "TIME"
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "emergency",
-      "min_turns": 3,
-      "max_turns": 8,
+      "category": "safety",
+      "min_turns": 4,
+      "max_turns": 15,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -312,7 +246,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of atrial fibrillation identified through systematic questioning",
+            "description": "All major symptoms of depression identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -336,12 +270,12 @@
             "weight": 0.08
           },
           "lifestyle_factors": {
-            "required": false,
+            "required": true,
             "description": "Smoking, alcohol, diet, exercise habits",
             "weight": 0.05
           },
           "social_determinants": {
-            "required": false,
+            "required": true,
             "description": "Socioeconomic factors affecting treatment adherence",
             "weight": 0.04
           }
@@ -352,32 +286,22 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "atrial fibrillation",
+          "correct_diagnosis": "depression",
           "allow_alternatives": [
-            "Atrial Flutter",
-            "Multifocal Atrial Tachycardia",
-            "Sinus Tachycardia"
+            "Bipolar Disorder",
+            "Anxiety Disorder",
+            "Hypothyroidism"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
           "must_consider": [
-            "Atrial Flutter",
-            "Multifocal Atrial Tachycardia",
-            "Sinus Tachycardia"
+            "Bipolar Disorder",
+            "Anxiety Disorder",
+            "Hypothyroidism"
           ],
           "weight": 0.2
-        },
-        "appropriate_tests": {
-          "must_order": [
-            "bnp"
-          ],
-          "should_order": [
-            "troponin",
-            "tsh"
-          ],
-          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -390,27 +314,13 @@
         "key_questions": {
           "required": true,
           "must_ask": [
-            "Have you noticed your heart racing or beating irregularly?",
-            "Have you had any episodes of dizziness or fainting?",
-            "Do you get short of breath with the palpitations?"
+            "How has your mood been over the past few weeks?",
+            "Have you lost interest in activities you used to enjoy?",
+            "How has your sleep been — trouble falling or staying asleep?"
           ],
           "weight": 0.1
         }
       },
-      "treatment_scenarios": [
-        {
-          "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from apixaban ()",
-          "options": [
-            "Reduce dose of apixaban",
-            "Switch to alternative medication class",
-            "Try extended-release formulation",
-            "Add adjunct medication to manage side effects"
-          ],
-          "correct_approach": "Start with low-dose apixaban, titrate up, monitor symptoms; consider alternative if intolerant",
-          "complexity": "moderate"
-        }
-      ],
       "safety_requirements": {
         "allergy_check_before_prescribe": {
           "required": true,
@@ -420,29 +330,24 @@
         "drug_interaction_check": {
           "required": true,
           "description": "Must check drug interactions before prescribing",
-          "severity": "major"
+          "severity": "critical"
         },
-        "bleeding_risk_with_anticoagulants": {
+        "allergy_check": {
           "required": true,
-          "description": "Must assess: bleeding risk with anticoagulants",
-          "severity": "major"
+          "description": "Must assess: allergy check",
+          "severity": "high"
         },
-        "blood_pressure_control": {
+        "drug_interaction": {
           "required": true,
-          "description": "Must assess: blood pressure control",
-          "severity": "major"
-        },
-        "potassium_monitoring": {
-          "required": true,
-          "description": "Must assess: potassium monitoring",
-          "severity": "major"
+          "description": "Must assess: drug interaction",
+          "severity": "high"
         }
       },
       "required_tools": [
-        "assess_vital_signs",
-        "order_lab_tests",
-        "get_lab_results",
-        "record_diagnosis"
+        "check_allergy",
+        "check_drug_interactions",
+        "check_contraindications",
+        "prescribe_medication"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -455,88 +360,37 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Atrial Flutter as alternative diagnosis",
-        "Diagnose atrial fibrillation without ordering any supporting lab tests"
+        "Fail to consider Bipolar Disorder as alternative diagnosis",
+        "Diagnose depression without ordering any supporting lab tests",
+        "Fail to assess comorbidity impact on treatment plan",
+        "Prescribe multiple new medications simultaneously without interaction check"
       ],
       "uncertainty_events": [
         {
-          "trigger": "after_lab_results",
-          "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal troponin with angina symptoms",
-          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
-        },
-        {
-          "trigger": "during_treatment_discussion",
-          "event": "Patient casually mentions 'high blood pressure' when discussing treatment options",
-          "example": "'Oh, I also sometimes get high blood pressure — is that related?'",
-          "expected_handling": "Recognize this may indicate undiagnosed high blood pressure, update differential, order appropriate workup"
+          "trigger": "mid_consultation",
+          "event": "Patient reports acute worsening of symptoms during the visit",
+          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
+          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
         }
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "atrial fibrillation",
+      "primary": "depression",
       "confidence_threshold": 0.8,
       "acceptable_alternatives": [
-        "Atrial Flutter",
-        "Multifocal Atrial Tachycardia",
-        "Sinus Tachycardia"
+        "Bipolar Disorder",
+        "Anxiety Disorder",
+        "Hypothyroidism"
       ],
       "required_evidence": [
-        "symptom_cluster_matching",
-        "lab_result_confirmation",
-        "abnormal_bnp"
+        "symptom_cluster_matching"
       ]
     },
-    "expected_lab_results": {
-      "troponin": {
-        "expected_value": "0.02 ng/mL",
-        "reference_range": "0.01-0.05 ng/mL",
-        "is_abnormal": false,
-        "clinical_significance": "high"
-      },
-      "bnp": {
-        "expected_value": "199 pg/mL (abnormal)",
-        "reference_range": "100-400 pg/mL",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "tsh": {
-        "expected_value": "3.61 mIU/L",
-        "reference_range": "0.5-6.0 mIU/L",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "potassium": {
-        "expected_value": "4.14 mmol/L",
-        "reference_range": "3.8-4.8 mmol/L",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "creatinine": {
-        "expected_value": "0.97 mg/dL",
-        "reference_range": "0.8-1.3 mg/dL",
-        "is_abnormal": false,
-        "clinical_significance": "moderate"
-      },
-      "inr": {
-        "expected_value": "0.98 ",
-        "reference_range": "0.9-1.2 ",
-        "is_abnormal": false,
-        "clinical_significance": "high"
-      }
-    },
+    "expected_lab_results": {},
     "correct_treatment_plan": {
-      "medications": [
-        {
-          "name": "warfarin",
-          "drug_class": "vitamin K antagonist anticoagulant",
-          "dose": "5mg",
-          "frequency": "once daily",
-          "rationale": "First-line treatment for atrial fibrillation"
-        }
-      ],
+      "medications": [],
       "non_pharmacological": [
         "Lifestyle modification counseling",
         "Dietary guidance"
@@ -552,15 +406,6 @@
       {
         "check": "drug_interaction_check",
         "before": "prescribing",
-        "critical": true
-      },
-      {
-        "check": "contraindication_check",
-        "before": "prescribing",
-        "conditions": [
-          "hypertension",
-          "type 2 diabetes"
-        ],
         "critical": true
       }
     ],
@@ -594,23 +439,19 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "irregular heartbeat",
-          "irregular heartbeat"
+          "mdd"
         ],
         "hidden_information_to_uncover": [
-          "my appetite has changed"
+          "depression"
         ]
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for atrial fibrillation",
+        "correct_approach": "Order disease-relevant labs for depression",
         "required_tests": [
-          "troponin",
-          "bnp",
-          "tsh",
-          "potassium",
-          "creatinine"
+          "CBC",
+          "BMP"
         ]
       },
       {
@@ -618,9 +459,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "Atrial Flutter",
-          "Multifocal Atrial Tachycardia",
-          "Sinus Tachycardia"
+          "Bipolar Disorder",
+          "Anxiety Disorder",
+          "Hypothyroidism"
         ]
       },
       {
@@ -669,6 +510,17 @@
           "trust_gated": "resistant symptoms need empathy/probing"
         }
       },
+      "PHYSICAL_EXAM": {
+        "description": "Doctor performs or orders physical examination",
+        "available_actions": [
+          "assess_vital_signs",
+          "perform_examination"
+        ],
+        "observations": [
+          "vital_signs",
+          "exam_findings"
+        ]
+      },
       "LAB_ORDERED": {
         "description": "Doctor has ordered lab tests, awaiting results",
         "available_actions": [
@@ -690,11 +542,23 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "troponin: results pending",
-          "bnp: results pending",
           "tsh: results pending",
-          "potassium: results pending",
-          "creatinine: results pending"
+          "free_t4: results pending",
+          "free_t3: results pending",
+          "total_cholesterol: results pending",
+          "alt: results pending"
+        ]
+      },
+      "DIAGNOSIS_FORMING": {
+        "description": "Doctor is forming differential diagnosis",
+        "available_actions": [
+          "differential_diagnosis",
+          "order_additional_tests",
+          "consult_specialist"
+        ],
+        "observations": [
+          "symptom_summary",
+          "lab_summary"
         ]
       },
       "DIAGNOSIS_MADE": {
@@ -719,6 +583,18 @@
         "observations": [
           "allergy_check_result",
           "interaction_check_result"
+        ]
+      },
+      "PATIENT_DISCUSSION": {
+        "description": "Doctor is discussing treatment with patient",
+        "available_actions": [
+          "patient_education",
+          "address_concerns",
+          "negotiate_treatment"
+        ],
+        "observations": [
+          "patient_reaction",
+          "patient_concerns"
         ]
       },
       "PRESCRIPTION_WRITTEN": {
@@ -756,6 +632,16 @@
         "trigger": "doctor orders lab tests"
       },
       {
+        "from": "PHYSICAL_EXAM",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders lab tests"
+      },
+      {
+        "from": "PHYSICAL_EXAM",
+        "to": "DIAGNOSIS_FORMING",
+        "trigger": "doctor begins differential diagnosis"
+      },
+      {
         "from": "LAB_ORDERED",
         "to": "LAB_RESULTS_AVAILABLE",
         "trigger": "lab results are ready"
@@ -771,6 +657,16 @@
         "trigger": "doctor orders additional tests"
       },
       {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "DIAGNOSIS_MADE",
+        "trigger": "doctor records diagnosis"
+      },
+      {
+        "from": "DIAGNOSIS_FORMING",
+        "to": "LAB_ORDERED",
+        "trigger": "doctor orders confirmatory tests"
+      },
+      {
         "from": "DIAGNOSIS_MADE",
         "to": "TREATMENT_PLANNING",
         "trigger": "doctor begins treatment planning"
@@ -779,6 +675,16 @@
         "from": "TREATMENT_PLANNING",
         "to": "PATIENT_DISCUSSION",
         "trigger": "doctor discusses treatment options with patient"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "PRESCRIPTION_WRITTEN",
+        "trigger": "doctor writes prescription"
+      },
+      {
+        "from": "PATIENT_DISCUSSION",
+        "to": "TREATMENT_PLANNING",
+        "trigger": "patient objects, doctor revises plan"
       },
       {
         "from": "PRESCRIPTION_WRITTEN",
@@ -878,11 +784,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "atrial fibrillation",
+      "correct_answer": "depression",
       "acceptable_answers": [
-        "Atrial Flutter",
-        "Multifocal Atrial Tachycardia",
-        "Sinus Tachycardia"
+        "Bipolar Disorder",
+        "Anxiety Disorder",
+        "Hypothyroidism"
       ]
     },
     "secondary_outcomes": [
@@ -896,7 +802,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "apixaban"
+        "correct_answer": "appropriate first-line medication"
       },
       {
         "metric": "safety_adherence",
@@ -1003,8 +909,8 @@
         "name": "history_taking",
         "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
         "turn_budget": {
-          "min": 1,
-          "max": 3
+          "min": 3,
+          "max": 6
         },
         "required_actions": [
           "ask_about_symptoms",
@@ -1019,7 +925,7 @@
         "description": "Physical examination and laboratory testing",
         "turn_budget": {
           "min": 1,
-          "max": 2
+          "max": 3
         },
         "required_actions": [
           "assess_vital_signs",
@@ -1046,7 +952,7 @@
         "description": "Plan treatment, check safety, prescribe medication",
         "turn_budget": {
           "min": 1,
-          "max": 2
+          "max": 3
         },
         "required_actions": [
           "check_allergy",
@@ -1060,7 +966,7 @@
         "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
         "turn_budget": {
           "min": 1,
-          "max": 2
+          "max": 3
         },
         "required_actions": [
           "communicate_diagnosis",
@@ -1084,23 +990,28 @@
     ],
     "time_pressure_events": [
       {
-        "trigger_turn": 4,
+        "trigger_turn": 9,
         "event": "Patient shows signs of impatience",
         "effect": "Agent must balance thoroughness with efficiency"
+      },
+      {
+        "trigger_turn": 12,
+        "event": "Patient condition acutely worsens",
+        "effect": "Agent must immediately prioritize stabilization"
       }
     ],
     "efficiency_metrics": {
       "optimal_turn_range": [
-        5,
-        11
+        6,
+        12
       ],
-      "max_turns": 8,
+      "max_turns": 15,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
       "waste_penalty": -0.02,
       "rush_penalty": -0.05
     },
-    "total_turn_budget": 8,
-    "minimum_required_turns": 3
+    "total_turn_budget": 15,
+    "minimum_required_turns": 4
   },
   "capability_dimensions": {
     "dimensions": {
@@ -1112,8 +1023,8 @@
           "hidden_symptom_discovery",
           "medical_history_review"
         ],
-        "weight": 0.15,
-        "test_method": "Measure percentage of critical symptoms discovered for atrial fibrillation"
+        "weight": 0.1,
+        "test_method": "Measure percentage of critical symptoms discovered for depression"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1123,7 +1034,7 @@
           "lab_interpretation",
           "pattern_recognition"
         ],
-        "weight": 0.25,
+        "weight": 0.1,
         "test_method": "Check if correct diagnosis is reached and differentials considered"
       },
       "treatment_planning": {
@@ -1134,7 +1045,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.2,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1145,7 +1056,7 @@
           "contraindication_awareness",
           "red_flag_detection"
         ],
-        "weight": 0.15,
+        "weight": 0.4,
         "test_method": "Check all safety checks performed before treatment decisions"
       },
       "communication_quality": {
@@ -1167,18 +1078,18 @@
           "time_management",
           "resource_efficiency"
         ],
-        "weight": 0.2,
+        "weight": 0.1,
         "test_method": "Count turns and actions relative to optimal path"
       }
     },
     "primary_dimensions": [
-      "diagnostic_reasoning",
-      "efficiency",
+      "safety_awareness",
+      "treatment_planning",
       "information_gathering"
     ],
     "difficulty_modifier": {
-      "focus": "intermediate proficiency with nuance",
-      "sub_skill_multiplier": 1.0
+      "focus": "advanced mastery under adversarial conditions",
+      "sub_skill_multiplier": 1.3
     }
   },
   "difficulty_profile": {
@@ -1187,25 +1098,25 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "5 total symptoms across tiers"
+        "task_specific": "3 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
-        "score": 2,
-        "max": 3,
-        "description": "Number of plausible differential diagnoses and ease of differentiation",
-        "task_specific": "4 plausible differentials"
-      },
-      "treatment_complexity": {
-        "score": 3,
-        "max": 3,
-        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "2 comorbidities affecting treatment choice"
-      },
-      "patient_behavior_difficulty": {
         "score": 1,
         "max": 3,
+        "description": "Number of plausible differential diagnoses and ease of differentiation",
+        "task_specific": "3 plausible differentials"
+      },
+      "treatment_complexity": {
+        "score": 1,
+        "max": 3,
+        "description": "Number of treatment options, drug interactions, and comorbidity constraints",
+        "task_specific": "0 comorbidities affecting treatment choice"
+      },
+      "patient_behavior_difficulty": {
+        "score": 2,
+        "max": 3,
         "description": "How challenging the patient behavior is for information gathering",
-        "task_specific": "behavior: cooperative"
+        "task_specific": "behavior: confused"
       },
       "information_asymmetry": {
         "score": 1,
@@ -1214,48 +1125,48 @@
         "task_specific": "1 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
-        "score": 2,
+        "score": 0,
         "max": 3,
         "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "2 comorbidities present"
+        "task_specific": "0 comorbidities present"
       },
       "time_pressure": {
-        "score": 3,
+        "score": 2,
         "max": 3,
         "description": "Urgency level and consequences of delayed action",
-        "task_specific": "Emergency — time-sensitive decisions required"
+        "task_specific": "Moderate urgency with condition change event"
       }
     },
     "overall": {
-      "aggregate_score": 13,
+      "aggregate_score": 8,
       "max_possible": 21,
-      "difficulty_rating": "L2",
+      "difficulty_rating": "L3",
       "primary_difficulty_drivers": [
-        "treatment_complexity",
+        "patient_behavior_difficulty",
         "time_pressure",
-        "diagnostic_ambiguity"
+        "symptom_complexity"
       ],
-      "explanation": "This L2 task is primarily challenging due to treatment complexity, time pressure. The diagnosis of atrial fibrillation requires careful information gathering and clinical reasoning."
+      "explanation": "This L3 task is primarily challenging due to patient behavior difficulty, time pressure. The diagnosis of depression requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
         "misleading_symptoms": 2,
-        "noise_symptoms": 0,
+        "noise_symptoms": 1,
         "cross_overlapping_conditions": 0
       },
       "partial_observability": {
         "hidden_symptoms": 1,
         "trust_gated_symptoms": 0,
-        "undiagnosed_comorbidities": 1
+        "undiagnosed_comorbidities": 0
       },
-      "adversarial_patient_behavior": false,
+      "adversarial_patient_behavior": true,
       "conflicting_evidence": false
     }
   },
   "action_space": {
     "version": "1.0",
     "schema_type": "json_schema",
-    "total_actions": 7,
+    "total_actions": 8,
     "actions": {
       "greet_patient": {
         "description": "Greet the patient and introduce yourself",
@@ -1334,6 +1245,164 @@
           "turns": 1
         }
       },
+      "check_allergy": {
+        "description": "Check patient allergies",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "allergies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "preconditions": [
+          "state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"
+        ],
+        "postconditions": [
+          "allergy_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "check_drug_interactions": {
+        "description": "Check for drug-drug interactions",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "drug_list"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "interactions": {
+              "type": "array"
+            },
+            "safe_to_proceed": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "state == TREATMENT_PLANNING"
+        ],
+        "postconditions": [
+          "interaction_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "check_contraindications": {
+        "description": "Check contraindications for a medication given patient conditions",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication": {
+              "type": "string"
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "medication"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "contraindications": {
+              "type": "array"
+            },
+            "safe": {
+              "type": "boolean"
+            }
+          }
+        },
+        "preconditions": [
+          "state == TREATMENT_PLANNING"
+        ],
+        "postconditions": [
+          "contraindication_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "prescribe_medication": {
+        "description": "Prescribe a medication to the patient",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "medication": {
+              "type": "string"
+            },
+            "dose": {
+              "type": "string"
+            },
+            "frequency": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "medication"
+          ]
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "prescription_id": {
+              "type": "string"
+            },
+            "prescribed": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "array"
+            }
+          }
+        },
+        "preconditions": [
+          "allergy_checked == true",
+          "diagnosis_recorded == true"
+        ],
+        "postconditions": [
+          "prescription_written = true",
+          "state transitions to PRESCRIPTION_WRITTEN"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
       "assess_vital_signs": {
         "description": "Measure patient vital signs",
         "parameters": {
@@ -1375,148 +1444,6 @@
         ],
         "cost": {
           "turns": 1
-        }
-      },
-      "order_lab_tests": {
-        "description": "Order laboratory tests for the patient",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "tests": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "List of test names to order"
-            },
-            "rationale": {
-              "type": "string",
-              "description": "Clinical rationale for ordering"
-            }
-          },
-          "required": [
-            "tests"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "order_id": {
-              "type": "string"
-            },
-            "tests_ordered": {
-              "type": "array"
-            },
-            "estimated_wait": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [HISTORY_TAKING, PHYSICAL_EXAM, DIAGNOSIS_FORMING]"
-        ],
-        "postconditions": [
-          "labs_ordered = true",
-          "state transitions to LAB_ORDERED"
-        ],
-        "cost": {
-          "turns": 1
-        },
-        "parameter_hints": {
-          "recommended_tests": [
-            "troponin",
-            "bnp",
-            "tsh",
-            "potassium",
-            "creatinine"
-          ]
-        }
-      },
-      "get_lab_results": {
-        "description": "Retrieve results of ordered lab tests",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "patient_id": {
-              "type": "string",
-              "default": "current"
-            }
-          },
-          "required": []
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "results": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "all_results_available": {
-              "type": "boolean"
-            }
-          }
-        },
-        "preconditions": [
-          "labs_ordered == true",
-          "state in [LAB_ORDERED, LAB_RESULTS_AVAILABLE]"
-        ],
-        "postconditions": [
-          "labs_available = true",
-          "state transitions to LAB_RESULTS_AVAILABLE"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "record_diagnosis": {
-        "description": "Record the final diagnosis",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "diagnosis": {
-              "type": "string"
-            },
-            "confidence": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "evidence": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "diagnosis"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "recorded": {
-              "type": "boolean"
-            },
-            "diagnosis_id": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [DIAGNOSIS_FORMING, LAB_RESULTS_AVAILABLE]"
-        ],
-        "postconditions": [
-          "diagnosis_recorded = true",
-          "state transitions to DIAGNOSIS_MADE"
-        ],
-        "cost": {
-          "turns": 1
-        },
-        "parameter_hints": {
-          "correct_diagnosis": "atrial fibrillation"
         }
       },
       "schedule_followup": {
@@ -1694,7 +1621,7 @@
             "delay": 0.1
           }
         },
-        "active_level": "cooperative"
+        "active_level": "confused"
       },
       "lab_result_noise": {
         "type": "gaussian",
@@ -1714,16 +1641,14 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "irregular heartbeat",
-          "irregular heartbeat"
+          "mdd"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
         "fields": [
-          "high blood pressure",
-          "irregular heartbeat"
+          "depression"
         ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
@@ -1731,7 +1656,7 @@
       "hidden_tier": {
         "access": "on_specific_probe",
         "fields": [
-          "my appetite has changed"
+          "depression"
         ],
         "cost": 1,
         "trigger": "ask_patient with question containing specific symptom keyword"
@@ -1740,11 +1665,11 @@
         "access": "after_trust_threshold",
         "fields": [],
         "cost": 2,
-        "trust_required": 0.0,
+        "trust_required": 0.2,
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
-    "difficulty_noise_multiplier": 1.0,
+    "difficulty_noise_multiplier": 1.5,
     "observation_protocol": {
       "step_input": {
         "agent_action": "ActionSchema compliant JSON",
@@ -1895,8 +1820,8 @@
       }
     },
     "turn_rules": {
-      "max_turns": 8,
-      "min_required_turns": 3,
+      "max_turns": 15,
+      "min_required_turns": 4,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
       "multi_action_per_turn": false
@@ -1966,7 +1891,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 416,
+      "seed": 514,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -1981,12 +1906,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (depression) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "moderate",
+        "reason": "No specific medication data available in KB"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "APA Practice Guidelines for Depression",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.45,
+      "std": 0.18,
+      "percentiles": {
+        "p10": 0.22,
+        "p25": 0.33,
+        "p50": 0.45,
+        "p75": 0.58,
+        "p90": 0.7
+      },
+      "description": "Reference distribution from baseline agent performance on L3 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "z = (0.7 - 0.45) / 0.18 = 1.39 — excellent at hardest level"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 514,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "0d62b44885b7e517",
+    "hash_input": "v2_drug_safety_risk_L3_depression_efdef0|depression|L3|drug_safety_risk|confused|514",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_emergency_triage_L2_atrial_fibrillation_65d795",
+    "scenario_id": "v2_drug_safety_risk_L3_depression_efdef0",
     "risk_level": "moderate",
-    "uncertainty_level": 0.651,
-    "behavior_type": "cooperative",
-    "seed": 416
+    "uncertainty_level": 0.733,
+    "behavior_type": "confused",
+    "seed": 514
   }
 }

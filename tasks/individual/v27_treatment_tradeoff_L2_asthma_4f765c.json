@@ -1,45 +1,47 @@
 {
-  "id": "v27_patient_non_compliance_L1_anemia_79e1bb",
-  "domain": "hematology",
-  "task_type": "patient_non_compliance",
-  "difficulty": "L1",
+  "id": "v27_treatment_tradeoff_L2_asthma_4f765c",
+  "domain": "pulmonology",
+  "task_type": "treatment_tradeoff",
+  "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "patient_non_compliance — 58-year-old female with my diet has changed for a few weeks",
-    "clinical_scenario": "Patient presents with my diet has changed for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "treatment_tradeoff — 45-year-old male with I've had recent respiratory infections for a few weeks",
+    "clinical_scenario": "Patient presents with I've had recent respiratory infections for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Communication and trust-building",
-      "Addressing patient concerns and misconceptions"
+      "Consideration of comorbidities in treatment",
+      "Shared decision-making ability"
     ],
-    "focus": "Addressing patient concerns and building treatment adherence"
+    "focus": "Weighing treatment options with comorbidity considerations"
   },
   "user_scenario": {
-    "persona": "58-year-old female patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with my diet has changed.",
+    "persona": "45-year-old male patient, 小学 education, works as a construction worker. a patient who may forget to mention some symptoms presenting with I've had recent respiratory infections.",
     "patient_profile": {
-      "age": 58,
-      "gender": "female",
-      "education_level": "high_school",
-      "communication_style": "clear",
+      "age": 45,
+      "gender": "male",
+      "education_level": "elementary",
+      "communication_style": "vague",
       "cooperation_level": "good",
-      "chief_complaint": "anaemia for a few weeks",
-      "occupation": "retail manager"
+      "chief_complaint": "acid reflux for a few weeks",
+      "occupation": "construction worker"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "anaemia"
+          "acid reflux"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "my diet has changed"
+        "general_concern": "I've had recent respiratory infections",
+        "family_history": "family member has acid reflux",
+        "past_history": [
+          "acid reflux"
+        ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "anemia",
-        "hemoglobin": "9.21 g/dL (abnormal)",
-        "mcv": "77.1 fL (abnormal)",
-        "rdw": "16.2 % (abnormal)",
-        "specific_medication_needed": "ferrous sulfate (325mg three times daily)"
+        "diagnosis": "asthma",
+        "eosinophil_count": "7.78 % (abnormal)",
+        "ige_total": "276 IU/mL (abnormal)"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
@@ -51,99 +53,100 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "anaemia"
+        "acid reflux"
       ],
-      "share_only_if_asked": [],
+      "share_only_if_asked": [
+        "asthma (needs doctor to specifically ask)"
+      ],
       "misleading_symptoms": [
-        "unusual cravings for ice or dirt (pica)",
-        "sore tongue and mouth ulcers",
-        "fatigue (also seen in depression and hypothyroidism)",
-        "shortness of breath (also seen in COPD and heart failure)"
+        "COPD",
+        "COPD"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "response_style": {
         "honest": true,
-        "direct": true,
+        "direct": false,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [],
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
         "financial_constraints": false
       }
     },
-    "task_instructions": "You are ZhangXX, a 58-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of anaemia. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words."
+    "task_instructions": "You are HuangXX, a 45-year-old male patient. Your education level is 小学. You work as a construction worker. You are seeing a doctor because of acid reflux. This has been going on for about a few weeks. Answer honestly but you may forget to mention some symptoms. If the doctor doesn't specifically ask about something, you might not remember it. Your memory for details is not great — approximate answers are fine."
   },
   "medical_persona": {
-    "age": 58,
-    "gender": "female",
+    "age": 45,
+    "gender": "male",
     "symptoms": {
-      "anaemia": "anaemia"
+      "bronchial asthma": "asthma",
+      "gastroesophageal reflux disease": "acid reflux"
     },
     "duration": "a few weeks",
-    "severity": "mild",
-    "current_medications": [
-      {
-        "name": "ferrous sulfate",
-        "brand_names": [],
-        "drug_class": "iron supplement",
-        "dose": "325mg",
-        "frequency": "three times daily"
-      },
-      {
-        "name": "folic acid",
-        "brand_names": [],
-        "drug_class": "vitamin B9 supplement",
-        "dose": "1mg",
-        "frequency": "once daily"
-      }
+    "severity": "moderate",
+    "past_medical_history": [
+      "acid reflux",
+      "COPD"
     ],
     "lab_results": {
-      "hemoglobin": "9.06 g/dL (abnormal)",
-      "mcv": "77.0 fL (abnormal)",
-      "rdw": "16.9 % (abnormal)",
-      "ferritin": "19.8 ng/mL (abnormal)",
-      "tibc": "410 ug/dL (abnormal)"
+      "eosinophil_count": "8.62 % (abnormal)",
+      "ige_total": "242 IU/mL (abnormal)",
+      "wbc": "9.70 x10^9/L",
+      "hemoglobin": "14.3 g/dL"
     },
     "vital_signs": {
-      "blood_pressure": "138/93 mmHg",
-      "bmi": "25.3"
+      "blood_pressure": "123/89 mmHg",
+      "bmi": "26.7"
     },
     "lifestyle_factors": {
-      "exercise": "moderate 3x/week"
+      "exercise": "sedentary"
+    },
+    "comorbidities": {
+      "gerd": "acid reflux, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "retail manager",
+      "occupation": "construction worker",
       "monthly_income": "about 10000+ yuan/month",
       "insurance": "comprehensive medical insurance, good coverage"
     },
-    "medication_considerations": {
-      "ferrous sulfate": {
-        "drug_class": "iron supplement",
-        "standard_dose": "325mg three times daily",
-        "contraindications": []
-      }
-    },
     "diagnosis": {
-      "primary": "anemia",
-      "severity": "mild",
+      "primary": "asthma",
+      "severity": "moderate",
       "differential_diagnoses": [
-        "Iron Deficiency Anemia",
-        "Thalassemia",
-        "Anemia of Chronic Disease"
+        "COPD",
+        "Bronchiectasis",
+        "Vocal Cord Dysfunction"
       ]
+    },
+    "confounder_conditions": [
+      "copd"
+    ],
+    "complication_symptoms": {
+      "gerd": {
+        "symptoms": [
+          "acid reflux",
+          "acid reflux",
+          "heartburn"
+        ],
+        "status": "partially_diagnosed",
+        "interaction_with_primary": "may worsen breathlessness"
+      }
     }
   },
-  "ticket": "anaemia",
+  "ticket": "acid reflux",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhangXX",
-          "mrn": "MRN308888",
-          "age": 58,
-          "gender": "female"
+          "name": "HuangXX",
+          "mrn": "MRN848299",
+          "age": 45,
+          "gender": "male"
         }
       },
       {
@@ -151,19 +154,21 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 58,
-            "gender": "female",
+            "age": 45,
+            "gender": "male",
             "symptoms": [
-              "anaemia"
+              "acid reflux"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "anaemia"
+              "acid reflux"
             ],
-            "ask_only": []
+            "ask_only": [
+              "asthma"
+            ]
           },
           "response_style": {
             "honest": true,
@@ -180,23 +185,23 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 2
+          "min_questions": 3
         }
       },
       {
-        "action_id": "use_health_education",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "health_education",
+        "name": "check_allergy",
         "arguments": {
-          "topic": "anemia"
+          "patient_id": "current"
         }
       },
       {
-        "action_id": "use_patient_education",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "patient_education",
+        "name": "check_drug_interactions",
         "arguments": {
-          "topic": "anemia"
+          "drug_list": []
         }
       },
       {
@@ -204,8 +209,16 @@
         "requestor": "assistant",
         "name": "prescribe_medication",
         "arguments": {
-          "medication": "ferrous sulfate",
+          "medication": "",
           "dose": ""
+        }
+      },
+      {
+        "action_id": "use_schedule_followup",
+        "requestor": "assistant",
+        "name": "schedule_followup",
+        "arguments": {
+          "timeframe": "2-4 weeks"
         }
       }
     ],
@@ -219,16 +232,23 @@
         "check_id": "appropriate_language",
         "criteria": "Uses clear, patient-friendly language appropriate to education level",
         "weight": 1.0
+      },
+      {
+        "check_id": "addresses_concerns",
+        "criteria": "Addresses patient concerns, misconceptions, and questions",
+        "weight": 1.0
       }
     ],
     "reward_basis": [
       "DB",
-      "COMMUNICATE"
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "communication",
+      "category": "treatment",
       "min_turns": 3,
-      "max_turns": 20,
+      "max_turns": 25,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -238,7 +258,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of anemia identified through systematic questioning",
+            "description": "All major symptoms of asthma identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -257,7 +277,7 @@
             "weight": 0.15
           },
           "family_history": {
-            "required": false,
+            "required": true,
             "description": "Relevant family history",
             "weight": 0.08
           },
@@ -273,35 +293,37 @@
           }
         },
         "scoring_method": "count",
-        "pass_threshold": 0.7
+        "pass_threshold": 0.8
       },
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "anemia",
+          "correct_diagnosis": "asthma",
           "allow_alternatives": [
-            "Iron Deficiency Anemia",
-            "Thalassemia",
-            "Anemia of Chronic Disease"
+            "COPD",
+            "Bronchiectasis",
+            "Vocal Cord Dysfunction"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
-          "required": false,
+          "required": true,
           "must_consider": [
-            "Iron Deficiency Anemia",
-            "Thalassemia",
-            "Anemia of Chronic Disease"
+            "COPD",
+            "Bronchiectasis",
+            "Vocal Cord Dysfunction"
           ],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "hemoglobin",
-            "mcv",
-            "rdw"
+            "eosinophil_count",
+            "ige_total"
           ],
-          "should_order": [],
+          "should_order": [
+            "wbc",
+            "hemoglobin"
+          ],
           "weight": 0.15
         },
         "evidence_based": {
@@ -313,21 +335,13 @@
           "weight": 0.1
         },
         "key_questions": {
-          "required": false,
+          "required": true,
           "must_ask": [
-            "Have you noticed any blood in your stool or very dark stools?",
-            "Do you get dizzy when standing up quickly?",
-            "Have you been craving unusual things like ice or dirt?"
+            "Have you been exposed to any new allergens or irritants?",
+            "Does the wheezing get worse at night or early morning?",
+            "How often are you using your rescue inhaler?"
           ],
           "weight": 0.1
-        }
-      },
-      "treatment_requirements": {
-        "medication_appropriateness": {
-          "required": true,
-          "should_prescribe": "ferrous sulfate",
-          "appropriate_dosage": "325mg three times daily",
-          "weight": 0.3
         }
       },
       "safety_requirements": {
@@ -337,30 +351,26 @@
           "severity": "critical"
         },
         "drug_interaction_check": {
-          "required": false,
+          "required": true,
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "infection_precautions": {
+        "oxygen_saturation_monitoring": {
           "required": true,
-          "description": "Must assess: infection precautions",
+          "description": "Must assess: oxygen saturation monitoring",
           "severity": "major"
         },
-        "bleeding_risk": {
+        "respiratory_distress_signs": {
           "required": true,
-          "description": "Must assess: bleeding risk",
-          "severity": "major"
-        },
-        "transfusion_reactions": {
-          "required": true,
-          "description": "Must assess: transfusion reactions",
+          "description": "Must assess: respiratory distress signs",
           "severity": "major"
         }
       },
       "required_tools": [
-        "health_education",
-        "patient_education",
-        "prescribe_medication"
+        "check_allergy",
+        "check_drug_interactions",
+        "prescribe_medication",
+        "schedule_followup"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -373,68 +383,70 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Iron Deficiency Anemia as alternative diagnosis",
-        "Diagnose anemia without ordering any supporting lab tests"
+        "Prescribe beta-blockers without considering pulmonary contraindication",
+        "Discharge without checking oxygen saturation",
+        "Fail to consider COPD as alternative diagnosis",
+        "Diagnose asthma without ordering any supporting lab tests"
+      ],
+      "uncertainty_events": [
+        {
+          "trigger": "after_lab_results",
+          "event": "Lab results show inconsistent or borderline findings",
+          "example": "normal chest X-ray with significant dyspnea",
+          "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
+        },
+        {
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'acid reflux' when discussing treatment options",
+          "example": "'Oh, I also sometimes get acid reflux — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed acid reflux, update differential, order appropriate workup"
+        }
       ]
     }
   },
   "ground_truth": {
     "correct_diagnosis": {
-      "primary": "anemia",
-      "confidence_threshold": 0.7,
+      "primary": "asthma",
+      "confidence_threshold": 0.8,
       "acceptable_alternatives": [
-        "Iron Deficiency Anemia",
-        "Thalassemia",
-        "Anemia of Chronic Disease"
+        "COPD",
+        "Bronchiectasis",
+        "Vocal Cord Dysfunction"
       ],
       "required_evidence": [
         "symptom_cluster_matching",
         "lab_result_confirmation",
-        "abnormal_hemoglobin"
+        "abnormal_eosinophil_count"
       ]
     },
     "expected_lab_results": {
+      "eosinophil_count": {
+        "expected_value": "7.51 % (abnormal)",
+        "reference_range": "4.0-12.0 %",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "ige_total": {
+        "expected_value": "275 IU/mL (abnormal)",
+        "reference_range": "100-400 IU/mL",
+        "is_abnormal": true,
+        "clinical_significance": "moderate"
+      },
+      "wbc": {
+        "expected_value": "9.41 x10^9/L",
+        "reference_range": "7.0-12.0 x10^9/L",
+        "is_abnormal": false,
+        "clinical_significance": "low"
+      },
       "hemoglobin": {
-        "expected_value": "9.22 g/dL (abnormal)",
-        "reference_range": "7.0-10.5 g/dL",
-        "is_abnormal": true,
-        "clinical_significance": "high"
-      },
-      "mcv": {
-        "expected_value": "77.6 fL (abnormal)",
-        "reference_range": "70-85 fL",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "rdw": {
-        "expected_value": "16.9 % (abnormal)",
-        "reference_range": "14.0-18.0 %",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
-      },
-      "ferritin": {
-        "expected_value": "18.5 ng/mL (abnormal)",
-        "reference_range": "10-40 ng/mL",
-        "is_abnormal": true,
-        "clinical_significance": "high"
-      },
-      "tibc": {
-        "expected_value": "417 ug/dL (abnormal)",
-        "reference_range": "350-500 ug/dL",
-        "is_abnormal": true,
-        "clinical_significance": "moderate"
+        "expected_value": "13.9 g/dL",
+        "reference_range": "12.5-15.5 g/dL",
+        "is_abnormal": false,
+        "clinical_significance": "low"
       }
     },
     "correct_treatment_plan": {
-      "medications": [
-        {
-          "name": "ferrous sulfate",
-          "drug_class": "iron supplement",
-          "dose": "325mg",
-          "frequency": "three times daily",
-          "rationale": "First-line treatment for anemia"
-        }
-      ],
+      "medications": [],
       "non_pharmacological": [
         "Lifestyle modification counseling",
         "Dietary guidance"
@@ -450,7 +462,15 @@
       {
         "check": "drug_interaction_check",
         "before": "prescribing",
-        "critical": false
+        "critical": true
+      },
+      {
+        "check": "contraindication_check",
+        "before": "prescribing",
+        "conditions": [
+          "gerd"
+        ],
+        "critical": true
       }
     ],
     "communication_truth": [
@@ -483,20 +503,19 @@
         "action": "history_taking",
         "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
         "key_questions": [
-          "anaemia"
+          "acid reflux"
         ],
         "hidden_information_to_uncover": []
       },
       {
         "step": 2,
         "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for anemia",
+        "correct_approach": "Order disease-relevant labs for asthma",
         "required_tests": [
-          "hemoglobin",
-          "mcv",
-          "rdw",
-          "ferritin",
-          "tibc"
+          "eosinophil_count",
+          "ige_total",
+          "wbc",
+          "hemoglobin"
         ]
       },
       {
@@ -504,9 +523,9 @@
         "action": "form_diagnosis",
         "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
         "must_consider": [
-          "Iron Deficiency Anemia",
-          "Thalassemia",
-          "Anemia of Chronic Disease"
+          "COPD",
+          "Bronchiectasis",
+          "Vocal Cord Dysfunction"
         ]
       },
       {
@@ -587,11 +606,10 @@
           "lab_results"
         ],
         "disease_specific_observations": [
-          "hemoglobin: results pending",
-          "mcv: results pending",
-          "rdw: results pending",
-          "ferritin: results pending",
-          "tibc: results pending"
+          "eosinophil_count: results pending",
+          "ige_total: results pending",
+          "wbc: results pending",
+          "hemoglobin: results pending"
         ]
       },
       "DIAGNOSIS_FORMING": {
@@ -829,11 +847,11 @@
         "partially_correct": 0.4,
         "incorrect": 0.0
       },
-      "correct_answer": "anemia",
+      "correct_answer": "asthma",
       "acceptable_answers": [
-        "Iron Deficiency Anemia",
-        "Thalassemia",
-        "Anemia of Chronic Disease"
+        "COPD",
+        "Bronchiectasis",
+        "Vocal Cord Dysfunction"
       ]
     },
     "secondary_outcomes": [
@@ -847,7 +865,7 @@
           "suboptimal_but_safe": 0.4,
           "unsafe_or_contraindicated": 0.0
         },
-        "correct_answer": "ferrous sulfate"
+        "correct_answer": "appropriate first-line medication"
       },
       {
         "metric": "safety_adherence",
@@ -904,7 +922,7 @@
         "information_completeness": 0.15,
         "patient_satisfaction": 0.1
       },
-      "pass_threshold": 0.7,
+      "pass_threshold": 0.8,
       "grade_levels": {
         "excellent": [
           0.9,
@@ -954,8 +972,8 @@
         "name": "history_taking",
         "description": "Detailed history collection: symptoms, onset, duration, severity, past history",
         "turn_budget": {
-          "min": 4,
-          "max": 8
+          "min": 5,
+          "max": 10
         },
         "required_actions": [
           "ask_about_symptoms",
@@ -970,7 +988,7 @@
         "description": "Physical examination and laboratory testing",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "assess_vital_signs",
@@ -997,7 +1015,7 @@
         "description": "Plan treatment, check safety, prescribe medication",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "check_allergy",
@@ -1011,7 +1029,7 @@
         "description": "Explain diagnosis and treatment, address concerns, ensure understanding",
         "turn_budget": {
           "min": 2,
-          "max": 4
+          "max": 5
         },
         "required_actions": [
           "communicate_diagnosis",
@@ -1033,18 +1051,24 @@
         "exit_condition": "Follow-up scheduled and consultation concluded"
       }
     ],
-    "time_pressure_events": [],
+    "time_pressure_events": [
+      {
+        "trigger_turn": 15,
+        "event": "Patient shows signs of impatience",
+        "effect": "Agent must balance thoroughness with efficiency"
+      }
+    ],
     "efficiency_metrics": {
       "optimal_turn_range": [
         5,
         11
       ],
-      "max_turns": 20,
+      "max_turns": 25,
       "turn_efficiency_score": "max(0, 1 - (actual_turns - optimal) / max_turns)",
       "waste_penalty": -0.02,
       "rush_penalty": -0.05
     },
-    "total_turn_budget": 20,
+    "total_turn_budget": 25,
     "minimum_required_turns": 3
   },
   "capability_dimensions": {
@@ -1058,7 +1082,7 @@
           "medical_history_review"
         ],
         "weight": 0.1,
-        "test_method": "Measure percentage of critical symptoms discovered for anemia"
+        "test_method": "Measure percentage of critical symptoms discovered for asthma"
       },
       "diagnostic_reasoning": {
         "description": "Ability to form accurate differential diagnosis based on gathered evidence",
@@ -1079,7 +1103,7 @@
           "comorbidity_management",
           "guideline_adherence"
         ],
-        "weight": 0.15,
+        "weight": 0.35,
         "test_method": "Verify treatment matches guidelines and accounts for comorbidities"
       },
       "safety_awareness": {
@@ -1090,7 +1114,7 @@
           "contraindication_awareness",
           "red_flag_detection"
         ],
-        "weight": 0.1,
+        "weight": 0.2,
         "test_method": "Check all safety checks performed before treatment decisions"
       },
       "communication_quality": {
@@ -1101,7 +1125,7 @@
           "misconception_correction",
           "shared_decision_making"
         ],
-        "weight": 0.4,
+        "weight": 0.15,
         "test_method": "Evaluate patient understanding and misconception correction"
       },
       "efficiency": {
@@ -1112,18 +1136,18 @@
           "time_management",
           "resource_efficiency"
         ],
-        "weight": 0.15,
+        "weight": 0.1,
         "test_method": "Count turns and actions relative to optimal path"
       }
     },
     "primary_dimensions": [
-      "communication_quality",
       "treatment_planning",
-      "efficiency"
+      "safety_awareness",
+      "communication_quality"
     ],
     "difficulty_modifier": {
-      "focus": "basic competence",
-      "sub_skill_multiplier": 0.8
+      "focus": "intermediate proficiency with nuance",
+      "sub_skill_multiplier": 1.0
     }
   },
   "difficulty_profile": {
@@ -1132,7 +1156,7 @@
         "score": 1,
         "max": 3,
         "description": "Number and overlap of presenting symptoms",
-        "task_specific": "1 total symptoms across tiers"
+        "task_specific": "2 total symptoms across tiers"
       },
       "diagnostic_ambiguity": {
         "score": 1,
@@ -1141,16 +1165,16 @@
         "task_specific": "3 plausible differentials"
       },
       "treatment_complexity": {
-        "score": 1,
+        "score": 2,
         "max": 3,
         "description": "Number of treatment options, drug interactions, and comorbidity constraints",
-        "task_specific": "0 comorbidities affecting treatment choice"
+        "task_specific": "1 comorbidities affecting treatment choice"
       },
       "patient_behavior_difficulty": {
-        "score": 1,
+        "score": 2,
         "max": 3,
         "description": "How challenging the patient behavior is for information gathering",
-        "task_specific": "behavior: cooperative"
+        "task_specific": "behavior: forgetful"
       },
       "information_asymmetry": {
         "score": 1,
@@ -1159,10 +1183,10 @@
         "task_specific": "0 hidden/resistant symptoms to discover"
       },
       "comorbidity_burden": {
-        "score": 0,
+        "score": 1,
         "max": 3,
         "description": "Number and severity of coexisting conditions affecting diagnosis and treatment",
-        "task_specific": "0 comorbidities present"
+        "task_specific": "1 comorbidities present"
       },
       "time_pressure": {
         "score": 1,
@@ -1172,21 +1196,21 @@
       }
     },
     "overall": {
-      "aggregate_score": 6,
+      "aggregate_score": 9,
       "max_possible": 21,
-      "difficulty_rating": "L1",
+      "difficulty_rating": "L2",
       "primary_difficulty_drivers": [
-        "symptom_complexity",
-        "diagnostic_ambiguity",
-        "treatment_complexity"
+        "treatment_complexity",
+        "patient_behavior_difficulty",
+        "symptom_complexity"
       ],
-      "explanation": "This L1 task is primarily challenging due to symptom complexity, diagnostic ambiguity. The diagnosis of anemia requires careful information gathering and clinical reasoning."
+      "explanation": "This L2 task is primarily challenging due to treatment complexity, patient behavior difficulty. The diagnosis of asthma requires careful information gathering and clinical reasoning."
     },
     "adversarial_design": {
       "noise_injection": {
-        "misleading_symptoms": 0,
+        "misleading_symptoms": 2,
         "noise_symptoms": 0,
-        "cross_overlapping_conditions": 2
+        "cross_overlapping_conditions": 0
       },
       "partial_observability": {
         "hidden_symptoms": 0,
@@ -1279,15 +1303,45 @@
           "turns": 1
         }
       },
-      "health_education": {
-        "description": "Provide health education to the patient",
+      "check_allergy": {
+        "description": "Check patient allergies",
         "parameters": {
           "type": "object",
           "properties": {
-            "topic": {
-              "type": "string"
-            },
-            "key_points": {
+            "patient_id": {
+              "type": "string",
+              "default": "current"
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "allergies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "preconditions": [
+          "state in [TREATMENT_PLANNING, DIAGNOSIS_MADE]"
+        ],
+        "postconditions": [
+          "allergy_checked = true"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "check_drug_interactions": {
+        "description": "Check for drug-drug interactions",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_list": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1295,65 +1349,25 @@
             }
           },
           "required": [
-            "topic"
+            "drug_list"
           ]
         },
         "returns": {
           "type": "object",
           "properties": {
-            "patient_understanding": {
-              "type": "number"
-            },
-            "questions_asked": {
+            "interactions": {
               "type": "array"
+            },
+            "safe_to_proceed": {
+              "type": "boolean"
             }
           }
         },
         "preconditions": [
-          "state in [TREATMENT_PLANNING, PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
+          "state == TREATMENT_PLANNING"
         ],
         "postconditions": [
-          "education_provided = true"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
-      "patient_education": {
-        "description": "Educate patient about their condition and treatment",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "topic": {
-              "type": "string"
-            },
-            "use_simple_language": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          "required": [
-            "topic"
-          ]
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "patient_understanding": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "misconceptions_corrected": {
-              "type": "array"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [PATIENT_DISCUSSION, DIAGNOSIS_MADE]"
-        ],
-        "postconditions": [
-          "patient_educated = true"
+          "interaction_checked = true"
         ],
         "cost": {
           "turns": 1
@@ -1407,49 +1421,6 @@
           "turns": 1
         }
       },
-      "assess_vital_signs": {
-        "description": "Measure patient vital signs",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "include_bmi": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          "required": []
-        },
-        "returns": {
-          "type": "object",
-          "properties": {
-            "blood_pressure": {
-              "type": "string"
-            },
-            "heart_rate": {
-              "type": "string"
-            },
-            "oxygen_saturation": {
-              "type": "string"
-            },
-            "temperature": {
-              "type": "string"
-            },
-            "bmi": {
-              "type": "string"
-            }
-          }
-        },
-        "preconditions": [
-          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
-        ],
-        "postconditions": [
-          "vitals_observed = true",
-          "state may transition to PHYSICAL_EXAM"
-        ],
-        "cost": {
-          "turns": 1
-        }
-      },
       "schedule_followup": {
         "description": "Schedule a follow-up appointment",
         "parameters": {
@@ -1489,6 +1460,49 @@
         "postconditions": [
           "followup_scheduled = true",
           "state transitions to CONSULTATION_COMPLETE"
+        ],
+        "cost": {
+          "turns": 1
+        }
+      },
+      "assess_vital_signs": {
+        "description": "Measure patient vital signs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "include_bmi": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        },
+        "returns": {
+          "type": "object",
+          "properties": {
+            "blood_pressure": {
+              "type": "string"
+            },
+            "heart_rate": {
+              "type": "string"
+            },
+            "oxygen_saturation": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            },
+            "bmi": {
+              "type": "string"
+            }
+          }
+        },
+        "preconditions": [
+          "state in [HISTORY_TAKING, PHYSICAL_EXAM]"
+        ],
+        "postconditions": [
+          "vitals_observed = true",
+          "state may transition to PHYSICAL_EXAM"
         ],
         "cost": {
           "turns": 1
@@ -1625,7 +1639,7 @@
             "delay": 0.1
           }
         },
-        "active_level": "cooperative"
+        "active_level": "forgetful"
       },
       "lab_result_noise": {
         "type": "gaussian",
@@ -1645,13 +1659,15 @@
       "volunteer_tier": {
         "access": "immediate",
         "fields": [
-          "anaemia"
+          "acid reflux"
         ],
         "cost": 0
       },
       "if_asked_tier": {
         "access": "on_category_match",
-        "fields": [],
+        "fields": [
+          "asthma"
+        ],
         "cost": 1,
         "trigger": "ask_patient with category matching the symptom"
       },
@@ -1665,11 +1681,11 @@
         "access": "after_trust_threshold",
         "fields": [],
         "cost": 2,
-        "trust_required": 0.0,
+        "trust_required": 0.1,
         "trigger": "demonstrate empathy + ask specific question"
       }
     },
-    "difficulty_noise_multiplier": 0.5,
+    "difficulty_noise_multiplier": 1.0,
     "observation_protocol": {
       "step_input": {
         "agent_action": "ActionSchema compliant JSON",
@@ -1725,7 +1741,7 @@
       }
     },
     "aggregate_logic": "sum(component_score * component_weight for each component)",
-    "pass_threshold": 0.7,
+    "pass_threshold": 0.8,
     "critical_failure_rules": [
       {
         "condition": "diagnosis_score == 0.0",
@@ -1820,7 +1836,7 @@
       }
     },
     "turn_rules": {
-      "max_turns": 20,
+      "max_turns": 25,
       "min_required_turns": 3,
       "agent_goes_first": true,
       "patient_responds_after_each_action": true,
@@ -1891,7 +1907,7 @@
       "critical_failure_check": "Check critical_failure_rules before reporting pass/fail"
     },
     "randomness": {
-      "seed": 409,
+      "seed": 507,
       "stochastic_elements": [
         "patient_response_variation",
         "lab_result_noise",
@@ -1906,12 +1922,265 @@
       ]
     }
   },
+  "verification": {
+    "version": "1.0",
+    "sources": {
+      "disease_profile": {
+        "source": "disease_profiles.json",
+        "fields_used": [
+          "differential_questions",
+          "aliases",
+          "typical_age_range"
+        ],
+        "clinical_validation": "Derived from established medical knowledge base"
+      },
+      "medication_data": {
+        "source": "drug_database.json",
+        "fields_used": [
+          "generic_name",
+          "drug_class",
+          "standard_doses",
+          "contraindications",
+          "interactions"
+        ],
+        "clinical_validation": "Based on standard pharmacological references"
+      },
+      "lab_reference": {
+        "source": "lab_reference.json",
+        "fields_used": [
+          "test_name",
+          "range_low",
+          "range_high",
+          "is_abnormal",
+          "clinical_significance"
+        ],
+        "clinical_validation": "Reference ranges from standard clinical laboratory values"
+      },
+      "clinical_questions": {
+        "source": "clinical_questions.json",
+        "fields_used": [
+          "differential_questions",
+          "symptom_probes"
+        ],
+        "clinical_validation": "Questions derived from clinical diagnostic protocols"
+      }
+    },
+    "cross_validation_rules": [
+      {
+        "rule": "diagnosis_matches_symptoms",
+        "check": "ground_truth.correct_diagnosis.primary (asthma) must be consistent with medical_persona.symptoms and expected_lab_results",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "treatment_matches_diagnosis",
+        "check": "ground_truth.correct_treatment_plan medications must be indicated for the correct_diagnosis",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "lab_values_in_range",
+        "check": "All lab values in medical_persona.lab_results must fall within or near disease-specific reference ranges from lab_reference.json",
+        "status": "auto_verified"
+      },
+      {
+        "rule": "contraindications_consistent",
+        "check": "ground_truth.correct_treatment_plan must not include medications contraindicated by medical_persona.comorbidities",
+        "status": "auto_verified"
+      }
+    ],
+    "confidence_levels": {
+      "correct_diagnosis": {
+        "level": "high",
+        "reason": "Directly from disease_profiles.json — established condition"
+      },
+      "expected_lab_results": {
+        "level": "high",
+        "reason": "Values generated from lab_reference.json reference ranges with disease-specific adjustments"
+      },
+      "correct_treatment_plan": {
+        "level": "moderate",
+        "reason": "No specific medication data available in KB"
+      },
+      "differential_diagnoses": {
+        "level": "high",
+        "reason": "From disease_profiles.json differential field"
+      }
+    },
+    "clinical_guideline_reference": "GINA Global Strategy for Asthma Management",
+    "verification_method": {
+      "automated_checks": [
+        "diagnosis-treatment consistency",
+        "lab value range validation",
+        "contraindication cross-check",
+        "symptom-diagnosis alignment"
+      ],
+      "manual_review_recommended": true,
+      "disclaimer": "Generated ground truth should be reviewed by a clinical domain expert before use in high-stakes evaluation"
+    }
+  },
+  "score_calibration": {
+    "version": "1.0",
+    "calibration_method": "z_score_normalization_with_difficulty_adjustment",
+    "raw_score_range": [
+      0.0,
+      1.0
+    ],
+    "reference_distribution": {
+      "mean": 0.6,
+      "std": 0.15,
+      "percentiles": {
+        "p10": 0.38,
+        "p25": 0.5,
+        "p50": 0.6,
+        "p75": 0.72,
+        "p90": 0.82
+      },
+      "description": "Reference distribution from baseline agent performance on L2 tasks"
+    },
+    "normalization": {
+      "formula": "normalized_score = (raw_score - reference_mean) / reference_std",
+      "output_range": "z-scores, comparable across all difficulty levels",
+      "interpretation": {
+        "z > 1.0": "Above 84th percentile — excellent",
+        "z > 0.0": "Above 50th percentile — above average",
+        "z > -1.0": "Above 16th percentile — below average",
+        "z <= -1.0": "Below 16th percentile — needs improvement"
+      }
+    },
+    "difficulty_adjustment": {
+      "description": "Same raw score at different difficulties maps to different normalized scores",
+      "example": {
+        "raw_0.7_at_L1": "see L1 reference",
+        "raw_0.7_at_L3": "see L3 reference"
+      }
+    },
+    "leaderboard_scoring": {
+      "primary_metric": "normalized_z_score",
+      "secondary_metric": "raw_score",
+      "grouping": "by difficulty level AND task type",
+      "ranking_rule": "Higher z-score = better, adjusted for difficulty"
+    }
+  },
+  "benchmark_protocol": {
+    "protocol_version": "1.0",
+    "benchmark_name": "tau2-medical-bench",
+    "run_configuration": {
+      "agent_interface": "Agent must implement step(action) -> (observation, reward, terminated, info)",
+      "initialization": {
+        "step_1": "Load task JSON",
+        "step_2": "Initialize environment with initial_state",
+        "step_3": "Set state=INITIAL, turn_count=0",
+        "step_4": "Return first observation (demographics + ticket)"
+      },
+      "execution_loop": {
+        "type": "for turn in range(max_turns)",
+        "body": [
+          "agent produces action via step(action_dict)",
+          "environment validates action against action_space",
+          "if valid: apply state transition from environment_dynamics",
+          "apply observation_function with noise_model",
+          "compute incremental reward from environment_dynamics.reward_function",
+          "return (observation, reward, terminated, info)",
+          "if terminated: break loop"
+        ]
+      },
+      "post_execution": {
+        "step_1": "Collect agent action log",
+        "step_2": "Run scoring_function for final score",
+        "step_3": "Apply score_calibration for normalized score",
+        "step_4": "Generate per-component score breakdown"
+      }
+    },
+    "evaluation_pipeline": {
+      "input": "agent_action_log + task JSON",
+      "steps": [
+        "Verify all required_actions were performed",
+        "Check forbidden_actions not violated",
+        "Score diagnosis_accuracy against ground_truth",
+        "Score safety_adherence against required_safety_checks",
+        "Score treatment_appropriateness against correct_treatment_plan",
+        "Score information_completeness against information_gates",
+        "Score communication_quality against communication_truth",
+        "Apply critical_failure_rules",
+        "Calculate weighted aggregate",
+        "Apply efficiency_bonus/deduction",
+        "Normalize with score_calibration"
+      ],
+      "output": {
+        "raw_score": "float [0.0, 1.0]",
+        "normalized_z_score": "float (z-score)",
+        "component_scores": "dict[str, float]",
+        "pass_fail": "boolean",
+        "grade": "string (excellent/good/acceptable/needs_improvement/failing)",
+        "critical_failures": "list[str]"
+      }
+    },
+    "leaderboard_format": {
+      "schema": {
+        "agent_name": "string",
+        "model_id": "string",
+        "task_id": "string",
+        "task_type": "string",
+        "difficulty": "string",
+        "disease": "string",
+        "raw_score": "float",
+        "normalized_z_score": "float",
+        "grade": "string",
+        "component_scores": "dict",
+        "turns_used": "int",
+        "seed": "int",
+        "timestamp": "ISO 8601"
+      },
+      "aggregation": {
+        "per_agent": "mean(normalized_z_score) across all tasks",
+        "per_difficulty": "mean(normalized_z_score) per difficulty level",
+        "per_task_type": "mean(normalized_z_score) per task type",
+        "per_dimension": "mean(component_score) per capability_dimension"
+      },
+      "ranking": "Primary: mean normalized_z_score. Tiebreak: fewer turns, then fewer critical failures."
+    },
+    "reproducibility_requirements": {
+      "must_specify": [
+        "agent_name",
+        "model_id",
+        "seed",
+        "task_id"
+      ],
+      "deterministic_run": "Same seed + task_id + action_sequence must produce identical scores",
+      "version_lock": "Results only comparable within same benchmark protocol version"
+    }
+  },
+  "determinism_guarantee": {
+    "version": "1.0",
+    "guarantee": "Same task_id + seed produces bit-identical task JSON",
+    "seed": 507,
+    "rng_type": "random.Random (Mersenne Twister, deterministic)",
+    "rng_scope": "Single self._rng instance per task, seeded in generate_task()",
+    "nondeterministic_elements": [
+      "scenario_id contains uuid4 from upstream ScenarioGenerator (does not affect task content)"
+    ],
+    "content_hash": "8a773ff97e415cbe",
+    "hash_input": "v2_treatment_tradeoff_L2_asthma_750d33|asthma|L2|treatment_tradeoff|forgetful|507",
+    "verification": {
+      "method": "Generate same task twice with same seed, compare JSON byte-for-byte",
+      "expected": "Identical output",
+      "command": "python -c \"import json; t1=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); t2=json.dumps(gen.generate_task('diagnostic_uncertainty','L2',seed=42)); assert t1==t2\""
+    },
+    "replay": {
+      "description": "Given task JSON + agent action log, evaluator can replay and reproduce identical scores",
+      "requires": [
+        "task_id",
+        "seed",
+        "ordered list of agent actions"
+      ],
+      "guarantees": "Identical observation sequence and final score"
+    }
+  },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_patient_non_compliance_L1_anemia_f04f4e",
+    "scenario_id": "v2_treatment_tradeoff_L2_asthma_750d33",
     "risk_level": "moderate",
-    "uncertainty_level": 0.145,
-    "behavior_type": "cooperative",
-    "seed": 409
+    "uncertainty_level": 0.663,
+    "behavior_type": "forgetful",
+    "seed": 507
   }
 }
