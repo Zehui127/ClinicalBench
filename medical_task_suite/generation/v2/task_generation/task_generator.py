@@ -10,7 +10,7 @@ Key quality features:
 - Patient-friendly language (not clinical jargon)
 - Realistic lab values from lab_reference.json
 - Detailed drug info from drug_database.json
-- Rich persona with socioeconomic factors, family dynamics, misconceptions
+- Rich persona with socioeconomic factors, misconceptions
 - Populated information tiers with 5-10 items each
 - Disease-specific evaluation criteria
 - Detailed task instructions for role-playing
@@ -221,27 +221,6 @@ DISEASE_MISCONCEPTIONS = {
             "Is there a cure for arthritis?",
         ],
     },
-}
-
-# Disease → family member disease-specific concerns
-FAMILY_CONCERN_TEMPLATES = {
-    "diabetes": [
-        "Will our children get diabetes too?",
-        "Should we throw out all the sweets at home?",
-        "I heard supplements can lower blood sugar, should we buy some?",
-    ],
-    "heart": [
-        "Is this genetic? Should our kids get checked?",
-        "Can they still drive?",
-    ],
-    "cancer": [
-        "How long do they have?",
-        "Is it contagious?",
-    ],
-    "default": [
-        "How can we help at home?",
-        "What should we cook for them?",
-    ],
 }
 
 
@@ -564,7 +543,6 @@ class MedicalTaskGenerator:
 
             "description": self._build_description(scenario, profile, persona),
             "user_scenario": self._build_user_scenario(scenario, symptoms, profile, persona),
-            "family_member_scenario": self._build_family_scenario(scenario, persona, disease),
             "medical_persona": self._build_medical_persona(scenario, profile, symptoms, persona),
             "ticket": self._build_ticket(scenario, symptoms),
             "initial_state": self._build_initial_state(persona, symptoms),
@@ -742,10 +720,6 @@ class MedicalTaskGenerator:
         if occupation:
             desc += f", works as a {occupation}"
         desc += f". {behavior_desc.get(behavior, 'a patient')} presenting with {patient_symptom}."
-
-        if persona.get("family_member"):
-            fm = persona["family_member"]
-            desc += f" Accompanied by {fm['relationship']} (age {fm['age']})."
 
         return desc
 
@@ -988,19 +962,6 @@ class MedicalTaskGenerator:
             if med_discussion:
                 strategy["share_in_response_to_medication_discussion"] = med_discussion
 
-        # Family member interjection items
-        if persona.get("family_member"):
-            fm = persona["family_member"]
-            family_key = "default"
-            for key in FAMILY_CONCERN_TEMPLATES:
-                if key in disease.lower():
-                    family_key = key
-                    break
-            family_items = FAMILY_CONCERN_TEMPLATES.get(family_key, FAMILY_CONCERN_TEMPLATES["default"])
-            strategy["family_member_will_interject"] = [
-                f"{fm['relationship']}: {item}" for item in family_items[:4]
-            ]
-
         # Response style
         behavior = BEHAVIOR_PROFILES.get(behavior_type, BEHAVIOR_PROFILES["cooperative"])
         strategy["response_style"] = {
@@ -1018,7 +979,6 @@ class MedicalTaskGenerator:
             }.get(behavior_type, "neutral"),
             "may_resist_certain_treatments": self._get_resistance_treatments(disease, behavior_type),
             "financial_constraints": persona.get("economic_status") in ("low", "moderate"),
-            "family_involvement": persona.get("family_member") is not None,
         }
 
         return strategy
@@ -1206,36 +1166,7 @@ class MedicalTaskGenerator:
                 "If the doctor suggests expensive tests or medications, express concern about affordability."
             )
 
-        # Family member
-        if persona.get("family_member"):
-            fm = persona["family_member"]
-            instructions += (
-                f" Your {fm['relationship']} is with you and may speak up during the consultation "
-                f"to ask questions or express concerns."
-            )
-
         return instructions
-
-    # ============================================================
-    # Family Member Scenario
-    # ============================================================
-
-    def _build_family_scenario(self, scenario: ScenarioSpec, persona: Dict, disease: str) -> Optional[Dict]:
-        """Build optional family member scenario."""
-        fm = persona.get("family_member")
-        if not fm:
-            return None
-
-        return {
-            "scenario": f"{fm['relationship']} accompanies patient, participates in the entire visit",
-            "role": fm.get("attitude", "Supportive and concerned"),
-            "interaction_timing": [
-                "When medication is discussed, the family member asks about costs",
-                "After diagnosis is explained, the family member asks about heritability",
-                "When a prescription is written, the family member asks about side effects",
-                "When lifestyle changes are mentioned, the family member asks for specifics",
-            ],
-        }
 
     # ============================================================
     # Medical Persona Builder (RICH version)
@@ -1392,7 +1323,6 @@ class MedicalTaskGenerator:
             "occupation": persona.get("occupation", "not specified"),
             "monthly_income": persona.get("income_text", "not specified"),
             "insurance": persona.get("insurance", "basic coverage"),
-            "family_burden": persona.get("family_burden", ""),
         }
 
         # Medication considerations (drug-specific)
@@ -2070,36 +2000,6 @@ class MedicalTaskGenerator:
             "comfortable": "comprehensive medical insurance, good coverage",
         }
 
-        # Family member (50% chance for L2+, higher for confused/forgetful)
-        family_chance = 0.7 if behavior in ("confused", "forgetful") else 0.5
-        family_member = None
-        if scenario.difficulty != "L1" and random.random() < family_chance:
-            fm_relations = {
-                "male": [("wife", 2), ("daughter", -20), ("son", -20)],
-                "female": [("husband", 2), ("daughter", -20), ("son", -20)],
-            }
-            relations = fm_relations.get(gender, fm_relations["male"])
-            relation, age_diff = random.choice(relations)
-            fm_age = max(18, age + age_diff + random.randint(-3, 3))
-            family_member = {
-                "relationship": relation,
-                "age": fm_age,
-                "education_level": random.choice(["elementary", "middle_school", "high_school"]),
-                "role": "primary caregiver, accompanies to visits",
-                "attitude": "concerned and supportive, may express economic worries",
-                "knowledge_level": "limited medical knowledge, many questions",
-            }
-
-        # Family burden text
-        family_burden = ""
-        if random.random() < 0.5:
-            burdens = [
-                "two children in school, financial pressure",
-                "elderly parents to care for",
-                "single income household",
-            ]
-            family_burden = random.choice(burdens)
-
         return {
             "age": age,
             "gender": gender,
@@ -2110,8 +2010,6 @@ class MedicalTaskGenerator:
             "economic_status": economic_status,
             "income_text": income_texts[economic_status],
             "insurance": insurances[economic_status],
-            "family_member": family_member,
-            "family_burden": family_burden,
         }
 
     # ============================================================

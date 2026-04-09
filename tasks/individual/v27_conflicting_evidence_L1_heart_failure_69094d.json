@@ -1,59 +1,61 @@
 {
-  "id": "v27_drug_safety_risk_L1_rheumatoid_arthritis_3a8d2b",
-  "domain": "rheumatology",
-  "task_type": "drug_safety_risk",
+  "id": "v27_conflicting_evidence_L1_heart_failure_69094d",
+  "domain": "cardiology",
+  "task_type": "conflicting_evidence",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "drug_safety_risk — 60-year-old female with I've been having joint deformities for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having joint deformities for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "conflicting_evidence — 30-year-old male with I've been having wake up at night feeling short of breath for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having wake up at night feeling short of breath for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Safety checking before prescribing",
-      "Drug interaction awareness"
+      "Ability to resolve conflicting data",
+      "Critical appraisal of evidence"
     ],
-    "focus": "Safe prescribing with allergy and interaction checks"
+    "focus": "Resolving conflicting clinical evidence"
   },
   "user_scenario": {
-    "persona": "60-year-old female patient, 高中/中专 education, works as a nurse aide. a cooperative patient who answers questions clearly presenting with I've been having joint deformities.",
+    "persona": "30-year-old male patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with I've been having wake up at night feeling short of breath.",
     "patient_profile": {
-      "age": 60,
-      "gender": "female",
+      "age": 30,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "i've been having joint deformities for a few weeks",
-      "occupation": "nurse aide"
+      "chief_complaint": "my weight has changed for a few weeks",
+      "occupation": "retail manager"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "i've been having joint deformities"
+          "my weight has changed"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having joint deformities",
+        "general_concern": "I've been having wake up at night feeling short of breath",
         "current_medications": [
-          "methotrexate 15mg once weekly",
-          "folic acid 1mg daily except methotrexate day"
+          "lisinopril 10mg once daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "rheumatoid arthritis",
-        "specific_medication_needed": "methotrexate (15mg once weekly)",
+        "diagnosis": "heart failure",
+        "nt_probnp": "724 pg/mL (abnormal)",
+        "creatinine": "1.26 mg/dL (abnormal)",
+        "sodium": "134 mmol/L (abnormal)",
+        "specific_medication_needed": "lisinopril (10mg once daily)",
         "medication_contraindications": [
-          "pregnancy",
-          "liver disease"
+          "pregnancy"
         ]
       },
       "patient_misconceptions_and_concerns": {
-        "exercise_misconception": [
-          "Should I stop exercising so I don't wear out my joints?",
-          "My joints hurt, shouldn't I just rest?"
+        "anxiety_fears": [
+          "Am I going to have a heart attack?",
+          "Will I need bypass surgery?",
+          "Can I still exercise?"
         ],
         "medication_concerns": [
-          "I heard arthritis painkillers damage your stomach",
-          "Is there a cure for arthritis?"
+          "Do I have to take heart medication for the rest of my life?",
+          "I heard statins damage your liver"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -65,11 +67,18 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "i've been having joint deformities"
+        "my weight has changed"
       ],
       "share_only_if_asked": [],
+      "misleading_symptoms": [
+        "waking up gasping for air (paroxysmal nocturnal dyspnea)",
+        "abdominal swelling and loss of appetite",
+        "shortness of breath (also seen in COPD and pneumonia)",
+        "swelling (also seen in kidney disease and liver disease)"
+      ],
+      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "share_in_response_to_medication_discussion": [
-        "Concerns about methotrexate side effects — pregnancy, liver disease"
+        "Concerns about lisinopril side effects — pregnancy"
       ],
       "response_style": {
         "honest": true,
@@ -78,69 +87,81 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are HuangXX, a 60-year-old female patient. Your education level is 高中/中专. You work as a nurse aide. You are seeing a doctor because of i've been having joint deformities. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are HuangXX, a 30-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of my weight has changed. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 60,
-    "gender": "female",
+    "age": 30,
+    "gender": "male",
     "symptoms": {
-      "Have you noticed any joint deformities": "I've been having joint deformities"
+      "Has your weight changed unexpectedly": "my weight has changed"
     },
     "duration": "a few weeks",
     "severity": "mild",
     "current_medications": [
       {
-        "name": "folic acid",
-        "brand_names": [],
-        "drug_class": "vitamin B9 supplement",
-        "dose": "1mg",
+        "name": "lisinopril",
+        "brand_names": [
+          "Zestril",
+          "Prinivil"
+        ],
+        "drug_class": "ACE inhibitor",
+        "dose": "10mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "spironolactone",
+        "brand_names": [
+          "Aldactone"
+        ],
+        "drug_class": "potassium-sparing diuretic / aldosterone antagonist",
+        "dose": "25mg",
         "frequency": "once daily"
       }
     ],
-    "allergies": [
-      "contrast dye"
-    ],
+    "lab_results": {
+      "nt_probnp": "673 pg/mL (abnormal)",
+      "creatinine": "1.34 mg/dL (abnormal)",
+      "sodium": "136 mmol/L (abnormal)",
+      "bnp": "356 pg/mL (abnormal)",
+      "hemoglobin": "12.1 g/dL"
+    },
     "vital_signs": {
-      "blood_pressure": "141/80 mmHg",
-      "bmi": "26.2"
+      "blood_pressure": "138/71 mmHg",
+      "heart_rate": "106 bpm",
+      "bmi": "25.5"
     },
     "lifestyle_factors": {
       "smoking": "quit 2 years ago (former 1 pack/day for 25 years)",
-      "exercise": "minimal"
+      "exercise": "sedentary"
     },
     "socioeconomic_factors": {
-      "occupation": "nurse aide",
+      "occupation": "retail manager",
       "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage",
-      "family_burden": "single income household"
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
-      "methotrexate": {
-        "drug_class": "antimetabolite / DMARD",
-        "standard_dose": "",
+      "lisinopril": {
+        "drug_class": "ACE inhibitor",
+        "standard_dose": "10mg once daily",
         "contraindications": [
-          "pregnancy",
-          "liver disease"
+          "pregnancy"
         ]
       }
     },
     "diagnosis": {
-      "primary": "rheumatoid arthritis",
+      "primary": "heart failure",
       "severity": "mild",
       "differential_diagnoses": [
-        "Osteoarthritis",
-        "Psoriatic Arthritis",
-        "Lupus",
-        "Gout"
+        "COPD",
+        "Pulmonary Embolism",
+        "Nephrotic Syndrome"
       ]
     }
   },
-  "ticket": "i've been having joint deformities",
+  "ticket": "my weight has changed",
   "initial_state": {
     "initialization_actions": [
       {
@@ -148,9 +169,9 @@
         "func_name": "set_user_info",
         "arguments": {
           "name": "HuangXX",
-          "mrn": "MRN739110",
-          "age": 60,
-          "gender": "female"
+          "mrn": "MRN576431",
+          "age": 30,
+          "gender": "male"
         }
       },
       {
@@ -158,17 +179,17 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 60,
-            "gender": "female",
+            "age": 30,
+            "gender": "male",
             "symptoms": [
-              "i've been having joint deformities"
+              "my weight has changed"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "i've been having joint deformities"
+              "my weight has changed"
             ],
             "ask_only": []
           },
@@ -191,41 +212,49 @@
         }
       },
       {
-        "action_id": "use_check_allergy",
+        "action_id": "use_order_lab_tests",
         "requestor": "assistant",
-        "name": "check_allergy",
+        "name": "order_lab_tests",
+        "arguments": {
+          "tests": [
+            "nt_probnp",
+            "creatinine",
+            "sodium",
+            "bnp",
+            "hemoglobin"
+          ],
+          "rationale": "Labs to evaluate heart failure"
+        }
+      },
+      {
+        "action_id": "use_get_lab_results",
+        "requestor": "assistant",
+        "name": "get_lab_results",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_check_drug_interactions",
+        "action_id": "use_differential_diagnosis",
         "requestor": "assistant",
-        "name": "check_drug_interactions",
+        "name": "differential_diagnosis",
         "arguments": {
-          "drug_list": [
-            "methotrexate",
-            "folic acid",
-            "prednisone"
+          "symptoms": [
+            "heart failure"
+          ],
+          "must_consider": [
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ]
         }
       },
       {
-        "action_id": "use_check_contraindications",
+        "action_id": "use_record_diagnosis",
         "requestor": "assistant",
-        "name": "check_contraindications",
+        "name": "record_diagnosis",
         "arguments": {
-          "medication": "methotrexate",
-          "conditions": []
-        }
-      },
-      {
-        "action_id": "use_prescribe_medication",
-        "requestor": "assistant",
-        "name": "prescribe_medication",
-        "arguments": {
-          "medication": "methotrexate",
-          "dose": ""
+          "diagnosis": "heart failure"
         }
       }
     ],
@@ -244,11 +273,10 @@
     "reward_basis": [
       "DB",
       "COMMUNICATE",
-      "CLINICAL",
-      "SAFETY"
+      "CLINICAL"
     ],
     "medical_criteria": {
-      "category": "safety",
+      "category": "diagnosis",
       "min_turns": 3,
       "max_turns": 20,
       "information_gathering_requirements": {
@@ -260,7 +288,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of rheumatoid arthritis identified through systematic questioning",
+            "description": "All major symptoms of heart failure identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -300,22 +328,33 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "rheumatoid arthritis",
+          "correct_diagnosis": "heart failure",
           "allow_alternatives": [
-            "Osteoarthritis",
-            "Psoriatic Arthritis",
-            "Lupus"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
           "must_consider": [
-            "Osteoarthritis",
-            "Psoriatic Arthritis",
-            "Lupus"
+            "COPD",
+            "Pulmonary Embolism",
+            "Nephrotic Syndrome"
           ],
           "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "nt_probnp",
+            "creatinine",
+            "sodium"
+          ],
+          "should_order": [
+            "hemoglobin"
+          ],
+          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -328,27 +367,11 @@
         "key_questions": {
           "required": false,
           "must_ask": [
-            "Which joints are affected? Are the symptoms symmetric on both sides?",
-            "Is there prolonged morning stiffness lasting more than an hour?",
-            "Are the joints swollen, warm, or tender?"
+            "Do you wake up at night feeling short of breath?",
+            "Have you noticed swelling in your ankles or legs?",
+            "Do you find you need more pillows to sleep comfortably?"
           ],
           "weight": 0.1
-        }
-      },
-      "treatment_requirements": {
-        "medication_appropriateness": {
-          "required": true,
-          "should_prescribe": "methotrexate",
-          "appropriate_dosage": "15mg once weekly",
-          "weight": 0.3
-        },
-        "contraindication_awareness": {
-          "required": true,
-          "must_check": [
-            "pregnancy",
-            "liver disease"
-          ],
-          "weight": 0.2
         }
       },
       "safety_requirements": {
@@ -362,22 +385,27 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "nsaid_gi_risk": {
+        "bleeding_risk_with_anticoagulants": {
           "required": true,
-          "description": "Must assess: NSAID GI risk",
+          "description": "Must assess: bleeding risk with anticoagulants",
           "severity": "major"
         },
-        "immunosuppression_monitoring": {
+        "blood_pressure_control": {
           "required": true,
-          "description": "Must assess: immunosuppression monitoring",
+          "description": "Must assess and address blood pressure",
+          "severity": "high"
+        },
+        "potassium_monitoring": {
+          "required": true,
+          "description": "Must assess: potassium monitoring",
           "severity": "major"
         }
       },
       "required_tools": [
-        "check_allergy",
-        "check_drug_interactions",
-        "check_contraindications",
-        "prescribe_medication"
+        "order_lab_tests",
+        "get_lab_results",
+        "differential_diagnosis",
+        "record_diagnosis"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -390,18 +418,20 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Osteoarthritis as alternative diagnosis",
-        "Prescribe methotrexate in patient with pregnancy without special precautions",
-        "Diagnose rheumatoid arthritis without ordering any supporting lab tests"
+        "Prescribe NSAIDs without assessing cardiovascular risk",
+        "Discharge without assessing exercise tolerance",
+        "Fail to consider COPD as alternative diagnosis",
+        "Prescribe lisinopril in patient with pregnancy without special precautions",
+        "Diagnose heart failure without ordering any supporting lab tests"
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_drug_safety_risk_L1_rheumatoid_arthritis_cc4ec6",
-    "risk_level": "moderate",
-    "uncertainty_level": 0.35,
+    "scenario_id": "v2_conflicting_evidence_L1_heart_failure_426fb4",
+    "risk_level": "high",
+    "uncertainty_level": 0.113,
     "behavior_type": "cooperative",
-    "seed": 112
+    "seed": 203
   }
 }

@@ -1,12 +1,12 @@
 {
-  "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_236152",
+  "id": "v27_diagnostic_uncertainty_L1_type_2_diabetes_023dc5",
   "domain": "endocrinology",
   "task_type": "diagnostic_uncertainty",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "diagnostic_uncertainty — 49-year-old female with I've had episodes of blurred vision for a few weeks",
-    "clinical_scenario": "Patient presents with I've had episodes of blurred vision for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "diagnostic_uncertainty — 42-year-old male with I've been having increased thirst or urination recently for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having increased thirst or urination recently for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
@@ -16,10 +16,10 @@
     "focus": "Systematic information gathering and differential diagnosis"
   },
   "user_scenario": {
-    "persona": "49-year-old female patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with I've had episodes of blurred vision.",
+    "persona": "42-year-old male patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with I've been having increased thirst or urination recently.",
     "patient_profile": {
-      "age": 49,
-      "gender": "female",
+      "age": 42,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
@@ -32,14 +32,15 @@
           "my appetite has changed"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've had episodes of blurred vision",
-        "current_medications": [
-          "metformin 500mg twice daily"
+        "general_concern": "I've been having increased thirst or urination recently",
+        "family_history": "family member has high cholesterol",
+        "past_history": [
+          "high cholesterol"
         ]
       },
       "patient_doesnt_know": {
         "diagnosis": "type 2 diabetes",
-        "fasting_glucose": "13.1 mmol/L (abnormal)",
+        "fasting_glucose": "13.3 mmol/L (abnormal)",
         "hba1c": "9.79 % (abnormal)",
         "specific_medication_needed": "metformin (500mg twice daily)",
         "medication_contraindications": [
@@ -64,6 +65,12 @@
         "prognosis_concerns": [
           "Will I go blind or lose my legs soon?",
           "How many years do I have left?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
         ]
       }
     },
@@ -71,7 +78,9 @@
       "volunteer_without_asking": [
         "my appetite has changed"
       ],
-      "share_only_if_asked": [],
+      "share_only_if_asked": [
+        "hld (needs doctor to specifically ask)"
+      ],
       "misleading_symptoms": [
         "recurrent skin infections and slow wound healing",
         "recurrent urinary tract infections",
@@ -92,21 +101,23 @@
           "insulin",
           "long_term_medication"
         ],
-        "financial_constraints": false,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are HuangXX, a 49-year-old female patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of my appetite has changed. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words."
+    "task_instructions": "You are WangXX, a 42-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of my appetite has changed. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 49,
-    "gender": "female",
+    "age": 42,
+    "gender": "male",
     "symptoms": {
-      "Has your appetite changed unexpectedly": "my appetite has changed"
+      "Has your appetite changed unexpectedly": "my appetite has changed",
+      "HLD": "hld"
     },
     "duration": "a few weeks",
     "severity": "mild",
+    "past_medical_history": [
+      "high cholesterol"
+    ],
     "current_medications": [
       {
         "name": "metformin",
@@ -119,28 +130,30 @@
       }
     ],
     "lab_results": {
-      "fasting_glucose": "13.2 mmol/L (abnormal)",
-      "hba1c": "9.76 % (abnormal)",
-      "egfr": "75.5 ml/min/1.73m2",
-      "alt": "53.2 U/L (abnormal)",
-      "total_cholesterol": "6.14 mmol/L (abnormal)",
-      "triglycerides": "2.72 mmol/L (abnormal)",
-      "uric_acid": "476 umol/L (abnormal)"
+      "fasting_glucose": "13.1 mmol/L (abnormal)",
+      "hba1c": "9.84 % (abnormal)",
+      "egfr": "74.8 ml/min/1.73m2",
+      "alt": "55.9 U/L (abnormal)",
+      "total_cholesterol": "6.19 mmol/L (abnormal)",
+      "triglycerides": "2.73 mmol/L (abnormal)",
+      "uric_acid": "492 umol/L (abnormal)"
     },
     "vital_signs": {
-      "blood_pressure": "156/86 mmHg",
-      "bmi": "27.4"
+      "blood_pressure": "148/100 mmHg",
+      "bmi": "29.3"
     },
     "lifestyle_factors": {
-      "smoking": "no",
-      "alcohol": "social drinking only",
+      "smoking": "yes (1 pack/day for 20+ years)",
+      "alcohol": "moderate (3-4 drinks/week)",
       "exercise": "minimal"
+    },
+    "comorbidities": {
+      "hyperlipidemia": "high cholesterol, severity: 0.5"
     },
     "socioeconomic_factors": {
       "occupation": "sales associate",
-      "monthly_income": "about 10000+ yuan/month",
-      "insurance": "comprehensive medical insurance, good coverage",
-      "family_burden": ""
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
       "metformin": {
@@ -168,10 +181,10 @@
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "HuangXX",
-          "mrn": "MRN268214",
-          "age": 49,
-          "gender": "female"
+          "name": "WangXX",
+          "mrn": "MRN615551",
+          "age": 42,
+          "gender": "male"
         }
       },
       {
@@ -179,8 +192,8 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 49,
-            "gender": "female",
+            "age": 42,
+            "gender": "male",
             "symptoms": [
               "my appetite has changed"
             ],
@@ -191,7 +204,9 @@
             "volunteer": [
               "my appetite has changed"
             ],
-            "ask_only": []
+            "ask_only": [
+              "hld"
+            ]
           },
           "response_style": {
             "honest": true,
@@ -433,10 +448,10 @@
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_596aa1",
+    "scenario_id": "v2_diagnostic_uncertainty_L1_type_2_diabetes_fb1f5d",
     "risk_level": "moderate",
-    "uncertainty_level": 0.238,
+    "uncertainty_level": 0.37,
     "behavior_type": "cooperative",
-    "seed": 100
+    "seed": 200
   }
 }

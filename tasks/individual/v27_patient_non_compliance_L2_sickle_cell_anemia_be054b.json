@@ -1,11 +1,11 @@
 {
-  "id": "v27_patient_non_compliance_L2_sickle_cell_anemia_bb161e",
+  "id": "v27_patient_non_compliance_L2_sickle_cell_anemia_be054b",
   "domain": "hematology",
   "task_type": "patient_non_compliance",
   "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "patient_non_compliance — 44-year-old female with I've been having coughing up anything, or is the cough dry for a few weeks",
+    "purpose": "patient_non_compliance — 28-year-old male with I've been having coughing up anything, or is the cough dry for a few weeks",
     "clinical_scenario": "Patient presents with I've been having coughing up anything, or is the cough dry for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
@@ -17,21 +17,21 @@
     "focus": "Addressing patient concerns and building treatment adherence"
   },
   "user_scenario": {
-    "persona": "44-year-old female patient, 高中/中专 education, works as a retail manager. a patient who may try to hide or downplay symptoms presenting with I've been having coughing up anything, or is the cough dry.",
+    "persona": "28-year-old male patient, 高中/中专 education, works as a sales associate. a patient who may try to hide or downplay symptoms presenting with I've been having coughing up anything, or is the cough dry.",
     "patient_profile": {
-      "age": 44,
-      "gender": "female",
+      "age": 28,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "evasive",
       "cooperation_level": "poor",
-      "chief_complaint": "CT scan and and sickle cell disease for a few weeks",
-      "occupation": "retail manager"
+      "chief_complaint": "sickle cell and and scd for a few weeks",
+      "occupation": "sales associate"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "CT scan",
-          "sickle cell disease"
+          "sickle cell",
+          "scd"
         ],
         "duration_approximate": "about a few weeks",
         "general_concern": "I've been having coughing up anything, or is the cough dry",
@@ -41,9 +41,9 @@
       },
       "patient_doesnt_know": {
         "diagnosis": "sickle cell anemia",
-        "hemoglobin": "7.25 g/dL (abnormal)",
-        "reticulocyte_count": "9.88 % (abnormal)",
-        "ldh": "421 U/L (abnormal)",
+        "hemoglobin": "7.64 g/dL (abnormal)",
+        "reticulocyte_count": "10.7 % (abnormal)",
+        "ldh": "452 U/L (abnormal)",
         "specific_medication_needed": "hydroxyurea (500mg once daily)"
       },
       "patient_misconceptions_and_concerns": {
@@ -62,19 +62,19 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "CT scan",
-        "sickle cell disease"
+        "sickle cell",
+        "scd"
       ],
       "share_only_if_asked": [
-        "scd (needs doctor to specifically ask)",
-        "hbss (needs doctor to specifically ask)"
+        "CT scan (needs doctor to specifically ask)",
+        "sickle cell disease (needs doctor to specifically ask)"
       ],
       "hidden_truth": [
-        "sickle cell (won't mention unless specifically probed)"
+        "hbss (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "misleading_symptoms": [
-        "night sweats",
+        "new skin changes",
         "unusual cravings for ice or dirt (pica)",
         "sore tongue and mouth ulcers",
         "fatigue (also seen in depression and hypothyroidism)",
@@ -84,7 +84,7 @@
       "progressive_reveal": [
         {
           "after_turn": 4,
-          "symptom": "sickle cell",
+          "symptom": "hbss",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -97,16 +97,14 @@
         "may_resist_certain_treatments": [
           "procedures"
         ],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are ChenXX, a 44-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of CT scan. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ChenXX, a 28-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of sickle cell. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 44,
-    "gender": "female",
+    "age": 28,
+    "gender": "male",
     "symptoms": {
       "SCA": "CT scan",
       "sickle cell disease": "sickle cell",
@@ -117,6 +115,15 @@
     "duration": "a few weeks",
     "severity": "moderate",
     "current_medications": [
+      {
+        "name": "hydroxyurea",
+        "brand_names": [
+          "Hydrea"
+        ],
+        "drug_class": "antimetabolite",
+        "dose": "500mg",
+        "frequency": "once daily"
+      },
       {
         "name": "folic acid",
         "brand_names": [],
@@ -133,29 +140,28 @@
       }
     ],
     "lab_results": {
-      "hemoglobin": "7.37 g/dL (abnormal)",
-      "reticulocyte_count": "9.73 % (abnormal)",
-      "ldh": "426 U/L (abnormal)",
-      "total_bilirubin": "3.14 mg/dL (abnormal)",
-      "indirect_bilirubin": "2.83 mg/dL (abnormal)",
-      "wbc": "14.5 x10^9/L (abnormal)",
-      "platelet_count": "336 x10^9/L",
-      "creatinine": "1.26 mg/dL (abnormal)"
+      "hemoglobin": "7.67 g/dL (abnormal)",
+      "reticulocyte_count": "10.2 % (abnormal)",
+      "ldh": "480 U/L (abnormal)",
+      "total_bilirubin": "3.07 mg/dL (abnormal)",
+      "indirect_bilirubin": "3.07 mg/dL (abnormal)",
+      "wbc": "13.8 x10^9/L (abnormal)",
+      "platelet_count": "367 x10^9/L",
+      "creatinine": "1.25 mg/dL (abnormal)"
     },
     "vital_signs": {
-      "blood_pressure": "126/69 mmHg",
-      "heart_rate": "91 bpm",
-      "oxygen_saturation": "95%",
-      "bmi": "23.5"
+      "blood_pressure": "114/66 mmHg",
+      "heart_rate": "95 bpm",
+      "oxygen_saturation": "97%",
+      "bmi": "21.0"
     },
     "lifestyle_factors": {
-      "exercise": "light activity 1-2x/week"
+      "exercise": "moderate 3x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "retail manager",
+      "occupation": "sales associate",
       "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage",
-      "family_burden": ""
+      "insurance": "basic rural/cooperative medical insurance, limited coverage"
     },
     "medication_considerations": {
       "hydroxyurea": {
@@ -174,7 +180,7 @@
       ]
     }
   },
-  "ticket": "CT scan, sickle cell disease",
+  "ticket": "sickle cell, scd",
   "initial_state": {
     "initialization_actions": [
       {
@@ -182,9 +188,9 @@
         "func_name": "set_user_info",
         "arguments": {
           "name": "ChenXX",
-          "mrn": "MRN285633",
-          "age": 44,
-          "gender": "female"
+          "mrn": "MRN772392",
+          "age": 28,
+          "gender": "male"
         }
       },
       {
@@ -192,23 +198,23 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 44,
-            "gender": "female",
+            "age": 28,
+            "gender": "male",
             "symptoms": [
-              "CT scan",
-              "sickle cell disease"
+              "sickle cell",
+              "scd"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "CT scan",
-              "sickle cell disease"
+              "sickle cell",
+              "scd"
             ],
             "ask_only": [
-              "scd",
-              "hbss"
+              "CT scan",
+              "sickle cell disease"
             ]
           },
           "response_style": {
@@ -460,10 +466,10 @@
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_patient_non_compliance_L2_sickle_cell_anemia_772f54",
+    "scenario_id": "v2_patient_non_compliance_L2_sickle_cell_anemia_d2e435",
     "risk_level": "moderate",
-    "uncertainty_level": 0.638,
+    "uncertainty_level": 0.402,
     "behavior_type": "concealing",
-    "seed": 110
+    "seed": 210
   }
 }

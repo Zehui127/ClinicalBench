@@ -1,95 +1,76 @@
 {
-  "id": "v27_treatment_tradeoff_L1_coronary_artery_disease_12d203",
-  "domain": "cardiology",
-  "task_type": "treatment_tradeoff",
+  "id": "v27_patient_non_compliance_L1_anemia_9cfbdb",
+  "domain": "hematology",
+  "task_type": "patient_non_compliance",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "treatment_tradeoff — 70-year-old female with atherosclerotic heart for a few weeks",
-    "clinical_scenario": "Patient presents with atherosclerotic heart for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "patient_non_compliance — 60-year-old male with I've been having blood in your stool or very dark stools for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having blood in your stool or very dark stools for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Consideration of comorbidities in treatment",
-      "Shared decision-making ability"
+      "Communication and trust-building",
+      "Addressing patient concerns and misconceptions"
     ],
-    "focus": "Weighing treatment options with comorbidity considerations"
+    "focus": "Addressing patient concerns and building treatment adherence"
   },
   "user_scenario": {
-    "persona": "70-year-old female patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with atherosclerotic heart.",
+    "persona": "60-year-old male patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with I've been having blood in your stool or very dark stools.",
     "patient_profile": {
-      "age": 70,
-      "gender": "female",
+      "age": 60,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "chd, ischemic heart, and atherosclerotic heart for a few weeks",
+      "chief_complaint": "anaemia for a few weeks",
       "occupation": "retail manager"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "chd",
-          "ischemic heart",
-          "atherosclerotic heart"
+          "anaemia"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "atherosclerotic heart",
+        "general_concern": "I've been having blood in your stool or very dark stools",
         "current_medications": [
-          "atorvastatin 40mg once daily at bedtime"
+          "ferrous sulfate 325mg three times daily",
+          "folic acid 1mg once daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "coronary artery disease",
-        "total_cholesterol": "6.46 mmol/L (abnormal)",
-        "ldl_cholesterol": "4.19 mmol/L (abnormal)",
-        "hdl_cholesterol": "0.91 mmol/L (abnormal)",
-        "specific_medication_needed": "aspirin (81mg once daily)",
-        "medication_contraindications": [
-          "peptic ulcer",
-          "asthma"
-        ]
+        "diagnosis": "anemia",
+        "hemoglobin": "8.76 g/dL (abnormal)",
+        "mcv": "77.2 fL (abnormal)",
+        "rdw": "16.4 % (abnormal)",
+        "specific_medication_needed": "ferrous sulfate (325mg three times daily)"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
           "Is this serious?",
           "Will I need surgery?",
           "How long will treatment take?"
+        ],
+        "economic_concerns": [
+          "How much will this medication cost per month?",
+          "Is there a cheaper alternative?",
+          "Will my insurance cover this?",
+          "Can we only prescribe what's absolutely necessary?"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "chd",
-        "ischemic heart",
-        "atherosclerotic heart"
+        "anaemia"
       ],
-      "share_only_if_asked": [
-        "heart disease (needs doctor to specifically ask)",
-        "coronary heart (needs doctor to specifically ask)"
-      ],
-      "hidden_truth": [
-        "ihd (won't mention unless specifically probed)"
-      ],
-      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
+      "share_only_if_asked": [],
       "misleading_symptoms": [
-        "jaw pain during exertion",
-        "unusual fatigue with minimal activity",
-        "chest discomfort (also seen in GERD and anxiety)",
-        "left arm pain (also seen in cervical disc disease)"
+        "unusual cravings for ice or dirt (pica)",
+        "sore tongue and mouth ulcers",
+        "fatigue (also seen in depression and hypothyroidism)",
+        "shortness of breath (also seen in COPD and heart failure)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
-      "progressive_reveal": [
-        {
-          "after_turn": 3,
-          "symptom": "ihd",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        }
-      ],
-      "share_in_response_to_medication_discussion": [
-        "Concerns about aspirin side effects — peptic ulcer, asthma",
-        "Concerns about atorvastatin side effects — pregnancy"
-      ],
       "response_style": {
         "honest": true,
         "direct": true,
@@ -97,93 +78,75 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": false,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are WangXX, a 70-year-old female patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of chd. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
+    "task_instructions": "You are ZhangXX, a 60-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of anaemia. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 70,
-    "gender": "female",
+    "age": 60,
+    "gender": "male",
     "symptoms": {
-      "CAD": "coronary artery disease",
-      "coronary heart disease": "coronary heart",
-      "CHD": "chd",
-      "ischemic heart disease": "ischemic heart",
-      "IHD": "ihd",
-      "atherosclerotic heart disease": "atherosclerotic heart"
+      "anaemia": "anaemia"
     },
     "duration": "a few weeks",
     "severity": "mild",
     "current_medications": [
       {
-        "name": "aspirin",
+        "name": "ferrous sulfate",
         "brand_names": [],
-        "drug_class": "antiplatelet / NSAID",
-        "dose": "81mg",
-        "frequency": "once daily"
-      },
-      {
-        "name": "atorvastatin",
-        "brand_names": [
-          "Lipitor"
-        ],
-        "drug_class": "HMG-CoA reductase inhibitor (statin)",
-        "dose": "20mg",
-        "frequency": "once daily at bedtime"
+        "drug_class": "iron supplement",
+        "dose": "325mg",
+        "frequency": "three times daily"
       }
     ],
     "lab_results": {
-      "total_cholesterol": "6.41 mmol/L (abnormal)",
-      "ldl_cholesterol": "4.16 mmol/L (abnormal)",
-      "hdl_cholesterol": "0.89 mmol/L (abnormal)",
-      "troponin": "0.05 ng/mL",
-      "nt_probnp": "286 pg/mL (abnormal)",
-      "creatinine": "1.04 mg/dL"
+      "hemoglobin": "9.24 g/dL (abnormal)",
+      "mcv": "76.7 fL (abnormal)",
+      "rdw": "16.8 % (abnormal)",
+      "ferritin": "18.4 ng/mL (abnormal)",
+      "tibc": "418 ug/dL (abnormal)"
     },
     "vital_signs": {
-      "blood_pressure": "118/78 mmHg",
-      "heart_rate": "80 bpm",
-      "bmi": "21.2"
+      "blood_pressure": "130/95 mmHg",
+      "bmi": "21.7"
     },
     "lifestyle_factors": {
-      "smoking": "quit 2 years ago (former 1 pack/day for 25 years)",
-      "exercise": "sedentary"
+      "exercise": "moderate 3x/week"
     },
     "socioeconomic_factors": {
       "occupation": "retail manager",
-      "monthly_income": "about 10000+ yuan/month",
-      "insurance": "comprehensive medical insurance, good coverage",
-      "family_burden": "elderly parents to care for"
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
-      "aspirin": {
-        "drug_class": "antiplatelet / NSAID",
-        "standard_dose": "81mg once daily",
-        "contraindications": [
-          "peptic ulcer",
-          "asthma"
-        ]
+      "ferrous sulfate": {
+        "drug_class": "iron supplement",
+        "standard_dose": "325mg three times daily",
+        "contraindications": []
       }
     },
     "diagnosis": {
-      "primary": "coronary artery disease",
-      "severity": "mild"
+      "primary": "anemia",
+      "severity": "mild",
+      "differential_diagnoses": [
+        "Iron Deficiency Anemia",
+        "Thalassemia",
+        "Anemia of Chronic Disease"
+      ]
     }
   },
-  "ticket": "chd, ischemic heart, atherosclerotic heart",
+  "ticket": "anaemia",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "WangXX",
-          "mrn": "MRN860516",
-          "age": 70,
-          "gender": "female"
+          "name": "ZhangXX",
+          "mrn": "MRN232477",
+          "age": 60,
+          "gender": "male"
         }
       },
       {
@@ -191,26 +154,19 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 70,
-            "gender": "female",
+            "age": 60,
+            "gender": "male",
             "symptoms": [
-              "chd",
-              "ischemic heart",
-              "atherosclerotic heart"
+              "anaemia"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "chd",
-              "ischemic heart",
-              "atherosclerotic heart"
+              "anaemia"
             ],
-            "ask_only": [
-              "heart disease",
-              "coronary heart"
-            ]
+            "ask_only": []
           },
           "response_style": {
             "honest": true,
@@ -231,23 +187,19 @@
         }
       },
       {
-        "action_id": "use_check_allergy",
+        "action_id": "use_health_education",
         "requestor": "assistant",
-        "name": "check_allergy",
+        "name": "health_education",
         "arguments": {
-          "patient_id": "current"
+          "topic": "anemia"
         }
       },
       {
-        "action_id": "use_check_drug_interactions",
+        "action_id": "use_patient_education",
         "requestor": "assistant",
-        "name": "check_drug_interactions",
+        "name": "patient_education",
         "arguments": {
-          "drug_list": [
-            "aspirin",
-            "atorvastatin",
-            "metoprolol"
-          ]
+          "topic": "anemia"
         }
       },
       {
@@ -255,16 +207,8 @@
         "requestor": "assistant",
         "name": "prescribe_medication",
         "arguments": {
-          "medication": "aspirin",
+          "medication": "ferrous sulfate",
           "dose": ""
-        }
-      },
-      {
-        "action_id": "use_schedule_followup",
-        "requestor": "assistant",
-        "name": "schedule_followup",
-        "arguments": {
-          "timeframe": "2-4 weeks"
         }
       }
     ],
@@ -282,12 +226,10 @@
     ],
     "reward_basis": [
       "DB",
-      "COMMUNICATE",
-      "CLINICAL",
-      "SAFETY"
+      "COMMUNICATE"
     ],
     "medical_criteria": {
-      "category": "treatment",
+      "category": "communication",
       "min_turns": 3,
       "max_turns": 20,
       "information_gathering_requirements": {
@@ -299,7 +241,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of coronary artery disease identified through systematic questioning",
+            "description": "All major symptoms of anemia identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -339,25 +281,30 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "coronary artery disease",
-          "allow_alternatives": [],
+          "correct_diagnosis": "anemia",
+          "allow_alternatives": [
+            "Iron Deficiency Anemia",
+            "Thalassemia",
+            "Anemia of Chronic Disease"
+          ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
-          "must_consider": [],
+          "must_consider": [
+            "Iron Deficiency Anemia",
+            "Thalassemia",
+            "Anemia of Chronic Disease"
+          ],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "total_cholesterol",
-            "ldl_cholesterol",
-            "hdl_cholesterol"
+            "hemoglobin",
+            "mcv",
+            "rdw"
           ],
-          "should_order": [
-            "troponin",
-            "creatinine"
-          ],
+          "should_order": [],
           "weight": 0.15
         },
         "evidence_based": {
@@ -367,22 +314,23 @@
             "lab_results"
           ],
           "weight": 0.1
+        },
+        "key_questions": {
+          "required": false,
+          "must_ask": [
+            "Have you noticed any blood in your stool or very dark stools?",
+            "Do you get dizzy when standing up quickly?",
+            "Have you been craving unusual things like ice or dirt?"
+          ],
+          "weight": 0.1
         }
       },
       "treatment_requirements": {
         "medication_appropriateness": {
           "required": true,
-          "should_prescribe": "aspirin",
-          "appropriate_dosage": "81mg once daily",
+          "should_prescribe": "ferrous sulfate",
+          "appropriate_dosage": "325mg three times daily",
           "weight": 0.3
-        },
-        "contraindication_awareness": {
-          "required": true,
-          "must_check": [
-            "peptic ulcer",
-            "asthma"
-          ],
-          "weight": 0.2
         }
       },
       "safety_requirements": {
@@ -396,27 +344,26 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "bleeding_risk_with_anticoagulants": {
+        "infection_precautions": {
           "required": true,
-          "description": "Must assess: bleeding risk with anticoagulants",
+          "description": "Must assess: infection precautions",
           "severity": "major"
         },
-        "blood_pressure_control": {
+        "bleeding_risk": {
           "required": true,
-          "description": "Must assess: blood pressure control",
+          "description": "Must assess: bleeding risk",
           "severity": "major"
         },
-        "potassium_monitoring": {
+        "transfusion_reactions": {
           "required": true,
-          "description": "Must assess: potassium monitoring",
+          "description": "Must assess: transfusion reactions",
           "severity": "major"
         }
       },
       "required_tools": [
-        "check_allergy",
-        "check_drug_interactions",
-        "prescribe_medication",
-        "schedule_followup"
+        "health_education",
+        "patient_education",
+        "prescribe_medication"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -429,17 +376,17 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Prescribe aspirin in patient with peptic ulcer without special precautions",
-        "Diagnose coronary artery disease without ordering any supporting lab tests"
+        "Fail to consider Iron Deficiency Anemia as alternative diagnosis",
+        "Diagnose anemia without ordering any supporting lab tests"
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_treatment_tradeoff_L1_coronary_artery_disease_7a91d1",
-    "risk_level": "high",
-    "uncertainty_level": 0.393,
+    "scenario_id": "v2_patient_non_compliance_L1_anemia_dc04e7",
+    "risk_level": "moderate",
+    "uncertainty_level": 0.151,
     "behavior_type": "cooperative",
-    "seed": 106
+    "seed": 209
   }
 }

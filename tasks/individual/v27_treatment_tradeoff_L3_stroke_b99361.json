@@ -1,47 +1,49 @@
 {
-  "id": "v27_treatment_tradeoff_L3_stroke_05adce",
+  "id": "v27_treatment_tradeoff_L3_stroke_b99361",
   "domain": "neurology",
   "task_type": "treatment_tradeoff",
   "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "treatment_tradeoff — 62-year-old female with I've had weakness on one side of your body for a few weeks",
-    "clinical_scenario": "Patient presents with I've had weakness on one side of your body for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "treatment_tradeoff — 66-year-old male with I've had difficulty speaking or understanding speech for a few weeks",
+    "clinical_scenario": "Patient presents with I've had difficulty speaking or understanding speech for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
       "Consideration of comorbidities in treatment",
       "Shared decision-making ability",
-      "Handle complex multi-condition scenario"
+      "Handle complex multi-condition scenario",
+      "Manage difficult patient behavior"
     ],
     "focus": "Weighing treatment options with comorbidity considerations"
   },
   "user_scenario": {
-    "persona": "62-year-old female patient, 大学 education, works as a teacher. a patient who is impatient and wants quick resolution presenting with I've had weakness on one side of your body. Accompanied by son (age 45).",
+    "persona": "66-year-old male patient, 初中 education, works as a mechanic. a patient who may resist tests or treatment presenting with I've had difficulty speaking or understanding speech.",
     "patient_profile": {
-      "age": 62,
-      "gender": "female",
-      "education_level": "college",
-      "communication_style": "demanding",
-      "cooperation_level": "moderate",
-      "chief_complaint": "high blood pressure for a few weeks",
-      "occupation": "teacher"
+      "age": 66,
+      "gender": "male",
+      "education_level": "middle_school",
+      "communication_style": "resistant",
+      "cooperation_level": "poor",
+      "chief_complaint": "i've had vision changes for a few weeks",
+      "occupation": "mechanic"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "high blood pressure"
+          "i've had vision changes"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've had weakness on one side of your body",
-        "family_history": "family member has type 2 diabetes",
+        "general_concern": "I've had difficulty speaking or understanding speech",
+        "family_history": "family member has irregular heartbeat",
         "past_history": [
+          "irregular heartbeat",
           "type 2 diabetes",
-          "high blood pressure",
-          "irregular heartbeat"
+          "high blood pressure"
         ],
         "current_medications": [
           "aspirin 81mg once daily",
+          "clopidogrel 75mg once daily",
           "atorvastatin 40mg once daily"
         ]
       },
@@ -65,27 +67,37 @@
           "Will my insurance cover this?",
           "Can we only prescribe what's absolutely necessary?"
         ]
-      }
+      },
+      "undiagnosed_comorbidities": [
+        {
+          "condition": "hypertension",
+          "patient_aware_of_symptoms": [
+            "high blood pressure",
+            "high blood pressure"
+          ],
+          "patient_unaware_of_diagnosis": true
+        }
+      ]
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "high blood pressure"
+        "i've had vision changes"
       ],
       "share_only_if_asked": [
-        "irregular heartbeat (needs doctor to specifically ask)"
+        "high blood pressure (needs doctor to specifically ask)"
       ],
       "hidden_truth": [
-        "i've had vision changes (won't mention unless specifically probed)",
+        "irregular heartbeat (won't mention unless specifically probed)",
         "my appetite has changed (won't mention unless specifically probed)"
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "noise_symptoms": [
-        "occasional deja vu"
+        "mild foot arch pain"
       ],
       "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "is the headache one-sided or pulsating",
-        "how often do you get these headaches",
+        "constant tiredness",
+        "pain",
         "sudden severe headache without known cause",
         "difficulty speaking or understanding speech",
         "weakness on one side (also seen in migraine with aura)",
@@ -95,17 +107,17 @@
       "progressive_reveal": [
         {
           "after_turn": 4,
-          "symptom": "high blood pressure",
+          "symptom": "irregular heartbeat",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
-          "after_turn": 7,
-          "symptom": "i've had vision changes",
-          "trigger": "doctor asks about any eye problems or vision changes"
+          "after_turn": 5,
+          "symptom": "my appetite has changed",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
         },
         {
-          "after_turn": 10,
-          "symptom": "my appetite has changed",
+          "after_turn": 8,
+          "symptom": "atrial fibrillation",
           "trigger": "doctor asks a specific follow-up question about related symptoms"
         }
       ],
@@ -113,58 +125,42 @@
         "Concerns about aspirin side effects — peptic ulcer, asthma",
         "Concerns about clopidogrel side effects — active_bleeding"
       ],
-      "family_member_will_interject": [
-        "son: How can we help at home?",
-        "son: What should we cook for them?"
-      ],
       "response_style": {
         "honest": false,
-        "direct": true,
+        "direct": false,
         "limited_medical_knowledge": true,
-        "may_need_clarification": [],
-        "emotional_state": "impatient",
-        "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": true
+        "may_need_clarification": [
+          "medical terminology",
+          "complex concepts"
+        ],
+        "emotional_state": "hostile",
+        "may_resist_certain_treatments": [
+          "expensive_medications",
+          "multiple_medications"
+        ],
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are ZhouXX, a 62-year-old female patient. Your education level is 大学. You work as a teacher. You are seeing a doctor because of high blood pressure. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your son is with you and may speak up during the consultation to ask questions or express concerns."
-  },
-  "family_member_scenario": {
-    "scenario": "son accompanies patient, participates in the entire visit",
-    "role": "concerned and supportive, may express economic worries",
-    "interaction_timing": [
-      "When medication is discussed, the family member asks about costs",
-      "After diagnosis is explained, the family member asks about heritability",
-      "When a prescription is written, the family member asks about side effects",
-      "When lifestyle changes are mentioned, the family member asks for specifics"
-    ]
+    "task_instructions": "You are ZhouXX, a 66-year-old male patient. Your education level is 初中. You work as a mechanic. You are seeing a doctor because of i've had vision changes. This has been going on for about a few weeks. You are skeptical of medical advice. You may refuse certain tests or medications. Express concerns about side effects, costs, and whether treatment is really necessary. You prefer to handle things yourself when possible. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
   "medical_persona": {
-    "age": 62,
-    "gender": "female",
+    "age": 66,
+    "gender": "male",
     "symptoms": {
       "Have you had any vision changes": "I've had vision changes",
+      "AFib": "atrial fibrillation",
       "Has your appetite changed unexpectedly": "my appetite has changed",
-      "HTN": "high blood pressure",
-      "AFib": "atrial fibrillation"
+      "HTN": "high blood pressure"
     },
     "duration": "a few weeks",
     "severity": "severe",
     "past_medical_history": [
+      "irregular heartbeat",
       "type 2 diabetes",
       "high blood pressure",
-      "irregular heartbeat",
-      "migraine"
+      "seizure"
     ],
     "current_medications": [
-      {
-        "name": "aspirin",
-        "brand_names": [],
-        "drug_class": "antiplatelet / NSAID",
-        "dose": "81mg",
-        "frequency": "once daily"
-      },
       {
         "name": "atorvastatin",
         "brand_names": [
@@ -179,32 +175,31 @@
       "ibuprofen"
     ],
     "lab_results": {
-      "glucose_random": "8.28 mmol/L",
-      "creatinine": "0.98 mg/dL",
-      "sodium": "140 mmol/L",
-      "platelet_count": "235 x10^9/L",
-      "inr": "1.10 ",
+      "glucose_random": "7.93 mmol/L",
+      "creatinine": "0.97 mg/dL",
+      "sodium": "141 mmol/L",
+      "platelet_count": "234 x10^9/L",
+      "inr": "1.08 ",
       "troponin": "0.02 ng/mL"
     },
     "vital_signs": {
-      "blood_pressure": "179/95 mmHg",
-      "bmi": "22.1"
+      "blood_pressure": "158/116 mmHg",
+      "bmi": "22.4"
     },
     "lifestyle_factors": {
-      "smoking": "yes (1 pack/day for 20+ years)",
+      "smoking": "no",
       "alcohol": "moderate (3-4 drinks/week)",
       "exercise": "minimal"
     },
     "comorbidities": {
+      "atrial fibrillation": "irregular heartbeat, severity: 0.5",
       "type 2 diabetes": "type 2 diabetes, severity: 0.5",
-      "hypertension": "high blood pressure, severity: 0.5",
-      "atrial fibrillation": "irregular heartbeat, severity: 0.5"
+      "hypertension": "high blood pressure, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "teacher",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage",
-      "family_burden": ""
+      "occupation": "mechanic",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
       "aspirin": {
@@ -227,14 +222,23 @@
       ]
     },
     "confounder_conditions": [
-      "migraine"
+      "seizure"
     ],
     "complication_symptoms": {
+      "atrial fibrillation": {
+        "symptoms": [
+          "atrial fibrillation",
+          "atrial fibrillation",
+          "irregular heartbeat"
+        ],
+        "status": "undiagnosed",
+        "interaction_with_primary": "may cause overlapping confusion/weakness"
+      },
       "type 2 diabetes": {
         "symptoms": [
           "my appetite has changed"
         ],
-        "status": "partially_diagnosed",
+        "status": "undiagnosed",
         "interaction_with_primary": "may cause overlapping confusion/weakness"
       },
       "hypertension": {
@@ -245,19 +249,10 @@
         ],
         "status": "partially_diagnosed",
         "interaction_with_primary": "may cause overlapping confusion/weakness"
-      },
-      "atrial fibrillation": {
-        "symptoms": [
-          "atrial fibrillation",
-          "atrial fibrillation",
-          "irregular heartbeat"
-        ],
-        "status": "undiagnosed",
-        "interaction_with_primary": "may cause overlapping confusion/weakness"
       }
     }
   },
-  "ticket": "high blood pressure",
+  "ticket": "i've had vision changes",
   "initial_state": {
     "initialization_actions": [
       {
@@ -265,9 +260,9 @@
         "func_name": "set_user_info",
         "arguments": {
           "name": "ZhouXX",
-          "mrn": "MRN178824",
-          "age": 62,
-          "gender": "female"
+          "mrn": "MRN833246",
+          "age": 66,
+          "gender": "male"
         }
       },
       {
@@ -275,20 +270,20 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 62,
-            "gender": "female",
+            "age": 66,
+            "gender": "male",
             "symptoms": [
-              "high blood pressure"
+              "i've had vision changes"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "high blood pressure"
+              "i've had vision changes"
             ],
             "ask_only": [
-              "irregular heartbeat"
+              "high blood pressure"
             ]
           },
           "response_style": {
@@ -357,6 +352,11 @@
         "check_id": "appropriate_language",
         "criteria": "Uses clear, patient-friendly language appropriate to education level",
         "weight": 1.0
+      },
+      {
+        "check_id": "trust_building",
+        "criteria": "Demonstrates empathy and builds patient trust",
+        "weight": 1.5
       },
       {
         "check_id": "addresses_concerns",
@@ -555,9 +555,9 @@
         },
         {
           "trigger": "during_treatment_discussion",
-          "event": "Patient casually mentions 'my appetite has changed' when discussing treatment options",
-          "example": "'Oh, I also sometimes get my appetite has changed — is that related?'",
-          "expected_handling": "Recognize this may indicate undiagnosed type 2 diabetes, update differential, order appropriate workup"
+          "event": "Patient casually mentions 'atrial fibrillation' when discussing treatment options",
+          "example": "'Oh, I also sometimes get atrial fibrillation — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed irregular heartbeat, update differential, order appropriate workup"
         },
         {
           "trigger": "mid_consultation",
@@ -570,10 +570,10 @@
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_treatment_tradeoff_L3_stroke_122e0c",
+    "scenario_id": "v2_treatment_tradeoff_L3_stroke_115b5b",
     "risk_level": "high",
-    "uncertainty_level": 0.915,
-    "behavior_type": "pressuring",
-    "seed": 108
+    "uncertainty_level": 0.858,
+    "behavior_type": "refusing",
+    "seed": 208
   }
 }

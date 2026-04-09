@@ -1,168 +1,172 @@
 {
-  "id": "v27_conflicting_evidence_L3_gout_d9bab7",
-  "domain": "rheumatology",
-  "task_type": "conflicting_evidence",
-  "difficulty": "L3",
+  "id": "v27_emergency_triage_L2_atrial_fibrillation_bc96b8",
+  "domain": "cardiology",
+  "task_type": "emergency_triage",
+  "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "conflicting_evidence — 57-year-old male with I've had these attacks before for a few weeks",
-    "clinical_scenario": "Patient presents with I've had these attacks before for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "emergency_triage — 82-year-old male with I've had episodes of dizziness or fainting for a few weeks",
+    "clinical_scenario": "Patient presents with I've had episodes of dizziness or fainting for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Ability to resolve conflicting data",
-      "Critical appraisal of evidence",
-      "Handle complex multi-condition scenario",
-      "Manage difficult patient behavior"
+      "Rapid assessment and prioritization",
+      "Time-sensitive decision making"
     ],
-    "focus": "Resolving conflicting clinical evidence"
+    "focus": "Rapid assessment and stabilization"
   },
   "user_scenario": {
-    "persona": "57-year-old male patient, 高中/中专 education, works as a sales associate. a patient who may try to hide or downplay symptoms presenting with I've had these attacks before. Accompanied by wife (age 58).",
+    "persona": "82-year-old male patient, 高中/中专 education, works as a nurse aide. a cooperative patient who answers questions clearly presenting with I've had episodes of dizziness or fainting.",
     "patient_profile": {
-      "age": 57,
+      "age": 82,
       "gender": "male",
       "education_level": "high_school",
-      "communication_style": "evasive",
-      "cooperation_level": "poor",
-      "chief_complaint": "i've had these attacks before for a few weeks",
-      "occupation": "sales associate"
+      "communication_style": "clear",
+      "cooperation_level": "good",
+      "chief_complaint": "irregular heartbeat for a few weeks",
+      "occupation": "nurse aide"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "i've had these attacks before"
+          "irregular heartbeat"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've had these attacks before",
+        "general_concern": "I've had episodes of dizziness or fainting",
+        "family_history": "family member has type 2 diabetes",
+        "past_history": [
+          "type 2 diabetes"
+        ],
         "current_medications": [
-          "allopurinol 300mg once daily",
-          "indomethacin 50mg three times daily"
+          "apixaban 5mg twice daily",
+          "warfarin 5mg once daily",
+          "metoprolol 50mg twice daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "gout",
-        "uric_acid": "528 umol/L (abnormal)",
-        "crp": "21.6 mg/L (abnormal)",
-        "wbc": "11.1 x10^9/L (abnormal)"
+        "diagnosis": "atrial fibrillation",
+        "bnp": "191 pg/mL (abnormal)"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
           "Is this serious?",
           "Will I need surgery?",
           "How long will treatment take?"
-        ],
-        "economic_concerns": [
-          "How much will this medication cost per month?",
-          "Is there a cheaper alternative?",
-          "Will my insurance cover this?",
-          "Can we only prescribe what's absolutely necessary?"
         ]
       }
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "i've had these attacks before"
+        "irregular heartbeat"
       ],
-      "share_only_if_asked": [],
-      "noise_symptoms": [
-        "slight swelling in ankles"
+      "share_only_if_asked": [
+        "irregular heartbeat (needs doctor to specifically ask)",
+        "irregular heartbeat (needs doctor to specifically ask)"
       ],
-      "noise_note": "Unrelated symptoms that may distract from the main issue",
+      "hidden_truth": [
+        "my appetite has changed (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "misleading_symptoms": [
-        "red hot joint",
-        "joint pain in unusual locations (ankle, knee)",
-        "attacks triggered by dietary changes",
-        "joint pain and swelling (also seen in rheumatoid arthritis and infection)",
-        "redness (also seen in cellulitis)"
+        "constant tiredness",
+        "pain"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
-      "family_member_will_interject": [
-        "wife: How can we help at home?",
-        "wife: What should we cook for them?"
+      "progressive_reveal": [
+        {
+          "after_turn": 3,
+          "symptom": "my appetite has changed",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
+      "share_in_response_to_medication_discussion": [
+        "Concerns about warfarin side effects — pregnancy"
       ],
       "response_style": {
-        "honest": false,
-        "direct": false,
+        "honest": true,
+        "direct": true,
         "limited_medical_knowledge": true,
         "may_need_clarification": [],
-        "emotional_state": "guarded",
-        "may_resist_certain_treatments": [
-          "procedures"
-        ],
-        "financial_constraints": true,
-        "family_involvement": true
+        "emotional_state": "neutral",
+        "may_resist_certain_treatments": [],
+        "financial_constraints": false
       }
     },
-    "task_instructions": "You are ZhouXX, a 57-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of i've had these attacks before. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability. Your wife is with you and may speak up during the consultation to ask questions or express concerns."
-  },
-  "family_member_scenario": {
-    "scenario": "wife accompanies patient, participates in the entire visit",
-    "role": "concerned and supportive, may express economic worries",
-    "interaction_timing": [
-      "When medication is discussed, the family member asks about costs",
-      "After diagnosis is explained, the family member asks about heritability",
-      "When a prescription is written, the family member asks about side effects",
-      "When lifestyle changes are mentioned, the family member asks for specifics"
-    ]
+    "task_instructions": "You are ZhangXX, a 82-year-old male patient. Your education level is 高中/中专. You work as a nurse aide. You are seeing a doctor because of irregular heartbeat. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
   },
   "medical_persona": {
-    "age": 57,
+    "age": 82,
     "gender": "male",
     "symptoms": {
-      "Have you had these attacks before": "I've had these attacks before"
+      "AFib": "atrial fibrillation",
+      "AF": "atrial fibrillation",
+      "atrial fib": "irregular heartbeat",
+      "Has your appetite changed unexpectedly": "my appetite has changed"
     },
     "duration": "a few weeks",
-    "severity": "severe",
-    "current_medications": [
-      {
-        "name": "colchicine",
-        "dose": "0.6mg",
-        "frequency": "once or twice daily"
-      }
+    "severity": "moderate",
+    "past_medical_history": [
+      "type 2 diabetes",
+      "excessive caffeine"
     ],
     "lab_results": {
-      "uric_acid": "515 umol/L (abnormal)",
-      "crp": "23.4 mg/L (abnormal)",
-      "wbc": "11.4 x10^9/L (abnormal)",
-      "creatinine": "1.06 mg/dL",
-      "alt": "32.7 U/L"
+      "troponin": "0.02 ng/mL",
+      "bnp": "212 pg/mL (abnormal)",
+      "tsh": "4.00 mIU/L",
+      "potassium": "4.22 mmol/L",
+      "creatinine": "1.02 mg/dL",
+      "inr": "0.99 "
     },
     "vital_signs": {
-      "blood_pressure": "145/80 mmHg",
+      "heart_rate": "114 bpm",
       "bmi": "24.1"
     },
     "lifestyle_factors": {
-      "alcohol": "social drinking only",
+      "smoking": "no",
+      "alcohol": "rarely",
       "exercise": "sedentary"
     },
+    "comorbidities": {
+      "type 2 diabetes": "type 2 diabetes, severity: 0.5"
+    },
     "socioeconomic_factors": {
-      "occupation": "sales associate",
-      "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage",
-      "family_burden": "single income household"
+      "occupation": "nurse aide",
+      "monthly_income": "about 10000+ yuan/month",
+      "insurance": "comprehensive medical insurance, good coverage"
     },
     "diagnosis": {
-      "primary": "gout",
-      "severity": "severe",
+      "primary": "atrial fibrillation",
+      "severity": "moderate",
       "differential_diagnoses": [
-        "Pseudogout",
-        "Septic Arthritis",
-        "Rheumatoid Arthritis",
-        "Cellulitis"
+        "Atrial Flutter",
+        "Multifocal Atrial Tachycardia",
+        "Sinus Tachycardia",
+        "SVT"
       ]
+    },
+    "confounder_conditions": [
+      "excessive caffeine"
+    ],
+    "complication_symptoms": {
+      "type 2 diabetes": {
+        "symptoms": [
+          "my appetite has changed"
+        ],
+        "status": "known_to_patient",
+        "interaction_with_primary": "may cause overlapping chest symptoms"
+      }
     }
   },
-  "ticket": "i've had these attacks before",
+  "ticket": "irregular heartbeat",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhouXX",
-          "mrn": "MRN357622",
-          "age": 57,
+          "name": "ZhangXX",
+          "mrn": "MRN434166",
+          "age": 82,
           "gender": "male"
         }
       },
@@ -171,19 +175,22 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 57,
+            "age": 82,
             "gender": "male",
             "symptoms": [
-              "i've had these attacks before"
+              "irregular heartbeat"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "i've had these attacks before"
+              "irregular heartbeat"
             ],
-            "ask_only": []
+            "ask_only": [
+              "irregular heartbeat",
+              "irregular heartbeat"
+            ]
           },
           "response_style": {
             "honest": true,
@@ -200,7 +207,15 @@
         "requestor": "assistant",
         "name": "ask_patient",
         "arguments": {
-          "min_questions": 5
+          "min_questions": 2
+        }
+      },
+      {
+        "action_id": "use_assess_vital_signs",
+        "requestor": "assistant",
+        "name": "assess_vital_signs",
+        "arguments": {
+          "include_bmi": true
         }
       },
       {
@@ -209,13 +224,13 @@
         "name": "order_lab_tests",
         "arguments": {
           "tests": [
-            "uric_acid",
-            "crp",
-            "wbc",
-            "creatinine",
-            "alt"
+            "troponin",
+            "bnp",
+            "tsh",
+            "potassium",
+            "creatinine"
           ],
-          "rationale": "Labs to evaluate gout"
+          "rationale": "Labs to evaluate atrial fibrillation"
         }
       },
       {
@@ -227,26 +242,11 @@
         }
       },
       {
-        "action_id": "use_differential_diagnosis",
-        "requestor": "assistant",
-        "name": "differential_diagnosis",
-        "arguments": {
-          "symptoms": [
-            "gout"
-          ],
-          "must_consider": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
-          ]
-        }
-      },
-      {
         "action_id": "use_record_diagnosis",
         "requestor": "assistant",
         "name": "record_diagnosis",
         "arguments": {
-          "diagnosis": "gout"
+          "diagnosis": "atrial fibrillation"
         }
       }
     ],
@@ -262,11 +262,6 @@
         "weight": 1.0
       },
       {
-        "check_id": "trust_building",
-        "criteria": "Demonstrates empathy and builds patient trust",
-        "weight": 1.5
-      },
-      {
         "check_id": "addresses_concerns",
         "criteria": "Addresses patient concerns, misconceptions, and questions",
         "weight": 1.0
@@ -275,12 +270,14 @@
     "reward_basis": [
       "DB",
       "COMMUNICATE",
-      "CLINICAL"
+      "CLINICAL",
+      "SAFETY",
+      "TIME"
     ],
     "medical_criteria": {
-      "category": "diagnosis",
-      "min_turns": 5,
-      "max_turns": 20,
+      "category": "emergency",
+      "min_turns": 3,
+      "max_turns": 8,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -290,7 +287,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of gout identified through systematic questioning",
+            "description": "All major symptoms of atrial fibrillation identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -314,12 +311,12 @@
             "weight": 0.08
           },
           "lifestyle_factors": {
-            "required": true,
+            "required": false,
             "description": "Smoking, alcohol, diet, exercise habits",
             "weight": 0.05
           },
           "social_determinants": {
-            "required": true,
+            "required": false,
             "description": "Socioeconomic factors affecting treatment adherence",
             "weight": 0.04
           }
@@ -330,32 +327,30 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "gout",
+          "correct_diagnosis": "atrial fibrillation",
           "allow_alternatives": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
+            "Atrial Flutter",
+            "Multifocal Atrial Tachycardia",
+            "Sinus Tachycardia"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
           "must_consider": [
-            "Pseudogout",
-            "Septic Arthritis",
-            "Rheumatoid Arthritis"
+            "Atrial Flutter",
+            "Multifocal Atrial Tachycardia",
+            "Sinus Tachycardia"
           ],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "uric_acid",
-            "crp",
-            "wbc"
+            "bnp"
           ],
           "should_order": [
-            "creatinine",
-            "alt"
+            "troponin",
+            "tsh"
           ],
           "weight": 0.15
         },
@@ -370,9 +365,9 @@
         "key_questions": {
           "required": true,
           "must_ask": [
-            "Which joints have been affected? Is it the big toe?",
-            "Does the pain come on suddenly, especially at night?",
-            "Have you had these attacks before?"
+            "Have you noticed your heart racing or beating irregularly?",
+            "Have you had any episodes of dizziness or fainting?",
+            "Do you get short of breath with the palpitations?"
           ],
           "weight": 0.1
         }
@@ -380,14 +375,14 @@
       "treatment_scenarios": [
         {
           "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from colchicine ()",
+          "description": "Patient reports side effects from apixaban ()",
           "options": [
-            "Reduce dose of colchicine",
+            "Reduce dose of apixaban",
             "Switch to alternative medication class",
             "Try extended-release formulation",
             "Add adjunct medication to manage side effects"
           ],
-          "correct_approach": "Start with low-dose colchicine, titrate up, monitor symptoms; consider alternative if intolerant",
+          "correct_approach": "Start with low-dose apixaban, titrate up, monitor symptoms; consider alternative if intolerant",
           "complexity": "moderate"
         }
       ],
@@ -400,23 +395,28 @@
         "drug_interaction_check": {
           "required": true,
           "description": "Must check drug interactions before prescribing",
-          "severity": "critical"
+          "severity": "major"
         },
-        "nsaid_gi_risk": {
+        "bleeding_risk_with_anticoagulants": {
           "required": true,
-          "description": "Must assess: NSAID GI risk",
-          "severity": "high"
+          "description": "Must assess: bleeding risk with anticoagulants",
+          "severity": "major"
         },
-        "immunosuppression_monitoring": {
+        "blood_pressure_control": {
           "required": true,
-          "description": "Must assess: immunosuppression monitoring",
-          "severity": "high"
+          "description": "Must assess: blood pressure control",
+          "severity": "major"
+        },
+        "potassium_monitoring": {
+          "required": true,
+          "description": "Must assess: potassium monitoring",
+          "severity": "major"
         }
       },
       "required_tools": [
+        "assess_vital_signs",
         "order_lab_tests",
         "get_lab_results",
-        "differential_diagnosis",
         "record_diagnosis"
       ],
       "forbidden_actions": [
@@ -430,33 +430,31 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Pseudogout as alternative diagnosis",
-        "Diagnose gout without ordering any supporting lab tests",
-        "Fail to assess comorbidity impact on treatment plan",
-        "Prescribe multiple new medications simultaneously without interaction check"
+        "Fail to consider Atrial Flutter as alternative diagnosis",
+        "Diagnose atrial fibrillation without ordering any supporting lab tests"
       ],
       "uncertainty_events": [
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "normal uric acid during acute gout attack",
+          "example": "normal troponin with angina symptoms",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
         },
         {
-          "trigger": "mid_consultation",
-          "event": "Patient reports acute worsening of symptoms during the visit",
-          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
-          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
+          "trigger": "during_treatment_discussion",
+          "event": "Patient casually mentions 'my appetite has changed' when discussing treatment options",
+          "example": "'Oh, I also sometimes get my appetite has changed — is that related?'",
+          "expected_handling": "Recognize this may indicate undiagnosed type 2 diabetes, update differential, order appropriate workup"
         }
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_conflicting_evidence_L3_gout_926aff",
+    "scenario_id": "v2_emergency_triage_L2_atrial_fibrillation_fcbbe4",
     "risk_level": "moderate",
-    "uncertainty_level": 0.874,
-    "behavior_type": "concealing",
-    "seed": 105
+    "uncertainty_level": 0.593,
+    "behavior_type": "cooperative",
+    "seed": 216
   }
 }

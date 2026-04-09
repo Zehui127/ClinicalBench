@@ -1,46 +1,48 @@
 {
-  "id": "v27_emergency_triage_L3_nephrolithiasis_15f30c",
-  "domain": "internal_medicine",
-  "task_type": "emergency_triage",
-  "difficulty": "L3",
+  "id": "v27_drug_safety_risk_L2_hyperthyroidism_0c34b2",
+  "domain": "endocrinology",
+  "task_type": "drug_safety_risk",
+  "difficulty": "L2",
   "version": "2.7",
   "description": {
-    "purpose": "emergency_triage — 44-year-old female with I've been having the pain radiate to your groin for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having the pain radiate to your groin for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "drug_safety_risk — 51-year-old male with I've been having lost weight without trying for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having lost weight without trying for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Rapid assessment and prioritization",
-      "Time-sensitive decision making",
-      "Handle complex multi-condition scenario"
+      "Safety checking before prescribing",
+      "Drug interaction awareness"
     ],
-    "focus": "Rapid assessment and stabilization"
+    "focus": "Safe prescribing with allergy and interaction checks"
   },
   "user_scenario": {
-    "persona": "44-year-old female patient, 小学 education, works as a cleaner. a patient who is confused about medical terms and needs simple explanations presenting with I've been having the pain radiate to your groin.",
+    "persona": "51-year-old male patient, 小学 education, works as a factory worker. a patient who is confused about medical terms and needs simple explanations presenting with I've been having lost weight without trying.",
     "patient_profile": {
-      "age": 44,
-      "gender": "female",
+      "age": 51,
+      "gender": "male",
       "education_level": "elementary",
       "communication_style": "uncertain",
       "cooperation_level": "moderate",
-      "chief_complaint": "i've been having the pain radiate to your groin for a few weeks",
-      "occupation": "cleaner"
+      "chief_complaint": "i've been having lost weight without trying for a few weeks",
+      "occupation": "factory worker"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "i've been having the pain radiate to your groin"
+          "i've been having lost weight without trying"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having the pain radiate to your groin",
+        "general_concern": "I've been having lost weight without trying",
         "current_medications": [
-          "tamsulosin 0.4mg once daily",
-          "ketorolac 10mg as needed for pain"
+          "methimazole 10mg once daily",
+          "propranolol 20mg three times daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "nephrolithiasis"
+        "diagnosis": "hyperthyroidism",
+        "tsh": "0.09 mIU/L (abnormal)",
+        "free_t4": "35.1 pmol/L (abnormal)",
+        "free_t3": "11.4 pmol/L (abnormal)"
       },
       "patient_misconceptions_and_concerns": {
         "general_concerns": [
@@ -58,28 +60,13 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "i've been having the pain radiate to your groin"
+        "i've been having lost weight without trying"
       ],
       "share_only_if_asked": [],
-      "hidden_truth": [
-        "i've had kidney stones before (won't mention unless specifically probed)"
-      ],
-      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
-      "noise_symptoms": [
-        "RA"
-      ],
-      "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "groin pain"
+        "bulging eyes"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
-      "progressive_reveal": [
-        {
-          "after_turn": 3,
-          "symptom": "i've had kidney stones before",
-          "trigger": "doctor asks a specific follow-up question about related symptoms"
-        }
-      ],
       "response_style": {
         "honest": true,
         "direct": false,
@@ -90,69 +77,71 @@
         ],
         "emotional_state": "anxious",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are ZhouXX, a 44-year-old female patient. Your education level is 小学. You work as a cleaner. You are seeing a doctor because of i've been having the pain radiate to your groin. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ChenXX, a 51-year-old male patient. Your education level is 小学. You work as a factory worker. You are seeing a doctor because of i've been having lost weight without trying. This has been going on for about a few weeks. You don't understand medical terms. Express your symptoms in your own simple words. Ask for clarification if the doctor uses terms you don't understand. You've been reading about your symptoms online and you're worried it might be something serious. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 44,
-    "gender": "female",
+    "age": 51,
+    "gender": "male",
     "symptoms": {
-      "Does the pain radiate to your groin": "I've been having the pain radiate to your groin",
-      "Have you had kidney stones before": "I've had kidney stones before"
+      "Have you lost weight without trying": "I've been having lost weight without trying"
     },
     "duration": "a few weeks",
-    "severity": "severe",
+    "severity": "moderate",
     "current_medications": [
       {
-        "name": "tamsulosin",
-        "dose": "0.4mg",
-        "frequency": "once daily"
-      },
-      {
-        "name": "ketorolac",
+        "name": "methimazole",
         "dose": "10mg",
-        "frequency": "as needed for pain"
+        "frequency": "once daily"
       }
     ],
+    "allergies": [
+      "sulfa drugs"
+    ],
+    "lab_results": {
+      "tsh": "0.12 mIU/L (abnormal)",
+      "free_t4": "36.0 pmol/L (abnormal)",
+      "free_t3": "12.2 pmol/L (abnormal)",
+      "total_cholesterol": "3.74 mmol/L",
+      "alt": "47.4 U/L (abnormal)"
+    },
     "vital_signs": {
-      "blood_pressure": "121/95 mmHg",
-      "bmi": "27.1"
+      "heart_rate": "107 bpm",
+      "bmi": "22.9"
     },
     "lifestyle_factors": {
+      "smoking": "yes (1 pack/day for 20+ years)",
       "exercise": "minimal"
     },
     "socioeconomic_factors": {
-      "occupation": "cleaner",
+      "occupation": "factory worker",
       "monthly_income": "about 5000-8000 yuan/month",
-      "insurance": "employee medical insurance, ~60-70% coverage",
-      "family_burden": ""
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "diagnosis": {
-      "primary": "nephrolithiasis",
-      "severity": "severe",
+      "primary": "hyperthyroidism",
+      "severity": "moderate",
       "differential_diagnoses": [
-        "Pyelonephritis",
-        "Appendicitis",
-        "Ectopic Pregnancy",
-        "Aortic Aneurysm"
+        "Anxiety Disorder",
+        "Thyroiditis",
+        "Factitious Hyperthyroidism",
+        "Pheochromocytoma"
       ]
     }
   },
-  "ticket": "i've been having the pain radiate to your groin",
+  "ticket": "i've been having lost weight without trying",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhouXX",
-          "mrn": "MRN874938",
-          "age": 44,
-          "gender": "female"
+          "name": "ChenXX",
+          "mrn": "MRN674932",
+          "age": 51,
+          "gender": "male"
         }
       },
       {
@@ -160,17 +149,17 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 44,
-            "gender": "female",
+            "age": 51,
+            "gender": "male",
             "symptoms": [
-              "i've been having the pain radiate to your groin"
+              "i've been having lost weight without trying"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "i've been having the pain radiate to your groin"
+              "i've been having lost weight without trying"
             ],
             "ask_only": []
           },
@@ -193,39 +182,41 @@
         }
       },
       {
-        "action_id": "use_assess_vital_signs",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "assess_vital_signs",
-        "arguments": {
-          "include_bmi": true
-        }
-      },
-      {
-        "action_id": "use_order_lab_tests",
-        "requestor": "assistant",
-        "name": "order_lab_tests",
-        "arguments": {
-          "tests": [
-            "CBC",
-            "BMP"
-          ],
-          "rationale": "Labs to evaluate nephrolithiasis"
-        }
-      },
-      {
-        "action_id": "use_get_lab_results",
-        "requestor": "assistant",
-        "name": "get_lab_results",
+        "name": "check_allergy",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_record_diagnosis",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "record_diagnosis",
+        "name": "check_drug_interactions",
         "arguments": {
-          "diagnosis": "nephrolithiasis"
+          "drug_list": [
+            "methimazole",
+            "propylthiouracil",
+            "propranolol"
+          ]
+        }
+      },
+      {
+        "action_id": "use_check_contraindications",
+        "requestor": "assistant",
+        "name": "check_contraindications",
+        "arguments": {
+          "medication": "methimazole",
+          "conditions": []
+        }
+      },
+      {
+        "action_id": "use_prescribe_medication",
+        "requestor": "assistant",
+        "name": "prescribe_medication",
+        "arguments": {
+          "medication": "methimazole",
+          "dose": ""
         }
       }
     ],
@@ -250,13 +241,12 @@
       "DB",
       "COMMUNICATE",
       "CLINICAL",
-      "SAFETY",
-      "TIME"
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "emergency",
+      "category": "safety",
       "min_turns": 3,
-      "max_turns": 6,
+      "max_turns": 25,
       "information_gathering_requirements": {
         "must_collect": {
           "chief_complaint_detail": {
@@ -266,7 +256,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of nephrolithiasis identified through systematic questioning",
+            "description": "All major symptoms of hyperthyroidism identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -290,12 +280,12 @@
             "weight": 0.08
           },
           "lifestyle_factors": {
-            "required": true,
+            "required": false,
             "description": "Smoking, alcohol, diet, exercise habits",
             "weight": 0.05
           },
           "social_determinants": {
-            "required": true,
+            "required": false,
             "description": "Socioeconomic factors affecting treatment adherence",
             "weight": 0.04
           }
@@ -306,22 +296,33 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "nephrolithiasis",
+          "correct_diagnosis": "hyperthyroidism",
           "allow_alternatives": [
-            "Pyelonephritis",
-            "Appendicitis",
-            "Ectopic Pregnancy"
+            "Anxiety Disorder",
+            "Thyroiditis",
+            "Factitious Hyperthyroidism"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": true,
           "must_consider": [
-            "Pyelonephritis",
-            "Appendicitis",
-            "Ectopic Pregnancy"
+            "Anxiety Disorder",
+            "Thyroiditis",
+            "Factitious Hyperthyroidism"
           ],
           "weight": 0.2
+        },
+        "appropriate_tests": {
+          "must_order": [
+            "tsh",
+            "free_t4",
+            "free_t3"
+          ],
+          "should_order": [
+            "total_cholesterol"
+          ],
+          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -334,24 +335,32 @@
         "key_questions": {
           "required": true,
           "must_ask": [
-            "Do you have severe pain in your flank or lower abdomen that comes in waves?",
-            "Does the pain radiate to your groin?",
-            "Have you noticed any blood in your urine?"
+            "Have you been feeling unusually hot or sweating more than usual?",
+            "Have you lost weight without trying?",
+            "Has your heart been racing or beating irregularly?"
           ],
           "weight": 0.1
+        }
+      },
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "methimazole",
+          "appropriate_dosage": "10mg once daily",
+          "weight": 0.3
         }
       },
       "treatment_scenarios": [
         {
           "scenario": "first_line_intolerance",
-          "description": "Patient reports side effects from tamsulosin ()",
+          "description": "Patient reports side effects from methimazole ()",
           "options": [
-            "Reduce dose of tamsulosin",
+            "Reduce dose of methimazole",
             "Switch to alternative medication class",
             "Try extended-release formulation",
             "Add adjunct medication to manage side effects"
           ],
-          "correct_approach": "Start with low-dose tamsulosin, titrate up, monitor symptoms; consider alternative if intolerant",
+          "correct_approach": "Start with low-dose methimazole, titrate up, monitor symptoms; consider alternative if intolerant",
           "complexity": "moderate"
         }
       ],
@@ -364,29 +373,29 @@
         "drug_interaction_check": {
           "required": true,
           "description": "Must check drug interactions before prescribing",
-          "severity": "critical"
+          "severity": "major"
         },
-        "avoid_nephrotoxic_drugs": {
+        "kidney_function_before_medication": {
           "required": true,
-          "description": "Must assess: avoid nephrotoxic drugs",
-          "severity": "high"
+          "description": "Must assess: kidney function before medication",
+          "severity": "major"
         },
-        "monitor_potassium": {
+        "hypoglycemia_risk": {
           "required": true,
-          "description": "Must assess: monitor potassium",
-          "severity": "high"
+          "description": "Must assess: hypoglycemia risk",
+          "severity": "major"
         },
-        "fluid_restriction": {
+        "liver_function": {
           "required": true,
-          "description": "Must assess: fluid restriction",
-          "severity": "high"
+          "description": "Must assess: liver function",
+          "severity": "major"
         }
       },
       "required_tools": [
-        "assess_vital_signs",
-        "order_lab_tests",
-        "get_lab_results",
-        "record_diagnosis"
+        "check_allergy",
+        "check_drug_interactions",
+        "check_contraindications",
+        "prescribe_medication"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -399,33 +408,25 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Pyelonephritis as alternative diagnosis",
-        "Diagnose nephrolithiasis without ordering any supporting lab tests",
-        "Fail to assess comorbidity impact on treatment plan",
-        "Prescribe multiple new medications simultaneously without interaction check"
+        "Fail to consider Anxiety Disorder as alternative diagnosis",
+        "Diagnose hyperthyroidism without ordering any supporting lab tests"
       ],
       "uncertainty_events": [
         {
           "trigger": "after_lab_results",
           "event": "Lab results show inconsistent or borderline findings",
-          "example": "stable creatinine but declining GFR",
+          "example": "borderline HbA1c vs high fasting glucose",
           "expected_handling": "Order repeat/confirmatory test, consider pre-analytical error, correlate with clinical symptoms before concluding"
-        },
-        {
-          "trigger": "mid_consultation",
-          "event": "Patient reports acute worsening of symptoms during the visit",
-          "example": "Patient becomes visibly more uncomfortable or reports new severe symptom",
-          "expected_handling": "Reassess urgency, consider acute complication, adjust pace and priorities of the consultation"
         }
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_emergency_triage_L3_nephrolithiasis_bcbe26",
+    "scenario_id": "v2_drug_safety_risk_L2_hyperthyroidism_57999b",
     "risk_level": "moderate",
-    "uncertainty_level": 0.754,
+    "uncertainty_level": 0.522,
     "behavior_type": "confused",
-    "seed": 117
+    "seed": 213
   }
 }

@@ -1,12 +1,12 @@
 {
-  "id": "v27_emergency_triage_L1_peptic_ulcer_disease_0d94e7",
+  "id": "v27_emergency_triage_L1_peptic_ulcer_disease_c15376",
   "domain": "internal_medicine",
   "task_type": "emergency_triage",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "emergency_triage — 53-year-old male with I've been having black, tarry stools for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having black, tarry stools for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "emergency_triage — 37-year-old female with I have burning or gnawing pain in your upper abdomen for a few weeks",
+    "clinical_scenario": "Patient presents with I have burning or gnawing pain in your upper abdomen for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
@@ -16,24 +16,29 @@
     "focus": "Rapid assessment and stabilization"
   },
   "user_scenario": {
-    "persona": "53-year-old male patient, 高中/中专 education, works as a retail manager. a cooperative patient who answers questions clearly presenting with I've been having black, tarry stools.",
+    "persona": "37-year-old female patient, 高中/中专 education, works as a technician. a cooperative patient who answers questions clearly presenting with I have burning or gnawing pain in your upper abdomen.",
     "patient_profile": {
-      "age": 53,
-      "gender": "male",
+      "age": 37,
+      "gender": "female",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "duodenal ulcer and and stomach ulcer for a few weeks",
-      "occupation": "retail manager"
+      "chief_complaint": "pud and and duodenal ulcer for a few weeks",
+      "occupation": "technician"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "duodenal ulcer",
-          "stomach ulcer"
+          "pud",
+          "duodenal ulcer"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having black, tarry stools"
+        "general_concern": "I have burning or gnawing pain in your upper abdomen",
+        "current_medications": [
+          "omeprazole 40mg once daily",
+          "clarithromycin 500mg twice daily for 14 days",
+          "amoxicillin 1g twice daily for 14 days"
+        ]
       },
       "patient_doesnt_know": {
         "diagnosis": "peptic ulcer disease",
@@ -55,12 +60,12 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "duodenal ulcer",
-        "stomach ulcer"
+        "pud",
+        "duodenal ulcer"
       ],
       "share_only_if_asked": [
-        "gastric ulcer (needs doctor to specifically ask)",
-        "pud (needs doctor to specifically ask)"
+        "stomach ulcer (needs doctor to specifically ask)",
+        "gastric ulcer (needs doctor to specifically ask)"
       ],
       "response_style": {
         "honest": true,
@@ -69,16 +74,14 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are LiXX, a 53-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of duodenal ulcer. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are LiXX, a 37-year-old female patient. Your education level is 高中/中专. You work as a technician. You are seeing a doctor because of pud. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 53,
-    "gender": "male",
+    "age": 37,
+    "gender": "female",
     "symptoms": {
       "PUD": "pud",
       "stomach ulcer": "stomach ulcer",
@@ -96,34 +99,21 @@
         "drug_class": "proton pump inhibitor (PPI)",
         "dose": "40mg",
         "frequency": "once daily"
-      },
-      {
-        "name": "clarithromycin",
-        "brand_names": [],
-        "drug_class": "macrolide antibiotic",
-        "dose": "500mg",
-        "frequency": "twice daily for 14 days"
-      },
-      {
-        "name": "bismuth subsalicylate",
-        "dose": "525mg",
-        "frequency": "four times daily"
       }
     ],
     "vital_signs": {
-      "blood_pressure": "121/84 mmHg",
-      "bmi": "27.1"
+      "blood_pressure": "128/95 mmHg",
+      "bmi": "21.8"
     },
     "lifestyle_factors": {
-      "smoking": "yes (1 pack/day for 20+ years)",
+      "smoking": "no",
       "alcohol": "rarely",
       "exercise": "light activity 1-2x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "retail manager",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage",
-      "family_burden": "single income household"
+      "occupation": "technician",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
       "omeprazole": {
@@ -143,7 +133,7 @@
       ]
     }
   },
-  "ticket": "duodenal ulcer, stomach ulcer",
+  "ticket": "pud, duodenal ulcer",
   "initial_state": {
     "initialization_actions": [
       {
@@ -151,9 +141,9 @@
         "func_name": "set_user_info",
         "arguments": {
           "name": "LiXX",
-          "mrn": "MRN273134",
-          "age": 53,
-          "gender": "male"
+          "mrn": "MRN812418",
+          "age": 37,
+          "gender": "female"
         }
       },
       {
@@ -161,23 +151,23 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 53,
-            "gender": "male",
+            "age": 37,
+            "gender": "female",
             "symptoms": [
-              "duodenal ulcer",
-              "stomach ulcer"
+              "pud",
+              "duodenal ulcer"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "duodenal ulcer",
-              "stomach ulcer"
+              "pud",
+              "duodenal ulcer"
             ],
             "ask_only": [
-              "gastric ulcer",
-              "pud"
+              "stomach ulcer",
+              "gastric ulcer"
             ]
           },
           "response_style": {
@@ -393,10 +383,10 @@
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_emergency_triage_L1_peptic_ulcer_disease_6ea6da",
+    "scenario_id": "v2_emergency_triage_L1_peptic_ulcer_disease_c39acf",
     "risk_level": "moderate",
-    "uncertainty_level": 0.159,
+    "uncertainty_level": 0.289,
     "behavior_type": "cooperative",
-    "seed": 115
+    "seed": 215
   }
 }

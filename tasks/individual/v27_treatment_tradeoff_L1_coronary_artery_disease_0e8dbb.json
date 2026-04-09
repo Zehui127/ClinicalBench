@@ -1,65 +1,64 @@
 {
-  "id": "v27_conflicting_evidence_L1_heart_failure_850efe",
+  "id": "v27_treatment_tradeoff_L1_coronary_artery_disease_0e8dbb",
   "domain": "cardiology",
-  "task_type": "conflicting_evidence",
+  "task_type": "treatment_tradeoff",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "conflicting_evidence — 70-year-old female with my weight has changed for a few weeks",
-    "clinical_scenario": "Patient presents with my weight has changed for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "treatment_tradeoff — 25-year-old male with coronary artery disease for a few weeks",
+    "clinical_scenario": "Patient presents with coronary artery disease for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Ability to resolve conflicting data",
-      "Critical appraisal of evidence"
+      "Consideration of comorbidities in treatment",
+      "Shared decision-making ability"
     ],
-    "focus": "Resolving conflicting clinical evidence"
+    "focus": "Weighing treatment options with comorbidity considerations"
   },
   "user_scenario": {
-    "persona": "70-year-old female patient, 高中/中专 education, works as a office clerk. a cooperative patient who answers questions clearly presenting with my weight has changed.",
+    "persona": "25-year-old male patient, 高中/中专 education, works as a sales associate. a cooperative patient who answers questions clearly presenting with coronary artery disease.",
     "patient_profile": {
-      "age": 70,
-      "gender": "female",
+      "age": 25,
+      "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "high blood pressure for a few weeks",
-      "occupation": "office clerk"
+      "chief_complaint": "heart disease, ischemic heart, and coronary heart for a few weeks",
+      "occupation": "sales associate"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "high blood pressure"
+          "heart disease",
+          "ischemic heart",
+          "coronary heart"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "my weight has changed",
-        "family_history": "family member has high blood pressure",
+        "general_concern": "coronary artery disease",
+        "family_history": "family member has high cholesterol",
         "past_history": [
-          "high blood pressure"
+          "high cholesterol"
         ],
         "current_medications": [
-          "carvedilol 12.5mg twice daily"
+          "metoprolol 50mg twice daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "heart failure",
-        "nt_probnp": "797 pg/mL (abnormal)",
-        "creatinine": "1.24 mg/dL (abnormal)",
-        "sodium": "135 mmol/L (abnormal)",
-        "specific_medication_needed": "lisinopril (10mg once daily)",
+        "diagnosis": "coronary artery disease",
+        "total_cholesterol": "6.43 mmol/L (abnormal)",
+        "ldl_cholesterol": "4.21 mmol/L (abnormal)",
+        "hdl_cholesterol": "0.91 mmol/L (abnormal)",
+        "specific_medication_needed": "aspirin (81mg once daily)",
         "medication_contraindications": [
-          "pregnancy"
+          "peptic ulcer",
+          "asthma"
         ]
       },
       "patient_misconceptions_and_concerns": {
-        "anxiety_fears": [
-          "Am I going to have a heart attack?",
-          "Will I need bypass surgery?",
-          "Can I still exercise?"
-        ],
-        "medication_concerns": [
-          "Do I have to take heart medication for the rest of my life?",
-          "I heard statins damage your liver"
+        "general_concerns": [
+          "Is this serious?",
+          "Will I need surgery?",
+          "How long will treatment take?"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -71,21 +70,36 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "high blood pressure"
+        "heart disease",
+        "ischemic heart",
+        "coronary heart"
       ],
       "share_only_if_asked": [
-        "high blood pressure (needs doctor to specifically ask)",
-        "my weight has changed (needs doctor to specifically ask)"
+        "chd (needs doctor to specifically ask)",
+        "atherosclerotic heart (needs doctor to specifically ask)",
+        "hld (needs doctor to specifically ask)"
       ],
+      "hidden_truth": [
+        "ihd (won't mention unless specifically probed)"
+      ],
+      "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "misleading_symptoms": [
-        "waking up gasping for air (paroxysmal nocturnal dyspnea)",
-        "abdominal swelling and loss of appetite",
-        "shortness of breath (also seen in COPD and pneumonia)",
-        "swelling (also seen in kidney disease and liver disease)"
+        "jaw pain during exertion",
+        "unusual fatigue with minimal activity",
+        "chest discomfort (also seen in GERD and anxiety)",
+        "left arm pain (also seen in cervical disc disease)"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
+      "progressive_reveal": [
+        {
+          "after_turn": 3,
+          "symptom": "ihd",
+          "trigger": "doctor asks a specific follow-up question about related symptoms"
+        }
+      ],
       "share_in_response_to_medication_discussion": [
-        "Concerns about lisinopril side effects — pregnancy"
+        "Concerns about aspirin side effects — peptic ulcer, asthma",
+        "Concerns about atorvastatin side effects — pregnancy"
       ],
       "response_style": {
         "honest": true,
@@ -94,90 +108,97 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are LiuXX, a 70-year-old female patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of high blood pressure. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are ChenXX, a 25-year-old male patient. Your education level is 高中/中专. You work as a sales associate. You are seeing a doctor because of heart disease. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 70,
-    "gender": "female",
+    "age": 25,
+    "gender": "male",
     "symptoms": {
-      "Has your weight changed unexpectedly": "my weight has changed",
-      "HTN": "high blood pressure",
-      "high blood pressure": "high blood pressure"
+      "CAD": "coronary artery disease",
+      "coronary heart disease": "coronary heart",
+      "CHD": "chd",
+      "ischemic heart disease": "ischemic heart",
+      "IHD": "ihd",
+      "atherosclerotic heart disease": "atherosclerotic heart",
+      "HLD": "hld"
     },
     "duration": "a few weeks",
     "severity": "mild",
     "past_medical_history": [
-      "high blood pressure"
+      "high cholesterol"
     ],
     "current_medications": [
       {
-        "name": "carvedilol",
+        "name": "aspirin",
         "brand_names": [],
-        "drug_class": "non-selective beta-blocker with alpha-1 blockade",
-        "dose": "12.5mg",
-        "frequency": "twice daily"
+        "drug_class": "antiplatelet / NSAID",
+        "dose": "81mg",
+        "frequency": "once daily"
+      },
+      {
+        "name": "atorvastatin",
+        "brand_names": [
+          "Lipitor"
+        ],
+        "drug_class": "HMG-CoA reductase inhibitor (statin)",
+        "dose": "20mg",
+        "frequency": "once daily at bedtime"
       }
     ],
     "lab_results": {
-      "nt_probnp": "834 pg/mL (abnormal)",
-      "creatinine": "1.27 mg/dL (abnormal)",
-      "sodium": "135 mmol/L (abnormal)",
-      "bnp": "382 pg/mL (abnormal)",
-      "hemoglobin": "12.0 g/dL"
+      "total_cholesterol": "6.55 mmol/L (abnormal)",
+      "ldl_cholesterol": "4.20 mmol/L (abnormal)",
+      "hdl_cholesterol": "0.87 mmol/L (abnormal)",
+      "troponin": "0.05 ng/mL",
+      "nt_probnp": "340 pg/mL (abnormal)",
+      "creatinine": "0.96 mg/dL"
     },
     "vital_signs": {
-      "blood_pressure": "136/72 mmHg",
-      "heart_rate": "90 bpm",
-      "bmi": "21.5"
+      "blood_pressure": "132/76 mmHg",
+      "heart_rate": "95 bpm",
+      "bmi": "25.1"
     },
     "lifestyle_factors": {
       "smoking": "yes (1 pack/day for 20+ years)",
-      "exercise": "light activity 1-2x/week"
+      "exercise": "minimal"
     },
     "comorbidities": {
-      "hypertension": "high blood pressure, severity: 0.5"
+      "hyperlipidemia": "high cholesterol, severity: 0.5"
     },
     "socioeconomic_factors": {
-      "occupation": "office clerk",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage",
-      "family_burden": ""
+      "occupation": "sales associate",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
-      "lisinopril": {
-        "drug_class": "ACE inhibitor",
-        "standard_dose": "10mg once daily",
+      "aspirin": {
+        "drug_class": "antiplatelet / NSAID",
+        "standard_dose": "81mg once daily",
         "contraindications": [
-          "pregnancy"
+          "peptic ulcer",
+          "asthma"
         ]
       }
     },
     "diagnosis": {
-      "primary": "heart failure",
-      "severity": "mild",
-      "differential_diagnoses": [
-        "COPD",
-        "Pulmonary Embolism",
-        "Nephrotic Syndrome"
-      ]
+      "primary": "coronary artery disease",
+      "severity": "mild"
     }
   },
-  "ticket": "high blood pressure",
+  "ticket": "heart disease, ischemic heart, coronary heart",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "LiuXX",
-          "mrn": "MRN827015",
-          "age": 70,
-          "gender": "female"
+          "name": "ChenXX",
+          "mrn": "MRN298494",
+          "age": 25,
+          "gender": "male"
         }
       },
       {
@@ -185,21 +206,26 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 70,
-            "gender": "female",
+            "age": 25,
+            "gender": "male",
             "symptoms": [
-              "high blood pressure"
+              "heart disease",
+              "ischemic heart",
+              "coronary heart"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "high blood pressure"
+              "heart disease",
+              "ischemic heart",
+              "coronary heart"
             ],
             "ask_only": [
-              "high blood pressure",
-              "my weight has changed"
+              "chd",
+              "atherosclerotic heart",
+              "hld"
             ]
           },
           "response_style": {
@@ -221,49 +247,40 @@
         }
       },
       {
-        "action_id": "use_order_lab_tests",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "order_lab_tests",
-        "arguments": {
-          "tests": [
-            "nt_probnp",
-            "creatinine",
-            "sodium",
-            "bnp",
-            "hemoglobin"
-          ],
-          "rationale": "Labs to evaluate heart failure"
-        }
-      },
-      {
-        "action_id": "use_get_lab_results",
-        "requestor": "assistant",
-        "name": "get_lab_results",
+        "name": "check_allergy",
         "arguments": {
           "patient_id": "current"
         }
       },
       {
-        "action_id": "use_differential_diagnosis",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "differential_diagnosis",
+        "name": "check_drug_interactions",
         "arguments": {
-          "symptoms": [
-            "heart failure"
-          ],
-          "must_consider": [
-            "COPD",
-            "Pulmonary Embolism",
-            "Nephrotic Syndrome"
+          "drug_list": [
+            "aspirin",
+            "atorvastatin",
+            "metoprolol"
           ]
         }
       },
       {
-        "action_id": "use_record_diagnosis",
+        "action_id": "use_prescribe_medication",
         "requestor": "assistant",
-        "name": "record_diagnosis",
+        "name": "prescribe_medication",
         "arguments": {
-          "diagnosis": "heart failure"
+          "medication": "aspirin",
+          "dose": ""
+        }
+      },
+      {
+        "action_id": "use_schedule_followup",
+        "requestor": "assistant",
+        "name": "schedule_followup",
+        "arguments": {
+          "timeframe": "2-4 weeks"
         }
       }
     ],
@@ -282,10 +299,11 @@
     "reward_basis": [
       "DB",
       "COMMUNICATE",
-      "CLINICAL"
+      "CLINICAL",
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "diagnosis",
+      "category": "treatment",
       "min_turns": 3,
       "max_turns": 20,
       "information_gathering_requirements": {
@@ -297,7 +315,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of heart failure identified through systematic questioning",
+            "description": "All major symptoms of coronary artery disease identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -337,31 +355,24 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "heart failure",
-          "allow_alternatives": [
-            "COPD",
-            "Pulmonary Embolism",
-            "Nephrotic Syndrome"
-          ],
+          "correct_diagnosis": "coronary artery disease",
+          "allow_alternatives": [],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
-          "must_consider": [
-            "COPD",
-            "Pulmonary Embolism",
-            "Nephrotic Syndrome"
-          ],
+          "must_consider": [],
           "weight": 0.2
         },
         "appropriate_tests": {
           "must_order": [
-            "nt_probnp",
-            "creatinine",
-            "sodium"
+            "total_cholesterol",
+            "ldl_cholesterol",
+            "hdl_cholesterol"
           ],
           "should_order": [
-            "hemoglobin"
+            "troponin",
+            "creatinine"
           ],
           "weight": 0.15
         },
@@ -372,15 +383,22 @@
             "lab_results"
           ],
           "weight": 0.1
+        }
+      },
+      "treatment_requirements": {
+        "medication_appropriateness": {
+          "required": true,
+          "should_prescribe": "aspirin",
+          "appropriate_dosage": "81mg once daily",
+          "weight": 0.3
         },
-        "key_questions": {
-          "required": false,
-          "must_ask": [
-            "Do you wake up at night feeling short of breath?",
-            "Have you noticed swelling in your ankles or legs?",
-            "Do you find you need more pillows to sleep comfortably?"
+        "contraindication_awareness": {
+          "required": true,
+          "must_check": [
+            "peptic ulcer",
+            "asthma"
           ],
-          "weight": 0.1
+          "weight": 0.2
         }
       },
       "safety_requirements": {
@@ -401,8 +419,8 @@
         },
         "blood_pressure_control": {
           "required": true,
-          "description": "Must assess and address blood pressure",
-          "severity": "high"
+          "description": "Must assess: blood pressure control",
+          "severity": "major"
         },
         "potassium_monitoring": {
           "required": true,
@@ -411,10 +429,10 @@
         }
       },
       "required_tools": [
-        "order_lab_tests",
-        "get_lab_results",
-        "differential_diagnosis",
-        "record_diagnosis"
+        "check_allergy",
+        "check_drug_interactions",
+        "prescribe_medication",
+        "schedule_followup"
       ],
       "forbidden_actions": [
         "Prescribe medication before checking allergies",
@@ -427,20 +445,17 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Prescribe NSAIDs without assessing cardiovascular risk",
-        "Discharge without assessing exercise tolerance",
-        "Fail to consider COPD as alternative diagnosis",
-        "Prescribe lisinopril in patient with pregnancy without special precautions",
-        "Diagnose heart failure without ordering any supporting lab tests"
+        "Prescribe aspirin in patient with peptic ulcer without special precautions",
+        "Diagnose coronary artery disease without ordering any supporting lab tests"
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_conflicting_evidence_L1_heart_failure_321202",
+    "scenario_id": "v2_treatment_tradeoff_L1_coronary_artery_disease_c34ad8",
     "risk_level": "high",
-    "uncertainty_level": 0.38,
+    "uncertainty_level": 0.124,
     "behavior_type": "cooperative",
-    "seed": 103
+    "seed": 206
   }
 }

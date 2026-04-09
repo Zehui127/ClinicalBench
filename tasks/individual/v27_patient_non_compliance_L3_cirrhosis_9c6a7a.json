@@ -1,31 +1,32 @@
 {
-  "id": "v27_patient_non_compliance_L3_cirrhosis_31f871",
+  "id": "v27_patient_non_compliance_L3_cirrhosis_9c6a7a",
   "domain": "gastroenterology",
   "task_type": "patient_non_compliance",
   "difficulty": "L3",
   "version": "2.7",
   "description": {
-    "purpose": "patient_non_compliance — 74-year-old male with arthritis for a few weeks",
-    "clinical_scenario": "Patient presents with arthritis for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "patient_non_compliance — 59-year-old male with I've been having confusion or difficulty concentrating for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having confusion or difficulty concentrating for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
       "Communication and trust-building",
       "Addressing patient concerns and misconceptions",
-      "Handle complex multi-condition scenario"
+      "Handle complex multi-condition scenario",
+      "Manage difficult patient behavior"
     ],
     "focus": "Addressing patient concerns and building treatment adherence"
   },
   "user_scenario": {
-    "persona": "74-year-old male patient, 大学 education, works as a manager. a patient who is impatient and wants quick resolution presenting with arthritis.",
+    "persona": "59-year-old male patient, 高中/中专 education, works as a retail manager. a patient who may try to hide or downplay symptoms presenting with I've been having confusion or difficulty concentrating.",
     "patient_profile": {
-      "age": 74,
+      "age": 59,
       "gender": "male",
-      "education_level": "college",
-      "communication_style": "demanding",
-      "cooperation_level": "moderate",
+      "education_level": "high_school",
+      "communication_style": "evasive",
+      "cooperation_level": "poor",
       "chief_complaint": "liver cirrhosis for a few weeks",
-      "occupation": "manager"
+      "occupation": "retail manager"
     },
     "information_state": {
       "patient_knows": {
@@ -33,7 +34,7 @@
           "liver cirrhosis"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "arthritis"
+        "general_concern": "I've been having confusion or difficulty concentrating"
       },
       "patient_doesnt_know": {
         "diagnosis": "cirrhosis"
@@ -56,11 +57,11 @@
       ],
       "hidden_note": "Only revealed through careful, specific questioning by the doctor",
       "noise_symptoms": [
-        "occasional dizziness"
+        "occasional hot flashes"
       ],
       "noise_note": "Unrelated symptoms that may distract from the main issue",
       "misleading_symptoms": [
-        "red palms"
+        "spider-like blood vessels"
       ],
       "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "progressive_reveal": [
@@ -72,20 +73,20 @@
       ],
       "response_style": {
         "honest": false,
-        "direct": true,
+        "direct": false,
         "limited_medical_knowledge": true,
         "may_need_clarification": [],
-        "emotional_state": "impatient",
-        "may_resist_certain_treatments": [],
-        "financial_constraints": false,
-        "family_involvement": false
+        "emotional_state": "guarded",
+        "may_resist_certain_treatments": [
+          "procedures"
+        ],
+        "financial_constraints": false
       }
     },
-    "task_instructions": "You are ZhangXX, a 74-year-old male patient. Your education level is 大学. You work as a manager. You are seeing a doctor because of liver cirrhosis. This has been going on for about a few weeks. You want this visit to be quick. Express impatience if the doctor asks too many questions. Push for a quick diagnosis and treatment. You've been dealing with this for a while and you want answers NOW. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
+    "task_instructions": "You are ChenXX, a 59-year-old male patient. Your education level is 高中/中专. You work as a retail manager. You are seeing a doctor because of liver cirrhosis. This has been going on for about a few weeks. You are reluctant to share certain symptoms, especially sensitive ones. Downplay severity when you can. Only reveal details if the doctor specifically asks and you feel comfortable. You don't want to make a big deal out of this. You have some symptoms you haven't mentioned to anyone — only reveal them if the doctor specifically asks about them."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 74,
+    "age": 59,
     "gender": "male",
     "symptoms": {
       "liver cirrhosis": "liver cirrhosis",
@@ -94,18 +95,17 @@
     "duration": "a few weeks",
     "severity": "severe",
     "vital_signs": {
-      "blood_pressure": "131/81 mmHg",
-      "bmi": "24.1"
+      "blood_pressure": "135/82 mmHg",
+      "bmi": "23.1"
     },
     "lifestyle_factors": {
       "alcohol": "moderate (3-4 drinks/week)",
-      "exercise": "light activity 1-2x/week"
+      "exercise": "moderate 3x/week"
     },
     "socioeconomic_factors": {
-      "occupation": "manager",
+      "occupation": "retail manager",
       "monthly_income": "about 10000+ yuan/month",
-      "insurance": "comprehensive medical insurance, good coverage",
-      "family_burden": ""
+      "insurance": "comprehensive medical insurance, good coverage"
     },
     "diagnosis": {
       "primary": "cirrhosis",
@@ -124,9 +124,9 @@
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "ZhangXX",
-          "mrn": "MRN709094",
-          "age": 74,
+          "name": "ChenXX",
+          "mrn": "MRN876510",
+          "age": 59,
           "gender": "male"
         }
       },
@@ -135,7 +135,7 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 74,
+            "age": 59,
             "gender": "male",
             "symptoms": [
               "liver cirrhosis"
@@ -203,6 +203,11 @@
         "check_id": "appropriate_language",
         "criteria": "Uses clear, patient-friendly language appropriate to education level",
         "weight": 1.0
+      },
+      {
+        "check_id": "trust_building",
+        "criteria": "Demonstrates empathy and builds patient trust",
+        "weight": 1.5
       },
       {
         "check_id": "addresses_concerns",
@@ -368,10 +373,10 @@
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_patient_non_compliance_L3_cirrhosis_9af55b",
+    "scenario_id": "v2_patient_non_compliance_L3_cirrhosis_a9b0ed",
     "risk_level": "moderate",
-    "uncertainty_level": 0.976,
-    "behavior_type": "pressuring",
-    "seed": 111
+    "uncertainty_level": 0.922,
+    "behavior_type": "concealing",
+    "seed": 211
   }
 }

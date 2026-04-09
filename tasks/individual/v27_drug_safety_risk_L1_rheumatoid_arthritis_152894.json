@@ -1,54 +1,60 @@
 {
-  "id": "v27_patient_non_compliance_L1_anemia_6c2670",
-  "domain": "hematology",
-  "task_type": "patient_non_compliance",
+  "id": "v27_drug_safety_risk_L1_rheumatoid_arthritis_152894",
+  "domain": "rheumatology",
+  "task_type": "drug_safety_risk",
   "difficulty": "L1",
   "version": "2.7",
   "description": {
-    "purpose": "patient_non_compliance — 42-year-old male with I've been having been craving unusual things like ice or dirt for a few weeks",
-    "clinical_scenario": "Patient presents with I've been having been craving unusual things like ice or dirt for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
+    "purpose": "drug_safety_risk — 55-year-old male with I've been having joint deformities for a few weeks",
+    "clinical_scenario": "Patient presents with I've been having joint deformities for a few weeks. Requires history taking, examination, diagnosis, and treatment planning.",
     "educational_objectives": [
       "Assess information gathering ability",
       "Evaluate clinical reasoning",
-      "Communication and trust-building",
-      "Addressing patient concerns and misconceptions"
+      "Safety checking before prescribing",
+      "Drug interaction awareness"
     ],
-    "focus": "Addressing patient concerns and building treatment adherence"
+    "focus": "Safe prescribing with allergy and interaction checks"
   },
   "user_scenario": {
-    "persona": "42-year-old male patient, 高中/中专 education, works as a nurse aide. a cooperative patient who answers questions clearly presenting with I've been having been craving unusual things like ice or dirt.",
+    "persona": "55-year-old male patient, 高中/中专 education, works as a office clerk. a cooperative patient who answers questions clearly presenting with I've been having joint deformities.",
     "patient_profile": {
-      "age": 42,
+      "age": 55,
       "gender": "male",
       "education_level": "high_school",
       "communication_style": "clear",
       "cooperation_level": "good",
-      "chief_complaint": "anaemia for a few weeks",
-      "occupation": "nurse aide"
+      "chief_complaint": "i've been having joint deformities for a few weeks",
+      "occupation": "office clerk"
     },
     "information_state": {
       "patient_knows": {
         "symptoms": [
-          "anaemia"
+          "i've been having joint deformities"
         ],
         "duration_approximate": "about a few weeks",
-        "general_concern": "I've been having been craving unusual things like ice or dirt",
+        "general_concern": "I've been having joint deformities",
         "current_medications": [
-          "ferrous sulfate 325mg three times daily"
+          "methotrexate 15mg once weekly",
+          "folic acid 1mg daily except methotrexate day",
+          "prednisone 5mg once daily"
         ]
       },
       "patient_doesnt_know": {
-        "diagnosis": "anemia",
-        "hemoglobin": "8.70 g/dL (abnormal)",
-        "mcv": "77.2 fL (abnormal)",
-        "rdw": "16.5 % (abnormal)",
-        "specific_medication_needed": "ferrous sulfate (325mg three times daily)"
+        "diagnosis": "rheumatoid arthritis",
+        "specific_medication_needed": "methotrexate (15mg once weekly)",
+        "medication_contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
       },
       "patient_misconceptions_and_concerns": {
-        "general_concerns": [
-          "Is this serious?",
-          "Will I need surgery?",
-          "How long will treatment take?"
+        "exercise_misconception": [
+          "Should I stop exercising so I don't wear out my joints?",
+          "My joints hurt, shouldn't I just rest?"
+        ],
+        "medication_concerns": [
+          "I heard arthritis painkillers damage your stomach",
+          "Is there a cure for arthritis?"
         ],
         "economic_concerns": [
           "How much will this medication cost per month?",
@@ -60,16 +66,12 @@
     },
     "information_sharing_strategy": {
       "volunteer_without_asking": [
-        "anaemia"
+        "i've been having joint deformities"
       ],
       "share_only_if_asked": [],
-      "misleading_symptoms": [
-        "unusual cravings for ice or dirt (pica)",
-        "sore tongue and mouth ulcers",
-        "fatigue (also seen in depression and hypothyroidism)",
-        "shortness of breath (also seen in COPD and heart failure)"
+      "share_in_response_to_medication_discussion": [
+        "Concerns about methotrexate side effects — pregnancy, liver disease"
       ],
-      "misleading_note": "Symptoms that may point toward an incorrect diagnosis or overlap with other conditions. Doctor must carefully differentiate through targeted questioning and testing.",
       "response_style": {
         "honest": true,
         "direct": true,
@@ -77,77 +79,66 @@
         "may_need_clarification": [],
         "emotional_state": "neutral",
         "may_resist_certain_treatments": [],
-        "financial_constraints": true,
-        "family_involvement": false
+        "financial_constraints": true
       }
     },
-    "task_instructions": "You are HuangXX, a 42-year-old male patient. Your education level is 高中/中专. You work as a nurse aide. You are seeing a doctor because of anaemia. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
+    "task_instructions": "You are WuXX, a 55-year-old male patient. Your education level is 高中/中专. You work as a office clerk. You are seeing a doctor because of i've been having joint deformities. This has been going on for about a few weeks. Answer the doctor's questions honestly and completely. Share what you know about your symptoms. You don't know much about medicine, so express things in your own words. You are sensitive about medical costs. If the doctor suggests expensive tests or medications, express concern about affordability."
   },
-  "family_member_scenario": null,
   "medical_persona": {
-    "age": 42,
+    "age": 55,
     "gender": "male",
     "symptoms": {
-      "anaemia": "anaemia"
+      "Have you noticed any joint deformities": "I've been having joint deformities"
     },
     "duration": "a few weeks",
     "severity": "mild",
-    "current_medications": [
-      {
-        "name": "ferrous sulfate",
-        "brand_names": [],
-        "drug_class": "iron supplement",
-        "dose": "325mg",
-        "frequency": "three times daily"
-      }
+    "allergies": [
+      "sulfa drugs"
     ],
-    "lab_results": {
-      "hemoglobin": "8.87 g/dL (abnormal)",
-      "mcv": "78.7 fL (abnormal)",
-      "rdw": "16.8 % (abnormal)",
-      "ferritin": "18.9 ng/mL (abnormal)",
-      "tibc": "421 ug/dL (abnormal)"
-    },
     "vital_signs": {
-      "blood_pressure": "140/75 mmHg",
-      "bmi": "26.1"
+      "blood_pressure": "144/77 mmHg",
+      "bmi": "24.0"
     },
     "lifestyle_factors": {
-      "exercise": "light activity 1-2x/week"
+      "smoking": "no",
+      "exercise": "sedentary"
     },
     "socioeconomic_factors": {
-      "occupation": "nurse aide",
-      "monthly_income": "about 3000-5000 yuan/month",
-      "insurance": "basic rural/cooperative medical insurance, limited coverage",
-      "family_burden": "single income household"
+      "occupation": "office clerk",
+      "monthly_income": "about 5000-8000 yuan/month",
+      "insurance": "employee medical insurance, ~60-70% coverage"
     },
     "medication_considerations": {
-      "ferrous sulfate": {
-        "drug_class": "iron supplement",
-        "standard_dose": "325mg three times daily",
-        "contraindications": []
+      "methotrexate": {
+        "drug_class": "antimetabolite / DMARD",
+        "standard_dose": "",
+        "contraindications": [
+          "pregnancy",
+          "liver disease"
+        ]
       }
     },
     "diagnosis": {
-      "primary": "anemia",
+      "primary": "rheumatoid arthritis",
       "severity": "mild",
       "differential_diagnoses": [
-        "Iron Deficiency Anemia",
-        "Thalassemia",
-        "Anemia of Chronic Disease"
+        "Osteoarthritis",
+        "Psoriatic Arthritis",
+        "Lupus",
+        "Gout"
       ]
     }
   },
-  "ticket": "anaemia",
+  "ticket": "i've been having joint deformities",
   "initial_state": {
     "initialization_actions": [
       {
         "env_type": "user",
         "func_name": "set_user_info",
         "arguments": {
-          "name": "HuangXX",
-          "mrn": "MRN243982",
-          "age": 42,
+          "name": "WuXX",
+          "mrn": "MRN421725",
+          "age": 55,
           "gender": "male"
         }
       },
@@ -156,17 +147,17 @@
         "func_name": "set_medical_persona",
         "arguments": {
           "patient_profile": {
-            "age": 42,
+            "age": 55,
             "gender": "male",
             "symptoms": [
-              "anaemia"
+              "i've been having joint deformities"
             ],
             "duration": "a few weeks",
             "severity": "moderate"
           },
           "information_sharing_strategy": {
             "volunteer": [
-              "anaemia"
+              "i've been having joint deformities"
             ],
             "ask_only": []
           },
@@ -189,19 +180,32 @@
         }
       },
       {
-        "action_id": "use_health_education",
+        "action_id": "use_check_allergy",
         "requestor": "assistant",
-        "name": "health_education",
+        "name": "check_allergy",
         "arguments": {
-          "topic": "anemia"
+          "patient_id": "current"
         }
       },
       {
-        "action_id": "use_patient_education",
+        "action_id": "use_check_drug_interactions",
         "requestor": "assistant",
-        "name": "patient_education",
+        "name": "check_drug_interactions",
         "arguments": {
-          "topic": "anemia"
+          "drug_list": [
+            "methotrexate",
+            "folic acid",
+            "prednisone"
+          ]
+        }
+      },
+      {
+        "action_id": "use_check_contraindications",
+        "requestor": "assistant",
+        "name": "check_contraindications",
+        "arguments": {
+          "medication": "methotrexate",
+          "conditions": []
         }
       },
       {
@@ -209,7 +213,7 @@
         "requestor": "assistant",
         "name": "prescribe_medication",
         "arguments": {
-          "medication": "ferrous sulfate",
+          "medication": "methotrexate",
           "dose": ""
         }
       }
@@ -228,10 +232,12 @@
     ],
     "reward_basis": [
       "DB",
-      "COMMUNICATE"
+      "COMMUNICATE",
+      "CLINICAL",
+      "SAFETY"
     ],
     "medical_criteria": {
-      "category": "communication",
+      "category": "safety",
       "min_turns": 3,
       "max_turns": 20,
       "information_gathering_requirements": {
@@ -243,7 +249,7 @@
           },
           "symptoms_completeness": {
             "required": true,
-            "description": "All major symptoms of anemia identified through systematic questioning",
+            "description": "All major symptoms of rheumatoid arthritis identified through systematic questioning",
             "weight": 0.2
           },
           "past_medical_history": {
@@ -283,31 +289,22 @@
       "diagnostic_requirements": {
         "diagnosis_accuracy": {
           "required": true,
-          "correct_diagnosis": "anemia",
+          "correct_diagnosis": "rheumatoid arthritis",
           "allow_alternatives": [
-            "Iron Deficiency Anemia",
-            "Thalassemia",
-            "Anemia of Chronic Disease"
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
           ],
           "weight": 0.35
         },
         "differential_diagnosis": {
           "required": false,
           "must_consider": [
-            "Iron Deficiency Anemia",
-            "Thalassemia",
-            "Anemia of Chronic Disease"
+            "Osteoarthritis",
+            "Psoriatic Arthritis",
+            "Lupus"
           ],
           "weight": 0.2
-        },
-        "appropriate_tests": {
-          "must_order": [
-            "hemoglobin",
-            "mcv",
-            "rdw"
-          ],
-          "should_order": [],
-          "weight": 0.15
         },
         "evidence_based": {
           "required": true,
@@ -320,9 +317,9 @@
         "key_questions": {
           "required": false,
           "must_ask": [
-            "Have you noticed any blood in your stool or very dark stools?",
-            "Do you get dizzy when standing up quickly?",
-            "Have you been craving unusual things like ice or dirt?"
+            "Which joints are affected? Are the symptoms symmetric on both sides?",
+            "Is there prolonged morning stiffness lasting more than an hour?",
+            "Are the joints swollen, warm, or tender?"
           ],
           "weight": 0.1
         }
@@ -330,9 +327,17 @@
       "treatment_requirements": {
         "medication_appropriateness": {
           "required": true,
-          "should_prescribe": "ferrous sulfate",
-          "appropriate_dosage": "325mg three times daily",
+          "should_prescribe": "methotrexate",
+          "appropriate_dosage": "15mg once weekly",
           "weight": 0.3
+        },
+        "contraindication_awareness": {
+          "required": true,
+          "must_check": [
+            "pregnancy",
+            "liver disease"
+          ],
+          "weight": 0.2
         }
       },
       "safety_requirements": {
@@ -346,25 +351,21 @@
           "description": "Must check drug interactions before prescribing",
           "severity": "major"
         },
-        "infection_precautions": {
+        "nsaid_gi_risk": {
           "required": true,
-          "description": "Must assess: infection precautions",
+          "description": "Must assess: NSAID GI risk",
           "severity": "major"
         },
-        "bleeding_risk": {
+        "immunosuppression_monitoring": {
           "required": true,
-          "description": "Must assess: bleeding risk",
-          "severity": "major"
-        },
-        "transfusion_reactions": {
-          "required": true,
-          "description": "Must assess: transfusion reactions",
+          "description": "Must assess: immunosuppression monitoring",
           "severity": "major"
         }
       },
       "required_tools": [
-        "health_education",
-        "patient_education",
+        "check_allergy",
+        "check_drug_interactions",
+        "check_contraindications",
         "prescribe_medication"
       ],
       "forbidden_actions": [
@@ -378,17 +379,18 @@
         "Fail to correct patient misconceptions about treatment",
         "Prescribe contraindicated drug without documenting rationale",
         "Order unnecessary tests without clinical justification",
-        "Fail to consider Iron Deficiency Anemia as alternative diagnosis",
-        "Diagnose anemia without ordering any supporting lab tests"
+        "Fail to consider Osteoarthritis as alternative diagnosis",
+        "Prescribe methotrexate in patient with pregnancy without special precautions",
+        "Diagnose rheumatoid arthritis without ordering any supporting lab tests"
       ]
     }
   },
   "generation_metadata": {
     "source": "v2.7_medical_suite",
-    "scenario_id": "v2_patient_non_compliance_L1_anemia_982204",
+    "scenario_id": "v2_drug_safety_risk_L1_rheumatoid_arthritis_7c3c1a",
     "risk_level": "moderate",
-    "uncertainty_level": 0.169,
+    "uncertainty_level": 0.283,
     "behavior_type": "cooperative",
-    "seed": 109
+    "seed": 212
   }
 }
