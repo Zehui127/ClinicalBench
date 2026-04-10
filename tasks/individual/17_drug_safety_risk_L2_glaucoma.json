@@ -134,47 +134,48 @@
         ]
       }
     ],
-    "decision_tree": [
-      {
-        "step": 1,
-        "action": "history_taking",
-        "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
-        "key_questions": [
-          "when was your last eye exam"
-        ],
-        "hidden_information_to_uncover": []
-      },
-      {
-        "step": 2,
-        "action": "order_labs",
-        "correct_approach": "Order disease-relevant labs for glaucoma",
-        "required_tests": [
-          "CBC",
-          "BMP"
-        ]
-      },
-      {
-        "step": 3,
-        "action": "form_diagnosis",
-        "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
-        "must_consider": [
-          "Ocular Hypertension",
-          "Normal Tension Glaucoma",
-          "Optic Neuritis"
-        ]
-      },
-      {
-        "step": 4,
-        "action": "plan_treatment",
-        "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
-        "safety_first": true
-      },
-      {
-        "step": 5,
-        "action": "communicate_and_close",
-        "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up"
-      }
-    ]
+    "solution_space": {
+      "minimal_paths": [
+        {
+          "description": "Minimum viable consultation",
+          "steps": [
+            "ASK ≥ min_turns questions",
+            "ORDER_LAB ≥ 1 relevant test",
+            "DIAGNOSE correctly",
+            "CHECK_ALLERGY + PRESCRIBE",
+            "END"
+          ],
+          "allowed_to_skip": []
+        }
+      ],
+      "acceptable_variants": [
+        {
+          "description": "Thorough history + targeted labs",
+          "steps": [
+            "ASK all symptom categories",
+            "ORDER_LAB full panel",
+            "DIAGNOSE with differentials",
+            "safety checks + PRESCRIBE",
+            "EDUCATE + SCHEDULE_FOLLOWUP"
+          ]
+        },
+        {
+          "description": "Quick triage + confirm",
+          "steps": [
+            "ASK chief complaint + 1 follow-up",
+            "ORDER_LAB focused tests",
+            "DIAGNOSE",
+            "PRESCRIBE if safe",
+            "END"
+          ]
+        }
+      ],
+      "redundant_safe_paths": [
+        "ORDER_LAB extra tests is safe (cost penalty only)",
+        "ASK extra questions is safe (cost penalty only)",
+        "Multiple DIAGNOSE attempts allowed (last one counts)"
+      ]
+    }
   },
   "ground_truth_validation": {
     "rules": [
@@ -202,11 +203,16 @@
     "ASK": {
       "id": 0,
       "type": "ASK",
-      "subtype": "symptoms",
+      "subtype": "enum[open_question,targeted_question,clarification]",
       "params": {
         "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
       },
-      "cost": 1
+      "cost": 1,
+      "quality_tiers": {
+        "open_question": "broad probe — lower info gain, safer for rapport",
+        "targeted_question": "specific probe — higher info gain, may miss unexpected findings",
+        "clarification": "follow-up on previous answer — resolves ambiguity"
+      }
     },
     "ORDER_LAB": {
       "id": 1,
@@ -343,31 +349,45 @@
     "noise_model": {
       "patient_recall_accuracy": 0.7,
       "symptom_reveal_probability": "trust_level * cooperation_level",
-      "resistant_threshold": 0.6
+      "resistant_threshold": 0.6,
+      "cognitive_noise": {
+        "symptom_misattribution": "patient may attribute symptom to wrong cause (e.g., fatigue → work stress, not disease)",
+        "temporal_distortion": "patient may report 'a few days' when it has been weeks, or vice versa",
+        "severity_bias": "patient may understate or overstate severity based on pain tolerance and anxiety"
+      }
     }
   },
   "scoring": {
     "components": {
       "diagnosis": {
         "method": "set_match",
-        "weight": 0.3
+        "weight": 0.25
       },
       "safety": {
         "method": "rule_check",
-        "weight": 0.25
+        "weight": 0.2
       },
       "info": {
         "method": "count_ratio",
-        "weight": 0.2
+        "weight": 0.15
       },
       "treatment": {
         "method": "required_done",
-        "weight": 0.15
+        "weight": 0.1
       },
       "communication": {
         "method": "rule_check",
         "weight": 0.1
+      },
+      "process": {
+        "method": "trajectory_analysis",
+        "weight": 0.2
       }
+    },
+    "process_score": {
+      "question_relevance": "ratio of ASK actions that revealed new information to total ASK actions",
+      "information_gain_per_turn": "COUNT(new_symptoms_revealed) / turn_count",
+      "redundancy_penalty": "-0.05 per repeated ASK on same topic without new info"
     },
     "aggregation": "weighted_sum",
     "pass_threshold": 0.7,
@@ -420,9 +440,11 @@
       "expected_score": 0.5
     },
     "llm_baseline": {
-      "policy": "general_purpose_LLM_with_system_prompt",
+      "model": "gpt-4 or claude-3.5 (fill before run)",
+      "prompt_template": "You are a doctor. Patient presents with {chief_complaint}. Use available tools to diagnose and treat.",
+      "tool_usage_policy": "agent may call any action in actions dict; must follow preconditions",
       "expected_score": null,
-      "note": "Run and fill in score to establish anchor"
+      "note": "Run with fixed seed, record score here"
     },
     "protocol": "v1_standard"
   },

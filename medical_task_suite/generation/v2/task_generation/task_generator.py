@@ -510,9 +510,14 @@ class MedicalTaskGenerator:
             "ASK": {
                 "id": 0,
                 "type": "ASK",
-                "subtype": "symptoms",
+                "subtype": "enum[open_question,targeted_question,clarification]",
                 "params": {"topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"},
                 "cost": 1,
+                "quality_tiers": {
+                    "open_question": "broad probe — lower info gain, safer for rapport",
+                    "targeted_question": "specific probe — higher info gain, may miss unexpected findings",
+                    "clarification": "follow-up on previous answer — resolves ambiguity",
+                },
             },
             "ORDER_LAB": {
                 "id": 1,
@@ -622,6 +627,11 @@ class MedicalTaskGenerator:
                 "patient_recall_accuracy": 0.7,
                 "symptom_reveal_probability": "trust_level * cooperation_level",
                 "resistant_threshold": 0.6,
+                "cognitive_noise": {
+                    "symptom_misattribution": "patient may attribute symptom to wrong cause (e.g., fatigue → work stress, not disease)",
+                    "temporal_distortion": "patient may report 'a few days' when it has been weeks, or vice versa",
+                    "severity_bias": "patient may understate or overstate severity based on pain tolerance and anxiety",
+                },
             },
         }
 
@@ -639,11 +649,17 @@ class MedicalTaskGenerator:
 
         return {
             "components": {
-                "diagnosis": {"method": "set_match", "weight": 0.30},
-                "safety": {"method": "rule_check", "weight": 0.25},
-                "info": {"method": "count_ratio", "weight": 0.20},
-                "treatment": {"method": "required_done", "weight": 0.15},
+                "diagnosis": {"method": "set_match", "weight": 0.25},
+                "safety": {"method": "rule_check", "weight": 0.20},
+                "info": {"method": "count_ratio", "weight": 0.15},
+                "treatment": {"method": "required_done", "weight": 0.10},
                 "communication": {"method": "rule_check", "weight": 0.10},
+                "process": {"method": "trajectory_analysis", "weight": 0.20},
+            },
+            "process_score": {
+                "question_relevance": "ratio of ASK actions that revealed new information to total ASK actions",
+                "information_gain_per_turn": "COUNT(new_symptoms_revealed) / turn_count",
+                "redundancy_penalty": "-0.05 per repeated ASK on same topic without new info",
             },
             "aggregation": "weighted_sum",
             "pass_threshold": 0.7,
@@ -704,7 +720,7 @@ class MedicalTaskGenerator:
         }
 
     def _build_baseline(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Baseline agents with bound protocol for reproducibility."""
+        """Baseline agents with reproducible protocol."""
         diff = scenario.difficulty
         return {
             "random": {
@@ -716,9 +732,11 @@ class MedicalTaskGenerator:
                 "expected_score": {"L1": 0.65, "L2": 0.50, "L3": 0.35}.get(diff, 0.50),
             },
             "llm_baseline": {
-                "policy": "general_purpose_LLM_with_system_prompt",
+                "model": "gpt-4 or claude-3.5 (fill before run)",
+                "prompt_template": "You are a doctor. Patient presents with {chief_complaint}. Use available tools to diagnose and treat.",
+                "tool_usage_policy": "agent may call any action in actions dict; must follow preconditions",
                 "expected_score": None,
-                "note": "Run and fill in score to establish anchor",
+                "note": "Run with fixed seed, record score here",
             },
             "protocol": "v1_standard",
         }
@@ -1103,7 +1121,7 @@ class MedicalTaskGenerator:
     def _build_ground_truth(
         self, scenario: ScenarioSpec, symptoms: SymptomSet, profile
     ) -> Dict:
-        """Build verifiable standard answer space with decision tree."""
+        """Build verifiable answer space with solution_space (multi-path)."""
         disease = scenario.target_disease or "unknown"
         gt = scenario.ground_truth
         meds = self.kb.get_medications_for_condition(disease)
@@ -1118,7 +1136,6 @@ class MedicalTaskGenerator:
             "required_evidence": [],
         }
 
-        # Evidence needed for diagnosis
         evidence_items = ["symptom_cluster_matching"]
         if lab_panel:
             evidence_items.append("lab_result_confirmation")
@@ -1152,13 +1169,13 @@ class MedicalTaskGenerator:
                             "frequency": drug_info.standard_doses[0]["frequency"] if drug_info.standard_doses else m.get("frequency", ""),
                             "rationale": f"First-line treatment for {disease}",
                         })
-                        break  # Only first-line
+                        break
         correct_treatment["non_pharmacological"] = [
             "Lifestyle modification counseling",
             "Dietary guidance",
         ]
 
-        # Safety checks that must be performed
+        # Safety checks
         required_safety_checks = [
             {"check": "allergy_check", "before": "prescribing", "critical": True},
             {"check": "drug_interaction_check", "before": "prescribing", "critical": scenario.difficulty != "L1"},
@@ -1173,48 +1190,38 @@ class MedicalTaskGenerator:
 
         # Communication milestones
         communication_truth = [
-            {"milestone": "explain_diagnosis", "must_include": [f"diagnosis name in patient terms", "what it means"]},
+            {"milestone": "explain_diagnosis", "must_include": ["diagnosis name in patient terms", "what it means"]},
             {"milestone": "explain_treatment", "must_include": ["medication name and purpose", "how to take it", "expected effects"]},
             {"milestone": "address_concerns", "must_include": ["acknowledge patient worries", "correct misconceptions"]},
         ]
 
-        # Decision tree — correct path through consultation
-        decision_tree = [
-            {
-                "step": 1,
-                "action": "history_taking",
-                "correct_approach": "Systematically ask about symptoms, onset, duration, severity, aggravating/relieving factors",
-                "key_questions": [
-                    self.lang.to_patient(s) for s in symptoms.volunteer[:3]
-                ],
-                "hidden_information_to_uncover": [
-                    self.lang.to_patient(s) for s in (symptoms.hidden + symptoms.resistant)[:3]
-                ],
-            },
-            {
-                "step": 2,
-                "action": "order_labs",
-                "correct_approach": f"Order disease-relevant labs for {disease}",
-                "required_tests": [lab["test_name"] for lab in lab_panel[:5]] if lab_panel else ["CBC", "BMP"],
-            },
-            {
-                "step": 3,
-                "action": "form_diagnosis",
-                "correct_approach": "Consider differential diagnoses, correlate symptoms with lab results",
-                "must_consider": differentials[:3] if differentials else [],
-            },
-            {
-                "step": 4,
-                "action": "plan_treatment",
-                "correct_approach": "Check safety before prescribing, select appropriate first-line medication",
-                "safety_first": True,
-            },
-            {
-                "step": 5,
-                "action": "communicate_and_close",
-                "correct_approach": "Explain in patient-friendly language, address concerns, schedule follow-up",
-            },
-        ]
+        # Solution space: multi-path convergence (replaces decision_tree)
+        key_symptoms = [self.lang.to_patient(s) for s in symptoms.volunteer[:3]]
+        hidden_symptoms = [self.lang.to_patient(s) for s in (symptoms.hidden + symptoms.resistant)[:3]]
+        required_tests = [lab["test_name"] for lab in lab_panel[:5]] if lab_panel else ["CBC", "BMP"]
+
+        solution_space = {
+            "minimal_paths": [{
+                "description": "Minimum viable consultation",
+                "steps": ["ASK ≥ min_turns questions", "ORDER_LAB ≥ 1 relevant test", "DIAGNOSE correctly", "CHECK_ALLERGY + PRESCRIBE", "END"],
+                "allowed_to_skip": hidden_symptoms,
+            }],
+            "acceptable_variants": [
+                {
+                    "description": "Thorough history + targeted labs",
+                    "steps": ["ASK all symptom categories", "ORDER_LAB full panel", "DIAGNOSE with differentials", "safety checks + PRESCRIBE", "EDUCATE + SCHEDULE_FOLLOWUP"],
+                },
+                {
+                    "description": "Quick triage + confirm",
+                    "steps": ["ASK chief complaint + 1 follow-up", "ORDER_LAB focused tests", "DIAGNOSE", "PRESCRIBE if safe", "END"],
+                },
+            ],
+            "redundant_safe_paths": [
+                "ORDER_LAB extra tests is safe (cost penalty only)",
+                "ASK extra questions is safe (cost penalty only)",
+                "Multiple DIAGNOSE attempts allowed (last one counts)",
+            ],
+        }
 
         return {
             "correct_diagnosis": correct_diagnosis,
@@ -1222,5 +1229,5 @@ class MedicalTaskGenerator:
             "correct_treatment_plan": correct_treatment,
             "required_safety_checks": required_safety_checks,
             "communication_truth": communication_truth,
-            "decision_tree": decision_tree,
+            "solution_space": solution_space,
         }
