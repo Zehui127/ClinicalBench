@@ -79,6 +79,13 @@ class BenchEvaluator:
         if path_mixing:
             total -= 0.1
 
+        # Temporal penalty: severity progression without treatment
+        severity, _ = self._compute_severity(trajectory)
+        if severity == "critical":
+            total -= 0.20
+        elif severity == "worsening":
+            total -= 0.18
+
         # Efficiency adjustment
         n_turns = len(trajectory)
         max_turns = self.task["task_config"]["max_turns"]
@@ -291,11 +298,13 @@ class BenchEvaluator:
         return achieved / len(comm_truth) if comm_truth else 1.0
 
     def _score_process(self, trajectory: List[Dict]) -> float:
-        """Partially reversible, path-dependent scoring.
+        """Temporal decision scoring.
 
         Formula:
-            process = relevance × 0.25 + gain × 0.35 + path_consistency × 0.2
+            process = relevance × 0.20 + gain × 0.25 + path_consistency × 0.20
+                      + trajectory_dependency × 0.35
                       - redundancy - misleading_penalty - delay_penalty
+                      - irrecoverable_penalty
             Clipped to [0, 1].
 
         Mechanisms:
@@ -304,7 +313,10 @@ class BenchEvaluator:
                 trust < 0.4 → info_value × 0.5 for all previously revealed
             diagnosis_lock: after DIAGNOSE, subsequent ASK gain × 0.3
                 hidden symptoms after DIAGNOSE → value = 0.0
-            path_consistency: mixing paths → penalty 0.2
+            path_consistency: mixing paths → penalty
+            severity: worsening → gain×0.7; critical → gain×0.5
+            trajectory_dependency: temporal quality (time/switch/unnecessary)
+            irrecoverable: path switch after commitment → -0.3 each
         """
         ps = self.scoring.get("process_score", {})
         if not ps:
@@ -332,14 +344,16 @@ class BenchEvaluator:
         misleading_set = set(s.lower() for s in self.patient["symptoms"].get("misleading", []))
         hidden_set = set(s.lower() for s in self.patient["symptoms"].get("hidden", []))
 
-        # ── 2. Compute gain with trust decay + diagnosis lock ──
+        # ── 2. Compute severity for gain adjustment ──
+        severity, severity_timeline = self._compute_severity(trajectory)
+
+        # ── 3. Compute gain with trust decay + diagnosis lock + severity ──
         trust = 1.0
         relevant_ask_count = 0
         gain_total = 0.0
         revealed_so_far = set()
         confounder_revealed = set()
         true_signal_revealed = set()
-        # Track which symptoms were revealed AFTER diagnosis (for delay penalty)
         post_diagnosis_revealed = set()
 
         for s in ask_steps:
@@ -389,19 +403,23 @@ class BenchEvaluator:
 
         relevance_score = relevant_ask_count / len(ask_steps) if ask_steps else 0.0
 
-        # ── 3. Gain ──
+        # ── 4. Gain (with severity adjustment) ──
         gain_score = gain_total / len(ask_steps) if ask_steps else 0.0
+        if severity == "critical":
+            gain_score *= 0.5
+        elif severity == "worsening":
+            gain_score *= 0.7
 
-        # ── 4. Misleading penalty ──
+        # ── 5. Misleading penalty ──
         misleading_penalty = 0.2 if len(confounder_revealed) > len(true_signal_revealed) else 0.0
 
-        # ── 5. Path consistency ──
+        # ── 6. Path consistency ──
         path_consistency = self._compute_path_consistency(revealed_so_far)
 
-        # ── 6. Delay penalty: ASK after DIAGNOSE ──
+        # ── 7. Delay penalty: ASK after DIAGNOSE ──
         delay_penalty = 0.05 * len(post_diagnosis_revealed) if post_diagnosis_revealed else 0.0
 
-        # ── 7. Redundancy penalty ──
+        # ── 8. Redundancy penalty ──
         symptom_ask_count = {}
         redundancy_penalty = 0.0
 
@@ -425,13 +443,24 @@ class BenchEvaluator:
                     if prev >= 1:
                         redundancy_penalty += 0.1
 
-        # ── 8. Final score ──
-        raw_score = (relevance_score * 0.25
-                     + gain_score * 0.35
-                     + path_consistency * 0.2
+        # ── 9. Trajectory dependency (temporal quality) ──
+        trajectory_dependency = self._compute_trajectory_dependency(trajectory)
+
+        # ── 10. Irrecoverable path commitment penalty ──
+        _, _, switches, _ = self._compute_path_commitment(trajectory)
+        irrecoverable_penalty = 0.3 * switches
+        if switches > 0:
+            path_consistency = 0.0  # Switching invalidates consistency
+
+        # ── 11. Final score with new weights ──
+        raw_score = (relevance_score * 0.20
+                     + gain_score * 0.25
+                     + path_consistency * 0.20
+                     + trajectory_dependency * 0.35
                      - redundancy_penalty
                      - misleading_penalty
-                     - delay_penalty)
+                     - delay_penalty
+                     - irrecoverable_penalty)
         return max(0.0, min(1.0, raw_score))
 
     # ============================================================
@@ -574,6 +603,217 @@ class BenchEvaluator:
             extra = turns - int(max_turns * 0.8)
             adjustment -= 0.02 * extra
         return adjustment
+
+    def _compute_severity(self, trajectory: List[Dict]) -> tuple:
+        """Compute patient severity level from trajectory timing.
+
+        Returns (severity, severity_timeline) where severity is one of
+        'stable', 'worsening', 'critical' and timeline maps turn→severity.
+
+        Rules:
+          wrong treatment (PRESCRIBE without safety / wrong drug) → critical
+          turn > max_turns*0.7 without correct treatment → critical
+          turn > max_turns*0.4 without correct treatment → worsening
+          otherwise → stable
+        """
+        max_turns = self.task["task_config"]["max_turns"]
+        worsening_threshold = max_turns * 0.35
+        critical_threshold = max_turns * 0.7
+
+        severity = "stable"
+        correct_treatment_given = False
+        wrong_treatment_given = False
+        severity_timeline = {}
+
+        # Build action name list for safety check
+        all_action_names = self._extract_action_names(trajectory)
+
+        for step in trajectory:
+            t = step.get("t", 0)
+            action_name = self._action_id_to_name(step.get("action"))
+            obs = step.get("observation", {})
+
+            # Check for treatment
+            if action_name == "PRESCRIBE":
+                prescribed = obs.get("drug", "")
+                treatment_req = self.validation.get("treatment_required", [])
+                is_correct = False
+                for req in treatment_req:
+                    target = req.get("target", "")
+                    if target.startswith("any_appropriate"):
+                        is_correct = True
+                    elif target.lower() in prescribed.lower():
+                        is_correct = True
+                if is_correct:
+                    correct_treatment_given = True
+                else:
+                    wrong_treatment_given = True
+
+                # PRESCRIBE without safety check = wrong treatment
+                actions_so_far = all_action_names[:t + 1]
+                if "CHECK_ALLERGY" not in actions_so_far:
+                    wrong_treatment_given = True
+
+            # Severity progression
+            if wrong_treatment_given:
+                severity = "critical"
+            elif not correct_treatment_given and t > critical_threshold:
+                severity = "critical"
+            elif not correct_treatment_given and t > worsening_threshold:
+                severity = "worsening"
+
+            severity_timeline[t] = severity
+
+        return severity, severity_timeline
+
+    def _compute_path_commitment(self, trajectory: List[Dict]) -> tuple:
+        """Detect path commitment from trajectory ASK pattern.
+
+        Returns (committed_path_idx, commitment_turn, switches, switch_details).
+
+        Logic:
+          Scan ASK steps, accumulate collected symptoms per path.
+          First path to reach ≥50% of must_collect → committed.
+          After commitment, collecting symptoms from another path = switch.
+        """
+        solution_space = self.gt.get("solution_space", {})
+        minimal_sets = solution_space.get("derived_from", {}).get("minimal_information_sets", [])
+        if not minimal_sets or isinstance(minimal_sets, dict):
+            return None, None, 0, []
+
+        path_collections = [set() for _ in minimal_sets]
+        committed_path = None
+        commitment_turn = None
+        switches = 0
+        switch_details = []
+
+        for step in trajectory:
+            action_name = self._action_id_to_name(step.get("action"))
+            if action_name != "ASK":
+                continue
+
+            t = step.get("t", 0)
+            obs = step.get("observation", {})
+            revealed = obs.get("symptoms_revealed", [])
+
+            for symptom in revealed:
+                s_lower = symptom.lower()
+                for i, path in enumerate(minimal_sets):
+                    must_collect = path.get("must_collect", [])
+                    if any(s_lower in mc.lower() or mc.lower() in s_lower
+                           for mc in must_collect):
+                        path_collections[i].add(s_lower)
+
+            # Check commitment (50% threshold)
+            if committed_path is None:
+                for i, path in enumerate(minimal_sets):
+                    must_collect = path.get("must_collect", [])
+                    if not must_collect:
+                        continue
+                    threshold = max(1, len(must_collect) * 0.5)
+                    if len(path_collections[i]) >= threshold:
+                        committed_path = i
+                        commitment_turn = t
+                        break
+
+            # Check switch after commitment
+            if committed_path is not None:
+                for symptom in revealed:
+                    s_lower = symptom.lower()
+                    for i, path in enumerate(minimal_sets):
+                        if i == committed_path:
+                            continue
+                        must_collect = path.get("must_collect", [])
+                        if any(s_lower in mc.lower() or mc.lower() in s_lower
+                               for mc in must_collect):
+                            switches += 1
+                            switch_details.append({
+                                "turn": t,
+                                "from_path": committed_path,
+                                "to_path": i,
+                                "symptom": symptom,
+                            })
+                            break
+
+        return committed_path, commitment_turn, switches, switch_details
+
+    def _compute_trajectory_dependency(self, trajectory: List[Dict]) -> float:
+        """Compute trajectory-level temporal quality score [0, 1].
+
+        Sub-metrics:
+          time_to_correct_path (0.35): how quickly agent committed to optimal path
+          branch_switch (0.35): path fidelity after commitment
+          unnecessary_actions_ratio (0.30): efficiency of non-ASK actions
+        """
+        solution_space = self.gt.get("solution_space", {})
+        minimal_sets = solution_space.get("derived_from", {}).get("minimal_information_sets", [])
+
+        # ── 1. time_to_correct_path ──
+        optimal_path_idx = None
+        for i, p in enumerate(minimal_sets):
+            if p.get("is_optimal", False):
+                optimal_path_idx = i
+                break
+
+        committed_path, commit_turn, switches, _ = self._compute_path_commitment(trajectory)
+
+        if optimal_path_idx is not None and minimal_sets:
+            optimal_turns = len(minimal_sets[optimal_path_idx].get("must_collect", []))
+            if committed_path == optimal_path_idx and commit_turn is not None:
+                delay = max(0, commit_turn - optimal_turns)
+                if delay <= 1:
+                    time_score = 1.0
+                elif delay <= 3:
+                    time_score = 0.7
+                else:
+                    time_score = max(0.0, 1.0 - 0.2 * (delay - 3))
+            else:
+                time_score = 0.0
+        else:
+            time_score = 0.5
+
+        # ── 2. branch_switch ──
+        switch_score = max(0.0, 1.0 - 0.1 * switches)
+
+        # ── 3. unnecessary_actions_ratio ──
+        action_names = self._extract_action_names(trajectory)
+        seen_necessary = set()
+        necessary_set = {"ORDER_LAB", "GET_RESULTS", "DIAGNOSE", "CHECK_ALLERGY", "PRESCRIBE"}
+        comorbidities = self.task["clinical"].get("comorbidities", [])
+
+        total_non_ask = sum(1 for a in action_names if a not in ("ASK", "END"))
+        unnecessary = 0
+
+        for a in action_names:
+            if a in ("ASK", "END"):
+                continue
+            if a in necessary_set:
+                if a in seen_necessary:
+                    unnecessary += 1
+                else:
+                    seen_necessary.add(a)
+            elif a == "CHECK_INTERACTION":
+                if comorbidities:
+                    if "CHECK_INTERACTION" in seen_necessary:
+                        unnecessary += 1
+                    else:
+                        seen_necessary.add("CHECK_INTERACTION")
+                else:
+                    unnecessary += 1
+            elif a == "EDUCATE":
+                if "EDUCATE" not in seen_necessary:
+                    seen_necessary.add("EDUCATE")
+                else:
+                    unnecessary += 1
+            else:
+                unnecessary += 1
+
+        action_ratio = 1.0 - (unnecessary / total_non_ask) if total_non_ask > 0 else 0.0
+        action_ratio = max(0.0, action_ratio)
+
+        # ── Weighted combination ──
+        trajectory_dep = time_score * 0.35 + switch_score * 0.35 + action_ratio * 0.30
+        return max(0.0, min(1.0, trajectory_dep))
 
     def _collect_errors(self, scores: Dict, trajectory: List[Dict]) -> List[str]:
         """Map low scores to error codes."""

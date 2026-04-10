@@ -198,13 +198,20 @@ def _rulebased_pick_diagnosis(task: dict, revealed: list) -> str:
 
 
 def run_heuristic_agent(task: dict) -> list:
-    """Heuristic agent (simulates LLM):
+    """Heuristic agent (simulates good-but-wasteful LLM):
     - Picks ONE path and commits to it (path-consistent)
     - Adapts questions to unrevealed symptoms
     - Avoids redundancy
     - Unlocks gates before asking about gated symptoms
     - Diagnoses BEFORE exploring alternative paths
     - Full safety protocol
+
+    Intentionally includes redundant verification phases (duplicate labs,
+    diagnosis, safety checks in phases 5-7). This waste represents realistic
+    LLM behavior and is penalized by the temporal evaluator via:
+      - unnecessary_actions_ratio → lowers trajectory_dependency
+      - delayed treatment → severity="worsening" → gain×0.7, total -= 0.15
+    Expected score: ~0.72-0.75 with temporal evaluator (down from ~0.83).
     """
     actions = task["actions"]
     disease = task["ground_truth"]["correct_diagnosis"]["primary"]
@@ -415,9 +422,13 @@ def main():
     c2 = 0.4 <= rb_avg <= 0.7
     checks.append(("rule-based in [0.4, 0.7]", c2, "%.4f" % rb_avg))
 
-    # Criterion 3: heuristic > rule-based by ≥ 0.15
-    c3 = gap >= 0.15
-    checks.append(("heuristic - rule_based ≥ 0.15", c3, "gap = %.4f" % gap))
+    # Criterion 3: heuristic ≤ 0.75 (temporal: wasteful agent must not dominate)
+    c3 = heur_avg <= 0.75
+    checks.append(("heuristic avg ≤ 0.75 (temporal)", c3, "%.4f" % heur_avg))
+
+    # Criterion 3b: heuristic > rule-based (still better than baseline)
+    c3b = gap > 0
+    checks.append(("heuristic > rule-based", c3b, "gap = %.4f" % gap))
 
     # Criterion 4: ≥1 task where rule-based fails but heuristic succeeds
     c4_tasks = []

@@ -712,6 +712,10 @@ class MedicalTaskGenerator:
                 "EDUCATE(topic) → patient_message = understanding score",
                 "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE; done = true",
                 "END() → state = COMPLETE; done = true",
+                # ── SEVERITY PROGRESSION (temporal state) ──
+                "SEVERITY_PROGRESSION: severity_level starts at 'stable'; IF turn > max_turns * 0.35 AND no correct treatment given → severity = 'worsening'; IF wrong treatment given (PRESCRIBE without safety check or wrong drug) → severity = 'critical'; IF turn > max_turns * 0.7 AND no correct treatment given → severity = 'critical'; IF severity == 'worsening': noise_level += 0.2, trust_decay_rate × 2, gain × 0.7, total -= 0.18; IF severity == 'critical': gain × 0.5, total -= 0.20",
+                # ── PATH COMMITMENT (irreversible) ──
+                "PATH_COMMITMENT: agent commits to a path when ≥50% of any minimal_information_set.must_collect symptoms have been collected via ASK; IF agent switches to collecting symptoms from another path after commitment: irrecoverable_penalty = -0.3 per switch; correct_path_evidence locked; path_consistency = 0.0",
             ],
             "noise_model": {
                 "cognitive_noise": {
@@ -735,6 +739,12 @@ class MedicalTaskGenerator:
                 "trust_decays_on_irrelevant_ask — each ASK that reveals no new relevant symptom: trust -= 0.05; IF trust < 0.6: revealed symptoms include noise; IF trust < 0.4: previously revealed symptoms get confidence=degraded (info_value × 0.5)",
                 "diagnosis_locks_exploration — after DIAGNOSE: hidden symptoms permanently locked; subsequent ASK gain × 0.3; alternative solution paths disabled",
                 "paths_are_mutually_exclusive — each minimal_information_set has ≥1 unique symptom not in other sets; IF agent mixes symptoms from different paths: inconsistency_penalty = 0.2",
+                "severity_progresses_monotonically — severity can only increase: stable → worsening → critical; never reverses",
+                "severity_worsening_reduces_gain — IF severity == 'worsening': all subsequent ASK have gain × 0.7; IF severity == 'critical': gain × 0.5",
+                "severity_critical_penalizes_total — IF severity == 'worsening' AND no correct treatment: total -= 0.18; IF severity == 'critical': total -= 0.20 (global penalty applied after weighted sum)",
+                "path_commitment_is_irreversible — once committed to a path (≥50% of must_collect collected via ASK), switching paths triggers -0.3 penalty per switch AND path_consistency = 0.0",
+                "trajectory_dependency_is_composited — time_to_correct_path 0.35 + branch_switch 0.35 + unnecessary_actions_ratio 0.30; replaces local gain weight in process formula",
+                "unnecessary_actions_are_penalized — duplicate non-ASK actions (2nd ORDER_LAB, 2nd DIAGNOSE, 2nd CHECK_ALLERGY, etc.) reduce trajectory_dependency sub-score",
             ],
         }
 
@@ -1097,7 +1107,32 @@ class MedicalTaskGenerator:
                     "method": "post_diagnosis_ask_cost",
                     "compute": "IF ASK occurs after DIAGNOSE in trajectory: gain × 0.3 for those steps; IF hidden symptom revealed after DIAGNOSE: value = 0.0",
                 },
-                "aggregation": "relevance × 0.25 + gain × 0.35 + path_consistency × 0.2 - redundancy - misleading_penalty - delay_penalty; clipped to [0, 1]",
+                "severity_penalty": {
+                    "method": "temporal_state_penalty",
+                    "compute": "severity starts 'stable'; IF turn > max_turns*0.35 AND no correct treatment → 'worsening' (gain × 0.7, total -= 0.18); IF wrong treatment or turn > max_turns*0.7 without treatment → 'critical' (gain × 0.5, total -= 0.20)",
+                },
+                "trajectory_dependency": {
+                    "method": "composite_temporal_score",
+                    "sub_metrics": {
+                        "time_to_correct_path": {
+                            "weight": 0.35,
+                            "compute": "optimal_turn = len(optimal_path.must_collect); IF commit_turn <= optimal_turn + 1: 1.0; IF <= optimal_turn + 3: 0.7; ELSE: max(0, 1.0 - 0.2*(delay-3)); IF no commitment: 0.0",
+                        },
+                        "branch_switch_count": {
+                            "weight": 0.35,
+                            "compute": "1.0 - 0.1 × path switches after commitment; floor at 0.0",
+                        },
+                        "unnecessary_actions_ratio": {
+                            "weight": 0.30,
+                            "compute": "1.0 - (duplicate non-ASK actions / total non-ASK actions); necessary = first ORDER_LAB, GET_RESULTS, DIAGNOSE, CHECK_ALLERGY, PRESCRIBE; all subsequent duplicates are unnecessary",
+                        },
+                    },
+                },
+                "irrecoverable_path_commitment": {
+                    "method": "post_commitment_switch_penalty",
+                    "compute": "IF path_committed (≥50% must_collect collected) AND agent subsequently collects symptoms from another path: penalty = -0.3 per switch; path_consistency = 0.0",
+                },
+                "aggregation": "relevance × 0.20 + gain × 0.25 + path_consistency × 0.20 + trajectory_dependency × 0.35 - redundancy - misleading_penalty - delay_penalty - irrecoverable_penalty; clipped to [0, 1]",
             },
             "aggregation": "weighted_sum_with_null_exclude",
             "pass_threshold": 0.7,
