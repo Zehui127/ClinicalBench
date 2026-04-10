@@ -700,8 +700,8 @@ class MedicalTaskGenerator:
                 "ASK(topic,subtype) WHERE symptom IN volunteer → symptoms_revealed = match from volunteer pool; state unchanged",
                 # Path-dependent gates for if_asked/hidden symptoms (generated per task)
                 *revelation_gates,
-                # Permanent lock rule: 2 consecutive prerequisite misses
-                "PERMANENT_LOCK: IF 2 consecutive ASK(targeted) actions fail to match ANY gated symptom's prerequisite → SET gate='locked' for ALL remaining unrevealed gated symptoms",
+                # ── SOFT_LOCK RECOVERY (global rule) ──
+                "SOFT_LOCK_RECOVERY: IF gate_state[symptom]=='soft_locked' AND (ASK(open_question) with relevant topic OR ASK(targeted) partially matching prerequisite) → gate_state[symptom]='unlocked'; reveal_quality[symptom]='partial'",
                 # ── OTHER ACTION RULES ──
                 "ORDER_LAB(tests) → state = LABS_PENDING; no output",
                 "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
@@ -726,30 +726,33 @@ class MedicalTaskGenerator:
                 "diagnosis_irreversible_after_commit — DIAGNOSE overwrites previous, cannot revert",
                 "trust_monotonic_per_action — single action changes trust by at most one step",
                 "state_progresses_forward — no backward state transitions (TREATING → INTAKE forbidden)",
-                "gate_state_is_irreversible — locked symptoms cannot be unlocked; unlocked symptoms cannot be re-locked",
-                "consecutive_miss_resets_on_prerequisite_match — any successful prerequisite match resets global miss counter to 0",
+                "gate_state_is_recoverable — soft_locked symptoms can recover to unlocked via open-ended or partial-match questions; locked (hard) remains locked",
+                "partial_reveal_is_degraded — reveal_quality='partial' gives incomplete symptom info (missing severity/temporal); scores at 0.5 weight for info and 0.3 weight for gain",
+                "consecutive_miss_resets_on_prerequisite_match — any successful prerequisite match resets miss counter to 0",
                 "confounder_priority_is_turn_gated — CONFOUNDER_DOMINANCE only applies when turn <= 2; after turn 2, normal rules apply",
             ],
         }
 
     def _build_revelation_gates(self, symptoms: SymptomSet) -> List[str]:
-        """Build deterministic prerequisite-gated revelation rules for if_asked/hidden symptoms.
+        """Build 3-state recoverable gates for if_asked/hidden symptoms.
 
-        Each gate rule encodes:
-        1. The prerequisite topic that must be asked first (via targeted_question)
-        2. The reveal condition: ASK(targeted) matching the symptom AFTER prerequisite is met
-        3. The lock condition: ASK(targeted) matching symptom WITHOUT prerequisite → miss_count += 1
-        4. Permanent lock after 2 consecutive misses on the same symptom
+        Gate states: locked → unlocked → (miss) → soft_locked → (recover) → unlocked
+
+        1. locked (initial): no reveal until prerequisite is met
+        2. unlocked: prerequisite met, full reveal on symptom match
+        3. soft_locked: 2 consecutive misses, BUT recoverable via:
+           - ASK(open_question) with relevant topic → unlocked, reveal_quality='partial'
+           - ASK(targeted) partially matching prerequisite → unlocked, reveal_quality='partial'
+
+        Partial reveal: symptom revealed with degraded info (missing severity/temporal).
         """
         gates = []
 
         # Collect gated symptoms: if_asked and hidden tiers
-        # Deduplicate by patient-friendly term
         seen_terms = set()
         gated_symptoms = []
         for s in symptoms.if_asked + symptoms.hidden:
             patient_term = self.lang.to_patient(s)
-            # Skip disease names, abbreviations, non-symptoms
             _SKIP_TERMS = {
                 "copd", "htn", "hld", "ckd", "cad", "chf", "gerd", "t2dm", "t1dm",
                 "chd", "ihd", "dm", "ckd", "esrd", "bph", "oa", "ra", "sle",
@@ -759,12 +762,10 @@ class MedicalTaskGenerator:
                 continue
             if len(patient_term) <= 3:
                 continue
-            # Skip terms that are disease names (mapped in CLINICAL_TO_PATIENT as disease→disease)
             _DISEASE_INDICATORS = {
                 "heart", "disease", "syndrome", "disorder", "heart disease",
                 "atherosclerotic", "ischemic", "coronary",
             }
-            # If ALL words in the term are disease indicators, skip it
             words_in_term = set(patient_term.lower().split())
             if words_in_term and words_in_term.issubset(_DISEASE_INDICATORS):
                 continue
@@ -778,26 +779,31 @@ class MedicalTaskGenerator:
 
         for symptom_raw, patient_term in gated_symptoms:
             prereq_topic, prereq_keywords = self._find_prerequisite(symptom_raw)
-
-            # Build the match pattern for prerequisite
             prereq_pattern = "|".join(prereq_keywords[:3])
-
-            # Build symptom match pattern (patient-friendly term keywords)
             sym_keywords = self._extract_symptom_keywords(patient_term)
             sym_pattern = "|".join(sym_keywords[:3])
 
             gates.append(
                 f"REVELATION_GATE(symptom='{patient_term}', "
-                f"prerequisite='[{prereq_pattern}]'): "
-                f"IF action.type==ASK AND action.subtype==targeted AND question MATCHES [{prereq_pattern}] "
+                f"prerequisite='[{prereq_pattern}]', "
+                f"initial_state='locked'): "
+                # ── Transition: locked → unlocked ──
+                f"IF ASK(targeted) MATCHES [{prereq_pattern}] "
                 f"→ gate_state['{patient_term}']='unlocked'; "
-                f"IF action.type==ASK AND action.subtype==targeted AND question MATCHES [{sym_pattern}] "
-                f"AND gate_state['{patient_term}']=='unlocked' "
-                f"→ symptoms_revealed=['{patient_term}']; "
-                f"IF action.type==ASK AND action.subtype==targeted AND question MATCHES [{sym_pattern}] "
-                f"AND gate_state['{patient_term}'] IN ['locked','init'] "
-                f"→ symptoms_revealed=[]; miss_count['{patient_term}']+=1; "
-                f"IF miss_count['{patient_term}']>=2 → gate_state['{patient_term}']='locked'"
+                # ── Transition: unlocked → reveal (full) ──
+                f"IF ASK(targeted) MATCHES [{sym_pattern}] "
+                f"AND gate_state=='unlocked' "
+                f"→ symptoms_revealed=['{patient_term}']; reveal_quality='full'; "
+                # ── Transition: locked → soft_locked (2 misses) ──
+                f"IF ASK(targeted) MATCHES [{sym_pattern}] "
+                f"AND gate_state IN ['locked','soft_locked'] "
+                f"→ symptoms_revealed=[]; miss_count+=1; "
+                f"IF miss_count>=2 → gate_state='soft_locked'; "
+                # ── Transition: soft_locked → unlocked (recovery) ──
+                f"IF ASK(open_question) AND topic RELATED TO [{prereq_pattern}] "
+                f"AND gate_state=='soft_locked' "
+                f"→ gate_state='unlocked'; reveal_quality='{patient_term}:partial' "
+                f"(missing severity and temporal details)"
             )
 
         return gates

@@ -136,7 +136,11 @@ class BenchEvaluator:
         return max(0.0, 1.0 - violations / len(safety_rules))
 
     def _score_info(self, trajectory: List[Dict]) -> float:
-        """count_ratio: revealed volunteer+if_asked / total volunteer+if_asked."""
+        """count_ratio: revealed volunteer+if_asked / total volunteer+if_asked.
+
+        Partial reveals count as 0.5 (degraded info).
+        Full reveals count as 1.0.
+        """
         symptoms_spec = self.patient["symptoms"]
         relevant_symptoms = (
             symptoms_spec.get("volunteer", []) +
@@ -145,19 +149,32 @@ class BenchEvaluator:
         if not relevant_symptoms:
             return 1.0
 
-        # Check which symptoms were revealed during the trajectory
-        revealed = set()
+        # Build reveal map: symptom → quality ('full' or 'partial')
+        reveal_quality = {}  # symptom_lower → 'full' | 'partial'
         for step in trajectory:
             obs = step.get("observation", {})
+            # Check reveal_quality field (set by gate mechanism)
+            quality = obs.get("reveal_quality", "full")
             for s in obs.get("symptoms_revealed", []):
-                revealed.add(s.lower())
+                s_lower = s.lower()
+                # If symptom text contains ':partial' marker, it's partial
+                if ":partial" in s_lower:
+                    s_clean = s_lower.split(":partial")[0].strip()
+                    reveal_quality[s_clean] = "partial"
+                elif s_lower not in reveal_quality:
+                    reveal_quality[s_lower] = quality
 
-        matched = 0
+        # Score: full=1.0, partial=0.5
+        score = 0.0
         for s in relevant_symptoms:
-            if s.lower() in revealed:
-                matched += 1
+            s_lower = s.lower()
+            if s_lower in reveal_quality:
+                if reveal_quality[s_lower] == "full":
+                    score += 1.0
+                else:
+                    score += 0.5  # partial reveal
 
-        return matched / len(relevant_symptoms)
+        return score / len(relevant_symptoms)
 
     def _score_treatment(self, trajectory: List[Dict]) -> Optional[float]:
         """required_done: prescribed required drugs / total required drugs."""
@@ -228,6 +245,8 @@ class BenchEvaluator:
             relevance_score = relevant_asks / total_asks
             gain_score = gain_per_turn (with -0.2 penalty if < 0.3)
             redundancy_penalty = 0.1 per repeated symptom ask with no new info
+
+        Partial reveals: gain weight = 0.3 (vs 1.0 for full).
         """
         ps = self.scoring.get("process_score", {})
         if not ps:
@@ -238,8 +257,6 @@ class BenchEvaluator:
             return 0.0
 
         # ── 1. Build relevant_questions from patient symptom tiers ──
-        # relevant = volunteer + if_asked (true symptoms agent should discover)
-        # exclude noise and misleading
         relevant_symptoms = (
             self.patient["symptoms"].get("volunteer", []) +
             self.patient["symptoms"].get("if_asked", [])
@@ -248,24 +265,33 @@ class BenchEvaluator:
 
         # ── 2. question_relevance: ASKs that revealed relevant info / total ASKs ──
         relevant_ask_count = 0
-        all_revealed_relevant = []
+        gain_weighted_count = 0.0  # partial=0.3, full=1.0
         revealed_so_far = set()
 
         for s in ask_steps:
             obs = s.get("observation", {})
             revealed = obs.get("symptoms_revealed", [])
-            # Check if any revealed symptom is in relevant set AND is new
-            new_relevant = [r for r in revealed
-                           if r.lower() in relevant_set and r.lower() not in revealed_so_far]
+            quality = obs.get("reveal_quality", "full")
+
+            new_relevant = []
+            for r in revealed:
+                r_lower = r.lower()
+                # Clean partial marker
+                r_clean = r_lower.split(":partial")[0].strip() if ":partial" in r_lower else r_lower
+                if r_clean in relevant_set and r_clean not in revealed_so_far:
+                    new_relevant.append(r)
+                    revealed_so_far.add(r_clean)
+                    # Gain weight: partial=0.3, full=1.0
+                    actual_quality = "partial" if (":partial" in r_lower or quality == "partial") else "full"
+                    gain_weighted_count += 0.3 if actual_quality == "partial" else 1.0
+
             if new_relevant:
                 relevant_ask_count += 1
-                all_revealed_relevant.extend(new_relevant)
-                revealed_so_far.update(r.lower() for r in new_relevant)
 
         relevance_score = relevant_ask_count / len(ask_steps) if ask_steps else 0.0
 
-        # ── 3. information_gain: relevant symptoms revealed / total ASKs ──
-        gain_per_turn = len(all_revealed_relevant) / len(ask_steps) if ask_steps else 0.0
+        # ── 3. information_gain: weighted gain / total ASKs ──
+        gain_per_turn = gain_weighted_count / len(ask_steps) if ask_steps else 0.0
 
         # Apply low-gain penalty
         if gain_per_turn < 0.3:
@@ -274,7 +300,7 @@ class BenchEvaluator:
             gain_score = gain_per_turn
 
         # ── 4. redundancy_penalty: repeated asks on same symptom with no new info ──
-        symptom_ask_count = {}  # symptom → number of times asked
+        symptom_ask_count = {}
         redundancy_penalty = 0.0
 
         for s in ask_steps:
@@ -286,11 +312,9 @@ class BenchEvaluator:
                     r_lower = r.lower()
                     prev = symptom_ask_count.get(r_lower, 0)
                     symptom_ask_count[r_lower] = prev + 1
-                    # Penalty: asking about a symptom already revealed = redundancy
                     if prev >= 1:
                         redundancy_penalty += 0.1
             else:
-                # Asked but got nothing — track by topic if available
                 topic = obs.get("topic", "")
                 if topic:
                     topic_lower = topic.lower()
