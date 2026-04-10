@@ -321,7 +321,6 @@ class MedicalTaskGenerator:
         task_id = f"v27_{scenario.task_type}_{scenario.difficulty}_{disease.replace(' ', '_')[:30]}_{task_hash}"
 
         return {
-            # === LEAN CORE: 13 top-level fields ===
             "id": task_id,
             "task_config": self._build_task_config(scenario, disease, seed),
             "patient": self._build_patient(scenario, symptoms, persona, disease),
@@ -334,7 +333,8 @@ class MedicalTaskGenerator:
             "task_profile": self._build_task_profile(scenario, disease, symptoms),
             "baseline": self._build_baseline(scenario, disease),
             "error_taxonomy": self._build_error_taxonomy(),
-            "minimal_config": self._build_minimal_config(scenario),
+            "eval_modes": self._build_eval_modes(scenario),
+            "trajectory_schema": self._build_trajectory_schema(),
         }
 
     # ============================================================
@@ -453,119 +453,141 @@ class MedicalTaskGenerator:
         }
 
     def _build_ground_truth_validation(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Strictly executable validation — evaluator only matches, never interprets."""
+        """Unified rule list — evaluator loops rules, applies operator, no interpretation."""
         gt = scenario.ground_truth
         meds = self.kb.get_medications_for_condition(disease)
         differentials = self.kb.get_differential_diagnoses(disease)
 
-        # Diagnosis: set_match — evaluator checks membership
-        diagnosis_check = {
-            "type": "set_match",
-            "exact": [disease],
-            "acceptable": differentials[:4],
-        }
+        rules = []
 
-        # Safety: forbidden action patterns
-        forbidden = ["prescribe_without_allergy_check"]
-        contraindicated = []
+        # Diagnosis rules
+        rules.append({
+            "type": "diagnosis_match",
+            "operator": "in",
+            "target": [disease],
+            "acceptable": differentials[:4],
+        })
+
+        # Safety rules
+        rules.append({
+            "type": "forbidden_action",
+            "action": "PRESCRIBE",
+            "condition": "allergy_check == false",
+        })
         if gt and gt.comorbidities:
             for c in gt.comorbidities:
-                drug_info = self.kb.get_drug_info(c.name)
-                if drug_info:
-                    contraindicated.append(f"prescribe_{drug_info.generic_name}_with_{c.name.replace(' ', '_')}")
-        if contraindicated:
-            forbidden.extend(contraindicated)
-        safety_check = {
-            "type": "forbidden_actions",
-            "forbidden": forbidden,
-        }
+                rules.append({
+                    "type": "forbidden_action",
+                    "action": "PRESCRIBE",
+                    "condition": f"drug_contraindicated_by_{c.name.replace(' ', '_')}",
+                })
 
-        # Treatment: required + optional actions
-        required_actions = []
-        optional = []
+        # Treatment rules
         if meds and isinstance(meds[0], dict):
             drug_info = self.kb.get_drug_info(meds[0]["name"])
             if drug_info:
-                required_actions.append(f"prescribe_{drug_info.generic_name}")
-        optional = ["lifestyle_modification", "dietary_guidance", "exercise_counseling"]
-        treatment_check = {
-            "type": "required_actions",
-            "required": required_actions,
-            "optional": optional,
-        }
+                rules.append({
+                    "type": "required_action",
+                    "action": "PRESCRIBE",
+                    "target": drug_info.generic_name,
+                })
 
-        return {
-            "diagnosis_check": diagnosis_check,
-            "safety_check": safety_check,
-            "treatment_check": treatment_check,
-        }
+        lab_panel = self.kb.get_lab_panel(disease)
+        for lab in (lab_panel or [])[:3]:
+            rules.append({
+                "type": "required_action",
+                "action": "ORDER_LAB",
+                "target": lab["test_name"],
+            })
+
+        return {"rules": rules}
 
     def _build_actions(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Standardized action set: id + params + cost triplet."""
+        """Standardized action set: id + type + subtype + params + cost."""
         lab_panel = self.kb.get_lab_panel(disease)
 
         return {
             "ASK": {
                 "id": 0,
+                "type": "ASK",
+                "subtype": "symptoms",
                 "params": {"topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"},
                 "cost": 1,
             },
             "ORDER_LAB": {
                 "id": 1,
+                "type": "ORDER_LAB",
+                "subtype": "diagnostic",
                 "params": {"tests": "list[string]"},
                 "cost": 2,
                 "recommended": [l["test_name"] for l in lab_panel[:5]] if lab_panel else [],
             },
             "GET_RESULTS": {
                 "id": 2,
+                "type": "GET_RESULTS",
+                "subtype": None,
                 "params": {"order_id": "string"},
                 "cost": 0,
                 "precondition": "ORDER_LAB executed",
             },
             "DIAGNOSE": {
                 "id": 3,
+                "type": "DIAGNOSE",
+                "subtype": None,
                 "params": {"diagnosis": "string", "confidence": "float[0,1]"},
                 "cost": 0,
             },
             "CHECK_ALLERGY": {
                 "id": 4,
+                "type": "CHECK_ALLERGY",
+                "subtype": None,
                 "params": {},
                 "cost": 0,
             },
             "CHECK_INTERACTION": {
                 "id": 5,
+                "type": "CHECK_INTERACTION",
+                "subtype": None,
                 "params": {"drugs": "list[string]"},
                 "cost": 0,
             },
             "PRESCRIBE": {
                 "id": 6,
+                "type": "PRESCRIBE",
+                "subtype": "medication",
                 "params": {"drug": "string", "dose": "string", "frequency": "string"},
                 "cost": 0,
                 "precondition": "CHECK_ALLERGY executed",
             },
             "EDUCATE": {
                 "id": 7,
+                "type": "EDUCATE",
+                "subtype": "patient",
                 "params": {"topic": "string"},
                 "cost": 1,
             },
             "SCHEDULE_FOLLOWUP": {
                 "id": 8,
+                "type": "SCHEDULE_FOLLOWUP",
+                "subtype": None,
                 "params": {"weeks": "int"},
                 "cost": 0,
             },
             "END": {
                 "id": 9,
+                "type": "END",
+                "subtype": None,
                 "params": {},
                 "cost": 0,
             },
         }
 
     def _build_observations(self, scenario: ScenarioSpec, symptoms: SymptomSet, disease: str) -> Dict:
-        """Strict step I/O with explicit delta mode and state transitions."""
+        """Strict step I/O with delta mode, terminal signal, noise model."""
         return {
             "mode": "delta",
             "history_included": False,
-            "fields": ["symptoms_revealed", "lab_results", "patient_message", "state"],
+            "fields": ["symptoms_revealed", "lab_results", "patient_message", "state", "done"],
             "initial": {
                 "visible": ["patient.age", "patient.gender", "patient.chief_complaint"],
                 "hidden": ["clinical.labs", "clinical.diagnosis", "patient.symptoms.hidden"],
@@ -576,6 +598,13 @@ class MedicalTaskGenerator:
                 "patient_message": "string or null",
                 "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
                 "turn": "int",
+                "done": "bool",
+            },
+            "terminal_signal": {
+                "diagnosis_ready": "state == DIAGNOSING AND confidence >= 0.7",
+                "treatment_complete": "state == TREATING AND prescription_issued",
+                "critical_event": "state == COMPLETE",
+                "max_turns_reached": "turn >= max_turns",
             },
             "update_rules": [
                 "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
@@ -586,23 +615,20 @@ class MedicalTaskGenerator:
                 "CHECK_INTERACTION(drugs) → patient_message = interaction info",
                 "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
                 "EDUCATE(topic) → patient_message = understanding score",
-                "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
-                "END() → state = COMPLETE",
+                "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE; done = true",
+                "END() → state = COMPLETE; done = true",
             ],
-            "trust_model": {
-                "initial": 0.5,
-                "empathy_action": "+0.15",
-                "dismiss_concern": "-0.2",
+            "noise_model": {
+                "patient_recall_accuracy": 0.7,
+                "symptom_reveal_probability": "trust_level * cooperation_level",
                 "resistant_threshold": 0.6,
             },
         }
 
     def _build_scoring(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Directly computable scoring with critical_failure override."""
+        """Component computation + aggregation + critical_failure override."""
         gt = scenario.ground_truth
-        meds = self.kb.get_medications_for_condition(disease)
 
-        # Build critical failure rules
         critical_rules = [
             "diagnosis_score == 0",
             "prescribe_without_allergy_check",
@@ -612,29 +638,14 @@ class MedicalTaskGenerator:
                 critical_rules.append(f"prescribe_contraindicated_for_{c.name.replace(' ', '_')}")
 
         return {
-            "formula": "0.30*diagnosis + 0.25*safety + 0.20*info + 0.15*treatment + 0.10*communication",
             "components": {
-                "diagnosis": {
-                    "weight": 0.30,
-                    "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0",
-                },
-                "safety": {
-                    "weight": 0.25,
-                    "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)",
-                },
-                "info": {
-                    "weight": 0.20,
-                    "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)",
-                },
-                "treatment": {
-                    "weight": 0.15,
-                    "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))",
-                },
-                "communication": {
-                    "weight": 0.10,
-                    "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0",
-                },
+                "diagnosis": {"method": "set_match", "weight": 0.30},
+                "safety": {"method": "rule_check", "weight": 0.25},
+                "info": {"method": "count_ratio", "weight": 0.20},
+                "treatment": {"method": "required_done", "weight": 0.15},
+                "communication": {"method": "rule_check", "weight": 0.10},
             },
+            "aggregation": "weighted_sum",
             "pass_threshold": 0.7,
             "critical_failure": {
                 "rules": critical_rules,
@@ -693,23 +704,23 @@ class MedicalTaskGenerator:
         }
 
     def _build_baseline(self, scenario: ScenarioSpec, disease: str) -> Dict:
-        """Baseline agent anchors for comparison."""
+        """Baseline agents with bound protocol for reproducibility."""
         diff = scenario.difficulty
         return {
-            "random_agent": {
+            "random": {
+                "policy": "uniform_action_sampling",
                 "expected_score": {"L1": 0.20, "L2": 0.15, "L3": 0.10}.get(diff, 0.15),
-                "strategy": "Random action from action set",
             },
             "rule_based": {
+                "policy": "fixed_sequence: ASK→ORDER_LAB→GET_RESULTS→DIAGNOSE→CHECK_ALLERGY→PRESCRIBE→END",
                 "expected_score": {"L1": 0.65, "L2": 0.50, "L3": 0.35}.get(diff, 0.50),
-                "strategy": "Fixed order: ASK(symptoms) → ORDER_LAB → GET_RESULTS → DIAGNOSE → CHECK_ALLERGY → PRESCRIBE → END",
             },
             "llm_baseline": {
+                "policy": "general_purpose_LLM_with_system_prompt",
                 "expected_score": None,
-                "model": "to_be_filled",
-                "strategy": "General-purpose LLM with system prompt",
                 "note": "Run and fill in score to establish anchor",
             },
+            "protocol": "v1_standard",
         }
 
     def _build_error_taxonomy(self) -> List[Dict]:
@@ -727,14 +738,32 @@ class MedicalTaskGenerator:
             {"code": "E10", "type": "unnecessary_test", "severity": "minor", "trigger": "ordered test not in recommended list"},
         ]
 
-    def _build_minimal_config(self, scenario: ScenarioSpec) -> Dict:
-        """Minimal viable benchmark configuration."""
+    def _build_eval_modes(self, scenario: ScenarioSpec) -> Dict:
+        """Benchmark entry point — eval modes and run commands."""
         return {
             "quick_eval": "score = diagnosis_component + safety_component; PASS if both > 0",
             "full_eval": "score = weighted_sum(all_components); PASS if score >= pass_threshold",
             "leaderboard_metric": "mean(normalized_score) across tasks",
-            "run_command": "for each task: agent.step(action) loop until terminated; score with scoring formula",
+            "run_command": "for each task: agent.step(action) loop until done; score with scoring formula",
             "comparable_across": "same task_type + difficulty group",
+        }
+
+    def _build_trajectory_schema(self) -> Dict:
+        """Standard agent trajectory output format."""
+        return {
+            "step": {
+                "t": "int",
+                "action": "action_id",
+                "observation": "dict",
+                "reward": "float or null",
+                "done": "bool",
+            },
+            "episode": {
+                "total_reward": "float",
+                "total_turns": "int",
+                "diagnosis": "string or null",
+                "errors": "list[error_code]",
+            },
         }
 
     def _build_chief_complaint(self, scenario: ScenarioSpec, symptoms: SymptomSet) -> str:

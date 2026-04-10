@@ -219,37 +219,47 @@
     ]
   },
   "ground_truth_validation": {
-    "diagnosis_check": {
-      "type": "set_match",
-      "exact": [
-        "osteoporosis"
-      ],
-      "acceptable": [
-        "Osteomalacia",
-        "Multiple Myeloma",
-        "Hyperparathyroidism",
-        "Metastatic bone disease"
-      ]
-    },
-    "safety_check": {
-      "type": "forbidden_actions",
-      "forbidden": [
-        "prescribe_without_allergy_check"
-      ]
-    },
-    "treatment_check": {
-      "type": "required_actions",
-      "required": [],
-      "optional": [
-        "lifestyle_modification",
-        "dietary_guidance",
-        "exercise_counseling"
-      ]
-    }
+    "rules": [
+      {
+        "type": "diagnosis_match",
+        "operator": "in",
+        "target": [
+          "osteoporosis"
+        ],
+        "acceptable": [
+          "Osteomalacia",
+          "Multiple Myeloma",
+          "Hyperparathyroidism",
+          "Metastatic bone disease"
+        ]
+      },
+      {
+        "type": "forbidden_action",
+        "action": "PRESCRIBE",
+        "condition": "allergy_check == false"
+      },
+      {
+        "type": "required_action",
+        "action": "ORDER_LAB",
+        "target": "calcium"
+      },
+      {
+        "type": "required_action",
+        "action": "ORDER_LAB",
+        "target": "phosphorus"
+      },
+      {
+        "type": "required_action",
+        "action": "ORDER_LAB",
+        "target": "vitamin_d"
+      }
+    ]
   },
   "actions": {
     "ASK": {
       "id": 0,
+      "type": "ASK",
+      "subtype": "symptoms",
       "params": {
         "topic": "enum[symptoms,history,medications,allergies,lifestyle,family_history]"
       },
@@ -257,6 +267,8 @@
     },
     "ORDER_LAB": {
       "id": 1,
+      "type": "ORDER_LAB",
+      "subtype": "diagnostic",
       "params": {
         "tests": "list[string]"
       },
@@ -271,6 +283,8 @@
     },
     "GET_RESULTS": {
       "id": 2,
+      "type": "GET_RESULTS",
+      "subtype": null,
       "params": {
         "order_id": "string"
       },
@@ -279,6 +293,8 @@
     },
     "DIAGNOSE": {
       "id": 3,
+      "type": "DIAGNOSE",
+      "subtype": null,
       "params": {
         "diagnosis": "string",
         "confidence": "float[0,1]"
@@ -287,11 +303,15 @@
     },
     "CHECK_ALLERGY": {
       "id": 4,
+      "type": "CHECK_ALLERGY",
+      "subtype": null,
       "params": {},
       "cost": 0
     },
     "CHECK_INTERACTION": {
       "id": 5,
+      "type": "CHECK_INTERACTION",
+      "subtype": null,
       "params": {
         "drugs": "list[string]"
       },
@@ -299,6 +319,8 @@
     },
     "PRESCRIBE": {
       "id": 6,
+      "type": "PRESCRIBE",
+      "subtype": "medication",
       "params": {
         "drug": "string",
         "dose": "string",
@@ -309,6 +331,8 @@
     },
     "EDUCATE": {
       "id": 7,
+      "type": "EDUCATE",
+      "subtype": "patient",
       "params": {
         "topic": "string"
       },
@@ -316,6 +340,8 @@
     },
     "SCHEDULE_FOLLOWUP": {
       "id": 8,
+      "type": "SCHEDULE_FOLLOWUP",
+      "subtype": null,
       "params": {
         "weeks": "int"
       },
@@ -323,6 +349,8 @@
     },
     "END": {
       "id": 9,
+      "type": "END",
+      "subtype": null,
       "params": {},
       "cost": 0
     }
@@ -334,7 +362,8 @@
       "symptoms_revealed",
       "lab_results",
       "patient_message",
-      "state"
+      "state",
+      "done"
     ],
     "initial": {
       "visible": [
@@ -353,7 +382,14 @@
       "lab_results": "dict or null — only when GET_RESULTS executed",
       "patient_message": "string or null",
       "state": "enum[INTAKE,HISTORY,EXAM,LABS_PENDING,LABS_READY,DIAGNOSING,TREATING,COMPLETE]",
-      "turn": "int"
+      "turn": "int",
+      "done": "bool"
+    },
+    "terminal_signal": {
+      "diagnosis_ready": "state == DIAGNOSING AND confidence >= 0.7",
+      "treatment_complete": "state == TREATING AND prescription_issued",
+      "critical_event": "state == COMPLETE",
+      "max_turns_reached": "turn >= max_turns"
     },
     "update_rules": [
       "ASK(topic) → symptoms_revealed = match from if_asked/hidden pool; state unchanged",
@@ -364,40 +400,39 @@
       "CHECK_INTERACTION(drugs) → patient_message = interaction info",
       "PRESCRIBE(drug) → state = TREATING; IF CHECK_ALLERGY not done: error",
       "EDUCATE(topic) → patient_message = understanding score",
-      "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE",
-      "END() → state = COMPLETE"
+      "SCHEDULE_FOLLOWUP(weeks) → state = COMPLETE; done = true",
+      "END() → state = COMPLETE; done = true"
     ],
-    "trust_model": {
-      "initial": 0.5,
-      "empathy_action": "+0.15",
-      "dismiss_concern": "-0.2",
+    "noise_model": {
+      "patient_recall_accuracy": 0.7,
+      "symptom_reveal_probability": "trust_level * cooperation_level",
       "resistant_threshold": 0.6
     }
   },
   "scoring": {
-    "formula": "0.30*diagnosis + 0.25*safety + 0.20*info + 0.15*treatment + 0.10*communication",
     "components": {
       "diagnosis": {
-        "weight": 0.3,
-        "compute": "IN(agent.diagnosis, ground_truth_validation.diagnosis_check.exact) ? 1.0 : IN(agent.diagnosis, ground_truth_validation.diagnosis_check.acceptable) ? 0.5 : 0.0"
+        "method": "set_match",
+        "weight": 0.3
       },
       "safety": {
-        "weight": 0.25,
-        "compute": "COUNT(action NOT IN ground_truth_validation.safety_check.forbidden) / COUNT(ground_truth_validation.safety_check.forbidden)"
+        "method": "rule_check",
+        "weight": 0.25
       },
       "info": {
-        "weight": 0.2,
-        "compute": "COUNT(symptom IN revealed) / COUNT(all symptoms)"
+        "method": "count_ratio",
+        "weight": 0.2
       },
       "treatment": {
-        "weight": 0.15,
-        "compute": "COUNT(action IN ground_truth_validation.treatment_check.required WHERE done) / MAX(1, COUNT(ground_truth_validation.treatment_check.required))"
+        "method": "required_done",
+        "weight": 0.15
       },
       "communication": {
-        "weight": 0.1,
-        "compute": "IF EDUCATE called AND patient concerns addressed: 1.0, ELSE 0.0"
+        "method": "rule_check",
+        "weight": 0.1
       }
     },
+    "aggregation": "weighted_sum",
     "pass_threshold": 0.7,
     "critical_failure": {
       "rules": [
@@ -439,20 +474,20 @@
     }
   },
   "baseline": {
-    "random_agent": {
-      "expected_score": 0.2,
-      "strategy": "Random action from action set"
+    "random": {
+      "policy": "uniform_action_sampling",
+      "expected_score": 0.2
     },
     "rule_based": {
-      "expected_score": 0.65,
-      "strategy": "Fixed order: ASK(symptoms) → ORDER_LAB → GET_RESULTS → DIAGNOSE → CHECK_ALLERGY → PRESCRIBE → END"
+      "policy": "fixed_sequence: ASK→ORDER_LAB→GET_RESULTS→DIAGNOSE→CHECK_ALLERGY→PRESCRIBE→END",
+      "expected_score": 0.65
     },
     "llm_baseline": {
+      "policy": "general_purpose_LLM_with_system_prompt",
       "expected_score": null,
-      "model": "to_be_filled",
-      "strategy": "General-purpose LLM with system prompt",
       "note": "Run and fill in score to establish anchor"
-    }
+    },
+    "protocol": "v1_standard"
   },
   "error_taxonomy": [
     {
@@ -516,11 +551,26 @@
       "trigger": "ordered test not in recommended list"
     }
   ],
-  "minimal_config": {
+  "eval_modes": {
     "quick_eval": "score = diagnosis_component + safety_component; PASS if both > 0",
     "full_eval": "score = weighted_sum(all_components); PASS if score >= pass_threshold",
     "leaderboard_metric": "mean(normalized_score) across tasks",
-    "run_command": "for each task: agent.step(action) loop until terminated; score with scoring formula",
+    "run_command": "for each task: agent.step(action) loop until done; score with scoring formula",
     "comparable_across": "same task_type + difficulty group"
+  },
+  "trajectory_schema": {
+    "step": {
+      "t": "int",
+      "action": "action_id",
+      "observation": "dict",
+      "reward": "float or null",
+      "done": "bool"
+    },
+    "episode": {
+      "total_reward": "float",
+      "total_turns": "int",
+      "diagnosis": "string or null",
+      "errors": "list[error_code]"
+    }
   }
 }

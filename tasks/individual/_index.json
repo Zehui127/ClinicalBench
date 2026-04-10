@@ -2,127 +2,91 @@
   {
     "file": "01_diagnostic_uncertainty_L1_sleep_apnea.json",
     "id": "v27_diagnostic_uncertainty_L1_sleep_apnea_400781",
-    "disease": "sleep apnea",
-    "task_type": "diagnostic_uncertainty",
-    "difficulty": "L1"
+    "disease": "sleep apnea"
   },
   {
     "file": "02_conflicting_evidence_L2_osteoporosis.json",
     "id": "v27_conflicting_evidence_L2_osteoporosis_f8d064",
-    "disease": "osteoporosis",
-    "task_type": "conflicting_evidence",
-    "difficulty": "L2"
+    "disease": "osteoporosis"
   },
   {
     "file": "03_treatment_tradeoff_L3_anxiety_disorder.json",
     "id": "v27_treatment_tradeoff_L3_anxiety_disorder_2ce50d",
-    "disease": "anxiety disorder",
-    "task_type": "treatment_tradeoff",
-    "difficulty": "L3"
+    "disease": "anxiety disorder"
   },
   {
     "file": "04_patient_non_compliance_L1_psoriasis.json",
     "id": "v27_patient_non_compliance_L1_psoriasis_54386c",
-    "disease": "psoriasis",
-    "task_type": "patient_non_compliance",
-    "difficulty": "L1"
+    "disease": "psoriasis"
   },
   {
     "file": "05_drug_safety_risk_L2_coronary_artery_disease.json",
     "id": "v27_drug_safety_risk_L2_coronary_artery_disease_0a63fa",
-    "disease": "coronary artery disease",
-    "task_type": "drug_safety_risk",
-    "difficulty": "L2"
+    "disease": "coronary artery disease"
   },
   {
     "file": "06_emergency_triage_L3_stroke.json",
     "id": "v27_emergency_triage_L3_stroke_b64298",
-    "disease": "stroke",
-    "task_type": "emergency_triage",
-    "difficulty": "L3"
+    "disease": "stroke"
   },
   {
     "file": "07_diagnostic_uncertainty_L1_anemia.json",
     "id": "v27_diagnostic_uncertainty_L1_anemia_f3ce3e",
-    "disease": "anemia",
-    "task_type": "diagnostic_uncertainty",
-    "difficulty": "L1"
+    "disease": "anemia"
   },
   {
     "file": "08_conflicting_evidence_L2_cystic_fibrosis.json",
     "id": "v27_conflicting_evidence_L2_cystic_fibrosis_d89bbf",
-    "disease": "cystic fibrosis",
-    "task_type": "conflicting_evidence",
-    "difficulty": "L2"
+    "disease": "cystic fibrosis"
   },
   {
     "file": "09_treatment_tradeoff_L3_type_2_diabetes.json",
     "id": "v27_treatment_tradeoff_L3_type_2_diabetes_75e679",
-    "disease": "type 2 diabetes",
-    "task_type": "treatment_tradeoff",
-    "difficulty": "L3"
+    "disease": "type 2 diabetes"
   },
   {
     "file": "10_patient_non_compliance_L1_anxiety_disorder.json",
     "id": "v27_patient_non_compliance_L1_anxiety_disorder_67aa22",
-    "disease": "anxiety disorder",
-    "task_type": "patient_non_compliance",
-    "difficulty": "L1"
+    "disease": "anxiety disorder"
   },
   {
     "file": "11_drug_safety_risk_L2_multiple_sclerosis.json",
     "id": "v27_drug_safety_risk_L2_multiple_sclerosis_dcf21a",
-    "disease": "multiple sclerosis",
-    "task_type": "drug_safety_risk",
-    "difficulty": "L2"
+    "disease": "multiple sclerosis"
   },
   {
     "file": "12_emergency_triage_L3_multiple_sclerosis.json",
     "id": "v27_emergency_triage_L3_multiple_sclerosis_f9e1a4",
-    "disease": "multiple sclerosis",
-    "task_type": "emergency_triage",
-    "difficulty": "L3"
+    "disease": "multiple sclerosis"
   },
   {
     "file": "13_diagnostic_uncertainty_L1_epilepsy.json",
     "id": "v27_diagnostic_uncertainty_L1_epilepsy_706b0e",
-    "disease": "epilepsy",
-    "task_type": "diagnostic_uncertainty",
-    "difficulty": "L1"
+    "disease": "epilepsy"
   },
   {
     "file": "14_conflicting_evidence_L2_coronary_artery_disease.json",
     "id": "v27_conflicting_evidence_L2_coronary_artery_disease_f3e51d",
-    "disease": "coronary artery disease",
-    "task_type": "conflicting_evidence",
-    "difficulty": "L2"
+    "disease": "coronary artery disease"
   },
   {
     "file": "15_treatment_tradeoff_L3_meningitis.json",
     "id": "v27_treatment_tradeoff_L3_meningitis_73d978",
-    "disease": "meningitis",
-    "task_type": "treatment_tradeoff",
-    "difficulty": "L3"
+    "disease": "meningitis"
   },
   {
     "file": "16_patient_non_compliance_L1_osteoporosis.json",
     "id": "v27_patient_non_compliance_L1_osteoporosis_cb77ff",
-    "disease": "osteoporosis",
-    "task_type": "patient_non_compliance",
-    "difficulty": "L1"
+    "disease": "osteoporosis"
   },
   {
     "file": "17_drug_safety_risk_L2_glaucoma.json",
     "id": "v27_drug_safety_risk_L2_glaucoma_1ad5b5",
-    "disease": "glaucoma",
-    "task_type": "drug_safety_risk",
-    "difficulty": "L2"
+    "disease": "glaucoma"
   },
   {
     "file": "18_emergency_triage_L3_bipolar_disorder.json",
     "id": "v27_emergency_triage_L3_bipolar_disorder_01acc0",
-    "disease": "bipolar disorder",
-    "task_type": "emergency_triage",
-    "difficulty": "L3"
+    "disease": "bipolar disorder"
   }
 ]
