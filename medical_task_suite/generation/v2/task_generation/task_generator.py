@@ -429,12 +429,12 @@ class MedicalTaskGenerator:
                 "empathy_needed": behavior["needs_empathy"],
             },
             "symptoms": {
-                "volunteer": [self.lang.to_patient(s) for s in symptoms.volunteer[:5]],
-                "if_asked": [self.lang.to_patient(s) for s in symptoms.if_asked[:5]],
-                "hidden": [self.lang.to_patient(s) for s in symptoms.hidden[:5]],
-                "resistant": [self.lang.to_patient(s) for s in symptoms.resistant[:5]],
-                "misleading": [self.lang.to_patient(s) for s in symptoms.misleading[:3]],
-                "noise": [self.lang.to_patient(s) for s in symptoms.noise[:3]],
+                "volunteer": self._filter_valid_symptoms(symptoms.volunteer, 5),
+                "if_asked": self._filter_valid_symptoms(symptoms.if_asked, 5),
+                "hidden": self._filter_valid_symptoms(symptoms.hidden, 5),
+                "resistant": self._filter_valid_symptoms(symptoms.resistant, 5),
+                "misleading": self._filter_valid_symptoms(symptoms.misleading, 3),
+                "noise": self._filter_valid_symptoms(symptoms.noise, 3),
             },
             "progressive_reveal": self._build_progressive_reveal(symptoms, scenario, disease),
             "misconceptions": self._build_misconceptions(disease, scenario, persona),
@@ -504,7 +504,7 @@ class MedicalTaskGenerator:
             "medications": current_meds,
             "comorbidities": comorbidities,
             "allergies": allergies,
-            "confounders": [c.name for c in (gt.confounders if gt else [])],
+            "confounders": self._build_confounder_details(scenario, disease, symptoms),
             "diagnosis": {
                 "primary": disease,
                 "differentials": self.kb.get_differential_diagnoses(disease)[:5],
@@ -663,9 +663,12 @@ class MedicalTaskGenerator:
         }
 
     def _build_observations(self, scenario: ScenarioSpec, symptoms: SymptomSet, disease: str) -> Dict:
-        """Strict step I/O with delta mode, terminal signal, path-dependent revelation."""
+        """Strict step I/O with delta mode, path-dependent revelation, confounder dominance."""
         # Build path-dependent revelation gates
         revelation_gates = self._build_revelation_gates(symptoms)
+
+        # Build confounder dominance rules
+        confounder_rules = self._build_confounder_dominance_rules(symptoms, scenario)
 
         return {
             "mode": "delta",
@@ -690,13 +693,16 @@ class MedicalTaskGenerator:
                 "max_turns_reached": "turn >= max_turns",
             },
             "update_rules": [
+                # ── CONFOUNDER DOMINANCE (early stage bias) ──
+                *confounder_rules,
+                # ── STANDARD REVELATION ──
                 # Volunteer symptoms: no gate, revealed on any ASK
                 "ASK(topic,subtype) WHERE symptom IN volunteer → symptoms_revealed = match from volunteer pool; state unchanged",
                 # Path-dependent gates for if_asked/hidden symptoms (generated per task)
                 *revelation_gates,
                 # Permanent lock rule: 2 consecutive prerequisite misses
                 "PERMANENT_LOCK: IF 2 consecutive ASK(targeted) actions fail to match ANY gated symptom's prerequisite → SET gate='locked' for ALL remaining unrevealed gated symptoms",
-                # Other action rules
+                # ── OTHER ACTION RULES ──
                 "ORDER_LAB(tests) → state = LABS_PENDING; no output",
                 "GET_RESULTS(id) → lab_results = {test: value}; state = LABS_READY",
                 "DIAGNOSE(d, c) → state = DIAGNOSING",
@@ -722,6 +728,7 @@ class MedicalTaskGenerator:
                 "state_progresses_forward — no backward state transitions (TREATING → INTAKE forbidden)",
                 "gate_state_is_irreversible — locked symptoms cannot be unlocked; unlocked symptoms cannot be re-locked",
                 "consecutive_miss_resets_on_prerequisite_match — any successful prerequisite match resets global miss counter to 0",
+                "confounder_priority_is_turn_gated — CONFOUNDER_DOMINANCE only applies when turn <= 2; after turn 2, normal rules apply",
             ],
         }
 
@@ -839,6 +846,153 @@ class MedicalTaskGenerator:
         if not keywords:
             keywords = [patient_term.lower()]
         return keywords
+
+    def _build_confounder_dominance_rules(self, symptoms: SymptomSet, scenario: ScenarioSpec) -> List[str]:
+        """Build deterministic early-stage confounder dominance rules.
+
+        Core mechanism:
+        - IF turn <= 2: confounder symptoms have HIGH priority, true hidden symptoms have LOW
+        - IF turn > 2: normal revelation rules apply (gates, prerequisites, etc.)
+
+        This creates a "honeypot" effect where early information points toward the confounder,
+        requiring the agent to persevere and ask deeper questions to find the true diagnosis.
+        """
+        rules = []
+
+        # Identify confounder symptoms (those in misleading tier)
+        confounder_syms = [self.lang.to_patient(s) for s in symptoms.misleading]
+        if not confounder_syms:
+            return rules
+
+        # Identify true hidden symptoms (the ones the agent actually needs)
+        true_hidden = [self.lang.to_patient(s) for s in symptoms.hidden + symptoms.resistant]
+        if not true_hidden:
+            return rules
+
+        # Build keyword patterns
+        confounder_keywords = []
+        for s in confounder_syms:
+            confounder_keywords.extend(self._extract_symptom_keywords(s))
+        confounder_pattern = "|".join(confounder_keywords[:6])
+
+        true_hidden_keywords = []
+        for s in true_hidden:
+            true_hidden_keywords.extend(self._extract_symptom_keywords(s))
+        true_hidden_pattern = "|".join(true_hidden_keywords[:6])
+
+        # Rule 1: Early confounder priority
+        rules.append(
+            f"CONFOUNDER_DOMINANCE: IF turn <= 2 AND ASK(any subtype) MATCHES "
+            f"[{confounder_pattern}] → symptoms_revealed = FIRST MATCH in "
+            f"[{', '.join(confounder_syms[:4])}]; "
+            f"IF turn <= 2 AND ASK(any subtype) MATCHES "
+            f"[{true_hidden_pattern}] → symptoms_revealed = [] "
+            f"(true signal suppressed during early stage)"
+        )
+
+        # Rule 2: True signal unlock after turn 2
+        rules.append(
+            f"TRUE_SIGNAL_UNLOCK: IF turn > 2 → confounder_dominance = OFF; "
+            f"normal REVELATION_GATE rules resume for all symptoms"
+        )
+
+        return rules
+
+    def _build_confounder_details(self, scenario: ScenarioSpec, disease: str, symptoms: SymptomSet) -> List[Dict]:
+        """Build confounder details with overlapping symptoms for each confounder.
+
+        Each confounder entry includes:
+        - name: confounder disease name
+        - overlapping_symptoms: symptoms shared with primary diagnosis (≥2)
+        - mimics: how this confounder mimics the primary
+        """
+        gt = scenario.ground_truth
+        if not gt or not gt.confounders:
+            return []
+
+        confounders = []
+        primary_symptoms = set(s.lower() for s in self.symptom_gen._get_real_symptoms(disease))
+
+        for conf in gt.confounders:
+            conf_name = conf.name if hasattr(conf, 'name') else str(conf)
+            conf_symptoms = self.symptom_gen._get_real_symptoms(conf_name)
+
+            # Find overlapping symptoms
+            overlapping = []
+            for cs in conf_symptoms:
+                cs_lower = cs.lower()
+                for ps in primary_symptoms:
+                    if cs_lower in ps or ps in cs_lower:
+                        overlapping.append(cs)
+                        break
+                if len(overlapping) >= 3:
+                    break
+
+            # Ensure at least 2 overlapping (add fallback overlap if needed)
+            if len(overlapping) < 2:
+                # Use common shared symptoms as guaranteed overlap
+                common_overlap = {
+                    "fatigue": "fatigue",
+                    "chest pain": "chest pain",
+                    "shortness of breath": "shortness of breath",
+                    "nausea": "nausea",
+                    "dizziness": "dizziness",
+                    "headache": "headache",
+                    "weakness": "weakness",
+                    "weight loss": "weight loss",
+                    "anxiety": "anxiety",
+                }
+                for key, val in common_overlap.items():
+                    if len(overlapping) >= 2:
+                        break
+                    if key not in [o.lower() for o in overlapping]:
+                        overlapping.append(val)
+
+            confounders.append({
+                "name": conf_name,
+                "overlapping_symptoms": overlapping[:3],
+                "mimics": f"{conf_name} presents with overlapping symptoms that closely resemble {disease}",
+            })
+
+        return confounders
+
+    def _filter_valid_symptoms(self, raw_symptoms: List[str], max_count: int) -> List[str]:
+        """Filter out disease names, abbreviations, duplicates; return patient-friendly terms."""
+        _SKIP_TERMS = {
+            "copd", "htn", "hld", "ckd", "cad", "chf", "gerd", "t2dm", "t1dm",
+            "chd", "ihd", "dm", "esrd", "bph", "oa", "ra", "sle", "ms", "als",
+            "adhd", "ptsd", "tb", "hiv", "ap", "gid", "gad",
+        }
+        _DISEASE_WORDS = {"heart", "disease", "syndrome", "disorder", "atherosclerotic",
+                          "ischemic", "coronary", "nephrolithiasis", "cholelithiasis"}
+
+        seen = set()
+        result = []
+        for s in raw_symptoms:
+            patient_term = self.lang.to_patient(s)
+            lower = patient_term.lower().strip()
+
+            # Skip abbreviations
+            if lower in _SKIP_TERMS:
+                continue
+            if len(lower) <= 3:
+                continue
+
+            # Skip pure disease names (all words are disease indicators)
+            words = set(lower.split())
+            if words and words.issubset(_DISEASE_WORDS):
+                continue
+
+            # Skip duplicates
+            if lower in seen:
+                continue
+            seen.add(lower)
+
+            result.append(patient_term)
+            if len(result) >= max_count:
+                break
+
+        return result
 
     def _build_scoring(self, scenario: ScenarioSpec, disease: str) -> Dict:
         """Fully specified scoring with compute per component."""

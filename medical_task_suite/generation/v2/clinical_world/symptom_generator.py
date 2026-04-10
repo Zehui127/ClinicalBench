@@ -95,13 +95,10 @@ class SymptomGenerator:
         """
         Generate a complete symptom set for the disease-scenario pair.
 
-        v2.3: Merges symptoms from ALL conditions in ground_truth:
-        - primary disease symptoms (main presentation)
-        - comorbidity symptoms (additive, may confound)
-        - confounder disease symptoms (misleading overlay)
-
-        Real patients don't present with "one disease's symptoms".
-        They present with a merged, overlapping symptom cloud.
+        v2.8: Confounder-dominant early presentation.
+        - Confounder symptoms → volunteer + if_asked (prominent in early turns)
+        - True critical symptoms → hidden + resistant (suppressed until later)
+        - Confounder mimics the primary, making early misdiagnosis likely
         """
         if seed is not None:
             random.seed(seed)
@@ -111,64 +108,103 @@ class SymptomGenerator:
         if not real_symptoms:
             real_symptoms = ["fatigue", "general discomfort"]
 
-        # 2. v2.3: Merge comorbidity symptoms
+        # 2. Merge comorbidity symptoms
         gt = scenario.ground_truth
         comorbidity_symptoms = []
         for comorb in gt.comorbidities:
             comorb_name = comorb.name if hasattr(comorb, 'name') else str(comorb)
             c_symptoms = self._get_real_symptoms(comorb_name)
             contribution = comorb.contribution if hasattr(comorb, 'contribution') else 0.3
-            # Only include a portion of comorbidity symptoms (weighted by contribution)
             n_include = max(1, int(len(c_symptoms) * contribution))
             comorbidity_symptoms.extend(c_symptoms[:n_include])
 
-        # 3. v2.3: Merge confounder symptoms (these ARE the misleading symptoms)
+        # 3. Get confounder symptoms
         confounder_symptoms = []
+        confounder_names = []
         for conf in gt.confounders:
             conf_name = conf.name if hasattr(conf, 'name') else str(conf)
+            confounder_names.append(conf_name)
             c_symptoms = self._get_real_symptoms(conf_name)
-            # Confounders contribute overlapping/mimicking symptoms
-            confounder_symptoms.extend(c_symptoms[:2])
+            # Confounders contribute up to 3 overlapping/mimicking symptoms
+            confounder_symptoms.extend(c_symptoms[:3])
 
-        # 4. Merge all real symptoms (primary + comorbidities)
-        all_real = real_symptoms + comorbidity_symptoms
-
-        # 5. Build uncertainty config from scenario
+        # 4. Build uncertainty config
         config = UncertaintyConfig.from_difficulty(scenario.difficulty, scenario.task_type)
 
-        # 6. Apply uncertainty to distribute ALL real symptoms across tiers
+        # 5. Distribute TRUE symptoms: push critical ones to hidden/resistant
+        all_real = real_symptoms + comorbidity_symptoms
         distribution = self.uncertainty.apply_uncertainty(all_real, config)
 
-        # 7. Generate noise symptoms
+        # 6. CONFOUNDER DOMINANCE: redistribute tiers
+        #    Confounder symptoms → volunteer + if_asked (front-loaded)
+        #    True symptoms → if_asked + hidden + resistant (back-loaded)
+        volunteer_conf = confounder_symptoms[:2]  # Top 2 confounder symptoms: volunteered
+        if_asked_conf = confounder_symptoms[2:4]  # Next confounder symptoms: if_asked
+
+        # Remove confounder symptoms from true distribution (avoid double-counting)
+        conf_set = set(s.lower() for s in confounder_symptoms)
+        for tier in ("volunteer", "if_asked"):
+            distribution[tier] = [s for s in distribution.get(tier, [])
+                                  if s.lower() not in conf_set]
+
+        # Push remaining true symptoms toward hidden/resistant
+        true_volunteer = distribution.get("volunteer", [])
+        true_if_asked = distribution.get("if_asked", [])
+        true_hidden = distribution.get("hidden", [])
+        true_resistant = distribution.get("resistant", [])
+
+        # Keep only 1 true symptom in volunteer (the least informative one)
+        if len(true_volunteer) > 1:
+            demoted = true_volunteer[1:]
+            true_volunteer = true_volunteer[:1]
+            true_hidden.extend(demoted)
+
+        # Move if_asked true symptoms to hidden for higher difficulty
+        if scenario.difficulty in ("L2", "L3") and true_if_asked:
+            # Keep first in if_asked, push rest to hidden
+            demoted = true_if_asked[1:]
+            true_if_asked = true_if_asked[:1]
+            true_resistant.extend(demoted)
+
+        # 7. Final tier assignment
+        final_volunteer = volunteer_conf + true_volunteer
+        final_if_asked = if_asked_conf + true_if_asked
+        final_hidden = true_hidden
+        final_resistant = true_resistant
+
+        # 8. Generate noise
         noise = self._generate_noise(scenario, config)
 
-        # 8. Use confounder symptoms AS misleading (not random misleading)
-        misleading = confounder_symptoms if confounder_symptoms else self._generate_misleading(disease, scenario, config)
+        # 9. Misleading = confounder symptoms that aren't already in volunteer/if_asked
+        remaining_conf = [s for s in confounder_symptoms
+                          if s not in volunteer_conf and s not in if_asked_conf]
+        misleading = remaining_conf if remaining_conf else self._generate_misleading(disease, scenario, config)
 
-        # 9. Floor: ensure at least 3 non-noise symptoms for discrimination
+        # 10. Floor: ensure at least 3 true symptoms for discrimination
         MIN_SYMPTOMS = 3
-        relevant_count = len(distribution.get("volunteer", [])) + len(distribution.get("if_asked", [])) + len(distribution.get("hidden", [])) + len(distribution.get("resistant", []))
-        if relevant_count < MIN_SYMPTOMS:
-            # Generate supplementary symptoms from disease fallback or generic pool
+        true_count = len(true_volunteer) + len(true_if_asked) + len(true_hidden) + len(true_resistant)
+        if true_count < MIN_SYMPTOMS:
             existing = set(all_real)
             supplement_pool = self._fallback_symptoms(disease)
             supplement_pool = [s for s in supplement_pool if s not in existing]
             if not supplement_pool:
                 supplement_pool = ["fatigue", "headache", "nausea", "dizziness", "appetite loss"]
                 supplement_pool = [s for s in supplement_pool if s not in existing]
-            needed = MIN_SYMPTOMS - relevant_count
+            needed = MIN_SYMPTOMS - true_count
             random.shuffle(supplement_pool)
             extra = supplement_pool[:needed]
-            # Distribute extras into if_asked and hidden (not volunteer — patient didn't mention them)
             for i, s in enumerate(extra):
-                tier = "if_asked" if i % 2 == 0 else "hidden"
-                distribution.setdefault(tier, []).append(s)
+                tier = "hidden" if i % 2 == 0 else "resistant"
+                if tier == "hidden":
+                    final_hidden.append(s)
+                else:
+                    final_resistant.append(s)
 
-        # 10. Convert clinical terms to patient-friendly language
-        volunteer = [self.language.to_patient(s) for s in distribution.get("volunteer", [])]
-        if_asked = [self.language.to_patient(s) for s in distribution.get("if_asked", [])]
-        resistant = [self.language.to_patient(s) for s in distribution.get("resistant", [])]
-        hidden = [self.language.to_patient(s) for s in distribution.get("hidden", [])]
+        # 11. Convert to patient-friendly language
+        volunteer = [self.language.to_patient(s) for s in final_volunteer]
+        if_asked = [self.language.to_patient(s) for s in final_if_asked]
+        hidden = [self.language.to_patient(s) for s in final_hidden]
+        resistant = [self.language.to_patient(s) for s in final_resistant]
         noise = [self.language.to_patient(s) for s in noise]
         misleading = [self.language.to_patient(s) for s in misleading]
 
