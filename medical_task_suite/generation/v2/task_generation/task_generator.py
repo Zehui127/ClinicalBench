@@ -379,7 +379,7 @@ class MedicalTaskGenerator:
         task_hash = hashlib.sha256(id_input.encode()).hexdigest()[:6]
         task_id = f"v27_{scenario.task_type}_{scenario.difficulty}_{disease.replace(' ', '_')[:30]}_{task_hash}"
 
-        return {
+        task = {
             "id": task_id,
             "task_config": self._build_task_config(scenario, disease, seed),
             "patient": self._build_patient(scenario, symptoms, persona, disease),
@@ -395,6 +395,12 @@ class MedicalTaskGenerator:
             "eval_modes": self._build_eval_modes(scenario),
             "trajectory_schema": self._build_trajectory_schema(),
         }
+
+        # Stochastic likelihood table (needs patient symptoms + confounders)
+        task["clinical"]["likelihood_table"] = self._build_likelihood_table(
+            scenario, disease, symptoms, persona, seed)
+
+        return task
 
     # ============================================================
     # Lean Core Builders
@@ -984,6 +990,108 @@ class MedicalTaskGenerator:
 
         return confounders
 
+    def _build_likelihood_table(
+        self,
+        scenario: ScenarioSpec,
+        disease: str,
+        symptoms: SymptomSet,
+        persona: Dict,
+        seed: Optional[int],
+    ) -> Dict[str, Dict[str, float]]:
+        """Build stochastic, context-dependent likelihood table P(s|h).
+
+        P(s|h) ~ Beta(α, β) where α, β depend on:
+        - Association strength: core (unique to h) vs peripheral (shared)
+        - Disease severity: higher → symptoms more pronounced
+        - Patient profile: age, comorbidity count
+
+        Sampled once per task at generation time → same symptom gets
+        different likelihoods across tasks with different patients.
+        """
+        rng = random.Random((seed if seed is not None else 42) + 7777)
+
+        # ── Collect all patient-friendly symptoms ──
+        all_syms = set()
+        for tier in ("volunteer", "if_asked", "hidden", "resistant", "misleading"):
+            for s in getattr(symptoms, tier, []):
+                pf = self.lang.to_patient(s).lower()
+                all_syms.add(pf)
+
+        # ── Build hypothesis symptom sets (patient-friendly) ──
+        hypotheses = {}
+
+        # Correct disease
+        disease_syms = set()
+        for tier in ("volunteer", "if_asked", "hidden", "resistant"):
+            for s in getattr(symptoms, tier, []):
+                disease_syms.add(self.lang.to_patient(s).lower())
+        hypotheses[disease] = disease_syms
+
+        # Confounders
+        gt = scenario.ground_truth
+        if gt and gt.confounders:
+            for conf in gt.confounders:
+                conf_name = conf.name if hasattr(conf, 'name') else str(conf)
+                conf_raw = self.symptom_gen._get_real_symptoms(conf_name)
+                hypotheses[conf_name] = {
+                    self.lang.to_patient(s).lower() for s in conf_raw
+                }
+
+        # ── Context modifiers ──
+        age = persona.get("age", 50)
+        n_comorbidities = len(gt.comorbidities) if gt and gt.comorbidities else 0
+        sev_dist = self.kb.get_severity_distribution(disease)
+        severity = sev_dist.get("severe", 0.2) + sev_dist.get("moderate", 0.5) * 0.5
+
+        # ── Helper: count how many hypotheses match a symptom ──
+        def count_hypothesis_matches(sym_lower: str) -> int:
+            count = 0
+            for h_syms in hypotheses.values():
+                if any(sym_lower in hs or hs in sym_lower for hs in h_syms):
+                    count += 1
+            return count
+
+        # ── Sample likelihoods ──
+        table = {}
+        for sym in sorted(all_syms):
+            table[sym] = {}
+            for hyp_name, hyp_syms in hypotheses.items():
+                matches = any(sym in hs or hs in sym for hs in hyp_syms)
+
+                if matches:
+                    # Association strength: fewer other hypotheses match → more core
+                    n_other = count_hypothesis_matches(sym) - 1
+
+                    if n_other == 0:
+                        # Core: unique to this hypothesis
+                        alpha, beta_p = 8, 2
+                    elif n_other == 1:
+                        # Moderate: shared with 1 other
+                        alpha, beta_p = 5, 3
+                    else:
+                        # Peripheral: shared widely
+                        alpha, beta_p = 3, 4
+
+                    # Context modifiers
+                    alpha += severity * 2          # Severe → more pronounced
+                    beta_p += n_comorbidities * 0.5  # Comorbidities → more overlap
+                else:
+                    # Inconsistent with this hypothesis
+                    alpha, beta_p = 2, 7
+
+                    # Older → more atypical presentations
+                    if age > 60:
+                        beta_p = max(1, beta_p - 1)
+                    # Comorbidities → more false-positive symptoms
+                    alpha += n_comorbidities * 0.3
+
+                # Sample from Beta distribution
+                likelihood = rng.betavariate(alpha, beta_p)
+                likelihood = max(0.05, min(0.95, likelihood))
+                table[sym][hyp_name] = round(likelihood, 4)
+
+        return table
+
     def _filter_valid_symptoms(self, raw_symptoms: List[str], max_count: int) -> List[str]:
         """Filter out disease names, abbreviations, duplicates; return patient-friendly terms."""
         _SKIP_TERMS = {
@@ -1079,7 +1187,8 @@ class MedicalTaskGenerator:
                         "forces sequential reasoning, not static ranking",
                     ],
                     "hypothesis_space": "correct_disease + confounders from clinical.confounders",
-                    "posterior": "P(h|S) ∝ Π P(sᵢ|h); P(sᵢ|h) = 0.9 if consistent, 0.1 if not",
+                    "posterior": "P(h|S) ∝ Π P(sᵢ|h); P(sᵢ|h) from stochastic Beta-distributed likelihood table",
+                    "likelihood_model": "P(s|h) ~ Beta(α, β); α,β depend on symptom-hypothesis association (core/peripheral), severity, patient age, comorbidity count; sampled once per task",
                 },
                 "relevant_questions": {
                     "source": "ground_truth.solution_space.minimal_information_sets.must_collect",

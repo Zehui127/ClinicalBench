@@ -528,11 +528,10 @@ class BenchEvaluator:
             return 0.1
 
         # ── Expected entropy after observing this symptom ──
-        # P(s|h) for each hypothesis
+        # P(s|h) for each hypothesis — from stochastic likelihood table
         p_s_given_h = {}
-        for h_name, h_syms in hypotheses.items():
-            matches = self._symptom_matches_hypothesis(symptom_lower, h_syms)
-            p_s_given_h[h_name] = 0.9 if matches else 0.1
+        for h_name in hypotheses:
+            p_s_given_h[h_name] = self._get_likelihood(symptom_lower, h_name)
 
         # Marginal P(symptom present | S)
         p_present = sum(
@@ -559,6 +558,17 @@ class BenchEvaluator:
         return max(0.0, min(1.0, IG / max_H if max_H > 0 else 0.0))
 
     # ── Hypothesis-space helpers ──
+
+    def _get_likelihood(self, symptom_lower: str, hypothesis_name: str) -> float:
+        """Look up stochastic P(s|h) from task likelihood table.
+
+        Falls back to default if symptom not in table (unexpected symptom).
+        """
+        table = self.task.get("clinical", {}).get("likelihood_table", {})
+        if symptom_lower in table:
+            return table[symptom_lower].get(hypothesis_name, 0.15)
+        # Default: moderate inconsistent likelihood
+        return 0.15
 
     def _get_hypothesis_symptoms(self) -> Dict[str, set]:
         """Build hypothesis space: disease + confounders with symptom sets."""
@@ -612,7 +622,7 @@ class BenchEvaluator:
         """Bayesian posterior P(H|S) via likelihood product.
 
         P(h|S) ∝ Π_{s∈S} P(s|h)
-        P(s|h) = 0.9 if s matches h, 0.1 if not
+        P(s|h) from stochastic likelihood table (context-dependent).
         """
         if not hypotheses:
             return {}
@@ -621,14 +631,12 @@ class BenchEvaluator:
             return {h: 1.0 / n for h in hypotheses}
 
         log_probs = {}
-        for h_name, h_syms in hypotheses.items():
+        for h_name in hypotheses:
             log_p = 0.0
             for obs_s in observed:
                 obs_lower = obs_s.lower() if isinstance(obs_s, str) else obs_s
-                if self._symptom_matches_hypothesis(obs_lower, h_syms):
-                    log_p += math.log(0.9)
-                else:
-                    log_p += math.log(0.1)
+                p_s_given_h = self._get_likelihood(obs_lower, h_name)
+                log_p += math.log(max(p_s_given_h, 1e-10))
             log_probs[h_name] = log_p
 
         # Softmax normalization
