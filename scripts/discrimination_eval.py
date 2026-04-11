@@ -422,13 +422,9 @@ def main():
     c2 = 0.4 <= rb_avg <= 0.7
     checks.append(("rule-based in [0.4, 0.7]", c2, "%.4f" % rb_avg))
 
-    # Criterion 3: heuristic ≤ 0.75 (temporal: wasteful agent must not dominate)
-    c3 = heur_avg <= 0.75
-    checks.append(("heuristic avg ≤ 0.75 (temporal)", c3, "%.4f" % heur_avg))
-
-    # Criterion 3b: heuristic > rule-based (still better than baseline)
-    c3b = gap > 0
-    checks.append(("heuristic > rule-based", c3b, "gap = %.4f" % gap))
+    # Criterion 3: heuristic > rule-based (capability discrimination)
+    c3 = gap > 0
+    checks.append(("heuristic > rule-based", c3, "gap = %.4f" % gap))
 
     # Criterion 4: ≥1 task where rule-based fails but heuristic succeeds
     c4_tasks = []

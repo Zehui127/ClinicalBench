@@ -58,12 +58,15 @@ class BenchEvaluator:
         revealed_set = self._get_revealed_symptoms_set(trajectory)
         path_mixing = self._is_path_mixing(revealed_set)
 
-        scores["diagnosis"] = self._score_diagnosis(trajectory, path_mixing=path_mixing)
+        # Detect path commitment switches (hard constraint, not penalty)
+        _, _, path_switches, _ = self._compute_path_commitment(trajectory)
+
+        scores["diagnosis"] = self._score_diagnosis(trajectory, path_mixing=path_mixing, path_switches=path_switches)
         scores["safety"] = self._score_safety(trajectory)
-        scores["info"] = self._score_info(trajectory, path_mixing=path_mixing)
+        scores["info"] = self._score_info(trajectory, path_mixing=path_mixing, path_switches=path_switches)
         scores["treatment"] = self._score_treatment(trajectory)
         scores["communication"] = self._score_communication(trajectory)
-        scores["process"] = self._score_process(trajectory)
+        scores["process"] = self._score_process(trajectory, path_switches=path_switches)
 
         # Collect errors
         errors = self._collect_errors(scores, trajectory)
@@ -78,13 +81,6 @@ class BenchEvaluator:
         # Global inconsistency penalty: path mixing degrades total
         if path_mixing:
             total -= 0.1
-
-        # Temporal penalty: severity progression without treatment
-        severity, _ = self._compute_severity(trajectory)
-        if severity == "critical":
-            total -= 0.20
-        elif severity == "worsening":
-            total -= 0.18
 
         # Efficiency adjustment
         n_turns = len(trajectory)
@@ -106,14 +102,19 @@ class BenchEvaluator:
     # Component Scorers
     # ============================================================
 
-    def _score_diagnosis(self, trajectory: List[Dict], path_mixing: bool = False) -> float:
+    def _score_diagnosis(self, trajectory: List[Dict], path_mixing: bool = False,
+                         path_switches: int = 0) -> float:
         """set_match: check if agent diagnosis matches target or acceptable.
 
+        Hard constraint: if path_switches > 1, evidence is contaminated → 0.0.
         Multi-path: diagnosis is correct if string matches AND
         agent collected sufficient evidence for ANY minimal_information_set.
         Lucky guess (correct string, no path satisfied) → 0.5.
         Path mixing: inconsistent evidence → cap at 0.5.
         """
+        # HARD CONSTRAINT: >1 path switch contaminates all evidence
+        if path_switches > 1:
+            return 0.0
         agent_diagnosis = self._extract_diagnosis(trajectory)
         if agent_diagnosis is None:
             return 0.0
@@ -193,13 +194,19 @@ class BenchEvaluator:
 
         return max(0.0, 1.0 - violations / len(safety_rules))
 
-    def _score_info(self, trajectory: List[Dict], path_mixing: bool = False) -> float:
+    def _score_info(self, trajectory: List[Dict], path_mixing: bool = False,
+                     path_switches: int = 0) -> float:
         """count_ratio: revealed volunteer+if_asked / total volunteer+if_asked.
 
+        Hard constraint: if path_switches > 1, information contaminated → 0.0.
         Partial reveals count as 0.5 (degraded info).
         Full reveals count as 1.0.
         Path mixing: info contaminated → score × 0.6.
+        Severity critical: lab noise → score × 0.5.
         """
+        # HARD CONSTRAINT: >1 path switch contaminates all information
+        if path_switches > 1:
+            return 0.0
         symptoms_spec = self.patient["symptoms"]
         relevant_symptoms = (
             symptoms_spec.get("volunteer", []) +
@@ -237,6 +244,10 @@ class BenchEvaluator:
         # Path mixing: contaminated information → reduce
         if path_mixing:
             raw *= 0.6
+        # Severity constraint: critical → lab noise degrades info quality
+        severity, _ = self._compute_severity(trajectory)
+        if severity == "critical":
+            raw *= 0.5
         return raw
 
     def _score_treatment(self, trajectory: List[Dict]) -> Optional[float]:
@@ -297,26 +308,20 @@ class BenchEvaluator:
 
         return achieved / len(comm_truth) if comm_truth else 1.0
 
-    def _score_process(self, trajectory: List[Dict]) -> float:
-        """Temporal decision scoring.
+    def _score_process(self, trajectory: List[Dict], path_switches: int = 0) -> float:
+        """Temporal decision scoring with hard constraints.
 
         Formula:
             process = relevance × 0.20 + gain × 0.25 + path_consistency × 0.20
                       + trajectory_dependency × 0.35
                       - redundancy - misleading_penalty - delay_penalty
-                      - irrecoverable_penalty
-            Clipped to [0, 1].
+            Clipped to [0, 1]. Capped at 0.3 if path_switches > 1.
 
-        Mechanisms:
-            trust_decay: irrelevant/repeated ASK → trust -= 0.05
-                trust < 0.6 → noise contamination
-                trust < 0.4 → info_value × 0.5 for all previously revealed
-            diagnosis_lock: after DIAGNOSE, subsequent ASK gain × 0.3
-                hidden symptoms after DIAGNOSE → value = 0.0
-            path_consistency: mixing paths → penalty
-            severity: worsening → gain×0.7; critical → gain×0.5
-            trajectory_dependency: temporal quality (time/switch/unnecessary)
-            irrecoverable: path switch after commitment → -0.3 each
+        Hard constraints (not penalties):
+            path_switch > 0: gain=0, relevance=0, path_consistency=0
+            path_switch > 1: process capped at 0.3
+            severity worsening: per-step info_value × 0.7, trust_decay += 0.02
+            severity critical: hidden info_value=0, trust starts at 0.3, info × 0.5
         """
         ps = self.scoring.get("process_score", {})
         if not ps:
@@ -344,11 +349,13 @@ class BenchEvaluator:
         misleading_set = set(s.lower() for s in self.patient["symptoms"].get("misleading", []))
         hidden_set = set(s.lower() for s in self.patient["symptoms"].get("hidden", []))
 
-        # ── 2. Compute severity for gain adjustment ──
+        # ── 2. Compute severity for information constraints ──
         severity, severity_timeline = self._compute_severity(trajectory)
 
-        # ── 3. Compute gain with trust decay + diagnosis lock + severity ──
+        # ── 3. Compute gain with trust decay + diagnosis lock + severity constraints ──
         trust = 1.0
+        if severity == "critical":
+            trust = 0.3  # Patient deteriorated — trust already degraded
         relevant_ask_count = 0
         gain_total = 0.0
         revealed_so_far = set()
@@ -362,6 +369,9 @@ class BenchEvaluator:
             quality = obs.get("reveal_quality", "full")
             step_turn = s.get("t", 0)
             is_post_diagnosis = diagnose_turn is not None and step_turn > diagnose_turn
+
+            # Severity constraint: worsening steps have reduced trust decay
+            step_severity = severity_timeline.get(step_turn, "stable")
 
             step_has_relevant = False
             for r in revealed:
@@ -381,6 +391,14 @@ class BenchEvaluator:
                     info_value *= 0.3
                     post_diagnosis_revealed.add(r_clean)
 
+                # Severity constraint: critical → hidden info_value = 0.0
+                if step_severity == "critical" and r_clean in hidden_set:
+                    info_value = 0.0
+
+                # Severity constraint: worsening → info_value × 0.7
+                if step_severity == "worsening":
+                    info_value *= 0.7
+
                 # Trust decay: apply degraded factor
                 if trust < 0.4:
                     info_value *= 0.5
@@ -394,21 +412,18 @@ class BenchEvaluator:
                 if r_clean in misleading_set:
                     confounder_revealed.add(r_clean)
 
-            # Trust decay: irrelevant ASK → trust -= 0.05
+            # Trust decay: irrelevant ASK → trust decay
             if not step_has_relevant:
-                trust = max(0.0, trust - 0.05)
+                decay_step = 0.07 if step_severity == "worsening" else 0.05
+                trust = max(0.0, trust - decay_step)
 
             if step_has_relevant:
                 relevant_ask_count += 1
 
         relevance_score = relevant_ask_count / len(ask_steps) if ask_steps else 0.0
 
-        # ── 4. Gain (with severity adjustment) ──
+        # ── 4. Gain (severity already applied as per-step constraint) ──
         gain_score = gain_total / len(ask_steps) if ask_steps else 0.0
-        if severity == "critical":
-            gain_score *= 0.5
-        elif severity == "worsening":
-            gain_score *= 0.7
 
         # ── 5. Misleading penalty ──
         misleading_penalty = 0.2 if len(confounder_revealed) > len(true_signal_revealed) else 0.0
@@ -446,21 +461,25 @@ class BenchEvaluator:
         # ── 9. Trajectory dependency (temporal quality) ──
         trajectory_dependency = self._compute_trajectory_dependency(trajectory)
 
-        # ── 10. Irrecoverable path commitment penalty ──
-        _, _, switches, _ = self._compute_path_commitment(trajectory)
-        irrecoverable_penalty = 0.3 * switches
-        if switches > 0:
-            path_consistency = 0.0  # Switching invalidates consistency
+        # ── 10. Hard constraint: path switch nullifies evidence ──
+        if path_switches > 0:
+            gain_score = 0.0          # All post-switch evidence blocked
+            relevance_score = 0.0     # ASK steps after switch are irrelevant
+            path_consistency = 0.0    # Switching invalidates consistency
 
-        # ── 11. Final score with new weights ──
+        # ── 11. Final score ──
         raw_score = (relevance_score * 0.20
                      + gain_score * 0.25
                      + path_consistency * 0.20
                      + trajectory_dependency * 0.35
                      - redundancy_penalty
                      - misleading_penalty
-                     - delay_penalty
-                     - irrecoverable_penalty)
+                     - delay_penalty)
+
+        # HARD CAP: >1 switch → process cannot exceed 0.3
+        if path_switches > 1:
+            raw_score = min(0.3, raw_score)
+
         return max(0.0, min(1.0, raw_score))
 
     # ============================================================
